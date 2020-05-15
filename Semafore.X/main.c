@@ -24,15 +24,17 @@
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
 unsigned int count = 0;
-unsigned char update = 0; //variabile per aggiornare i valori sul men�
-char comando = 0;         //Prende il dato dalla seriale
-unsigned char count_pwm = 0;
-char by1 = 0; //Primo byte ricevuto
-char by2 = 0; //Secondo byte ricevuto
+unsigned int count_lux = 0;
+char comando = 0; //Prende il dato dalla seriale
+char by1 = 0;     //Primo byte ricevuto
+char by2 = 0;     //Secondo byte ricevuto
 unsigned char count_delay = 0;
 unsigned char Time_Red = 10;
 unsigned char Time_Yellow = 5;
 unsigned char Time_Green = 10;
+char time = 0;
+char car = 0;
+char truck = 0;
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -50,7 +52,7 @@ void main(void)
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x00;
-    INTCON = 0xA0;
+    INTCON = 0xE0;
     T1CON = 0x01;
     TMR1 = 0x00;
     PIE1 = 0x01;
@@ -61,6 +63,29 @@ void main(void)
     char Lux_Green = 0;
     while (1)
     {
+        switch (time)
+        {
+        case 0:
+            Lux_Yellow = 0;
+            Lux_Green = 0;
+            Lux_Red = 1;
+            break;
+        case 1:
+            Lux_Yellow = 0;
+            Lux_Red = 0;
+            Lux_Green = 1;
+
+            break;
+        case 2:
+            Lux_Green = 0;
+            Lux_Red = 0;
+            Lux_Yellow = 1;
+            break;
+        case 3:
+            time = 0;
+            count_lux = 0;
+            break;
+        }
     }
     return;
 }
@@ -160,20 +185,44 @@ void __interrupt() ISR()
         comando = UART_Read();
     }
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
-    if (INTCON == 0xE4) //timer0 "TMR0IF"
+    if (TMR0IF) //timer0 "TMR0IF"
     {
-        INTCON = 0xE0; //resetto timer0
-        count++;
-        if (count >= Time_Red)
+        TMR0IF = 0; //resetto timer0
+        if (!PORTBbits.RB3)
         {
-            update = 1;
+            count++;
+        }
+        if (PORTBbits.RB3)
+        {
+            if (count >= 1000)
+            {
+                car++;
+            }
+            if (count >= 3000)
+            {
+                truck++;
+            }
+            count = 0;
         }
 
         TMR0 = 6;
     }
-    //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
-    if (PIR1 == 0x01) //timer1 "TMR1IF"
+    //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (TMR1IF) //timer1 "TMR1IF"
     {
-        PIR1 == 0x00; //resetto timer1
+        TMR1IF = 0;
+        count_lux++;
+        if (count_lux >= Time_Red)
+        {
+            time = 1;
+        }
+        if ((count_lux >= Time_Yellow) && time == 2)
+        {
+            time = 3;
+        }
+        if ((count_lux >= Time_Green) && time == 1)
+        {
+            time = 2;
+        }
     }
 }
