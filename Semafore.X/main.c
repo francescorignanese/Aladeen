@@ -51,6 +51,9 @@ void main(void)
     TRISD = 0x00;
     TRISE = 0x00;
     INTCON = 0xA0;
+    T1CON = 0x01;
+    TMR1 = 0x00;
+    PIE1 = 0x01;
     OPTION_REG = 0x05;
     TMR0 = 6;
     char Lux_Red = 1;
@@ -84,7 +87,7 @@ int ADC_Read(char canale)
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
-void intToString(int valore)
+void intToString(int valore) //funzione per convertire un intero in una stringa
 {
     int i;
     int num = 0;
@@ -95,7 +98,7 @@ void intToString(int valore)
     str[3] = '\0';
 }
 
-double pow(double x, double n)
+double pow(double x, double n) //Funzioneper fare la potenza
 {
     int i;
     double number = 1;
@@ -144,7 +147,7 @@ char UART_Read()
     return RCREG;
 }
 
-int map(int x, int in_min, int in_max, int out_min, int out_max)
+int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuovamente un numero da un intervallo a un altro
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
@@ -156,9 +159,10 @@ void __interrupt() ISR()
     {
         comando = UART_Read();
     }
-    if (INTCON & 0x04)
+    //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (INTCON == 0xE4) //timer0 "TMR0IF"
     {
-        INTCON &= ~0x04;
+        INTCON = 0xE0; //resetto timer0
         count++;
         if (count >= Time_Red)
         {
@@ -167,11 +171,9 @@ void __interrupt() ISR()
 
         TMR0 = 6;
     }
-    if (TMR1IF == 1)
+    //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (PIR1 == 0x01) //timer1 "TMR1IF"
     {
-        //value = ~value; // complement the value for blinking the LEDs
-        TMR1H = 0x0B; // Load the time value(0xBDC) for 100ms delay
-        TMR1L = 0xDC;
-        TMR1IF = 0; // Clear timer interrupt flag
+        PIR1 == 0x00; //resetto timer1
     }
 }
