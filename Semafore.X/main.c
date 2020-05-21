@@ -22,6 +22,7 @@
 #define CHS0 3
 #define ADFM 7
 
+char dataFromGateway[5];
 char str[4];                    //stringa di salvatagio per la conversione da int to string
 unsigned int count = 0;
 unsigned char update = 0;       //variabile per aggiornare i valori sul men�
@@ -29,10 +30,14 @@ char comando = 0;               //Prende il dato dalla seriale
 unsigned char count_pwm = 0;
 char by1 = 0;                   //Primo byte ricevuto
 char by2 = 0;                   //Secondo byte ricevuto
+char timerReadFromGateway=0;
 unsigned char count_delay = 0;
 unsigned char Time_Red = 10;
 unsigned char Time_Yellow = 5;
 unsigned char Time_Green = 10;
+
+int ColorsTime[3]; 	//array of colors time, 0 is red, 1 is green, 2 is yellow
+char time=0; 	//variable to define which color is to light up, 0 is red, 1 is green, 2 is yellow
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -56,9 +61,42 @@ void main(void)
     char Lux_Red = 1;
     char Lux_Yellow = 0;
     char Lux_Green = 0;
+
+
     while (1)
     {
+	/*
+	switch (time)
+        {
+        case 0:
+		color=time
+            break;
+        case 1:
+            Lux_Yellow = 0;
+            Lux_Red = 0;
+            Lux_Green = 1;
+
+            break;
+        case 2:
+            Lux_Green = 0;
+            Lux_Red = 0;
+            Lux_Yellow = 1;
+            break;
+        case 3:
+            time = 0;
+            count_lux = 0;
+            break;
+        }
+	*/
+
+
+	if(readGateway)
+	{
+		ReadFromGateway();
+	}
     }
+
+
     return;
 }
 
@@ -151,12 +189,13 @@ void __interrupt() ISR()
     //ricevo il dato dal terminale
     if (RCIF)
     {
-        comando = UART_Read();
+	readGateway=1;
     }
     if (INTCON & 0x04)
     {
         INTCON &= ~0x04;
         count++;
+	timerReadFromGateway++; 	//increase timer fro read data from gateway by one
         if (count >= Time_Red)
         {
             update = 1;
@@ -172,3 +211,124 @@ void __interrupt() ISR()
         TMR1IF = 0;         // Clear timer interrupt flag
     }
 }
+
+char mem[5]=
+check(byte)
+{
+if (byte%2)
+{
+    
+}
+
+}
+bool getParity(unsigned int n)
+{
+    bool parity = 0;
+    while (n)
+    {
+        parity = !parity;
+        n = n & (n - 1);
+    }
+    return parity;
+}
+/* Driver program to test getParity() */
+int main()
+{
+    unsigned int n = 7;
+    printf("Parity of no %d = %s", n,
+           (getParity(n) ? "odd" : "even"));
+
+    getchar();
+    return 0;
+}
+
+
+void ReadFromGateway()
+{
+	int i=0;
+	timerReadFromGateway=0,
+
+	while(i<5 || timerReadFromGateway<2000)
+	{
+		dataFromGateway[i]=UART_Read();
+		timerReadFromGateway=0,
+	}
+    }
+}
+
+
+
+while(time<ColorTimes[i])
+{
+	Colors[i]=1;
+	time++;
+}
+Colors[i]=0;
+time=0;
+i++;
+
+if (TMR1IF) //timer1 "TMR1IF"
+    {
+        TMR1IF = 0;
+        count_lux++;
+        if (count_lux >= Times[0] && time==0)
+        {
+            time = 1;
+	count_lux=0;
+        }
+        if ((count_lux >= Times[2]) && time == 2)
+        {
+            time = 0;
+	count_lux=0;
+        }
+        if ((count_lux >= Times[1]) && time == 1)
+        {
+            time = 2;
+	count_lux=0;
+        }
+    }
+
+
+char rx[5] = 0;
+bitParita(byte)
+{
+    char columnNumber = 0;
+    char mem = 0;
+    char row[5] = 0;
+    char column = 0;
+    char z = 0;
+ 
+	char ones=0;
+    for (int i = 0; i < 6; i++)
+    {
+	
+        row[i] = rx[i] % 2;
+    }
+    for (int i = 0; i < 6; i++)
+    {
+      for(int n=0; n<8; n++)
+      {
+        if (row[i][n] == 1)
+        {
+            	while (check == 0)
+            	{
+                	for (int y = 0; y < 5; y++)
+                	{
+                    	column += (rx[y] >> z) & 0x01;
+               	 }
+                	if (column % 2 == 1)
+                	{
+                    	check = 1;
+                	}
+                	else
+                	{
+                    	columnNumber += 1;
+                    	z += 1;
+                	}
+            	}
+          }
+ 
+        }
+    }
+}
+
