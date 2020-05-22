@@ -58,6 +58,9 @@ void main(void)
     PIE1 = 0x01;
     OPTION_REG = 0x05;
     TMR0 = 6;
+    //richiesta dati al raspberry
+    //atendi un tempo
+    //oltre ciò se non ha ricevuto niente mette dei dati standard
     char Lux_Red = 1;
     char Lux_Yellow = 0;
     char Lux_Green = 0;
@@ -227,6 +230,18 @@ void __interrupt() ISR()
     }
 }
 
+char bitChage(char dato, char n)
+{
+    if (dato & (1 << (n)))
+    {
+        return dato |= (1 << (n));
+    }
+    else
+    {
+        return dato &= ~(1 << (n));
+    }
+}
+
 void bitParita(char *rx)
 {
     // a = (rx[0] ^ rx[1] ^ rx[2] ^ rx[3]);
@@ -240,6 +255,10 @@ void bitParita(char *rx)
     //         char errore;
     //     }
     // }
+    // #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
+    // #define bitSet(value, bit) ((value) |= (1UL << (bit)))
+    // #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
+    // #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
     char sommaRow = 0;
     char error = 0;
     char errorRow = 0;
@@ -248,7 +267,7 @@ void bitParita(char *rx)
     char correction = 0;
     for (int i = 0; i < 5; i++)
     {
-        for (int y = 0; y < 9; y++)
+        for (int y = 0; y < 8; y++)
         {
             sommaRow += (rx[i] >> y) & 1;
         }
@@ -258,9 +277,9 @@ void bitParita(char *rx)
             errorRow = i;
         }
     }
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 8; i++)
     {
-        for (int y = 0; y < 5; y++)
+        for (int y = 0; y < 4; y++)
         {
             sommaColumn += (rx[y] >> i) & 1;
         }
@@ -272,7 +291,8 @@ void bitParita(char *rx)
     }
     if (error != 0)
     {
-        correction = (char)pow(2, errorColumn);
-        rx[errorRow] = correction;
+        //correction = (char)pow(2, errorColumn - 1);
+        // rx[errorRow] = correction;
+        rx[errorRow] = bitChage(rx[errorRow], errorColumn);
     }
 }
