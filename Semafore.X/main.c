@@ -123,13 +123,13 @@ void intToString(int valore) //funzione per convertire un intero in una stringa
     str[3] = '\0';
 }
 
-double pow(double x, double n) //Funzioneper fare la potenza
+double pow(double base, double exponent) //Funzioneper fare la potenza
 {
     int i;
     double number = 1;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < exponent; i++)
     {
-        number *= x;
+        number *= base;
     }
     return (number);
 }
@@ -224,5 +224,55 @@ void __interrupt() ISR()
         {
             time = 2;
         }
+    }
+}
+
+void bitParita(char *rx)
+{
+    // a = (rx[0] ^ rx[1] ^ rx[2] ^ rx[3]);
+    // if ((rx[0] ^ rx[1] ^ rx[2] ^ rx[3]) != rx[4])
+    // {
+    // }
+    // for (int i = 0; i < 8; i++)
+    // {
+    //     if ((a & (1 << i)) != (d[4] & (1 << i)))
+    //     {
+    //         char errore;
+    //     }
+    // }
+    char sommaRow = 0;
+    char error = 0;
+    char errorRow = 0;
+    char sommaColumn = 0;
+    char errorColumn = 0;
+    char correction = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        for (int y = 0; y < 9; y++)
+        {
+            sommaRow += (rx[i] >> y) & 1;
+        }
+        if (sommaRow % 2 == 1)
+        {
+            error = 1;
+            errorRow = i;
+        }
+    }
+    for (int i = 0; i < 9; i++)
+    {
+        for (int y = 0; y < 5; y++)
+        {
+            sommaColumn += (rx[y] >> i) & 1;
+        }
+        if (sommaColumn % 2 == 1)
+        {
+            error = 1;
+            errorColumn = i;
+        }
+    }
+    if (error != 0)
+    {
+        correction = (char)pow(2, errorColumn);
+        rx[errorRow] = correction;
     }
 }
