@@ -16,7 +16,7 @@
 
 #include <xc.h>
 
-#define _XTAL_FREQ 32000000
+#define _XTAL_FREQ 8000000
 
 #define ADON 0
 #define CHS0 3
@@ -29,11 +29,13 @@ struct
 
 char dataFromGateway[5];
 char time=0; 	//variable to define which color is to light up, 0 is red, 1 is green, 2 is yellow
+int i=0;
 int timerReadFromGateway;
 
 void UART_Init(int baudrate);                                     //Inizializzazione della seriale con uno specifico baudrate
 char UART_Read();                                                 //Lettura dalla seriale
 void ReadFromGateway();
+void UART_TxChar(char ch);
 
 void main(void)
 {
@@ -44,25 +46,29 @@ void main(void)
     INTCON = 0xA0;
     OPTION_REG = 0x05;
     TMR0 = 6;
-    UART_Init((int)115200);
+    UART_Init(9600);
     
-    time=10;
     readGateway.Bit=0;
+
+    time=0;
     while (1)
     {
-        PORTB=time;
-        /*
-        if(readGateway.Bit==1)
+        if(readGateway.Bit)
         {
-            PORTB=16;
             //ReadFromGateway();
+            //PORTB=31;
             //readGateway.Bit=0;
         }
-        */
-        //PORTB=dataFromGateway[0];
     }
     
     return;
+}
+
+void UART_TxChar(char ch)
+{
+    while (!TXIF);      //se TXIF ? a 0 la trasmissione ? ancora in corso
+    TXIF = 0;           //lo resetto
+    TXREG = ch;
 }
 
 
@@ -93,23 +99,43 @@ char UART_Read()
 void __interrupt() ISR()
 {
     //ricevo il dato dal terminale
-    if(RCIF)
+    if(RCIF && readGateway.Bit==0)
     {
-        time=16;
         readGateway.Bit=1;
+    }
+    if(RCIF && readGateway.Bit)
+    {
+        dataFromGateway[i]=UART_Read();
+        i++;
+        PORTB=i;
+        RCIF=0;
+        if(i>=5)
+        {
+            i=0;
+            readGateway.Bit=0;
+            PORTB=31;
+        }
+    }
+    
+    if (INTCON & 0x04)
+    {
+        INTCON &= ~0x04;
+        TMR0 = 6;
     }
 }
 
 
 void ReadFromGateway()
 {
-	int i=0, error=0;
+    dataFromGateway[0]=TXREG;
+	int i=1, error=0;
 	timerReadFromGateway=0;
 
-	while(i<5 || timerReadFromGateway<2000)
+	while(i<5)
 	{
-		dataFromGateway[i]=UART_Read();
-		timerReadFromGateway=0,
+        PORTB=16+i;
+        //PORTB=dataFromGateway[i];
+		timerReadFromGateway=0;
 		i++;
 	}
 	
