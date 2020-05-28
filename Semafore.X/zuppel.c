@@ -16,7 +16,7 @@
 
 #include <xc.h>
 
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 32000000
 
 #define ADON 0
 #define CHS0 3
@@ -27,11 +27,18 @@ struct
     unsigned int Bit:1;
 } readGateway;
 
+struct
+{
+    unsigned int Bit:1;
+    unsigned int Timeout:1;
+} readGatewayDone;
+
 char dataFromGateway[5];
 char time=0; 	//variable to define which color is to light up, 0 is red, 1 is green, 2 is yellow
+int elapsed=0;
 int timer=0;
-int i=0;
-int timerReadFromGateway;
+int dataFromGatewayIndex=0;
+int timerReadFromGateway=0;
 
 void UART_Init(int baudrate);                                     //Inizializzazione della seriale con uno specifico baudrate
 char UART_Read();                                                 //Lettura dalla seriale
@@ -44,9 +51,14 @@ void main(void)
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x00;
-    INTCON = 0xA0;
+    INTCON = 0xE0;
+    T1CON = 0x31;
+    TMR1H = 60;             // preset for timer1 MSB 
+    TMR1L = 176;             // preset for timer1 LSB 
+    PIE1 = 0x01;
     OPTION_REG = 0x05;
     TMR0 = 6;
+    
     UART_Init(9600);
     
     readGateway.Bit=0;
@@ -55,12 +67,38 @@ void main(void)
     
     while (1)
     {
+        //se si stanno ricevendo dati dalla seriale
         if(readGateway.Bit)
         {
-            if(i>=5)
+            if(timerReadFromGateway>=80)
             {
-                readGateway.Bit=0;
-                i=0;
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=1;
+            }
+            
+            if(dataFromGatewayIndex>=5)
+            {
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=0;
+            }
+        }
+        
+        //cose da fare terminata la lettura dalla seriale
+        if(readGatewayDone.Bit)
+        {
+            //resetta le variabili per la lettura
+            readGateway.Bit=0;
+            dataFromGatewayIndex=0;
+            
+            //se c'è stato un timeout
+            if(readGatewayDone.Timeout)
+            {
+                PORTB=31;
+                //cose da fare...
+            }
+            else
+            {
+                //cose da fare...
             }
         }
     }
@@ -102,28 +140,37 @@ char UART_Read()
 
 void __interrupt() ISR()
 {
-    //aumenta il timer dei semafori per limitare il ritardo generato dal richiamo dell'interrupt
-    timer++;
-    
-    //RICEVE DATI DA SERIALE
+   //RICEVE DATI DA SERIALE
     if(RCIF && readGateway.Bit==0)
     {
         readGateway.Bit=1;
-        i=0;
+        readGatewayDone.Bit=0;
+        readGatewayDone.Timeout=0;
+        dataFromGatewayIndex=0;
+        timerReadFromGateway=0;
     }
     if(RCIF && readGateway.Bit==1)
     {
-        dataFromGateway[i]=UART_Read();
-        i++;
+        dataFromGateway[dataFromGatewayIndex]=UART_Read();
+        dataFromGatewayIndex++;
+        timerReadFromGateway=0;
     }
     
     
-    
-    
-    if (INTCON & 0x04)
+        if (TMR0IF) //timer0 "TMR0IF"
     {
-        INTCON &= ~0x04;
+        TMR0IF = 0; //resetto timer0
         TMR0 = 6;
+    }
+    
+    
+    //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (TMR1IF) //timer1 "TMR1IF", DURATA: 0.05s
+    {
+        TMR1IF = 0;
+        timerReadFromGateway++;
+        TMR1H = 60;             // preset for timer1 MSB 
+        TMR1L = 176;            // preset for timer1 LSB 
     }
 }
 

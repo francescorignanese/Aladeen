@@ -22,6 +22,17 @@
 #define CHS0 3
 #define ADFM 7
 
+struct
+{
+    unsigned int Bit:1;
+} readGateway;
+
+struct
+{
+    unsigned int Bit:1;
+    unsigned int Timeout:1;
+} readGatewayDone;
+
 char str[4]; //stringa di salvatagio per la conversione da int to string
 unsigned int count = 0;
 unsigned int count_lux = 0;
@@ -35,6 +46,9 @@ unsigned char Time_Green = 10;
 char time = 0;
 char car = 0;
 char truck = 0;
+char dataFromGatewayIndex=0;    //indice array dati da seriale
+char dataFromGateway[5];        //array dati da seriale
+int timerReadFromGateway;       //timer per definire se la lettura dati eccede un tempo limite
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -53,8 +67,9 @@ void main(void)
     TRISD = 0x00;
     TRISE = 0x00;
     INTCON = 0xE0;
-    T1CON = 0x01;
-    TMR1 = 0x00;
+    T1CON = 0x31;
+    TMR1H = 60;             // preset for timer1 MSB 
+    TMR1L = 176;            // preset for timer1 LSB 
     PIE1 = 0x01;
     OPTION_REG = 0x05;
     TMR0 = 6;
@@ -66,6 +81,42 @@ void main(void)
     char Lux_Green = 0;
     while (1)
     {
+        //se si stanno ricevendo dati dalla seriale
+        if(readGateway.Bit)
+        {
+            if(timerReadFromGateway>=80)
+            {
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=1;
+            }
+            
+            if(dataFromGatewayIndex>=5)
+            {
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=0;
+            }
+        }
+        
+        //cose da fare terminata la lettura dalla seriale
+        if(readGatewayDone.Bit)
+        {
+            //resetta le variabili per la lettura
+            readGateway.Bit=0;
+            dataFromGatewayIndex=0;
+            
+            //se c'è stato un timeout
+            if(readGatewayDone.Timeout)
+            {
+                //cose da fare...
+            }
+            else
+            {
+                //cose da fare...
+            }
+        }
+        
+        
+        
         switch (time)
         {
         case 0:
@@ -110,8 +161,7 @@ int ADC_Read(char canale)
     //ADCON0 |= canale << 3; //e setto il canale da convertire (ADCON0)
     __delay_us(2); //attendo 1.6 uS
     GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE)
-        ;                          //attendo la fine della conversione
+    while (GO_nDONE);                          //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
@@ -169,8 +219,7 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF)
-        ;
+    while (!RCIF);
     RCIF = 0;
     return RCREG;
 }
@@ -182,11 +231,26 @@ int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuova
 
 void __interrupt() ISR()
 {
-    //ricevo il dato dal terminale
-    if (RCIF)
+   //RICEVE DATI DA SERIALE
+    if(RCIF && readGateway.Bit==0)
     {
-        comando = UART_Read();
+        readGateway.Bit=1;
+        readGatewayDone.Bit=0;
+        readGatewayDone.Timeout=0;
+        dataFromGatewayIndex=0;
+        timerReadFromGateway=0;
     }
+    if(RCIF && readGateway.Bit==1)
+    {
+        dataFromGateway[dataFromGatewayIndex]=UART_Read();
+        dataFromGatewayIndex++;
+        timerReadFromGateway=0;
+    }
+    
+    
+    
+    
+    
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR0IF) //timer0 "TMR0IF"
     {
@@ -211,9 +275,10 @@ void __interrupt() ISR()
         TMR0 = 6;
     }
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
-    if (TMR1IF) //timer1 "TMR1IF"
+    if (TMR1IF) //timer1 "TMR1IF", DURATA: 1s
     {
         TMR1IF = 0;
+        timerReadFromGateway++;
         count_lux++;
         if (count_lux >= Time_Red)
         {
@@ -227,6 +292,10 @@ void __interrupt() ISR()
         {
             time = 2;
         }
+        
+        
+        TMR1H = 60;             // preset for timer1 MSB 
+        TMR1L = 176;            // preset for timer1 LSB 
     }
 }
 
