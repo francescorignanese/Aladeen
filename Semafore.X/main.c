@@ -22,7 +22,14 @@
 #define CHS0 3
 #define ADFM 7
 
+#define Disp1 PORTAbits.RA2
+#define Disp2 PORTAbits.RA3
+#define Disp3 PORTAbits.RA4
+
 char str[4]; //stringa di salvatagio per la conversione da int to string
+const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
+char unita, decine, centinaia;
+unsigned char disp = 0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
 char comando = 0; //Prende il dato dalla seriale
@@ -93,18 +100,48 @@ void main(void)
             Lux_Green = 0;
             Lux_Red = 1;
             countdown = Time_Red - time;
+            centinaia = countdown / 100;
+            decine = (countdown % 100) / 10;
+            unita = (countdown % 100) % 10;
             break;
         case 1:
             Lux_Yellow = 0;
             Lux_Red = 0;
             Lux_Green = 1;
             countdown = Time_Green - time;
+            centinaia = countdown / 100;
+            decine = (countdown % 100) / 10;
+            unita = (countdown % 100) % 10;
             break;
         case 2:
             Lux_Green = 0;
             Lux_Red = 0;
             Lux_Yellow = 1;
             countdown = Time_Yellow - time;
+            centinaia = countdown / 100;
+            decine = (countdown % 100) / 10;
+            unita = (countdown % 100) % 10;
+            break;
+        }
+        switch (disp)
+        {
+        case 0:
+            Disp2 = 0;
+            Disp3 = 0;
+            Disp1 = 1;
+            PORTD = display[unita];
+            break;
+        case 1:
+            Disp1 = 0;
+            Disp3 = 0;
+            Disp2 = 1;
+            PORTD = display[decine];
+            break;
+        case 2:
+            Disp1 = 0;
+            Disp2 = 0;
+            Disp3 = 1;
+            PORTD = display[centinaia];
             break;
         }
     }
@@ -114,7 +151,7 @@ void main(void)
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
-    TRISA = 0xFF;   //imposto i pin come ingressi
+    TRISA = 0xF3;   //imposto i pin come ingressi
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
     __delay_us(10); //delay condensatore 10us
@@ -233,12 +270,16 @@ void __interrupt() ISR()
     {
         TMR1IF = 0; //resetto timer1
         count_lux++;
+        disp++;
         if (count_lux >= 20)
         {
             time++;
             count_lux = 0;
         }
-
+        if (disp == 3)
+        {
+            disp = 0;
+        }
         TMR1H = 60;  // preset for timer1 MSB register
         TMR1L = 176; // preset for timer1 LSB register
     }
