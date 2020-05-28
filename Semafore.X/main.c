@@ -24,7 +24,7 @@
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
 unsigned int count = 0;
-unsigned int count_lux = 0;
+unsigned char count_lux = 0;
 char comando = 0; //Prende il dato dalla seriale
 char by1 = 0;     //Primo byte ricevuto
 char by2 = 0;     //Secondo byte ricevuto
@@ -32,9 +32,11 @@ unsigned char count_delay = 0;
 unsigned char Time_Red = 10;
 unsigned char Time_Yellow = 5;
 unsigned char Time_Green = 10;
-char time = 0;
-char car = 0;
-char truck = 0;
+unsigned char time = 0;
+char lux_select = 0;
+unsigned char countdown = 0;
+unsigned char car = 0;
+unsigned char truck = 0;
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -52,12 +54,15 @@ void main(void)
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x00;
-    INTCON = 0xE0;
-    T1CON = 0x01;
-    TMR1 = 0x00;
+    INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
+    OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
+    TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
+    T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
+    //TMR1 = 0x00;
     PIE1 = 0x01;
-    OPTION_REG = 0x05;
-    TMR0 = 6;
+    //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
+    TMR1H = 60;  // preset for timer1 MSB register
+    TMR1L = 176; // preset for timer1 LSB register
     //richiesta dati al raspberry
     //atendi un tempo
     //oltre ciò se non ha ricevuto niente mette dei dati standard
@@ -66,27 +71,40 @@ void main(void)
     char Lux_Green = 0;
     while (1)
     {
-        switch (time)
+        if ((time >= Time_Red) && lux_select == 0)
+        {
+            time = 0;
+            lux_select = 1;
+        }
+        if ((time >= Time_Yellow) && lux_select == 2)
+        {
+            lux_select = 0;
+            time = 0;
+        }
+        if ((time >= Time_Green) && lux_select == 1)
+        {
+            lux_select = 2;
+            time = 0;
+        }
+        switch (lux_select)
         {
         case 0:
             Lux_Yellow = 0;
             Lux_Green = 0;
             Lux_Red = 1;
+            countdown = Time_Red - time;
             break;
         case 1:
             Lux_Yellow = 0;
             Lux_Red = 0;
             Lux_Green = 1;
-
+            countdown = Time_Green - time;
             break;
         case 2:
             Lux_Green = 0;
             Lux_Red = 0;
             Lux_Yellow = 1;
-            break;
-        case 3:
-            time = 0;
-            count_lux = 0;
+            countdown = Time_Yellow - time;
             break;
         }
     }
@@ -190,12 +208,12 @@ void __interrupt() ISR()
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR0IF) //timer0 "TMR0IF"
     {
-        TMR0IF = 0; //resetto timer0
-        if (!PORTBbits.RB3)
+        TMR0IF = 0;         //resetto timer0
+        if (!PORTBbits.RB3) //controllo pressione del tasto per il verificare se sia una macchina o un camion
         {
             count++;
         }
-        if (PORTBbits.RB3)
+        if (PORTBbits.RB3) //al rilascio del tasto eseguo il conteggio in base alla pressione
         {
             if (count >= 1000)
             {
@@ -213,24 +231,20 @@ void __interrupt() ISR()
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR1IF) //timer1 "TMR1IF"
     {
-        TMR1IF = 0;
+        TMR1IF = 0; //resetto timer1
         count_lux++;
-        if (count_lux >= Time_Red)
+        if (count_lux >= 20)
         {
-            time = 1;
+            time++;
+            count_lux = 0;
         }
-        if ((count_lux >= Time_Yellow) && time == 2)
-        {
-            time = 3;
-        }
-        if ((count_lux >= Time_Green) && time == 1)
-        {
-            time = 2;
-        }
+
+        TMR1H = 60;  // preset for timer1 MSB register
+        TMR1L = 176; // preset for timer1 LSB register
     }
 }
 
-char bitChage(char dato, char n)
+char bitChage(char dato, char n) //funzione per la negazione di un bit dentro a un byte
 {
     if (dato & (1 << (n)))
     {
@@ -242,54 +256,40 @@ char bitChage(char dato, char n)
     }
 }
 
+//funzione per il controllo dei dati ricevuti e del eventuale correzione di uno
 void bitParita(char *rx)
 {
-    // a = (rx[0] ^ rx[1] ^ rx[2] ^ rx[3]);
-    // if ((rx[0] ^ rx[1] ^ rx[2] ^ rx[3]) != rx[4])
-    // {
-    // }
-    // for (int i = 0; i < 8; i++)
-    // {
-    //     if ((a & (1 << i)) != (d[4] & (1 << i)))
-    //     {
-    //         char errore;
-    //     }
-    // }
-    // #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
-    // #define bitSet(value, bit) ((value) |= (1UL << (bit)))
-    // #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
-    // #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
-    char sommaRow = 0;
-    char error = 0;
-    char errorRow = 0;
-    char sommaColumn = 0;
-    char errorColumn = 0;
-    char correction = 0;
-    for (int i = 0; i < 5; i++)
+    char error = 0;             //Memorizza se c'è un errore
+    char sommaRow = 0;          //Tiene la somma dei bit per la riga
+    char errorRow = 0;          //Salva la riga con l'errore
+    char sommaColumn = 0;       //Tiene la somma dei bit per la colonna
+    char errorColumn = 0;       //Salva la colonna con l'errore
+    for (int i = 0; i < 5; i++) //Ciclo per controllare tutte le righe dei byte ricevuti
     {
-        for (int y = 0; y < 8; y++)
+        for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
         {
             sommaRow += (rx[i] >> y) & 1;
         }
-        if (sommaRow % 2 == 1)
+        if (sommaRow % 2 == 1) //Controlla se la somma è pari o dispari
         {
             error = 1;
             errorRow = i;
         }
     }
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
     {
         for (int y = 0; y < 4; y++)
+        // Ciclo per fare la somma di tutti i bit della colonna
         {
             sommaColumn += (rx[y] >> i) & 1;
         }
-        if (sommaColumn % 2 == 1)
+        if (sommaColumn % 2 == 1) //Controlla se la somma è pari o dispari
         {
             error = 1;
             errorColumn = i;
         }
     }
-    if (error != 0)
+    if (error != 0) //se è stato trovato un errore passerà alla sue correzione
     {
         //correction = (char)pow(2, errorColumn - 1);
         // rx[errorRow] = correction;
