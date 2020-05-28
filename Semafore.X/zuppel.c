@@ -29,6 +29,7 @@ struct
 
 char dataFromGateway[5];
 char time=0; 	//variable to define which color is to light up, 0 is red, 1 is green, 2 is yellow
+int timer=0;
 int i=0;
 int timerReadFromGateway;
 
@@ -51,13 +52,16 @@ void main(void)
     readGateway.Bit=0;
 
     time=0;
+    
     while (1)
     {
         if(readGateway.Bit)
         {
-            //ReadFromGateway();
-            //PORTB=31;
-            //readGateway.Bit=0;
+            if(i>=5)
+            {
+                readGateway.Bit=0;
+                i=0;
+            }
         }
     }
     
@@ -98,24 +102,23 @@ char UART_Read()
 
 void __interrupt() ISR()
 {
-    //ricevo il dato dal terminale
+    //aumenta il timer dei semafori per limitare il ritardo generato dal richiamo dell'interrupt
+    timer++;
+    
+    //RICEVE DATI DA SERIALE
     if(RCIF && readGateway.Bit==0)
     {
         readGateway.Bit=1;
+        i=0;
     }
-    if(RCIF && readGateway.Bit)
+    if(RCIF && readGateway.Bit==1)
     {
         dataFromGateway[i]=UART_Read();
         i++;
-        PORTB=i;
-        RCIF=0;
-        if(i>=5)
-        {
-            i=0;
-            readGateway.Bit=0;
-            PORTB=31;
-        }
     }
+    
+    
+    
     
     if (INTCON & 0x04)
     {
@@ -124,17 +127,17 @@ void __interrupt() ISR()
     }
 }
 
-
+/* NON SERVE MA NON MI SENTO DI CANCELLARLO ANCORA
 void ReadFromGateway()
 {
-    dataFromGateway[0]=TXREG;
 	int i=1, error=0;
 	timerReadFromGateway=0;
 
+    PORTB=16+2;
 	while(i<5)
 	{
+        dataFromGateway[i]=UART_Read();
         PORTB=16+i;
-        //PORTB=dataFromGateway[i];
 		timerReadFromGateway=0;
 		i++;
 	}
@@ -144,3 +147,4 @@ void ReadFromGateway()
 		error=1;
 	}
 }
+*/
