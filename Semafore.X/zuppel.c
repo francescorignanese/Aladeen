@@ -83,7 +83,7 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISB = 0xBF;
+    TRISB = 0x00;
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x00;
@@ -102,7 +102,8 @@ void main(void)
     char Lux_Yellow = 0;
     char Lux_Green = 0;
 
-    char data=0;
+    UART_Init(9600);
+    PORTB=0;
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -112,12 +113,14 @@ void main(void)
             {
                 readGatewayDone.Bit=1;
                 readGatewayDone.Timeout=1;
+                readGateway.Bit=0;
             }
             
             if(dataFromGatewayIndex>=15)
             {
                 readGatewayDone.Bit=1;
                 readGatewayDone.Timeout=0;
+                readGateway.Bit=0;
             }
         }
         
@@ -131,6 +134,7 @@ void main(void)
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
+                PORTB=127;
                 readGateway.Bit=0;
                 readGatewayDone.Bit=0;
                 readGatewayDone.Timeout=0;
@@ -140,7 +144,7 @@ void main(void)
             else
             {
                 bitParita(dataFromGateway);
-                
+                PORTB=255;
                 for(int i=0; i<3; i++)
                 {
                     colorIndex=((*Bytes[i])[0]>>5)&0x60;
@@ -221,7 +225,6 @@ void main(void)
             break;
         }
         
-        PORTB=data;
     }
     return;
 }
@@ -345,6 +348,7 @@ void __interrupt() ISR()
         
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
+        PORTB=dataFromGatewayIndex;
         
         if(dataFromGatewayIndex%5==0)
         {
@@ -380,7 +384,7 @@ void __interrupt() ISR()
         TMR0 = 6;
     }
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
-    if (TMR1IF) //timer1 "TMR1IF", DURATA: 1s
+    if (TMR1IF) //timer1 "TMR1IF", DURATA: 0.05s
     {
         TMR1IF = 0;
         timerReadFromGateway++;
