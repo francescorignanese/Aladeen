@@ -21,9 +21,6 @@
 #define ADON 0
 #define CHS0 3
 #define ADFM 7
-#define Disp1 PORTAbits.RA2
-#define Disp2 PORTAbits.RA3
-#define Disp3 PORTAbits.RA4
 
 struct
 {
@@ -44,30 +41,17 @@ typedef struct
 */
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
-const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
-char unita, decine, centinaia;
-unsigned char disp = 0;
-unsigned int count = 0;
-unsigned char count_lux = 0;
+unsigned int count = 0, count_lux = 0;
 char comando = 0; //Prende il dato dalla seriale
 char by1 = 0;     //Primo byte ricevuto
 char by2 = 0;     //Secondo byte ricevuto
-unsigned char count_delay = 0;
-unsigned char Time_Red = 10;
-unsigned char Time_Yellow = 5;
-unsigned char Time_Green = 10;
-unsigned char time = 0;
-char lux_select = 0;
-unsigned char countdown = 0;
-unsigned char car = 0;
-unsigned char truck = 0;
+unsigned char count_delay = 0, Time_Red = 10, Time_Yellow = 5, Time_Green = 10;
+char time = 0, car = 0, truck = 0, colorIndex=0;
 char dataFromGatewayIndex=0;            //indice array dati da seriale
 typedef char ProtocolBytes[5];          //array dati da seriale
 ProtocolBytes dataFromGateway;
-ProtocolBytes *Bytes[3];
+ProtocolBytes Bytes[3];
 int timerReadFromGateway;               //timer per definire se la lettura dati eccede un tempo limite
-int colorsTime[3];     //0 è rosso, 1 è verde, 2 è giallo
-char colorIndex;
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -79,7 +63,7 @@ void UART_Write_Text(char *text);                                 //Scrittura di
 char UART_Read();                                                 //Lettura dalla seriale
 int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
 void bitParita(char *rx);
-int GetTime(ProtocolBytes data);
+int GetTime();
 
 void main(void)
 {
@@ -97,26 +81,22 @@ void main(void)
     //richiesta dati al raspberry
     //atendi un tempo
     //oltre ciÃ² se non ha ricevuto niente mette dei dati standard
+    int colorsTime[3], time;     //0 è rosso, 1 è verde, 2 è giallo
     char tmp;
-    char Lux_Red = 1;
-    char Lux_Yellow = 0;
-    char Lux_Green = 0;
-
-    UART_Init(9600);
-    PORTB=0;
+    
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
         if(readGateway.Bit)
         {
-            if(timerReadFromGateway>=80) //1s ogni 20 => if scatta dopo un timer di 4s
+            if(timerReadFromGateway>=80)
             {
                 readGatewayDone.Bit=1;
                 readGatewayDone.Timeout=1;
                 readGateway.Bit=0;
             }
             
-            if(dataFromGatewayIndex>=15)
+            if(dataFromGatewayIndex>=5)
             {
                 readGatewayDone.Bit=1;
                 readGatewayDone.Timeout=0;
@@ -134,97 +114,18 @@ void main(void)
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
-                PORTB=127;
-                readGateway.Bit=0;
-                readGatewayDone.Bit=0;
-                readGatewayDone.Timeout=0;
-                dataFromGatewayIndex=0;
-                timerReadFromGateway=0;
+                //cose da fare...
             }
             else
             {
                 bitParita(dataFromGateway);
-                PORTB=255;
-                for(int i=0; i<3; i++)
-                {
-                    colorIndex=((*Bytes[i])[0]>>5)&0x60;
-                    colorsTime[colorIndex]=GetTime(*Bytes[i]);
-                }
+                
+                tmp=(dataFromGateway[0]>>5)&0x60;
+                time=GetTime();
+                
+                colorsTime[tmp]=time;
             }
         }
-        
-        
-        
-        Time_Red=colorsTime[0];
-        Time_Green=colorsTime[1];
-        Time_Yellow=colorsTime[2];
-        if ((time >= Time_Red) && lux_select == 0)
-        {
-            time = 0;
-            lux_select = 1;
-        }
-        if ((time >= Time_Yellow) && lux_select == 2)
-        {
-            lux_select = 0;
-            time = 0;
-        }
-        if ((time >= Time_Green) && lux_select == 1)
-        {
-            lux_select = 2;
-            time = 0;
-        }
-        switch (lux_select)
-        {
-        case 0:
-            Lux_Yellow = 0;
-            Lux_Green = 0;
-            Lux_Red = 1;
-            countdown = Time_Red - time;
-            centinaia = countdown / 100;
-            decine = (countdown % 100) / 10;
-            unita = (countdown % 100) % 10;
-            break;
-        case 1:
-            Lux_Yellow = 0;
-            Lux_Red = 0;
-            Lux_Green = 1;
-            countdown = Time_Green - time;
-            centinaia = countdown / 100;
-            decine = (countdown % 100) / 10;
-            unita = (countdown % 100) % 10;
-            break;
-        case 2:
-            Lux_Green = 0;
-            Lux_Red = 0;
-            Lux_Yellow = 1;
-            countdown = Time_Yellow - time;
-            centinaia = countdown / 100;
-            decine = (countdown % 100) / 10;
-            unita = (countdown % 100) % 10;
-            break;
-        }
-        switch (disp)
-        {
-        case 0:
-            Disp2 = 0;
-            Disp3 = 0;
-            Disp1 = 1;
-            PORTD = display[unita];
-            break;
-        case 1:
-            Disp1 = 0;
-            Disp3 = 0;
-            Disp2 = 1;
-            PORTD = display[decine];
-            break;
-        case 2:
-            Disp1 = 0;
-            Disp2 = 0;
-            Disp3 = 1;
-            PORTD = display[centinaia];
-            break;
-        }
-        
     }
     return;
 }
@@ -313,7 +214,7 @@ int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuova
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-int GetTime(ProtocolBytes data)
+int GetTime()
 {
     int time;
     struct
@@ -343,17 +244,16 @@ void __interrupt() ISR()
         timerReadFromGateway=0;
     }
     if(RCIF && readGateway.Bit==1)
-    {        
-        dataFromGateway[dataFromGatewayIndex%5]=UART_Read();
+    {
+        dataFromGateway[dataFromGatewayIndex]=UART_Read();
+        
+        if(dataFromGatewayIndex==0)
+        {
+            colorIndex=(dataFromGateway[dataFromGatewayIndex]>>5)&0x60;
+        }
         
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
-        PORTB=dataFromGatewayIndex;
-        
-        if(dataFromGatewayIndex%5==0)
-        {
-            Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
-        }
     }
     
     
