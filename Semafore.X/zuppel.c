@@ -83,6 +83,7 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
+    TRISA=0x00;
     TRISB = 0x00;
     TRISC = 0x80;
     TRISD = 0x00;
@@ -136,7 +137,7 @@ void main(void)
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
-                PORTB=127;
+                PORTB=31;
                 readGatewayDone.Timeout=0;
             }
             else
@@ -346,11 +347,15 @@ void __interrupt() ISR()
         
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
-        
+        //UART_TxChar(dataFromGateway[dataFromGatewayIndex%5]);
         if(dataFromGatewayIndex%5==0)
         {
             Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
-            UART_TxChar((*Bytes[0])[1]);
+            UART_TxChar(*(Bytes[0])[0]);
+            UART_TxChar(*(Bytes[0])[1]);
+            UART_TxChar(*(Bytes[0])[2]);
+            UART_TxChar(*(Bytes[0])[3]);
+            UART_TxChar(*(Bytes[0])[4]);
         }
     }
     
