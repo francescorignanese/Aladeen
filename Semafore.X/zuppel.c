@@ -101,7 +101,8 @@ void main(void)
     char Lux_Red = 1;
     char Lux_Yellow = 0;
     char Lux_Green = 0;
-    
+
+    char data=0;
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -130,7 +131,11 @@ void main(void)
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
-                //cose da fare...
+                readGateway.Bit=0;
+                readGatewayDone.Bit=0;
+                readGatewayDone.Timeout=0;
+                dataFromGatewayIndex=0;
+                timerReadFromGateway=0;
             }
             else
             {
@@ -138,7 +143,6 @@ void main(void)
                 
                 for(int i=0; i<3; i++)
                 {
-                    //tmp=(dataFromGateway[0]>>5)&0x60;
                     colorIndex=((*Bytes[i])[0]>>5)&0x60;
                     colorsTime[colorIndex]=GetTime(*Bytes[i]);
                 }
@@ -216,6 +220,8 @@ void main(void)
             PORTD = display[centinaia];
             break;
         }
+        
+        PORTB=data;
     }
     return;
 }

@@ -22,28 +22,53 @@
 #define ADON 0
 #define CHS0 3
 #define ADFM 7
+#define Disp1 PORTAbits.RA2
+#define Disp2 PORTAbits.RA3
+#define Disp3 PORTAbits.RA4
 
-#define Disp1 PORTAbits.RA2 //Bit per l'accensione e spegnimento del display 1
-#define Disp2 PORTAbits.RA3 //Bit per l'accensione e spegnimento del display 2
-#define Disp3 PORTAbits.RA4 //Bit per l'accensione e spegnimento del display 3
+struct
+{
+    unsigned int Bit:1;
+} readGateway;
 
-char str[4];                                                                           //stringa di salvatagio per la conversione da int to string
-const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F}; //Rappresentazioni numeriche su display 7 segmenti
-char unita, decine, centinaia;                                                         //divisione per la rappresentazione sul display
-unsigned char disp = 0;                                                                //Variabile per lo scambio del display
-unsigned int count = 0;                                                                //conteggio per la pressione del tasto conta mezzi
-unsigned char count_lux = 0;                                                           //conteggio per il timer1 e quando sar√† arrivato a 20 √® passato un secondo
-char comando = 0;                                                                      //Prende il dato dalla seriale
-char by1 = 0;                                                                          //Primo byte ricevuto
-char by2 = 0;                                                                          //Secondo byte ricevuto
-unsigned char Time_Red = 10;                                                           //Tempo per la luce rossa (Valore defult quando si accende 10s *pu√≤ essere modificato*)
-unsigned char Time_Yellow = 5;                                                         //Tempo per la luce gialla (Valore defult quando si accende 5 *pu√≤ essere modificato*)
-unsigned char Time_Green = 10;                                                         //Tempo per la luce verde (Valore defult quando si accende 10s *pu√≤ essere modificato*)
-unsigned char time = 0;                                                                //Variabile per il conteggio in secondi
-char lux_select = 0;                                                                   //Variabile di supporto al conteggio "time" presente nel interrupt sul timer1
-unsigned char countdown = 0;                                                           //Conto alla rovescia per i display
-unsigned char car = 0;                                                                 //conteggio macchine
-unsigned char truck = 0;                                                               //conteggio camion
+struct
+{
+    unsigned int Bit:1;
+    unsigned int Timeout:1;
+} readGatewayDone;
+
+/*
+typedef struct
+{
+   unsigned int Value:14;
+}Time;
+*/
+
+char str[4]; //stringa di salvatagio per la conversione da int to string
+const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
+char unita, decine, centinaia;
+unsigned char disp = 0;
+unsigned int count = 0;
+unsigned char count_lux = 0;
+char comando = 0; //Prende il dato dalla seriale
+char by1 = 0;     //Primo byte ricevuto
+char by2 = 0;     //Secondo byte ricevuto
+unsigned char count_delay = 0;
+unsigned char Time_Red = 10;
+unsigned char Time_Yellow = 5;
+unsigned char Time_Green = 10;
+unsigned char time = 0;
+char lux_select = 0;
+unsigned char countdown = 0;
+unsigned char car = 0;
+unsigned char truck = 0;
+char dataFromGatewayIndex=0;            //indice array dati da seriale
+typedef char ProtocolBytes[5];          //array dati da seriale
+ProtocolBytes dataFromGateway;
+ProtocolBytes *Bytes[3];
+int timerReadFromGateway;               //timer per definire se la lettura dati eccede un tempo limite
+int colorsTime[3];     //0 Ë rosso, 1 Ë verde, 2 Ë giallo
+char colorIndex;
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -54,6 +79,8 @@ void UART_TxChar(char ch);                                        //Scrittura di
 void UART_Write_Text(char *text);                                 //Scrittura di una stringa sulla seriale
 char UART_Read();                                                 //Lettura dalla seriale
 int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
+void bitParita(char *rx);
+int GetTime(ProtocolBytes data);
 
 void main(void)
 {
@@ -93,6 +120,7 @@ void main(void)
                 {
                     readGatewayDone.Bit=1;
                     readGatewayDone.Timeout=0;
+                    PORTB=31;
                 }
             }
         
