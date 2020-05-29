@@ -65,8 +65,10 @@ typedef struct
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 typedef char ProtocolBytes[5]; //array dati da seriale
 ProtocolBytes dataFromGateway;
-ProtocolBytes Bytes[3];
-int timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite                                              //conteggio camion
+ProtocolBytes *Bytes[3];
+int timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+int colorsTime[3];        //0 � rosso, 1 � verde, 2 � giallo
+char colorIndex;          //conteggio camion
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -107,6 +109,7 @@ void main(void)
     char Lux_Yellow = 0;
     char Lux_Green = 0;
     //* end <--
+
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -154,110 +157,102 @@ void main(void)
         Time_Green = colorsTime[1];
         Time_Yellow = colorsTime[2];
 
+        //cose da fare terminata la lettura dalla seriale
+        if (readGatewayDone.Bit)
+        {
+            //resetta le variabili per la lettura
+            readGateway.Bit = 0;
+            dataFromGatewayIndex = 0;
+
+            //se c'� stato un timeout
+            if (readGatewayDone.Timeout)
+            {
+                //cose da fare...
+            }
+            else
+            {
+                bitParita(dataFromGateway);
+
+                tmp = (dataFromGateway[0] >> 5) & 0x60;
+                time = GetTime();
+
+                colorsTime[tmp] = time;
+            }
+        }
+
         //! Parte da rivedere (Gestione delle luci e tempistica) -->
         if ((time >= Time_Red) && lux_select == 0)
         {
-            readGatewayDone.Bit = 1;
-            readGatewayDone.Timeout = 0;
+            time = 0;
+            lux_select = 1;
         }
-    }
-
-    //cose da fare terminata la lettura dalla seriale
-    if (readGatewayDone.Bit)
-    {
-        //resetta le variabili per la lettura
-        readGateway.Bit = 0;
-        dataFromGatewayIndex = 0;
-
-        //se c'� stato un timeout
-        if (readGatewayDone.Timeout)
+        if ((time >= Time_Yellow) && lux_select == 2)
         {
-            //cose da fare...
+            lux_select = 0;
+            time = 0;
         }
-        else
+        if ((time >= Time_Green) && lux_select == 1)
         {
-            bitParita(dataFromGateway);
-
-            tmp = (dataFromGateway[0] >> 5) & 0x60;
-            time = GetTime();
-
-            colorsTime[tmp] = time;
+            lux_select = 2;
+            time = 0;
         }
-    }
-
-    //! Parte da rivedere (Gestione delle luci e tempistica) -->
-    if ((time >= Time_Red) && lux_select == 0)
-    {
-        time = 0;
-        lux_select = 1;
-    }
-    if ((time >= Time_Yellow) && lux_select == 2)
-    {
-        lux_select = 0;
-        time = 0;
-    }
-    if ((time >= Time_Green) && lux_select == 1)
-    {
-        lux_select = 2;
-        time = 0;
-    }
-    //! end <--
-    switch (lux_select) //Gestione delle luci del semaforo e del countdown per il display
-    {                   //TODO: trasformare in una funzione che verrà poi richiamata
-    case 0:
-        /* 
+        //! end <--
+        switch (lux_select) //Gestione delle luci del semaforo e del countdown per il display
+        {                   //TODO: trasformare in una funzione che verrà poi richiamata
+        case 0:
+            /* 
             Vengono spente le luci degli altri colori e viene accesa solo quella che deve essere accesa
              */
-        Lux_Yellow = 0;
-        Lux_Green = 0;
-        Lux_Red = 1;
-        countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
-        centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
-        decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
-        unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
-        break;
-    case 1:
-        Lux_Yellow = 0;
-        Lux_Red = 0;
-        Lux_Green = 1;
-        countdown = Time_Green - time;
-        centinaia = countdown / 100;
-        decine = (countdown % 100) / 10;
-        unita = (countdown % 100) % 10;
-        break;
-    case 2:
-        Lux_Green = 0;
-        Lux_Red = 0;
-        Lux_Yellow = 1;
-        countdown = Time_Yellow - time;
-        centinaia = countdown / 100;
-        decine = (countdown % 100) / 10;
-        unita = (countdown % 100) % 10;
-        break;
+            Lux_Yellow = 0;
+            Lux_Green = 0;
+            Lux_Red = 1;
+            countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
+            centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
+            decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
+            unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
+            break;
+        case 1:
+            Lux_Yellow = 0;
+            Lux_Red = 0;
+            Lux_Green = 1;
+            countdown = Time_Green - time;
+            centinaia = countdown / 100;
+            decine = (countdown % 100) / 10;
+            unita = (countdown % 100) % 10;
+            break;
+        case 2:
+            Lux_Green = 0;
+            Lux_Red = 0;
+            Lux_Yellow = 1;
+            countdown = Time_Yellow - time;
+            centinaia = countdown / 100;
+            decine = (countdown % 100) / 10;
+            unita = (countdown % 100) % 10;
+            break;
+        }
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+        {
+        case 0:
+            Disp2 = 0;
+            Disp3 = 0;
+            Disp1 = 1;
+            PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            break;
+        case 1:
+            Disp1 = 0;
+            Disp3 = 0;
+            Disp2 = 1;
+            PORTD = display[decine];
+            break;
+        case 2:
+            Disp1 = 0;
+            Disp2 = 0;
+            Disp3 = 1;
+            PORTD = display[centinaia];
+            break;
+        }
     }
-    switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
-    {
-    case 0:
-        Disp2 = 0;
-        Disp3 = 0;
-        Disp1 = 1;
-        PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-        break;
-    case 1:
-        Disp1 = 0;
-        Disp3 = 0;
-        Disp2 = 1;
-        PORTD = display[decine];
-        break;
-    case 2:
-        Disp1 = 0;
-        Disp2 = 0;
-        Disp3 = 1;
-        PORTD = display[centinaia];
-        break;
-    }
-}
-return;
+    return;
 }
 
 //inizializzo ADC (potenziometro)
