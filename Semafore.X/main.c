@@ -89,7 +89,6 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISA=0x00;
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00; //Porta per i 7 segmenti (Output)
@@ -280,7 +279,8 @@ int ADC_Read(char canale)
     //ADCON0 |= canale << 3; //e setto il canale da convertire (ADCON0)
     __delay_us(2); //attendo 1.6 uS
     GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE);                          //attendo la fine della conversione
+    while (GO_nDONE)
+        ;                          //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
@@ -323,7 +323,8 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    while (!TXIF)
+        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
     TXIF = 0; //lo resetto
     TXREG = ch;
 }
@@ -339,7 +340,8 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF);
+    while (!RCIF)
+        ;
     RCIF = 0;
     return RCREG;
 }
