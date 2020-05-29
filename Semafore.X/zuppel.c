@@ -140,13 +140,13 @@ void main(void)
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
-                PORTB=31;
+                //PORTB=31;
                 readGatewayDone.Timeout=0;
             }
             else
             {
                 bitParita(dataFromGateway);
-                PORTB=255;
+                //PORTB=255;
                 for(int i=0; i<3; i++)
                 {
                     //colorIndex=((*Bytes[i])[0]>>5)&0x60;
@@ -421,6 +421,19 @@ void __interrupt() ISR()
     if (TMR1IF) //timer1 "TMR1IF", DURATA: 0.05s
     {
         timerReadFromGateway++;
+        
+        count_lux++;
+        disp++;
+        if (count_lux >= 20)
+        {
+            time++;
+            count_lux = 0;
+        }
+        if (disp == 3)
+        {
+            disp = 0;
+        }
+        
         TMR1IF = 0;
         
         TMR1H = 60;             // preset for timer1 MSB 

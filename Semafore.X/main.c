@@ -117,49 +117,49 @@ void main(void)
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
-        if (readGateway.Bit)
+        if(readGateway.Bit)
         {
-            if (timerReadFromGateway >= 80) //1s ogni 20 => if scatta dopo un timer di 4s
+            if(timerReadFromGateway>=80) //1s ogni 20 => if scatta dopo un timer di 4s
             {
-                readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 1;
-                readGateway.Bit = 0;
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=1;
+                readGateway.Bit=0;
             }
-            if (dataFromGatewayIndex >= 15)
+            
+            if(dataFromGatewayIndex>=15)
             {
-                readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 0;
-                readGateway.Bit = 0;
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=0;
+                readGateway.Bit=0;
             }
         }
-
-        if (dataFromGatewayIndex >= 15)
-        {
-            readGatewayDone.Bit = 1;
-            readGatewayDone.Timeout = 0;
-        }
-
+        
         //cose da fare terminata la lettura dalla seriale
-        if (readGatewayDone.Bit)
+        if(readGatewayDone.Bit)
         {
             //resetta le variabili per la lettura
-            readGateway.Bit = 0;
-            dataFromGatewayIndex = 0;
-
-            //se c'ï¿½ stato un timeout
-            if (readGatewayDone.Timeout)
+            readGateway.Bit=0;
+            dataFromGatewayIndex=0;
+            readGatewayDone.Bit=0;
+            timerReadFromGateway=0;
+            
+            //se c'è stato un timeout
+            if(readGatewayDone.Timeout)
             {
-                //cose da fare...
+                PORTB=31;
+                readGatewayDone.Timeout=0;
             }
             else
             {
                 bitParita(dataFromGateway);
-
-                for (int i = 0; i < 3; i++)
+                PORTB=255;
+                for(int i=0; i<3; i++)
                 {
-                    //tmp=(dataFromGateway[0]>>5)&0x60;
-                    colorIndex = ((*Bytes[i])[0] >> 5) & 0x60;
-                    colorsTime[colorIndex] = GetTime(*Bytes[i]);
+                    //colorIndex=((*Bytes[i])[0]>>5)&0x60;
+                    //colorsTime[colorIndex]=GetTime(*Bytes[i]);
+                    
+                   colorIndex=(dataFromGateway[i*5]>>5)&0x60;
+                   colorsTime[colorIndex]=GetTime(i);
                 }
             }
         }
