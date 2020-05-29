@@ -119,12 +119,13 @@ void main(void)
             {
                 readGatewayDone.Bit = 1;
                 readGatewayDone.Timeout = 1;
+                readGateway.Bit=0;
             }
             if (dataFromGatewayIndex >= 15)
             {
                 readGatewayDone.Bit = 1;
                 readGatewayDone.Timeout = 0;
-                PORTB = 31;
+                readGateway.Bit=0;
             }
         }
 
@@ -162,29 +163,6 @@ void main(void)
         Time_Red = colorsTime[0];
         Time_Green = colorsTime[1];
         Time_Yellow = colorsTime[2];
-
-        //cose da fare terminata la lettura dalla seriale
-        if (readGatewayDone.Bit)
-        {
-            //resetta le variabili per la lettura
-            readGateway.Bit = 0;
-            dataFromGatewayIndex = 0;
-
-            //se c'� stato un timeout
-            if (readGatewayDone.Timeout)
-            {
-                //cose da fare...
-            }
-            else
-            {
-                bitParita(dataFromGateway);
-
-                tmp = (dataFromGateway[0] >> 5) & 0x60;
-                time = GetTime();
-
-                colorsTime[tmp] = time;
-            }
-        }
 
         //! Parte da rivedere (Gestione delle luci e tempistica) -->
         if ((time >= Time_Red) && lux_select == 0)
