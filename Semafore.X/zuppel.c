@@ -130,16 +130,14 @@ void main(void)
             //resetta le variabili per la lettura
             readGateway.Bit=0;
             dataFromGatewayIndex=0;
+            readGatewayDone.Bit=0;
+            timerReadFromGateway=0;
             
             //se c'è stato un timeout
             if(readGatewayDone.Timeout)
             {
                 PORTB=127;
-                readGateway.Bit=0;
-                readGatewayDone.Bit=0;
                 readGatewayDone.Timeout=0;
-                dataFromGatewayIndex=0;
-                timerReadFromGateway=0;
             }
             else
             {
@@ -321,11 +319,11 @@ int GetTime(ProtocolBytes data)
         unsigned int Val:7;
     }shortInt;
     
-    shortInt.Val=dataFromGateway[3];
+    shortInt.Val=dataFromGateway[4];
     time=shortInt.Val;
     time=time<<7;
     
-    shortInt.Val=dataFromGateway[4];
+    shortInt.Val=dataFromGateway[3];
     time=shortInt.Val;
     
     return time;
@@ -348,11 +346,11 @@ void __interrupt() ISR()
         
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
-        PORTB=dataFromGatewayIndex;
         
         if(dataFromGatewayIndex%5==0)
         {
             Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
+            UART_TxChar((*Bytes[0])[1]);
         }
     }
     
