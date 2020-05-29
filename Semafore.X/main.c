@@ -3,7 +3,7 @@
  * Author: Rigna
  *
  * Created on 15 maggio 2020, 16.07
- TODO: Gestione sensori e controlli
+ TODO: Gestione sensori,controlli (integrare funzioni e migliorire al codice)
  */
 
 #pragma config FOSC = HS  // Oscillator Selection bits (RC oscillator)
@@ -199,7 +199,7 @@ void main(void)
                 old_lux_select = lux_select;
                 Lux_Yellow = 0;
                 Lux_Green = 0;
-                Lux_Red = 0;
+                Lux_Red = 1;
             }
             countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
             centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
