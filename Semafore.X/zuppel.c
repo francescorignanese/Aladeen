@@ -44,14 +44,11 @@ typedef struct
 */
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
-const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
+const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 char unita, decine, centinaia;
 unsigned char disp = 0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
-char comando = 0; //Prende il dato dalla seriale
-char by1 = 0;     //Primo byte ricevuto
-char by2 = 0;     //Secondo byte ricevuto
 unsigned char count_delay = 0;
 unsigned char Time_Red = 10;
 unsigned char Time_Yellow = 5;
@@ -79,30 +76,36 @@ void UART_Write_Text(char *text);                                 //Scrittura di
 char UART_Read();                                                 //Lettura dalla seriale
 int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
 void bitParita(char *rx);
-int GetTime(ProtocolBytes data);
+int GetTime(int data);
 
 void main(void)
 {
-    //TRISA=0x00;
-    TRISB = 0x00;
+    TRISA=0x00;
+    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
-    TRISD = 0x00;
+    TRISD = 0x00; //Porta per i 7 segmenti (Output)
     TRISE = 0x00;
-    INTCON = 0xE0;
-    T1CON = 0x31;
-    TMR1H = 60;             // preset for timer1 MSB 
-    TMR1L = 176;            // preset for timer1 LSB 
+    INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
+    OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
+    TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
+    T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
+    //TMR1 = 0x00;
     PIE1 = 0x01;
-    OPTION_REG = 0x05;
-    TMR0 = 6;
+    //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
+    TMR1H = 60;  // preset for timer1 MSB register
+    TMR1L = 176; // preset for timer1 LSB register
     //richiesta dati al raspberry
     //atendi un tempo
     //oltre ciò se non ha ricevuto niente mette dei dati standard
-    char tmp;
     char Lux_Red = 1;
     char Lux_Yellow = 0;
     char Lux_Green = 0;
-
+    int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
+    char tmp;
+    char lux_select = 0;
+    char old_lux_select = 9;
+    disp = 0;
+    char old_disp = 9;
     UART_Init(9600);
     PORTB=0;
     while (1)
@@ -146,8 +149,11 @@ void main(void)
                 PORTB=255;
                 for(int i=0; i<3; i++)
                 {
-                    colorIndex=((*Bytes[i])[0]>>5)&0x60;
-                    colorsTime[colorIndex]=GetTime(*Bytes[i]);
+                    //colorIndex=((*Bytes[i])[0]>>5)&0x60;
+                    //colorsTime[colorIndex]=GetTime(*Bytes[i]);
+                    
+                   colorIndex=(dataFromGateway[i*5]>>5)&0x60;
+                   colorsTime[colorIndex]=GetTime(i);
                 }
             }
         }
@@ -157,6 +163,14 @@ void main(void)
         Time_Red=colorsTime[0];
         Time_Green=colorsTime[1];
         Time_Yellow=colorsTime[2];
+        /*if ((Time_Red + Time_Green + Time_Yellow) != (colorsTime[0] + colorsTime[1] + colorsTime[2]))
+        {
+            Time_Red = colorsTime[0];
+            Time_Green = colorsTime[1];
+            Time_Yellow = colorsTime[2];
+        }*/
+
+        //! Parte da rivedere (Gestione delle luci e tempistica) -->
         if ((time >= Time_Red) && lux_select == 0)
         {
             time = 0;
@@ -164,66 +178,85 @@ void main(void)
         }
         if ((time >= Time_Yellow) && lux_select == 2)
         {
-            lux_select = 0;
             time = 0;
+            lux_select = 0;
         }
         if ((time >= Time_Green) && lux_select == 1)
         {
             lux_select = 2;
             time = 0;
         }
-        switch (lux_select)
-        {
+        //! end <--
+        switch (lux_select) //Gestione delle luci del semaforo e del countdown per il display
+        {                   //TODO: trasformare in una funzione che verrà poi richiamata
         case 0:
-            Lux_Yellow = 0;
-            Lux_Green = 0;
-            Lux_Red = 1;
-            countdown = Time_Red - time;
-            centinaia = countdown / 100;
-            decine = (countdown % 100) / 10;
-            unita = (countdown % 100) % 10;
+            /* 
+            Vengono spente le luci degli altri colori e viene accesa solo quella che deve essere accesa
+             */
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Yellow = 0;
+                Lux_Green = 0;
+                Lux_Red = 0;
+            }
+            countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
+            centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
+            decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
+            unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
             break;
         case 1:
-            Lux_Yellow = 0;
-            Lux_Red = 0;
-            Lux_Green = 1;
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Yellow = 0;
+                Lux_Red = 0;
+                Lux_Green = 1;
+            }
             countdown = Time_Green - time;
             centinaia = countdown / 100;
             decine = (countdown % 100) / 10;
             unita = (countdown % 100) % 10;
             break;
         case 2:
-            Lux_Green = 0;
-            Lux_Red = 0;
-            Lux_Yellow = 1;
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Green = 0;
+                Lux_Red = 0;
+                Lux_Yellow = 1;
+            }
             countdown = Time_Yellow - time;
             centinaia = countdown / 100;
             decine = (countdown % 100) / 10;
             unita = (countdown % 100) % 10;
             break;
         }
-        switch (disp)
+        if (disp != old_disp)
         {
-        case 0:
-            Disp2 = 0;
-            Disp3 = 0;
-            Disp1 = 1;
-            PORTD = display[unita];
-            break;
-        case 1:
-            Disp1 = 0;
-            Disp3 = 0;
-            Disp2 = 1;
-            PORTD = display[decine];
-            break;
-        case 2:
-            Disp1 = 0;
-            Disp2 = 0;
-            Disp3 = 1;
-            PORTD = display[centinaia];
-            break;
+            old_disp = disp;
+            switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+            {
+            case 0:
+                Disp2 = 0;
+                Disp3 = 0;
+                Disp1 = 1;
+                PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                break;
+            case 1:
+                Disp1 = 0;
+                Disp3 = 0;
+                Disp2 = 1;
+                PORTD = display[decine];
+                break;
+            case 2:
+                Disp1 = 0;
+                Disp2 = 0;
+                Disp3 = 1;
+                PORTD = display[centinaia];
+                break;
+            }
         }
-        
     }
     return;
 }
@@ -312,7 +345,7 @@ int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuova
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-int GetTime(ProtocolBytes data)
+int GetTime(int data)
 {
     int time;
     struct
@@ -320,11 +353,11 @@ int GetTime(ProtocolBytes data)
         unsigned int Val:7;
     }shortInt;
     
-    shortInt.Val=dataFromGateway[4];
+    shortInt.Val=dataFromGateway[(data*5)+4];
     time=shortInt.Val;
     time=time<<7;
     
-    shortInt.Val=dataFromGateway[3];
+    shortInt.Val=dataFromGateway[(data*5)+3];
     time=shortInt.Val;
     
     return time;
@@ -349,25 +382,12 @@ void __interrupt() ISR()
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
         //UART_TxChar(dataFromGateway[dataFromGatewayIndex%5]);
+        /*
         if(dataFromGatewayIndex==15)
         {
             Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
-            UART_TxChar(dataFromGateway[0]);
-            UART_TxChar(dataFromGateway[1]);
-            UART_TxChar(dataFromGateway[2]);
-            UART_TxChar(dataFromGateway[3]);
-            UART_TxChar(dataFromGateway[4]);
-            UART_TxChar(dataFromGateway[5]);
-            UART_TxChar(dataFromGateway[6]);
-            UART_TxChar(dataFromGateway[7]);
-            UART_TxChar(dataFromGateway[8]);
-            UART_TxChar(dataFromGateway[9]);
-            UART_TxChar(dataFromGateway[10]);
-            UART_TxChar(dataFromGateway[11]);
-            UART_TxChar(dataFromGateway[12]);
-            UART_TxChar(dataFromGateway[13]);
-            UART_TxChar(dataFromGateway[14]);
         }
+         */
     }
     
     

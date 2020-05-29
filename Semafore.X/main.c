@@ -89,6 +89,7 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
+    TRISA=0x00;
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00; //Porta per i 7 segmenti (Output)
