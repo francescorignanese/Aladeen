@@ -389,11 +389,11 @@ int GetTime(ProtocolBytes data)
         unsigned int Val : 7;
     } shortInt;
 
-    shortInt.Val = dataFromGateway[3];
+    shortInt.Val = dataFromGateway[4];
     time = shortInt.Val;
     time = time << 7;
 
-    shortInt.Val = dataFromGateway[4];
+    shortInt.Val = dataFromGateway[3];
     time = shortInt.Val;
 
     return time;
