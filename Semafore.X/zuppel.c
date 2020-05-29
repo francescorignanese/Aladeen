@@ -33,10 +33,12 @@ struct
     unsigned int Timeout:1;
 } readGatewayDone;
 
+/*
 typedef struct
 {
    unsigned int Value:14;
 }Time;
+*/
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
 unsigned int count = 0, count_lux = 0;
@@ -210,7 +212,7 @@ int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuova
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-Time GetTime()
+int GetTime()
 {
     int time;
     struct
