@@ -230,6 +230,7 @@ void main(void)
             unita = (countdown % 100) % 10;
             break;
         }
+
         switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
         case 0:
@@ -326,7 +327,9 @@ void UART_Write_Text(char *text)
 {
     int i;
     for (i = 0; text[i] != '\0'; i++)
+    {
         UART_TxChar(text[i]);
+    }
 }
 
 char UART_Read()
@@ -472,3 +475,25 @@ void __interrupt() ISR()
         TMR1L = 176; // preset for timer1 LSB register
     }
 }
+
+/*NON SERVE MA NON MI SENTO DI CANCELLARLO ANCORA
+void ReadFromGateway()
+{
+	int i=1, error=0;
+	timerReadFromGateway=0;
+
+    PORTB=16+2;
+	while(i<5)
+	{
+        dataFromGateway[i]=UART_Read();
+        PORTB=16+i;
+		timerReadFromGateway=0;
+		i++;
+	}
+	
+	if(timerReadFromGateway>=2000)
+	{
+		error=1;
+	}
+}
+*/
