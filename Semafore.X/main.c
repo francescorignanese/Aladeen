@@ -78,6 +78,47 @@ void main(void)
     char Lux_Green = 0;
     while (1)
     {
+                //se si stanno ricevendo dati dalla seriale
+        if(readGateway.Bit)
+        {
+            if(timerReadFromGateway>=80)
+            {
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=1;
+            }
+            
+            if(dataFromGatewayIndex>=5)
+            {
+                readGatewayDone.Bit=1;
+                readGatewayDone.Timeout=0;
+            }
+        }
+        
+        //cose da fare terminata la lettura dalla seriale
+        if(readGatewayDone.Bit)
+        {
+            //resetta le variabili per la lettura
+            readGateway.Bit=0;
+            dataFromGatewayIndex=0;
+            
+            //se c'è stato un timeout
+            if(readGatewayDone.Timeout)
+            {
+                //cose da fare...
+            }
+            else
+            {
+                bitParita(dataFromGateway);
+                
+                tmp=(dataFromGateway[0]>>5)&0x60;
+                time=GetTime();
+                
+                colorsTime[tmp]=time;
+            }
+        }
+        
+        
+        
         if ((time >= Time_Red) && lux_select == 0)
         {
             time = 0;
@@ -208,8 +249,7 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF)
-        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
     TXIF = 0; //lo resetto
     TXREG = ch;
 }

@@ -35,7 +35,7 @@ struct
 
 typedef struct
 {
-    unsigned int Value:14;
+   unsigned int Value:14;
 }Time;
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
@@ -61,7 +61,7 @@ void UART_Write_Text(char *text);                                 //Scrittura di
 char UART_Read();                                                 //Lettura dalla seriale
 int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
 void bitParita(char *rx);
-Time GetTime();
+int GetTime();
 
 void main(void)
 {
@@ -79,17 +79,8 @@ void main(void)
     //richiesta dati al raspberry
     //atendi un tempo
     //oltre ci√≤ se non ha ricevuto niente mette dei dati standard
-    char colorsTime[3];     //0 Ë rosso, 1 Ë verde, 2 Ë giallo
-    char Lux_Red = 1;
-    char Lux_Yellow = 0;
-    char Lux_Green = 0;
+    int colorsTime[3], time;     //0 Ë rosso, 1 Ë verde, 2 Ë giallo
     char tmp;
-    Time time;
-    
-    struct
-    {
-        unsigned int Bit:1;
-    }error;
     
     while (1)
     {
@@ -130,32 +121,6 @@ void main(void)
                 
                 colorsTime[tmp]=time;
             }
-        }
-        
-        
-        
-        switch (time)
-        {
-        case 0:
-            Lux_Yellow = 0;
-            Lux_Green = 0;
-            Lux_Red = 1;
-            break;
-        case 1:
-            Lux_Yellow = 0;
-            Lux_Red = 0;
-            Lux_Green = 1;
-
-            break;
-        case 2:
-            Lux_Green = 0;
-            Lux_Red = 0;
-            Lux_Yellow = 1;
-            break;
-        case 3:
-            time = 0;
-            count_lux = 0;
-            break;
         }
     }
     return;
@@ -247,16 +212,18 @@ int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuova
 
 Time GetTime()
 {
-    Time time;
+    int time;
     struct
     {
         unsigned int Val:7;
     }shortInt;
     
-    shortInt.Val=dataFromGateway[4];
-    time=dataFromGateway[3];
+    shortInt.Val=dataFromGateway[3];
+    time=shortInt.Val;
     time=time<<7;
-    time+=shortInt.Val;
+    
+    shortInt.Val=dataFromGateway[4];
+    time=shortInt.Val;
     
     return time;
 }
@@ -317,20 +284,6 @@ void __interrupt() ISR()
     {
         TMR1IF = 0;
         timerReadFromGateway++;
-        count_lux++;
-        if (count_lux >= Time_Red)
-        {
-            time = 1;
-        }
-        if ((count_lux >= Time_Yellow) && time == 2)
-        {
-            time = 3;
-        }
-        if ((count_lux >= Time_Green) && time == 1)
-        {
-            time = 2;
-        }
-        
         
         TMR1H = 60;             // preset for timer1 MSB 
         TMR1L = 176;            // preset for timer1 LSB 
