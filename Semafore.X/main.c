@@ -3,6 +3,7 @@
  * Author: Rigna
  *
  * Created on 15 maggio 2020, 16.07
+ TODO: Gestione sensori e controlli
  */
 
 #pragma config FOSC = HS  // Oscillator Selection bits (RC oscillator)
@@ -22,28 +23,27 @@
 #define CHS0 3
 #define ADFM 7
 
-#define Disp1 PORTAbits.RA2
-#define Disp2 PORTAbits.RA3
-#define Disp3 PORTAbits.RA4
+#define Disp1 PORTAbits.RA2 //Bit per l'accensione e spegnimento del display 1
+#define Disp2 PORTAbits.RA3 //Bit per l'accensione e spegnimento del display 2
+#define Disp3 PORTAbits.RA4 //Bit per l'accensione e spegnimento del display 3
 
-char str[4]; //stringa di salvatagio per la conversione da int to string
-const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
-char unita, decine, centinaia;
-unsigned char disp = 0;
-unsigned int count = 0;
-unsigned char count_lux = 0;
-char comando = 0; //Prende il dato dalla seriale
-char by1 = 0;     //Primo byte ricevuto
-char by2 = 0;     //Secondo byte ricevuto
-unsigned char count_delay = 0;
-unsigned char Time_Red = 10;
-unsigned char Time_Yellow = 5;
-unsigned char Time_Green = 10;
-unsigned char time = 0;
-char lux_select = 0;
-unsigned char countdown = 0;
-unsigned char car = 0;
-unsigned char truck = 0;
+char str[4];                                                                           //stringa di salvatagio per la conversione da int to string
+const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F}; //Rappresentazioni numeriche su display 7 segmenti
+char unita, decine, centinaia;                                                         //divisione per la rappresentazione sul display
+unsigned char disp = 0;                                                                //Variabile per lo scambio del display
+unsigned int count = 0;                                                                //conteggio per la pressione del tasto conta mezzi
+unsigned char count_lux = 0;                                                           //conteggio per il timer1 e quando sarà arrivato a 20 è passato un secondo
+char comando = 0;                                                                      //Prende il dato dalla seriale
+char by1 = 0;                                                                          //Primo byte ricevuto
+char by2 = 0;                                                                          //Secondo byte ricevuto
+unsigned char Time_Red = 10;                                                           //Tempo per la luce rossa (Valore defult quando si accende 10s *può essere modificato*)
+unsigned char Time_Yellow = 5;                                                         //Tempo per la luce gialla (Valore defult quando si accende 5 *può essere modificato*)
+unsigned char Time_Green = 10;                                                         //Tempo per la luce verde (Valore defult quando si accende 10s *può essere modificato*)
+unsigned char time = 0;                                                                //Variabile per il conteggio in secondi
+char lux_select = 0;                                                                   //Variabile di supporto al conteggio "time" presente nel interrupt sul timer1
+unsigned char countdown = 0;                                                           //Conto alla rovescia per i display
+unsigned char car = 0;                                                                 //conteggio macchine
+unsigned char truck = 0;                                                               //conteggio camion
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
@@ -73,11 +73,13 @@ void main(void)
     //richiesta dati al raspberry
     //atendi un tempo
     //oltre ciò se non ha ricevuto niente mette dei dati standard
+    //*Inizializzazione delle luci -->
     char Lux_Red = 1;
     char Lux_Yellow = 0;
     char Lux_Green = 0;
+    //* end <--
     while (1)
-    {
+    { //! Parte da rivedere (Gestione delle luci e tempistica) -->
         if ((time >= Time_Red) && lux_select == 0)
         {
             time = 0;
@@ -93,16 +95,20 @@ void main(void)
             lux_select = 2;
             time = 0;
         }
-        switch (lux_select)
-        {
+        //! end <--
+        switch (lux_select) //Gestione delle luci del semaforo e del countdown per il display
+        {                   //TODO: trasformare in una funzione che verrà poi richiamata
         case 0:
+            /* 
+            Vengono spente le luci degli altri colori e viene accesa solo quella che deve essere accesa
+             */
             Lux_Yellow = 0;
             Lux_Green = 0;
             Lux_Red = 1;
-            countdown = Time_Red - time;
-            centinaia = countdown / 100;
-            decine = (countdown % 100) / 10;
-            unita = (countdown % 100) % 10;
+            countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
+            centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
+            decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
+            unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
             break;
         case 1:
             Lux_Yellow = 0;
@@ -123,13 +129,13 @@ void main(void)
             unita = (countdown % 100) % 10;
             break;
         }
-        switch (disp)
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
         case 0:
             Disp2 = 0;
             Disp3 = 0;
             Disp1 = 1;
-            PORTD = display[unita];
+            PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
             break;
         case 1:
             Disp1 = 0;
@@ -252,7 +258,7 @@ void __interrupt() ISR()
         }
         if (PORTBbits.RB3) //al rilascio del tasto eseguo il conteggio in base alla pressione
         {
-            if (count >= 1000)
+            if (count >= 500)
             {
                 car++;
             }
@@ -262,7 +268,6 @@ void __interrupt() ISR()
             }
             count = 0;
         }
-
         TMR0 = 6;
     }
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
@@ -332,8 +337,8 @@ void bitParita(char *rx)
     }
     if (error != 0) //se è stato trovato un errore passerà alla sue correzione
     {
-        //correction = (char)pow(2, errorColumn - 1);
-        // rx[errorRow] = correction;
+        ////correction = (char)pow(2, errorColumn - 1);
+        ////rx[errorRow] = correction;
         rx[errorRow] = bitChage(rx[errorRow], errorColumn);
     }
 }
