@@ -22,10 +22,15 @@
 #define ADON 0
 #define CHS0 3
 #define ADFM 7
+
 #define Disp1 PORTAbits.RA2
 #define Disp2 PORTAbits.RA3
 #define Disp3 PORTAbits.RA4
-
+//*Inizializzazione delle luci -->
+#define Lux_Red PORTBbits.RB5
+#define Lux_Yellow PORTBbits.RB6
+#define Lux_Green PORTBbits.RB7
+//* end <--
 struct
 {
     unsigned int Bit : 1;
@@ -85,9 +90,9 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISB = 0xBF;
+    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
-    TRISD = 0x00;
+    TRISD = 0x00; //Porta per i 7 segmenti (Output)
     TRISE = 0x00;
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
@@ -104,12 +109,8 @@ void main(void)
     */
     int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
     char tmp;
-    //*Inizializzazione delle luci -->
-    char Lux_Red = 1;
-    char Lux_Yellow = 0;
-    char Lux_Green = 0;
-    //* end <--
-
+    char old_disp = 9;
+    char old_lux_select = 9;
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -119,13 +120,13 @@ void main(void)
             {
                 readGatewayDone.Bit = 1;
                 readGatewayDone.Timeout = 1;
-                readGateway.Bit=0;
+                readGateway.Bit = 0;
             }
             if (dataFromGatewayIndex >= 15)
             {
                 readGatewayDone.Bit = 1;
                 readGatewayDone.Timeout = 0;
-                readGateway.Bit=0;
+                readGateway.Bit = 0;
             }
         }
 
@@ -159,10 +160,12 @@ void main(void)
                 }
             }
         }
-
-        Time_Red = colorsTime[0];
-        Time_Green = colorsTime[1];
-        Time_Yellow = colorsTime[2];
+        if ((Time_Red + Time_Green + Time_Yellow) != (colorsTime[0] + colorsTime[1] + colorsTime[2]))
+        {
+            Time_Red = colorsTime[0];
+            Time_Green = colorsTime[1];
+            Time_Yellow = colorsTime[2];
+        }
 
         //! Parte da rivedere (Gestione delle luci e tempistica) -->
         if ((time >= Time_Red) && lux_select == 0)
@@ -172,8 +175,8 @@ void main(void)
         }
         if ((time >= Time_Yellow) && lux_select == 2)
         {
-            lux_select = 0;
             time = 0;
+            lux_select = 0;
         }
         if ((time >= Time_Green) && lux_select == 1)
         {
@@ -189,52 +192,63 @@ void main(void)
              */
             Lux_Yellow = 0;
             Lux_Green = 0;
-            Lux_Red = 1;
+            Lux_Red = 0;
             countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
             centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
             decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
             unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
             break;
         case 1:
-            Lux_Yellow = 0;
-            Lux_Red = 0;
-            Lux_Green = 1;
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Yellow = 0;
+                Lux_Red = 0;
+                Lux_Green = 1;
+            }
             countdown = Time_Green - time;
             centinaia = countdown / 100;
             decine = (countdown % 100) / 10;
             unita = (countdown % 100) % 10;
             break;
         case 2:
-            Lux_Green = 0;
-            Lux_Red = 0;
-            Lux_Yellow = 1;
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Green = 0;
+                Lux_Red = 0;
+                Lux_Yellow = 1;
+            }
             countdown = Time_Yellow - time;
             centinaia = countdown / 100;
             decine = (countdown % 100) / 10;
             unita = (countdown % 100) % 10;
             break;
         }
-
-        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+        if (disp != old_disp)
         {
-        case 0:
-            Disp2 = 0;
-            Disp3 = 0;
-            Disp1 = 1;
-            PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-            break;
-        case 1:
-            Disp1 = 0;
-            Disp3 = 0;
-            Disp2 = 1;
-            PORTD = display[decine];
-            break;
-        case 2:
-            Disp1 = 0;
-            Disp2 = 0;
-            Disp3 = 1;
-            PORTD = display[centinaia];
-            break;
+            old_disp = disp;
+            switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+            {
+            case 0:
+                Disp2 = 0;
+                Disp3 = 0;
+                Disp1 = 1;
+                PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                break;
+            case 1:
+                Disp1 = 0;
+                Disp3 = 0;
+                Disp2 = 1;
+                PORTD = display[decine];
+                break;
+            case 2:
+                Disp1 = 0;
+                Disp2 = 0;
+                Disp3 = 1;
+                PORTD = display[centinaia];
+                break;
+            }
         }
     }
     return;
@@ -242,7 +256,7 @@ void main(void)
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
-    TRISA = 0xF3;   //imposto i pin come ingressi
+    TRISA = 0xE3;   //imposto i pin come ingressi
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
     __delay_us(10); //delay condensatore 10us
