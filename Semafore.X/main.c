@@ -50,9 +50,9 @@ typedef struct
 */
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
-const char display[11] = {0xEE, 0x28, 0xCD, 0x6D, 0x2B, 0x67, 0xE7, 0x2C, 0xEF, 0x6F};
+const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 char unita, decine, centinaia;
-unsigned char disp = 0;
+unsigned char disp;
 unsigned int count = 0;
 unsigned char count_lux = 0;
 char comando = 0; //Prende il dato dalla seriale
@@ -63,7 +63,6 @@ unsigned char Time_Red = 10;
 unsigned char Time_Yellow = 5;
 unsigned char Time_Green = 10;
 unsigned char time = 0;
-char lux_select = 0;
 unsigned char countdown = 0;
 unsigned char car = 0;
 unsigned char truck = 0;
@@ -109,8 +108,11 @@ void main(void)
     */
     int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
     char tmp;
-    char old_disp = 9;
+    char lux_select = 0;
     char old_lux_select = 9;
+    disp = 0;
+    char old_disp = 9;
+
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -160,6 +162,7 @@ void main(void)
                 }
             }
         }
+
         if ((Time_Red + Time_Green + Time_Yellow) != (colorsTime[0] + colorsTime[1] + colorsTime[2]))
         {
             Time_Red = colorsTime[0];
@@ -190,9 +193,13 @@ void main(void)
             /* 
             Vengono spente le luci degli altri colori e viene accesa solo quella che deve essere accesa
              */
-            Lux_Yellow = 0;
-            Lux_Green = 0;
-            Lux_Red = 0;
+            if (lux_select != old_lux_select)
+            {
+                old_lux_select = lux_select;
+                Lux_Yellow = 0;
+                Lux_Green = 0;
+                Lux_Red = 0;
+            }
             countdown = Time_Red - time;     //nella Variabile viene preso il tempo del colore e sottratto con il tempo che avanza
             centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
             decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
