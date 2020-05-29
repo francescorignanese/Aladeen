@@ -80,45 +80,52 @@ void main(void)
     //* end <--
     while (1)
     {
-        {
             //se si stanno ricevendo dati dalla seriale
-            if (readGateway.Bit)
+            if(readGateway.Bit)
             {
-                if (timerReadFromGateway >= 80)
+                if(timerReadFromGateway>=80) //1s ogni 20 => if scatta dopo un timer di 4s
                 {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 1;
+                    readGatewayDone.Bit=1;
+                    readGatewayDone.Timeout=1;
                 }
-
-                if (dataFromGatewayIndex >= 5)
+            
+                if(dataFromGatewayIndex>=15)
                 {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 0;
+                    readGatewayDone.Bit=1;
+                    readGatewayDone.Timeout=0;
                 }
             }
-
+        
             //cose da fare terminata la lettura dalla seriale
-            if (readGatewayDone.Bit)
+            if(readGatewayDone.Bit)
             {
                 //resetta le variabili per la lettura
-                readGateway.Bit = 0;
-                dataFromGatewayIndex = 0;
-
-                //se c'ï¿½ stato un timeout
-                if (readGatewayDone.Timeout)
+                readGateway.Bit=0;
+                dataFromGatewayIndex=0;
+            
+                //se c'è stato un timeout
+                if(readGatewayDone.Timeout)
                 {
                     //cose da fare...
                 }
                 else
                 {
                     bitParita(dataFromGateway);
-
-                    tmp = (dataFromGateway[0] >> 5) & 0x60;
-                    time = GetTime();
-
-                    colorsTime[tmp] = time;
+                
+                    for(int i=0; i<3; i++)
+                    {
+                        //tmp=(dataFromGateway[0]>>5)&0x60;
+                        colorIndex=((*Bytes[i])[0]>>5)&0x60;
+                        colorsTime[colorIndex]=GetTime(*Bytes[i]);
+                    }
                 }
             }
+         
+            
+            Time_Red=colorsTime[0];
+            Time_Green=colorsTime[1];
+            Time_Yellow=colorsTime[2];
+            
             //! Parte da rivedere (Gestione delle luci e tempistica) -->
             if ((time >= Time_Red) && lux_select == 0)
             {
@@ -190,10 +197,9 @@ void main(void)
                 PORTD = display[centinaia];
                 break;
             }
-        }
         return;
     }
-
+}
     //inizializzo ADC (potenziometro)
     void init_ADC()
     {
@@ -281,22 +287,48 @@ void main(void)
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     }
 
+    
+    
+    int GetTime(ProtocolBytes data)
+{
+    int time;
+    struct
+    {
+        unsigned int Val:7;
+    }shortInt;
+    
+    shortInt.Val=dataFromGateway[3];
+    time=shortInt.Val;
+    time=time<<7;
+    
+    shortInt.Val=dataFromGateway[4];
+    time=shortInt.Val;
+    
+    return time;
+}
+
     void __interrupt() ISR()
     {
         //RICEVE DATI DA SERIALE
-        if (RCIF && readGateway.Bit == 0)
+        if(RCIF && readGateway.Bit==0)
         {
-            readGateway.Bit = 1;
-            readGatewayDone.Bit = 0;
-            readGatewayDone.Timeout = 0;
-            dataFromGatewayIndex = 0;
-            timerReadFromGateway = 0;
+            readGateway.Bit=1;
+            readGatewayDone.Bit=0;
+            readGatewayDone.Timeout=0;
+            dataFromGatewayIndex=0;
+            timerReadFromGateway=0;
         }
-        if (RCIF && readGateway.Bit == 1)
-        {
-            dataFromGateway[dataFromGatewayIndex] = UART_Read();
+        if(RCIF && readGateway.Bit==1)
+        {        
+            dataFromGateway[dataFromGatewayIndex%5]=UART_Read();
+        
             dataFromGatewayIndex++;
-            timerReadFromGateway = 0;
+            timerReadFromGateway=0;
+        
+            if(dataFromGatewayIndex%5==0)
+            {
+                Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
+            }
         }
 
         //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice

@@ -334,14 +334,7 @@ void __interrupt() ISR()
         timerReadFromGateway=0;
     }
     if(RCIF && readGateway.Bit==1)
-    {
-        /*
-        if(dataFromGatewayIndex==0)
-        {
-            colorIndex=(dataFromGateway[dataFromGatewayIndex]>>5)&0x60;
-        }
-        */
-        
+    {        
         dataFromGateway[dataFromGatewayIndex%5]=UART_Read();
         
         dataFromGatewayIndex++;
