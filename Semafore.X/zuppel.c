@@ -62,7 +62,7 @@ unsigned char countdown = 0;
 unsigned char car = 0;
 unsigned char truck = 0;
 char dataFromGatewayIndex=0;            //indice array dati da seriale
-typedef char ProtocolBytes[5];          //array dati da seriale
+typedef char ProtocolBytes[15];          //array dati da seriale
 ProtocolBytes dataFromGateway;
 ProtocolBytes *Bytes[3];
 int timerReadFromGateway;               //timer per definire se la lettura dati eccede un tempo limite
@@ -83,7 +83,7 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISA=0x00;
+    //TRISA=0x00;
     TRISB = 0x00;
     TRISC = 0x80;
     TRISD = 0x00;
@@ -342,20 +342,31 @@ void __interrupt() ISR()
         timerReadFromGateway=0;
     }
     if(RCIF && readGateway.Bit==1)
-    {        
-        dataFromGateway[dataFromGatewayIndex%5]=UART_Read();
+    {
+        //dataFromGateway[dataFromGatewayIndex%5]=UART_Read();
+        dataFromGateway[dataFromGatewayIndex]=UART_Read();
         
         dataFromGatewayIndex++;
         timerReadFromGateway=0;
         //UART_TxChar(dataFromGateway[dataFromGatewayIndex%5]);
-        if(dataFromGatewayIndex%5==0)
+        if(dataFromGatewayIndex==15)
         {
             Bytes[dataFromGatewayIndex/5]=&dataFromGateway;
-            UART_TxChar(*(Bytes[0])[0]);
-            UART_TxChar(*(Bytes[0])[1]);
-            UART_TxChar(*(Bytes[0])[2]);
-            UART_TxChar(*(Bytes[0])[3]);
-            UART_TxChar(*(Bytes[0])[4]);
+            UART_TxChar(dataFromGateway[0]);
+            UART_TxChar(dataFromGateway[1]);
+            UART_TxChar(dataFromGateway[2]);
+            UART_TxChar(dataFromGateway[3]);
+            UART_TxChar(dataFromGateway[4]);
+            UART_TxChar(dataFromGateway[5]);
+            UART_TxChar(dataFromGateway[6]);
+            UART_TxChar(dataFromGateway[7]);
+            UART_TxChar(dataFromGateway[8]);
+            UART_TxChar(dataFromGateway[9]);
+            UART_TxChar(dataFromGateway[10]);
+            UART_TxChar(dataFromGateway[11]);
+            UART_TxChar(dataFromGateway[12]);
+            UART_TxChar(dataFromGateway[13]);
+            UART_TxChar(dataFromGateway[14]);
         }
     }
     
@@ -389,8 +400,8 @@ void __interrupt() ISR()
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR1IF) //timer1 "TMR1IF", DURATA: 0.05s
     {
-        TMR1IF = 0;
         timerReadFromGateway++;
+        TMR1IF = 0;
         
         TMR1H = 60;             // preset for timer1 MSB 
         TMR1L = 176;            // preset for timer1 LSB 
