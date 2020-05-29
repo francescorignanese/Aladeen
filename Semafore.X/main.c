@@ -89,7 +89,6 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISA=0x00;
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00; //Porta per i 7 segmenti (Output)
@@ -164,7 +163,8 @@ void main(void)
             }
         }
 
-        if ((Time_Red + Time_Green + Time_Yellow) != (colorsTime[0] + colorsTime[1] + colorsTime[2]))
+        //se avviene qualche cambiamento allora aggornero i tempi
+        if ((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2]))
         {
             Time_Red = colorsTime[0];
             Time_Green = colorsTime[1];
@@ -172,17 +172,17 @@ void main(void)
         }
 
         //! Parte da rivedere (Gestione delle luci e tempistica) -->
-        if ((time >= Time_Red) && lux_select == 0)
+        if ((time >= Time_Red) && lux_select == 0) //finchè il conteggio non ha superato il tempo prestabilito non passa alla luce successiva
         {
             time = 0;
             lux_select = 1;
         }
-        if ((time >= Time_Yellow) && lux_select == 2)
+        if ((time >= Time_Yellow) && lux_select == 2) //finchè il conteggio non ha superato il tempo prestabilito non passa alla luce successiva
         {
             time = 0;
             lux_select = 0;
         }
-        if ((time >= Time_Green) && lux_select == 1)
+        if ((time >= Time_Green) && lux_select == 1) //finchè il conteggio non ha superato il tempo prestabilito non passa alla luce successiva
         {
             lux_select = 2;
             time = 0;
@@ -194,7 +194,7 @@ void main(void)
             /* 
             Vengono spente le luci degli altri colori e viene accesa solo quella che deve essere accesa
              */
-            if (lux_select != old_lux_select)
+            if (lux_select != old_lux_select) //lo esegue solo al cambio di "lux_select"
             {
                 old_lux_select = lux_select;
                 Lux_Yellow = 0;
@@ -207,7 +207,7 @@ void main(void)
             unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
             break;
         case 1:
-            if (lux_select != old_lux_select)
+            if (lux_select != old_lux_select) //lo esegue solo al cambio di "lux_select"
             {
                 old_lux_select = lux_select;
                 Lux_Yellow = 0;
@@ -220,7 +220,7 @@ void main(void)
             unita = (countdown % 100) % 10;
             break;
         case 2:
-            if (lux_select != old_lux_select)
+            if (lux_select != old_lux_select) //lo esegue solo al cambio di "lux_select"
             {
                 old_lux_select = lux_select;
                 Lux_Green = 0;
@@ -233,7 +233,8 @@ void main(void)
             unita = (countdown % 100) % 10;
             break;
         }
-        if (disp != old_disp)
+
+        if (disp != old_disp) //Lo esegue solo quando "disp" cambia
         {
             old_disp = disp;
             switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
@@ -248,13 +249,13 @@ void main(void)
                 Disp1 = 0;
                 Disp3 = 0;
                 Disp2 = 1;
-                PORTD = display[decine];
+                PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             case 2:
                 Disp1 = 0;
                 Disp2 = 0;
                 Disp3 = 1;
-                PORTD = display[centinaia];
+                PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             }
         }
@@ -264,7 +265,7 @@ void main(void)
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
-    TRISA = 0xE3;   //imposto i pin come ingressi
+    TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
     __delay_us(10); //delay condensatore 10us
@@ -278,7 +279,8 @@ int ADC_Read(char canale)
     //ADCON0 |= canale << 3; //e setto il canale da convertire (ADCON0)
     __delay_us(2); //attendo 1.6 uS
     GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE);                          //attendo la fine della conversione
+    while (GO_nDONE)
+        ;                          //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
@@ -321,7 +323,8 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    while (!TXIF)
+        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
     TXIF = 0; //lo resetto
     TXREG = ch;
 }
@@ -337,7 +340,8 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF);
+    while (!RCIF)
+        ;
     RCIF = 0;
     return RCREG;
 }
@@ -371,7 +375,7 @@ void bitParita(char *rx)
     {
         for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
         {
-            sommaRow += (rx[i] >> y) & 1;
+            sommaRow += (rx[i] >> y) & 1; //cicla sulle riga del byte
         }
         if (sommaRow % 2 == 1) //Controlla se la somma è pari o dispari
         {
@@ -384,7 +388,7 @@ void bitParita(char *rx)
         for (int y = 0; y < 4; y++)
         // Ciclo per fare la somma di tutti i bit della colonna
         {
-            sommaColumn += (rx[y] >> i) & 1;
+            sommaColumn += (rx[y] >> i) & 1; //cicla sulle colonne
         }
         if (sommaColumn % 2 == 1) //Controlla se la somma è pari o dispari
         {
@@ -464,12 +468,12 @@ void __interrupt() ISR()
         TMR1IF = 0; //resetto timer1
         count_lux++;
         disp++;
-        if (count_lux >= 20)
+        if (count_lux >= 20) //conteggio per arrivare ad un secondo
         {
             time++;
             count_lux = 0;
         }
-        if (disp == 3)
+        if (disp == 3) //Variabile per shiftare da display a display
         {
             disp = 0;
         }
