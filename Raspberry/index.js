@@ -21,7 +21,7 @@ function parseMsg(data) {
 
 	//creiamo due variabili dove inserire il balore binario dei cinque byte
 	let byte1 = parseInt(data[0], 10).toString(2).padStart(8, '0');
-	let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');	
+	let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');
 	let byte3 = parseInt(data[2], 10).toString(2).padStart(8, '0');
 	let byte4 = parseInt(data[3], 10).toString(2).padStart(8, '0');
 	let byte5 = parseInt(data[4], 10).toString(2).padStart(8, '0');
@@ -54,7 +54,7 @@ function parseMsg(data) {
 	let clean_value4 = arrayBin[3].substring(1,8);
 	console.log("value bin", clean_value4, clean_value3);
 	let value = clean_value4.concat(clean_value3);
-	var decimal = parseInt(value, 2);
+	var decimal = parseInt(value, 2); //parso il binario in decimale
 	console.log(decimal);
 
 	let corrupted = false;
@@ -90,11 +90,12 @@ function parseMsg(data) {
 	client.set(key, decimal, redis.print);
 	client.get(key, redis.print);
 
-	client.rpush(['test-key', "l1"], function (err, reply) {
+	client.rpush('list-traffic', decimal, function (err, reply) {
 		console.log("Queue Length", reply);
 	});
-	client.rpush(['test-key', "l1", "l2"], function (err, reply) {
-		console.log("Queue Length", reply);
+
+	client.lrange('list-traffic', 0, -1, function(err, reply) {
+		console.log(reply);
 	});
 }
 

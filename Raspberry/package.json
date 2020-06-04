@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Francesco-Rignanese/Aladeen#readme",
   "dependencies": {
+    "redis": "^3.0.2",
     "serialport": "^9.0.0"
   }
 }
