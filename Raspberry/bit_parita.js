@@ -19,7 +19,7 @@ function error_control(data) {
     var err_col;
     var err_riga;
     var somma_riga;
-    var corrupted=0;
+    var corrupted = 0;
 
     //controllo righe
     for (let i = 0; i < 5; i++) {
@@ -49,7 +49,7 @@ function error_control(data) {
 
 
     //controllo presenza errori
-    if (err_col == null && err_riga==null) {
+    if (err_col == null && err_riga == null) {
         console.log("Nessun errore presente");
         console.log(Boolean(corrupted));
     }
@@ -66,12 +66,12 @@ function error_control(data) {
             wrong_bit = 1;
         }
         //sostituzione del bit sbagliato con quello corretto
-        data[err_col][err_riga]=wrong_bit;
+        data[err_col][err_riga] = wrong_bit;
         console.log("Il bit è stato corretto con: " + wrong_bit);
         console.log(data);
 
         //feedback che notifica tramite boleana che il byte è corrotto
-        corrupted=1;
+        corrupted = 1;
         console.log(Boolean(corrupted));
     }
 

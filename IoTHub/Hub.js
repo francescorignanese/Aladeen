@@ -17,16 +17,16 @@ var serviceClient = Client.fromConnectionString(config.get('Hub.connectionString
 
 //inviare un messagio di esempio ad un dispositivo
 serviceClient.open(function (err) {
-    if (err) {
-      console.error('Could not connect: ' + err.message);
-    } else {
-      console.log('Service client connected');
-      serviceClient.getFeedbackReceiver(receiveFeedback);
-      
-      var message = new Message('Test message');
-      //message.ack = 'full';
-      //message.messageId = "My Message ID";
-      //console.log('Sending message: ' + message.getData());
-      serviceClient.send(clientConfig[0].id, message, printResultFor('send'));
-    }
-  });
+  if (err) {
+    console.error('Could not connect: ' + err.message);
+  } else {
+    console.log('Service client connected');
+    serviceClient.getFeedbackReceiver(receiveFeedback);
+
+    var message = new Message('Test message');
+    //message.ack = 'full';
+    //message.messageId = "My Message ID";
+    //console.log('Sending message: ' + message.getData());
+    serviceClient.send(clientConfig[0].id, message, printResultFor('send'));
+  }
+});

@@ -1,4 +1,4 @@
-var config= require('config');
+var config = require('config');
 'use strict';
 
 var uuid = require('uuid');
@@ -14,7 +14,7 @@ var client = Client.fromConnectionString(clientConfig[0].connectionString, Proto
 client.open(function (err) {
   if (err) {
     console.error('Could not connect: ' + err.message);
-  } 
+  }
   else {
     console.log('Client connected');
 

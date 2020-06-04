@@ -8,20 +8,20 @@ const parser = port.pipe(new ByteLength({ length: 5 }))
 parser.on('data', parseMsg)
 
 function parseMsg(data) {
-        console.log(data);
+	console.log(data);
 
-        //per ogni elemento del buffer ricevuto via seriale, estraiamo il valore in binario
-        let msgSize = data.length;
-        for (let i = 0; i < msgSize; i++) {
-                let valore = parseInt(data[i], 10).toString(2);
-                //aggiungiamo gli 0 omessi perchè non significanti
-                console.log(valore.padStart(8, '0'));
+	//per ogni elemento del buffer ricevuto via seriale, estraiamo il valore in binario
+	let msgSize = data.length;
+	for (let i = 0; i < msgSize; i++) {
+		let valore = parseInt(data[i], 10).toString(2);
+		//aggiungiamo gli 0 omessi perchè non significanti
+		console.log(valore.padStart(8, '0'));
 
-        }
+	}
 
-    //creiamo due variabili dove inserire il balore binario dei cinque byte
+	//creiamo due variabili dove inserire il balore binario dei cinque byte
 	let byte1 = parseInt(data[0], 10).toString(2).padStart(8, '0');
-	let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');	
+	let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');
 	let byte3 = parseInt(data[2], 10).toString(2).padStart(8, '0');
 	let byte4 = parseInt(data[3], 10).toString(2).padStart(8, '0');
 	let byte5 = parseInt(data[4], 10).toString(2).padStart(8, '0');
@@ -36,26 +36,26 @@ function parseMsg(data) {
 	let id_sa = byte1.substring(3, 7);   //posiz. 4, 3, 2, 1 bit del byte : ID Sensore / Attuatore
 	let sa = byte1.substring(7); //posiz. 0 mi identifica se è un sensore o un attuatore
 	let bit_parità = byte1.substring(0, 1);
-    let corrupted = false;
-	if(!corrupted) {
-		
+	let corrupted = false;
+	if (!corrupted) {
+
 		if (sa === "0") { //se è un sensore
 			switch (id_sa) {
 				case "1010":
-						console.log("Temperatura");
-						break;
+					console.log("Temperatura");
+					break;
 				case "1110":
-						console.log("Umidità");
-						break;
+					console.log("Umidità");
+					break;
 				case "1100":
-						console.log("Traffico");
-						break;
+					console.log("Traffico");
+					break;
 				case "1000":
-						console.log("Temporizzazione");
-						break;
+					console.log("Temporizzazione");
+					break;
 			}
-		} 
-		
+		}
+
 		console.log('................')
 	}
 }
