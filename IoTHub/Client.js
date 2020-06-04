@@ -31,7 +31,7 @@ client.open(function (err) {
     // A message can have custom properties that are also encoded and can be used for routing
     //message.properties.add('propertyName', 'propertyValue');
 
-    // A unique identifier can be set to easily track the message in your application
+    // A unique identifier 
     message.messageId = uuid.v4();
 
     console.log('Sending message: ' + message.getData());
