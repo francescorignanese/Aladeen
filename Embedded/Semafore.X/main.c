@@ -3,6 +3,7 @@
  * Author: Rigna
  *
  * Created on 15 maggio 2020, 16.07
+ * Project Work
  TODO: Gestione sensori,controlli (integrare funzioni e migliorire al codice)
  */
 
@@ -23,13 +24,13 @@
 #define CHS0 3
 #define ADFM 7
 
-#define Disp1 PORTAbits.RA2
-#define Disp2 PORTAbits.RA3
-#define Disp3 PORTAbits.RA4
+#define Disp1 PORTAbits.RA2 //display1 7 segmenti
+#define Disp2 PORTAbits.RA3 //display2 7 segmenti
+#define Disp3 PORTAbits.RA4 //display3 7 segmenti
 //*Inizializzazione delle luci -->
-#define Lux_Red PORTBbits.RB5
-#define Lux_Yellow PORTBbits.RB6
-#define Lux_Green PORTBbits.RB7
+#define Lux_Red PORTBbits.RB5    //luce rossa
+#define Lux_Yellow PORTBbits.RB6 //luce gialla
+#define Lux_Green PORTBbits.RB7  //luce verde
 //* end <--
 struct
 {
@@ -50,22 +51,22 @@ typedef struct
 */
 
 char str[4]; //stringa di salvatagio per la conversione da int to string
+//Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-char unita, decine, centinaia;
-unsigned char disp;
-unsigned int count = 0;
-unsigned char count_lux = 0;
-char comando = 0; //Prende il dato dalla seriale
-char by1 = 0;     //Primo byte ricevuto
-char by2 = 0;     //Secondo byte ricevuto
-unsigned char count_delay = 0;
-unsigned char Time_Red = 10;
-unsigned char Time_Yellow = 5;
-unsigned char Time_Green = 10;
-unsigned char time = 0;
-unsigned char countdown = 0;
-unsigned char car = 0;
-unsigned char truck = 0;
+char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
+unsigned char disp;            //varibile per fare lo switch in loop tra i dislpay
+unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
+unsigned char count_lux = 0;   //conteggio per il tempo delle luci
+char comando = 0;              //Prende il dato dalla seriale
+char by1 = 0;                  //Primo byte ricevuto
+char by2 = 0;                  //Secondo byte ricevuto
+unsigned char Time_Red = 10;   //tempo luce rossa (pre-impostato a 10s)
+unsigned char Time_Yellow = 5; //tempo luce gialla (pre-impostato a 10s)
+unsigned char Time_Green = 10; //tempo luce verde (pre-impostato a 10s)
+unsigned char time = 0;        //variabile per contare i secondi
+unsigned char countdown = 0;   //variabile per il conto alla rovescia
+unsigned char car = 0;         //variabile per contare le macchine
+unsigned char truck = 0;       //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 typedef char ProtocolBytes[5]; //array dati da seriale
 ProtocolBytes dataFromGateway;
@@ -89,16 +90,16 @@ int GetTime(ProtocolBytes data);
 
 void main(void)
 {
-    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
-    TRISC = 0x80;
-    TRISD = 0x00; //Porta per i 7 segmenti (Output)
-    TRISE = 0x00;
+    TRISB = 0x1F;      //B:00011111 gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISC = 0x80;      //C:10000000
+    TRISD = 0x00;      //Porta per i 7 segmenti (Output)
+    TRISE = 0x00;      //E:00000000
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
     //TMR1 = 0x00;
-    PIE1 = 0x01;
+    //?PIE1 = 0x01;
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
     TMR1H = 60;  // preset for timer1 MSB register
     TMR1L = 176; // preset for timer1 LSB register
@@ -107,11 +108,10 @@ void main(void)
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
     int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
-    char tmp;
-    char lux_select = 0;
-    char old_lux_select = 9;
-    disp = 0;
-    char old_disp = 9;
+    char lux_select = 0;     //selezione luce per il semaforo
+    char old_lux_select = 9; //salva il vecchio stato
+    disp = 0;                //inizializzo a 0
+    char old_disp = 9;       //salva il vecchio stato
 
     while (1)
     {
