@@ -101,8 +101,10 @@ void main(void)
     //TMR1 = 0x00;
     //?PIE1 = 0x01;
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-    TMR1H = 60;  // preset for timer1 MSB register
-    TMR1L = 176; // preset for timer1 LSB register
+    TMR1H = 60;      // preset for timer1 MSB register
+    TMR1L = 176;     // preset for timer1 LSB register
+    init_ADC();      //Inizializzazione adc
+    UART_Init(9600); //Inizializzazione seriale a 9600 b
     /* 
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
@@ -112,6 +114,9 @@ void main(void)
     char old_lux_select = 9; //salva il vecchio stato
     disp = 0;                //inizializzo a 0
     char old_disp = 9;       //salva il vecchio stato
+    char temp = 0;           //Variabile per salvare la temperatura
+    char umidita = 0;        //Variabile per salvare l'umidita
+    unsigned char old_time = 1;
 
     while (1)
     {
@@ -259,12 +264,21 @@ void main(void)
                 break;
             }
         }
+        //*Gestione sensori -->
+        if (time != old_time) //legge i sensori ogni secondo
+        {
+            old_time = time;
+            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
+            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
+        }
+        //*end <--
     }
     return;
 }
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
+    //TRISA = 0xC3; per usare anche RA5
     TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
