@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@ViewData["Title"] - Semaforo</title>
+    <title>@ViewData["Title"] - Aladeen</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -37,7 +37,7 @@
     @RenderSection("Headers", required: false)
 
     <!-- ICONS -->
-    <link rel="icon" type="image/x-icon" sizes="96x96" href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" sizes="96x96" href="~/img/brand/AladeenLogo.png">
 </head>
 
 <!-- BODY -->
@@ -58,34 +58,12 @@
 
         <main class="main">
 
-            <!-- Breadcrumb-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">Home</li>
-                <li class="breadcrumb-item">
-                    <a href="#">Admin</a>
-                </li>
-                <li class="breadcrumb-item active">Dashboard</li>
-                <!-- Breadcrumb Menu-->
-                <li class="breadcrumb-menu d-md-down-none">
-                    <div class="btn-group" role="group" aria-label="Button group">
-                        <a class="btn" href="#">
-                            <i class="icon-speech"></i>
-                        </a>
-                        <a class="btn" href="./">
-                            <i class="icon-graph"></i>  Dashboard
-                        </a>
-                        <a class="btn" href="#">
-                            <i class="icon-settings"></i>  Settings
-                        </a>
-                    </div>
-                </li>
-            </ol>
 
             @RenderBody()
         </main>
         <!-- END MAIN CONTENT -->
         <!-- ASIDE MENU -->
-        <partial name="_AsideMenu" />
+       
         <!-- END ASIDE MENU -->
 
 
