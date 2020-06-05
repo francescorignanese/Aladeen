@@ -24,10 +24,10 @@
 #define CHS0 3
 #define ADFM 7
 
-#define Disp1 PORTAbits.RA2
-#define Disp2 PORTAbits.RA3
-#define Disp3 PORTAbits.RA4
-#define Disp4 PORTAbits.RA5
+#define Disp1 PORTAbits.RA2 //display1 7 segmenti
+#define Disp2 PORTAbits.RA3 //display2 7 segmenti
+#define Disp3 PORTAbits.RA4 //display3 7 segmenti
+#define Disp4 PORTAbits.RA5 //display4 7 segmenti
 //*Inizializzazione delle luci -->
 #define Lux_Red PORTBbits.RB5    //luce rossa
 #define Lux_Yellow PORTBbits.RB6 //luce gialla
@@ -87,8 +87,8 @@ void UART_TxChar(char ch);                                        //Scrittura di
 void UART_Write_Text(char *text);                                 //Scrittura di una stringa sulla seriale
 char UART_Read();                                                 //Lettura dalla seriale
 int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
-char bitChage(char dato, char n);
-void bitParita(char *rx);
+char bitChage(char dato, char n);                                 //funzione per lo scambio di un bit Es. da 1 a 0 o da 0 a 1
+void bitParita(char *rx);                                         //funzione per il controllo del bit di parità
 int GetTime(ProtocolBytes data);
 void GetDigits(int Time);
 
@@ -113,15 +113,14 @@ void main(void)
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
-    int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
-    //char lux_select = 0;     //selezione luce per il semaforo
-    char old_lux_select = 9; //salva il vecchio stato
-    disp = 0;                //inizializzo a 0
-    char old_disp = 9;       //salva il vecchio stato
-    char temp = 0;           //Variabile per salvare la temperatura
-    char umidita = 0;        //Variabile per salvare l'umidita
-    unsigned char old_time = 1;
-    char lux_select = 0;
+    int colorsTime[3], time;    //0 � rosso, 1 � verde, 2 � giallo
+    char lux_select = 0;        //selezione luce per il semaforo
+    char old_lux_select = 9;    //salva il vecchio stato
+    disp = 0;                   //inizializzo a 0
+    char old_disp = 9;          //salva il vecchio stato
+    char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
+    char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
+    unsigned char old_time = 1; //serve per far leggere i valori dei sensori ogni secondo
     colorsTime[0] = 5;
     colorsTime[1] = 2;
     colorsTime[2] = 11;
@@ -207,24 +206,24 @@ void main(void)
             switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
             {
             case 4:
-                Disp4 = 1;
                 Disp3 = 0;
                 Disp2 = 0;
                 Disp1 = 0;
+                Disp4 = 1;
                 PORTD = display[lux_select]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             case 3:
                 Disp4 = 0;
-                Disp3 = 1;
                 Disp2 = 0;
                 Disp1 = 0;
+                Disp3 = 1;
                 PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             case 2:
                 Disp4 = 0;
                 Disp3 = 0;
-                Disp2 = 1;
                 Disp1 = 0;
+                Disp2 = 1;
                 PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             case 1:
