@@ -61,9 +61,6 @@ char by1 = 0;     //Primo byte ricevuto
 char by2 = 0;     //Secondo byte ricevuto
 char old_disp, disp;
 unsigned char count_delay = 0;
-unsigned char Time_Red = 10;
-unsigned char Time_Yellow = 5;
-unsigned char Time_Green = 10;
 unsigned char time = 0;
 unsigned char countdown = 0;
 unsigned char car = 0;
@@ -118,7 +115,7 @@ void main(void)
     colorsTime[2]=11;
     
     UART_Init(9600);
-
+        int luxs=0;
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -168,7 +165,7 @@ void main(void)
             }
         }
         
-        
+
         //ACCENSIONE LED IN BASE AL TEMPO
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if(secondPassed.Bit)
@@ -181,8 +178,10 @@ void main(void)
                 lux_select=(lux_select+1)%3;
                 time=0;
             }
-            
-            GetDigits(colorsTime[lux_select]-time);
+            luxs=(luxs+1)%15;
+           //GetDigits(colorsTime[lux_select]-time);
+           GetDigits(dataFromGateway[luxs]);
+            //GetDigits(luxs%14);
         }
         
         //Mostra il timer sul display
@@ -202,7 +201,7 @@ void main(void)
                     }
                     break;
                 case 1: //==> desplay delle dedcine, porta RA3
-                    if(decine>0 && centinaia>0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+                    if(decine>0 || centinaia>0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
                     {
                         Disp1 = 0;
                         Disp2 = 1;
@@ -227,7 +226,7 @@ void main(void)
                     break;
             }
         } 
-        disp=(disp+1)%4; //disp viene incrementato e ha valori tra 0 e 3
+        disp=(disp+1)%3; //disp viene incrementato e ha valori tra 0 e 3
     }
     
     return;
