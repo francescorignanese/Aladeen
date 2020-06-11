@@ -70,11 +70,9 @@ unsigned char countdown = 0;   //variabile per il conto alla rovescia
 unsigned char car = 0;         //variabile per contare le macchine
 unsigned char truck = 0;       //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
-typedef char ProtocolBytes[5]; //array dati da seriale
-char dataFromGateway[15];
-ProtocolBytes *Bytes[3];
-int timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-int colorsTime[3];        //0 � rosso, 1 � verde, 2 � giallo
+char dataFromGateway[15];      //array dati da seriale
+int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
+int colorsTime[3];             //0 � rosso, 1 � verde, 2 � giallo
 char colorIndex;
 
 void init_ADC();                                                  //Inizializza l'adc
