@@ -112,27 +112,18 @@ void main(void)
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
-
-    
-    colorsTime[0]=5;
-    colorsTime[1]=2;
-    colorsTime[2]=11;
     
     UART_Init(9600);
-	int luxs=0;
 
     int colorsTime[3], time;    //0 � rosso, 1 � verde, 2 � giallo
     char lux_select = 0;        //selezione luce per il semaforo
     char old_lux_select = 9;    //salva il vecchio stato
-    disp = 0;                   //inizializzo a 0
+    disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
     char old_disp = 9;          //salva il vecchio stato
     char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
     unsigned char old_time = 1; //serve per far leggere i valori dei sensori ogni secondo
-    colorsTime[0] = 5;
-    colorsTime[1] = 2;
-    colorsTime[2] = 11;
-
+    
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -170,14 +161,13 @@ void main(void)
             //se il readgatewaydonenon � stato richiamato dal timeout inizia la modifica dei dati
             else
             {
-                //bitParita(dataFromGateway); //controllo correttezza dati
-                for (int i = 0; i < 4; i++)
+                bitParita(dataFromGateway); //controllo correttezza dati
+                
+                for (int i = 0; i < 3; i++)
                 {
-                    //colorIndex=((*Bytes[i])[0]>>5)&0x03;
-                    //colorsTime[colorIndex]=GetTime(*Bytes[i]);
                     int index = i * 5;
-                    colorIndex = (dataFromGateway[index] >> 5) & 0x03;
-                    colorsTime[colorIndex] = GetTime(index);
+                    colorIndex = (dataFromGateway[index]>>5)&0x03;
+                    colorsTime[colorIndex-1] = GetTime(index);
                 }
             }
         }
@@ -200,13 +190,8 @@ void main(void)
             if (colorsTime[lux_select] - time < 0)
             {
                 lux_select = (lux_select + 1) % 3;
-                time = 0;
+                time = 1;
             }
-            
-            luxs=(luxs+1)%15;
-           //GetDigits(colorsTime[lux_select]-time);
-           GetDigits(dataFromGateway[luxs]);
-            //GetDigits(luxs%14);
 
             GetDigits(colorsTime[lux_select] - time);
         }
@@ -222,17 +207,15 @@ void main(void)
                     {
                         Disp2 = 0;
                         Disp3 = 0;
-                        Disp4 = 0;
                         Disp1 = 1;
                         PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                     }
                     break;
                 case 1:                              //==> desplay delle dedcine, porta RA3
-                    if (decine > 0 && centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+                    if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
                     {
                         Disp1 = 0;
                         Disp3 = 0;
-                        Disp4 = 0;
                         Disp2 = 1;
                         PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                     }
@@ -240,20 +223,12 @@ void main(void)
                 case 2: //==> desplay delle unit�, porta RA4
                     Disp1 = 0;
                     Disp2 = 0;
-                    Disp4 = 0;
                     Disp3 = 1;
                     PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                     break;
-                case 3: //==> desplay opzionale per mostrare il colore del semaforo, porta RA5 (attualmente spento)
-                    Disp1 = 0;
-                    Disp2 = 0;
-                    Disp3 = 0;
-                    Disp4 = 1;
-                    PORTD = display[lux_select]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                    break;
             }
         } 
-        disp=(disp+1)%3; //disp viene incrementato e ha valori tra 0 e 3
+        disp=(disp+1)%3; //disp viene incrementato e ha valori tra 0 e 2
 
         //*Gestione sensori -->
         if (time != old_time) //legge i sensori ogni secondo
@@ -419,7 +394,7 @@ int GetTime(int index)
 
     shortInt.Val = dataFromGateway[index + 3] & 0x7F;
     time = shortInt.Val;
-    time = (time << 7) & 0x7F;
+    time = (time << 7) & 0x80;
 
     shortInt.Val = dataFromGateway[index + 2] & 0x7F;
     time = time | shortInt.Val;
