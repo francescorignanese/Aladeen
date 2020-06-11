@@ -6,7 +6,7 @@ var Protocol = require('azure-iot-device-mqtt').Mqtt;
 var Client = require('azure-iot-device').Client;
 var Message = require('azure-iot-device').Message;
 var clientConfig = config.get('Clients');
-
+//console.log(clientConfig)
 
 var client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
 
@@ -25,14 +25,20 @@ client.open(function (err) {
 
     // build message
     var message = new Message(JSON.stringify({
-      temp: 20,
-      traffic: 150
+      typemessage:"sensors",
+      value:[
+        {
+          temperature: '50.0',
+          umidity: '88.0',
+          pressure: '20.0'
+        }
+      ]
     }));
     // A message can have custom properties that are also encoded and can be used for routing
     //message.properties.add('propertyName', 'propertyValue');
 
     // A unique identifier 
-    message.messageId = uuid.v4();
+    //message.messageId = uuid.v4();
 
     console.log('Sending message: ' + message.getData());
     client.sendEvent(message, function (err) {
