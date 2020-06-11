@@ -113,8 +113,6 @@ void main(void)
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
 
-    int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
-    char lux_select = 0;
     
     colorsTime[0]=5;
     colorsTime[1]=2;
@@ -147,7 +145,7 @@ void main(void)
                 readGateway.Bit = 0;
             }
 
-            if (dataFromGatewayIndex >= 14)
+            if (dataFromGatewayIndex >= 15)
             {
                 readGatewayDone.Bit = 1;
                 readGatewayDone.Timeout = 0;
@@ -219,67 +217,43 @@ void main(void)
             old_disp = disp;
             switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
             {
-                case 0:     //==> desplay delle centinaia, porta RA2
-                    if(centinaia>0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
+                case 0:                //==> desplay delle centinaia, porta RA2
+                    if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
                     {
-                        Disp1 = 1;
                         Disp2 = 0;
                         Disp3 = 0;
                         Disp4 = 0;
-                        PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"   
+                        Disp1 = 1;
+                        PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                     }
                     break;
-                case 1: //==> desplay delle dedcine, porta RA3
-                    if(decine>0 || centinaia>0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+                case 1:                              //==> desplay delle dedcine, porta RA3
+                    if (decine > 0 && centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
                     {
                         Disp1 = 0;
-                        Disp2 = 1;
                         Disp3 = 0;
                         Disp4 = 0;
-                        PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"   
+                        Disp2 = 1;
+                        PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                     }
                     break;
-                case 2: //==> desplay delle unit�, porta RA4
+                case 2: //==> desplay delle unit�, porta RA4
                     Disp1 = 0;
-            case 0:                //==> desplay delle centinaia, porta RA2
-                if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
-                {
+                    Disp2 = 0;
+                    Disp4 = 0;
+                    Disp3 = 1;
+                    PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    break;
+                case 3: //==> desplay opzionale per mostrare il colore del semaforo, porta RA5 (attualmente spento)
+                    Disp1 = 0;
                     Disp2 = 0;
                     Disp3 = 0;
-                    Disp4 = 0;
-                    Disp1 = 1;
-                    PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                break;
-            case 1:                              //==> desplay delle dedcine, porta RA3
-                if (decine > 0 && centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-                {
-                    Disp1 = 0;
-                    Disp3 = 0;
-                    Disp4 = 0;
-                    Disp2 = 1;
-                    PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                break;
-            case 2: //==> desplay delle unit�, porta RA4
-                Disp1 = 0;
-                Disp2 = 0;
-                Disp4 = 0;
-                Disp3 = 1;
-                PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                break;
-            case 3: //==> desplay opzionale per mostrare il colore del semaforo, porta RA5 (attualmente spento)
-                Disp1 = 0;
-                Disp2 = 0;
-                Disp3 = 0;
-                Disp4 = 1;
-                PORTD = display[lux_select]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                break;
+                    Disp4 = 1;
+                    PORTD = display[lux_select]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    break;
             }
         } 
         disp=(disp+1)%3; //disp viene incrementato e ha valori tra 0 e 3
-        }
-        disp = (disp + 1) % 4; //disp viene incrementato e ha valori tra 0 e 3
 
         //*Gestione sensori -->
         if (time != old_time) //legge i sensori ogni secondo
@@ -291,7 +265,7 @@ void main(void)
         //*end <--
     }
 
-    return;
+return;
 }
 //inizializzo ADC (potenziometro)
 void init_ADC()
@@ -479,6 +453,7 @@ void __interrupt() ISR()
         timerReadFromGateway = 0;
     }
 
+    //TIMERS
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR0IF) //timer0 "TMR0IF"
     {
