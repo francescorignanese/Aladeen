@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BOP.Pages
+namespace Semaforo
 {
     public class IndexModel : PageModel
     {

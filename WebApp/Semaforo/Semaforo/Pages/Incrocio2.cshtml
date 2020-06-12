@@ -1,0 +1,89 @@
+﻿@page
+@model Semaforo.Incrocio2Model
+@{
+    ViewData["Title"] = "Incrocio2";
+}
+
+<div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-warning">
+        <div class="card-body pb-0">
+            <h4 class="card-title mb-0">Temperatura</h4>
+            <div class="text-value">°C</div>
+
+        </div>
+        <div class="chart-wrapper mt-3" style="height:70px;">
+            <canvas class="chart" id="card-chart3" height="70"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-0">INCROCIO 2</h4>
+                <div class="small text-muted">@DateTime.Now</div>
+            </div>
+            <!-- /.col-->
+            <div class="col-sm-7 d-none d-md-block">
+                <button class="btn btn-primary float-right" type="button" value="reload" onClick="document.location.reload(true)">
+                    <i class="icon-refresh"></i>
+                </button>
+                <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary">
+                        <input id="option1" type="radio" name="options" autocomplete="off"> Day
+                    </label>
+                    <label class="btn btn-outline-secondary active">
+                        <input id="option2" type="radio" name="options" autocomplete="off" checked=""> Month
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        <input id="option3" type="radio" name="options" autocomplete="off"> Year
+                    </label>
+                </div>
+            </div>
+            <!-- /.col-->
+        </div>
+        <!-- /.row-->
+        <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+            <ul id="messagesList"></ul>
+            <canvas class="chart-area" id="main-chart" height="300"></canvas>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row text-center">
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                <div class="text-muted">Macchine</div>
+                <strong>29.703</strong>
+                <div class="progress progress-xs mt-2">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                <div class="text-muted">Camion</div>
+                <strong>18.523</strong>
+                <div class="progress progress-xs mt-2">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                <div class="text-muted">Moto</div>
+                <strong>10.375</strong>
+                <div class="progress progress-xs mt-2">
+                    <div class="progress-bar bg-red" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/chart.js/dist/Chart.min.js"></script>
+    <script src="~/lib/coreui/js/custom-tooltips.min.js"></script>
+    <script src="~/lib/coreui/js/main.js"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/sen.js"></script>
+}
+
