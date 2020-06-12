@@ -58,9 +58,6 @@ unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislp
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;   //conteggio per il tempo delle luci
 char comando = 0;              //Prende il dato dalla seriale
-unsigned char Time_Red = 10;   //tempo luce rossa (pre-impostato a 10s)
-unsigned char Time_Yellow = 5; //tempo luce gialla (pre-impostato a 10s)
-unsigned char Time_Green = 10; //tempo luce verde (pre-impostato a 10s)
 unsigned char time = 0;        //variabile per contare i secondi
 unsigned char countdown = 0;   //variabile per il conto alla rovescia
 unsigned char car = 0;         //variabile per contare le macchine
@@ -68,43 +65,47 @@ unsigned char truck = 0;       //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 char dataFromGateway[15];      //array dati da seriale
 int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
-int colorsTime[3];             //0 ï¿½ rosso, 1 ï¿½ verde, 2 ï¿½ giallo
+int colorsTime[3], new_colorsTime[3];             //0 ï¿½ rosso, 1 ï¿½ verde, 2 ï¿½ giallo
 char colorIndex;               //variabile per stabilire il colore da accendere
 
-void init_ADC();                                                  //Inizializza l'adc
-int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
-void UART_Init(int baudrate);                                     //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);                                        //Scrittura di un carattere sulla seriale
-char UART_Read();                                                 //Lettura dalla seriale
-int GetTime(int index);
-void GetDigits(int Time);
-void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
+void init_ADC();                                           //Inizializza l'adc
+int ADC_Read(char canale);                                 //Lettura da un ingresso analogico
+void UART_Init(int baudrate);                              //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);                                 //Scrittura di un carattere sulla seriale
+char UART_Read();                                          //Lettura dalla seriale
+int GetTime(int index);                                    //Fonde un numero separato in due bit in un singolo int      
+void GetDigits(int Time);                                  //Suddivide un numero secondo centinaia, decine e unità
+void sendByte(char byte0, char byte1, char valore);        //Invia un blocco da 5 byte al raspberry
+void SetDisplay(char d1, char d2, char d3, char value);    //Seleziona quale display accendere
+void SetDefaultTimers();                                    //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
-    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x1F;      //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
-    TRISD = 0x00; //Porta per i 7 segmenti (Output)
+    TRISD = 0x00;      //Porta per i 7 segmenti (Output)
     TRISE = 0x00;
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
 
+    //Init
+    init_ADC();         //Inizializzazione adc
+    UART_Init(9600);    //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(); //Inizializzazione tempi luci semaforo
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-    TMR1H = 60;      // preset for timer1 MSB register
-    TMR1L = 176;     // preset for timer1 LSB register
-    init_ADC();      //Inizializzazione adc
-    UART_Init(9600); //Inizializzazione seriale a 9600 b
+    TMR1H = 60;         // preset for timer1 MSB register
+    TMR1L = 176;        // preset for timer1 LSB register
 
     int colorsTime[3], time;    //0 ï¿½ rosso, 1 ï¿½ verde, 2 ï¿½ giallo
     char lux_select = 0;        //selezione luce per il semaforo
     disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
     char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
-    char endCiclo = 0;          //variabile per il controllo del ciclo cosÃ¬ da cambiare i tempi solo a fine del ciclo
-    
+    Bit endCiclo;               //variabile per il controllo del ciclo cosÃ¬ da cambiare i tempi solo a fine del ciclo
+    endCiclo.Bit=1;
+   
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -148,17 +149,22 @@ void main(void)
                 {
                     int index = i * 5;
                     colorIndex = (dataFromGateway[index] >> 5) & 0x03;
-                    colorsTime[colorIndex - 1] = GetTime(index);
+                    new_colorsTime[colorIndex - 1] = GetTime(index);
                 }
             }
         }
 
+        //AGGIORNAMENTO TEMPI LUCI
         //se avviene qualche cambiamento allora aggornero i tempi
-        if (((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2])) && endCiclo == 1)
+        if(endCiclo)
         {
-            Time_Red = colorsTime[0];
-            Time_Green = colorsTime[1];
-            Time_Yellow = colorsTime[2];
+            for(int i=0; i<3; i++)
+            {
+                if(colorsTime[i]!=new_colorsTime[i])
+                {
+                   colorsTime[i]=new_colorsTime[i];
+                }
+            }
         }
 
         //ACCENSIONE LED IN BASE AL TEMPO
@@ -166,6 +172,7 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
+            endCiclo.Bit=0;
             
             if (colorsTime[lux_select] - time < 0)
             {
@@ -173,10 +180,15 @@ void main(void)
                 time = 1;
             }
             
+            if(lux_select==2 && time==colorsTime[2])
+            {
+                endCiclo.Bit=1;
+            }
+            
             GetDigits(colorsTime[lux_select] - time);
         }
 
-        //Mostra il timer sul display
+        //MOSTRA TIMER SU DISPLAY
         if (disp != old_disp) //Lo esegue solo quando "disp" cambia (cioï¿½ ad ogni ciclo while))
         {
             old_disp = disp;
@@ -201,6 +213,7 @@ void main(void)
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
+        
         //*Gestione sensori -->
         if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
         {
@@ -215,6 +228,9 @@ void main(void)
         
         
         //reset variabili
+        //Se è passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
+        //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
+        //il timer, verrà effettuato un ciclo prima di resettare il timer così da assicurare che quelle porzioni di codice rilevino secondPassed
         if(secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
@@ -329,6 +345,13 @@ void SetDisplay(char d1, char d2, char d3, char value)
     Disp2=d2;
     Disp3=d3;
     PORTD=value;
+}
+
+void SetDefaultTimers()
+{
+    new_colorsTime[0]=30;
+    new_colorsTime[1]=30;
+    new_colorsTime[2]=30;
 }
 
 void __interrupt() ISR()
