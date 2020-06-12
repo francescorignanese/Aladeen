@@ -55,7 +55,7 @@ Bit readGateway, secondPassed;
 char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-char txByte[5] = 0;
+char txByte[5];
 char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
@@ -89,6 +89,7 @@ char bitChage(char dato, char n);
 void bitParita(char *rx);
 int GetTime(int index);
 void GetDigits(int Time);
+void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
 
 void main(void)
 {
@@ -173,7 +174,7 @@ void main(void)
         }
 
         //se avviene qualche cambiamento allora aggornero i tempi
-        if ((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2]) && endCiclo == 1)
+        if (((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2])) && endCiclo == 1)
         {
             Time_Red = colorsTime[0];
             Time_Green = colorsTime[1];
@@ -415,18 +416,18 @@ void GetDigits(int Time)
 }
 
 //funzione per inviare dati al raspberry in cui aggiunge gli eventuali bit di parità
-void sendByte(char byte0, char byte1, char valor)
+void sendByte(char byte0, char byte1, char valore)
 {
-    txByte[0] = byte0 & 0x7F;        //primo byte di comando
-    txByte[1] = byte1 & 0x7F;        //secondo byte di comando
-    txByte[2] = valor & 0x7F;        //valore da mandare
-    txByte[3] = (valor >> 7) & 0x7F; //valore da mandare sul secondo byte in caso fosse più grande
-    char sommaRow = 0;               //Tiene la somma dei bit per la riga
-    char sommaColumn = 0;            //Tiene la somma dei bit per la colonna
+    txByte[0] = byte0 & 0x7F;         //primo byte di comando
+    txByte[1] = byte1 & 0x7F;         //secondo byte di comando
+    txByte[2] = valore & 0x7F;        //valore da mandare
+    txByte[3] = (valore >> 7) & 0x7F; //valore da mandare sul secondo byte in caso fosse più grande
+    char sommaRow = 0;                //Tiene la somma dei bit per la riga
+    char sommaColumn = 0;             //Tiene la somma dei bit per la colonna
 
     for (int i = 0; i < 4; i++) //controlla i byte e gli aggiunge il bit di parità sul ottavo bit se necesario
     {
-        for (int i = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
+        for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
         {
             sommaRow += (txByte[i] >> y) & 1; //cicla sulle riga del byte
         }
