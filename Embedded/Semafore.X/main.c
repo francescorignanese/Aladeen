@@ -4,7 +4,7 @@
  *
  * Created on 15 maggio 2020, 16.07
  * Project Work
- TODO: Gestione sensori,controlli (integrare funzioni e migliorire al codice)
+ TODO: Gestione sensori,controlli (integrare funzioni e migliorare il codice)
  */
 
 #pragma config FOSC = HS  // Oscillator Selection bits (RC oscillator)
@@ -55,6 +55,7 @@ Bit readGateway, secondPassed;
 char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+char txByte[5] = 0;
 char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
@@ -112,7 +113,7 @@ void main(void)
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
-    
+
     UART_Init(9600);
 
     int colorsTime[3], time;    //0 � rosso, 1 � verde, 2 � giallo
@@ -123,7 +124,8 @@ void main(void)
     char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
     unsigned char old_time = 1; //serve per far leggere i valori dei sensori ogni secondo
-    
+    char endCiclo = 0;          //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -162,18 +164,18 @@ void main(void)
             else
             {
                 bitParita(dataFromGateway); //controllo correttezza dati
-                
+
                 for (int i = 0; i < 3; i++)
                 {
                     int index = i * 5;
-                    colorIndex = (dataFromGateway[index]>>5)&0x03;
-                    colorsTime[colorIndex-1] = GetTime(index);
+                    colorIndex = (dataFromGateway[index] >> 5) & 0x03;
+                    colorsTime[colorIndex - 1] = GetTime(index);
                 }
             }
         }
 
         //se avviene qualche cambiamento allora aggornero i tempi
-        if ((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2]))
+        if ((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2]) && endCiclo == 1)
         {
             Time_Red = colorsTime[0];
             Time_Green = colorsTime[1];
@@ -202,33 +204,33 @@ void main(void)
             old_disp = disp;
             switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
             {
-                case 0:                //==> desplay delle centinaia, porta RA2
-                    if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
-                    {
-                        Disp2 = 0;
-                        Disp3 = 0;
-                        Disp1 = 1;
-                        PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                    }
-                    break;
-                case 1:                              //==> desplay delle dedcine, porta RA3
-                    if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-                    {
-                        Disp1 = 0;
-                        Disp3 = 0;
-                        Disp2 = 1;
-                        PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                    }
-                    break;
-                case 2: //==> desplay delle unit�, porta RA4
-                    Disp1 = 0;
+            case 0:                //==> desplay delle centinaia, porta RA2
+                if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
+                {
                     Disp2 = 0;
-                    Disp3 = 1;
-                    PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                    break;
+                    Disp3 = 0;
+                    Disp1 = 1;
+                    PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                }
+                break;
+            case 1:                              //==> desplay delle dedcine, porta RA3
+                if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+                {
+                    Disp1 = 0;
+                    Disp3 = 0;
+                    Disp2 = 1;
+                    PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                }
+                break;
+            case 2: //==> desplay delle unit�, porta RA4
+                Disp1 = 0;
+                Disp2 = 0;
+                Disp3 = 1;
+                PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                break;
             }
-        } 
-        disp=(disp+1)%3; //disp viene incrementato e ha valori tra 0 e 2
+        }
+        disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
         //*Gestione sensori -->
         if (time != old_time) //legge i sensori ogni secondo
@@ -236,11 +238,15 @@ void main(void)
             old_time = time;
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
+
+            //!I VALORI MESSI AL POSTO DEI PRIMI BYTE "0x00" SONO CASUALI VANNO CAMBIATI
+            sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
+            sendByte(0x00, 0x00, umidita); //Invio dati di umidita
         }
         //*end <--
     }
 
-return;
+    return;
 }
 //inizializzo ADC (potenziometro)
 void init_ADC()
@@ -408,6 +414,53 @@ void GetDigits(int Time)
     centinaia = countdown / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
     decine = (countdown % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
     unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
+}
+
+//funzione per inviare dati al raspberry in cui aggiunge gli eventuali bit di parità
+void sendByte(char byte0, char byte1, char valor)
+{
+    txByte[0] = byte0 & 0x7F;        //primo byte di comando
+    txByte[1] = byte1 & 0x7F;        //secondo byte di comando
+    txByte[2] = valor & 0x7F;        //valore da mandare
+    txByte[3] = (valor >> 7) & 0x7F; //valore da mandare sul secondo byte in caso fosse più grande
+    char sommaRow = 0;               //Tiene la somma dei bit per la riga
+    char sommaColumn = 0;            //Tiene la somma dei bit per la colonna
+
+    for (int i = 0; i < 4; i++) //controlla i byte e gli aggiunge il bit di parità sul ottavo bit se necesario
+    {
+        for (int i = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
+        {
+            sommaRow += (txByte[i] >> y) & 1; //cicla sulle riga del byte
+        }
+        if (sommaRow % 2 == 1) //Controlla se la somma è pari o dispari
+        {
+            txByte[i] += 0x01 << 7; //aggiunge il bit alla fine
+            sommaRow = 0;
+        }
+        else
+        {
+            sommaRow = 0;
+        }
+    }
+    //costruisce la matrice di parità
+    for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
+    {
+        for (int y = 0; y < 4; y++)
+        // Ciclo per fare la somma di tutti i bit della colonna
+        {
+            sommaColumn += (txByte[y] >> i) & 1; //cicla sulle colonne
+        }
+        if (sommaColumn % 2 == 1) //Controlla se la somma è pari o dispari
+        {
+            txByte[4] += 0x01 << i; //aggiunge il bit solo nel posto specifico
+            sommaColumn = 0;
+        }
+        else
+        {
+            sommaColumn = 0;
+        }
+    }
+    UART_Write_Text(txByte); //Invia tutti i byte
 }
 
 void __interrupt() ISR()
