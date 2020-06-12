@@ -16,8 +16,8 @@ ATTUATORE BYTE1.bit0=1;
 Temperatura: 0x02
 Umidità: 0x04
 Pressione: 0x06
-Traffico Macchine: 0x08
-Traffico Camion: 0x0A
+Traffico (INVIO): 0x08
+
 
 *ID SEMAFORI:
 Semaforo 1: 00011
@@ -31,7 +31,10 @@ Giallo: 10
 Verde: 11
 
 *SECONDO BYTE 2:
-Implementazioni future...
+Tipologia veicoli
+Motocicli: 0x01
+Macchine: 0x02
+Camion: 0x03
 
 *TERZO E QUARTO BYTE 3-4:
 Invio valori il massimo valore che si può inviare è 2^14
@@ -60,7 +63,6 @@ Byte di parità per trovare l'errore
 #define Disp1 PORTAbits.RA2 //display1 7 segmenti
 #define Disp2 PORTAbits.RA3 //display2 7 segmenti
 #define Disp3 PORTAbits.RA4 //display3 7 segmenti
-#define Disp4 PORTAbits.RA5 //display4 7 segmenti
 //*Inizializzazione delle luci -->
 #define Lux_Red PORTBbits.RB5    //luce rossa
 #define Lux_Yellow PORTBbits.RB6 //luce gialla
@@ -101,8 +103,9 @@ unsigned char Time_Yellow = 5; //tempo luce gialla (pre-impostato a 10s)
 unsigned char Time_Green = 10; //tempo luce verde (pre-impostato a 10s)
 unsigned char time = 0;        //variabile per contare i secondi
 unsigned char countdown = 0;   //variabile per il conto alla rovescia
-unsigned char car = 0;         //variabile per contare le macchine
-unsigned char truck = 0;       //variabile per contare i camion
+unsigned char motorcycle[4];   //variabile per contare le macchine
+unsigned char car[4];          //variabile per contare le macchine
+unsigned char truck[4];        //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 char dataFromGateway[15];      //array dati da seriale
 int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
@@ -123,6 +126,7 @@ void bitParita(char *rx);
 int GetTime(int index);
 void GetDigits(int Time);
 void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
+void conteggioVeicoli();                            //Conteggio mezzi
 
 void main(void)
 {
@@ -292,7 +296,7 @@ void main(void)
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
-    TRISA = 0xC3;   //imposto i pin come ingressi trane RA2 RA3 RA4
+    TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
     __delay_us(10); //delay condensatore 10us
@@ -508,6 +512,94 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
+void conteggioVeicoli()
+{
+    //Controllo per la strada 1
+    if (!PORTBbits.RB3) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    {
+        count++;
+    }
+    else if (PORTBbits.RB3) //al rilascio controlla e incrementa il mezzo che è passato
+    {
+        if (count >= 500)
+        {
+            motorcycle[0]++;
+        }
+        if (count >= 1500)
+        {
+            car[0]++;
+        }
+        if (count >= 3000)
+        {
+            truck[0]++;
+        }
+        count = 0;
+    }
+    //Controllo per la strada 2
+    if (!PORTBbits.RB4) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    {
+        count++;
+    }
+    else if (PORTBbits.RB4) //al rilascio controlla e incrementa il mezzo che è passato
+    {
+        if (count >= 500)
+        {
+            motorcycle[1]++;
+        }
+        if (count >= 1500)
+        {
+            car[1]++;
+        }
+        if (count >= 3000)
+        {
+            truck[1]++;
+        }
+        count = 0;
+    }
+    //Controllo per la strada 3
+    if (!PORTBbits.RB5) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    {
+        count++;
+    }
+    else if (PORTBbits.RB5) //al rilascio controlla e incrementa il mezzo che è passato
+    {
+        if (count >= 500)
+        {
+            motorcycle[2]++;
+        }
+        if (count >= 1500)
+        {
+            car[2]++;
+        }
+        if (count >= 3000)
+        {
+            truck[2]++;
+        }
+        count = 0;
+    }
+    //Controllo per la strada 4
+    if (!PORTAbits.RA5) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    {
+        count++;
+    }
+    else if (PORTAbits.RA5) //al rilascio controlla e incrementa il mezzo che è passato
+    {
+        if (count >= 500)
+        {
+            motorcycle[3]++;
+        }
+        if (count >= 1500)
+        {
+            car[3]++;
+        }
+        if (count >= 3000)
+        {
+            truck[3]++;
+        }
+        count = 0;
+    }
+}
+
 void __interrupt() ISR()
 {
     //RICEVE DATI DA SERIALE
@@ -530,23 +622,8 @@ void __interrupt() ISR()
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR0IF) //timer0 "TMR0IF"
     {
-        TMR0IF = 0;         //resetto timer0
-        if (!PORTBbits.RB3) //controllo pressione del tasto per il verificare se sia una macchina o un camion
-        {
-            count++;
-        }
-        if (PORTBbits.RB3) //al rilascio del tasto eseguo il conteggio in base alla pressione
-        {
-            if (count >= 500)
-            {
-                car++;
-            }
-            if (count >= 3000)
-            {
-                truck++;
-            }
-            count = 0;
-        }
+        TMR0IF = 0; //resetto timer0
+        conteggioVeicoli();
         TMR0 = 6;
     }
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
