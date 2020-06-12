@@ -55,7 +55,7 @@ Bit readGateway, secondPassed;
 char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-char txByte[5];
+char txByte[5];                //array per inviare i dati
 char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
@@ -240,13 +240,9 @@ void main(void)
             sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
             sendByte(0x00, 0x00, umidita); //Invio dati di umidita
         }
-        
-        
-        
-        
-        
+
         //reset variabili
-        if(secondPassed.Bit)
+        if (secondPassed.Bit)
         {
             secondPassed.Bit = 0;
         }
