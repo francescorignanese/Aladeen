@@ -1,10 +1,10 @@
 const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const redis = require('redis');
-
 const port = new SerialPort('/COM6');
-const client = redis.createClient();
- 
+const client = redis.createClient(6379, '192.168.0.99');
+let key;
+
 //con questo parser lavoriamo con 5 byte alla volta
 const parser = port.pipe(new ByteLength({length: 5}))
 parser.on('data', parseMsg) 
@@ -26,15 +26,15 @@ function parseMsg(data) {
 	let byte4 = parseInt(data[3], 10).toString(2).padStart(8, '0');
 	let byte5 = parseInt(data[4], 10).toString(2).padStart(8, '0');
 	let arrayBin =  [byte1, byte2, byte3, byte4, byte5];
-	console.log("arraybin", arrayBin);
+	//console.log("arraybin", arrayBin);
 
 	for (let i = 0; i < arrayBin.length; i++) {
-		if(arrayBin[1] != "00000000") {
+		if(arrayBin[1] != '00000000') {
 			let shifted = arrayBin.shift();
 			arrayBin.push(shifted);
 		}
 	}
-	console.log("last arryabin: ", arrayBin);
+	//console.log("last arryabin: ", arrayBin);
 
 	console.log('byte1', arrayBin[0]);
 	console.log('byte2', arrayBin[1]);
@@ -52,82 +52,60 @@ function parseMsg(data) {
 	//BYTE 3 & 4
 	let clean_value3 = arrayBin[2].substring(1,8);
 	let clean_value4 = arrayBin[3].substring(1,8);
-	console.log("value bin", clean_value4, clean_value3);
 	let value = clean_value4.concat(clean_value3);
 	var decimal = parseInt(value, 2); //parso il binario in decimale
 	console.log(decimal);
 
+	let json = '{ "traffic":' + decimal+ '}';
+
 	let corrupted = false;
-	let key;
+	let date = (new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]);
 	if(!corrupted) {
 		
-		if (sa === "0") { //se è un sensore
+		if (sa === '0') { //se è un sensore
 			switch (id_sa) {
-				case "1010":
-						console.log("Temperature");
-						key = "temperature";
-						break;
-				case "1110":
-						console.log("Humidity");
-						key = "humidity";
-						break;
-				case "1100":
-						console.log("Traffic");
-						key = "traffic";
-						break;
-				case "1000":
-						console.log("Timing");
-						key = "timing";
-						break;
+				case '1010': {
+					console.log('Temperature');
+					key = 'temperature';
+					client.hmset('temps_list', {[date] : decimal}, (err, reply) => {
+						if(err) {
+							console.error(err);
+						} else {
+							console.log(reply);
+						}
+					});
+					break;
+				}
+				case '1110': {
+					console.log('Humidity');
+					key = 'humidity';
+					client.hmset('temps_list', {[date] : decimal}, (err, reply) => {
+						if(err) {
+							console.error(err);
+						} else {
+							console.log(reply);
+						}
+					});
+					break;
+				}
+				case '1100': {
+					console.log('Traffic');
+					key = 'traffic';
+					client.hmset('traffic_list', {[date] : decimal}, (err, reply) => {
+						if(err) {
+							console.error(err);
+						} else {
+							console.log(reply);
+						}
+					});
+					break;
+				}
+				case '1000':
+					console.log('Timing');
+					key = 'timing';
+					break;
 			}
 		}
 		
 	}
-	client.on("error", function(error) {
-		console.error(error);
-	});
-	   
-	client.set(key, decimal, redis.print);
-	client.get(key, redis.print);
-
-	client.rpush('list-traffic', decimal, function (err, reply) {
-		console.log("Queue Length", reply);
-	});
-
-	client.lrange('list-traffic', 0, -1, function(err, reply) {
-		console.log(reply);
-	});
 }
-
-
-
-		/*if (sa === "1") { //se è un attuatore
-			switch (id_sa) {
-				case "0001":
-						console.log("Semaforo 1");
-						let traffic_light_1 = "traffic_light_1";
-					break;
-				case "0011":
-						console.log("Semaforo 2");
-						break;
-				case "0111":
-						console.log("Semaforo 3");
-						break;
-				case "1111":
-						console.log("Semaforo 4");
-						break;
-			}
-			switch (color) {
-				case "00":
-						console.log("Rosso");
-						break;
-				case "01":
-						console.log("Giallo");
-						break;
-				case "11":
-						console.log("Verde");
-						break;
-			}
-		}
-		
-		*/
