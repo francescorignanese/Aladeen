@@ -122,8 +122,8 @@ void main(void)
 {
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
-    TRISD = 0x00; //Porta per i 7 segmenti (Output)
-    TRISE = 0x00;
+    TRISD = 0x00;      //Porta per i 7 segmenti (Output)
+    TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
@@ -144,6 +144,7 @@ void main(void)
     disp = 0;                //variabile per definire quale display deve accendersi, inizializzo a 0
     char temp = 0;           //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;        //Variabile per salvare l'umidita sul pin RA1
+    char pressione = 0;      //Variabile per salvare la pressione sul pin RE0
     char endCiclo = 0;       //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
 
     while (1)
@@ -245,11 +246,13 @@ void main(void)
         //*Gestione sensori -->
         if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
         {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
+            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
 
-            sendByte(0x02, 0x00, temp);    //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita); //Invio dati di umidita
+            sendByte(0x02, 0x00, temp);      //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita);   //Invio dati di umidita
+            sendByte(0x06, 0x00, pressione); //Invio dati di pressione
         }
 
         //reset variabili
