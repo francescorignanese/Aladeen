@@ -185,7 +185,6 @@ void main(void)
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit)
         {
-            secondPassed.Bit = 0;
             time++;
 
             if (colorsTime[lux_select] - time < 0)
@@ -232,15 +231,24 @@ void main(void)
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
         //*Gestione sensori -->
-        if (time != old_time) //legge i sensori ogni secondo
+        if (secondPassed.Bit) //legge i sensori ogni secondo
         {
-            old_time = time;
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
 
             //!I VALORI MESSI AL POSTO DEI PRIMI BYTE "0x00" SONO CASUALI VANNO CAMBIATI
             sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
             sendByte(0x00, 0x00, umidita); //Invio dati di umidita
+        }
+        
+        
+        
+        
+        
+        //reset variabili
+        if(secondPassed.Bit)
+        {
+            secondPassed.Bit = 0;
         }
         //*end <--
     }
