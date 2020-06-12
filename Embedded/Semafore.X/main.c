@@ -84,7 +84,7 @@ typedef struct
 }Time;
 */
 
-Bit readGateway, secondPassed;
+Bit readGateway, secondPassed, cycled;
 char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
@@ -216,7 +216,7 @@ void main(void)
 
         //ACCENSIONE LED IN BASE AL TEMPO
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
-        if (secondPassed.Bit)
+        if (secondPassed.Bit && cycled.Bit)
         {
             time++;
 
@@ -264,7 +264,7 @@ void main(void)
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
         //*Gestione sensori -->
-        if (secondPassed.Bit) //legge i sensori ogni secondo
+        if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
         {
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
@@ -274,9 +274,15 @@ void main(void)
         }
 
         //reset variabili
-        if (secondPassed.Bit)
+        if (secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
+            cycled.Bit = 0;
+        }
+
+        if (secondPassed.Bit && !cycled.Bit)
+        {
+            cycled.Bit = 1;
         }
         //*end <--
     }
@@ -495,7 +501,11 @@ void sendByte(char byte0, char byte1, char valore)
             sommaColumn = 0;
         }
     }
-    UART_Write_Text(txByte); //Invia tutti i byte
+
+    for (int i = 0; i < 5; i++)
+    {
+        UART_Write_Text(txByte[i]); //Invia un byte per volta
+    }
 }
 
 void __interrupt() ISR()
