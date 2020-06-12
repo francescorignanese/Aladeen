@@ -128,7 +128,11 @@ void main(void)
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
-
+    //?PIE1 = 0x01;
+    /* 
+    ?richiesta dati al raspberry 
+    ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
+    */
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
     TMR1H = 60;      // preset for timer1 MSB register
     TMR1L = 176;     // preset for timer1 LSB register
@@ -244,9 +248,8 @@ void main(void)
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
 
-            //!I VALORI MESSI AL POSTO DEI PRIMI BYTE "0x00" SONO CASUALI VANNO CAMBIATI
-            sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
-            sendByte(0x00, 0x00, umidita); //Invio dati di umidita
+            sendByte(0x02, 0x00, temp);    //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita); //Invio dati di umidita
         }
 
         //reset variabili
@@ -261,8 +264,25 @@ void main(void)
             cycled.Bit = 1;
         }
         //*end <--
-    }
 
+        //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
+        // if (/* All arrivo del comando invio i mezzi */)
+        // {
+        //     for (int i = 0; i < 4; i++) //Invio tutti i valori
+        //     {
+        //         sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
+        //         sendByte((0x01 << (i + 1)), 0x10, car[i]);
+        //         sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+        //     }
+        //     for (int i = 0; i < 4; i++) //Reseto le variabili
+        //     {
+        //         motorcycle[i] = 0;
+        //         car[i] = 0;
+        //         truck[i] = 0;
+        //     }
+        // }
+        //!end <--
+    }
     return;
 }
 
