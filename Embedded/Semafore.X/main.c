@@ -7,39 +7,6 @@
  TODO: Gestione sensori,controlli (integrare funzioni e migliorare il codice)
  */
 
-/*
-*PRIMO BYTE 1:
-SENSORE BYTE1.bit0=0;
-ATTUATORE BYTE1.bit0=1;
-
-*ID SENSORI:
-Temperatura: 0x02
-Umidità: 0x04
-Pressione: 0x06
-Traffico Macchine: 0x08
-Traffico Camion: 0x0A
-
-*ID SEMAFORI:
-Semaforo 1: 00011
-Semaforo 2: 00101
-Semaforo 3: 00111
-Semaforo 4: 01001
-
-*CODICE COLORI:
-Rosso: 01 
-Giallo: 10
-Verde: 11
-
-*SECONDO BYTE 2:
-Implementazioni future...
-
-*TERZO E QUARTO BYTE 3-4:
-Invio valori il massimo valore che si può inviare è 2^14
-
-*QUINTO BYTE 5:
-Byte di parità per trovare l'errore
-*/
-
 #pragma config FOSC = HS  // Oscillator Selection bits (RC oscillator)
 #pragma config WDTE = OFF // Watchdog Timer Enable bit (WDT enabled)
 #pragma config PWRTE = ON // Power-up Timer Enable bit (PWRT disabled)
@@ -50,6 +17,9 @@ Byte di parità per trovare l'errore
 #pragma config CP = OFF   // Flash Program Memory Code Protection bit (Code protection off)
 
 #include <xc.h>
+#include "CustomLib/Conversions.h"
+#include "CustomLib/BitsFlow.h"
+#include "CustomLib/Serial.h"
 
 #define _XTAL_FREQ 32000000
 
@@ -66,6 +36,8 @@ Byte di parità per trovare l'errore
 #define Lux_Yellow PORTBbits.RB6 //luce gialla
 #define Lux_Green PORTBbits.RB7  //luce verde
 //* end <--
+
+
 typedef struct
 {
     unsigned int Bit : 1;
@@ -77,25 +49,15 @@ struct
     unsigned int Timeout : 1;
 } readGatewayDone;
 
-/*
-typedef struct
-{
-   unsigned int Value:14;
-}Time;
-*/
-
 Bit readGateway, secondPassed, cycled;
 char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-char txByte[5];                //array per inviare i dati
 char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;   //conteggio per il tempo delle luci
 char comando = 0;              //Prende il dato dalla seriale
-char by1 = 0;                  //Primo byte ricevuto
-char by2 = 0;                  //Secondo byte ricevuto
 unsigned char Time_Red = 10;   //tempo luce rossa (pre-impostato a 10s)
 unsigned char Time_Yellow = 5; //tempo luce gialla (pre-impostato a 10s)
 unsigned char Time_Green = 10; //tempo luce verde (pre-impostato a 10s)
@@ -107,22 +69,17 @@ char dataFromGatewayIndex = 0; //indice array dati da seriale
 char dataFromGateway[15];      //array dati da seriale
 int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
 int colorsTime[3];             //0 � rosso, 1 � verde, 2 � giallo
-char colorIndex;
+char colorIndex;               //variabile per stabilire il colore da accendere
 
 void init_ADC();                                                  //Inizializza l'adc
 int ADC_Read(char canale);                                        //Lettura da un ingresso analogico
 void UART_Init(int baudrate);                                     //Inizializzazione della seriale con uno specifico baudrate
 void UART_TxChar(char ch);                                        //Scrittura di un carattere sulla seriale
-void UART_Write_Text(char *text);                                 //Scrittura di una stringa sulla seriale
 char UART_Read();                                                 //Lettura dalla seriale
-void intToString(int valore);                                     //Funzione di conversione da intero a una stringa
-double pow(double b, double e);                                   //Funzione per fare la potenza
-int map(int x, int in_min, int in_max, int out_min, int out_max); //Funzione per mappare dei valori
-char bitChage(char dato, char n);
-void bitParita(char *rx);
 int GetTime(int index);
 void GetDigits(int Time);
-void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
+void sendByte(char byte0, char byte1, char valore);
+void SetDisplay(char d1, char d2, char d3, char value);
 
 void main(void)
 {
@@ -134,30 +91,20 @@ void main(void)
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
-    //TMR1 = 0x00;
-    //?PIE1 = 0x01;
+
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
     TMR1H = 60;      // preset for timer1 MSB register
     TMR1L = 176;     // preset for timer1 LSB register
     init_ADC();      //Inizializzazione adc
     UART_Init(9600); //Inizializzazione seriale a 9600 b
-    /* 
-    ?richiesta dati al raspberry 
-    ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
-    */
-
-    UART_Init(9600);
 
     int colorsTime[3], time;    //0 � rosso, 1 � verde, 2 � giallo
     char lux_select = 0;        //selezione luce per il semaforo
-    char old_lux_select = 9;    //salva il vecchio stato
     disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
-    char old_disp = 9;          //salva il vecchio stato
     char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
-    unsigned char old_time = 1; //serve per far leggere i valori dei sensori ogni secondo
     char endCiclo = 0;          //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
-
+    
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -219,13 +166,13 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
-
+            
             if (colorsTime[lux_select] - time < 0)
             {
                 lux_select = (lux_select + 1) % 3;
                 time = 1;
             }
-
+            
             GetDigits(colorsTime[lux_select] - time);
         }
 
@@ -238,26 +185,17 @@ void main(void)
             case 0:                //==> desplay delle centinaia, porta RA2
                 if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
                 {
-                    Disp2 = 0;
-                    Disp3 = 0;
-                    Disp1 = 1;
-                    PORTD = display[centinaia]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    SetDisplay(1,0,0,display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 }
                 break;
             case 1:                              //==> desplay delle dedcine, porta RA3
                 if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
                 {
-                    Disp1 = 0;
-                    Disp3 = 0;
-                    Disp2 = 1;
-                    PORTD = display[decine]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    SetDisplay(0,1,0,display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 }
                 break;
             case 2: //==> desplay delle unit�, porta RA4
-                Disp1 = 0;
-                Disp2 = 0;
-                Disp3 = 1;
-                PORTD = display[unita]; //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                SetDisplay(0,0,1,display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             }
         }
@@ -269,26 +207,31 @@ void main(void)
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
 
-            sendByte(0x02, 0x00, temp);    //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita); //Invio dati di umidita
+            //!I VALORI MESSI AL POSTO DEI PRIMI BYTE "0x00" SONO CASUALI VANNO CAMBIATI
+            sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
+            sendByte(0x00, 0x00, umidita); //Invio dati di umidita
         }
-
+        
+        
+        
         //reset variabili
-        if (secondPassed.Bit && cycled.Bit)
+        if(secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
-            cycled.Bit = 0;
+            cycled.Bit=0;
         }
-
-        if (secondPassed.Bit && !cycled.Bit)
+        
+        if(secondPassed.Bit && !cycled.Bit)
         {
-            cycled.Bit = 1;
+            cycled.Bit=1;
         }
         //*end <--
     }
 
     return;
 }
+
+
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
@@ -302,24 +245,18 @@ void init_ADC()
 int ADC_Read(char canale)
 {
     ADCON0 = (1 << ADON) | (canale << CHS0);
-    //ADCON0bits.ADON = 1;   //accendo il convertitore (ADCON0)
-    //ADCON0 |= canale << 3; //e setto il canale da convertire (ADCON0)
-    __delay_us(2); //attendo 1.6 uS
-    GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE)
-        ;                          //attendo la fine della conversione
+    __delay_us(2);      //attendo 1.6 uS
+    GO_nDONE = 1;       // avvio la conversione ADGO GO
+    while (GO_nDONE);   //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
 void UART_Init(int baudrate)
 {
     TRISCbits.TRISC6 = 0; //TRISC= 0x80;   //10000000
-
     TXSTAbits.TXEN = 1; //TXSTA= 0x20;   //00100000
-
     RCSTAbits.SPEN = 1; //RCSTA= 0x90;   //10010000
     RCSTAbits.CREN = 1; //RCSTA= 0x90;   //10010000
-
     SPBRG = (_XTAL_FREQ / (long)(64UL * baudrate)) - 1;
     INTCONbits.GIE = 1;  //abilito global interrupt
     INTCONbits.PEIE = 1; //peripherial interrupt
@@ -328,9 +265,8 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF)
-        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
-    TXIF = 0; //lo resetto
+    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    TXIF = 0;          //lo resetto
     TXREG = ch;
 }
 
@@ -345,89 +281,19 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF)
-        ;
+    while (!RCIF);
     RCIF = 0;
     return RCREG;
 }
 
-void intToString(int valore) //funzione per convertire un intero in una stringa
+void sendByte(char byte0, char byte1, char valore)
 {
-    int i;
-    int num = 0;
-    for (i = 0; i < 3; i++)
+    char* txByte;
+    txByte=BuildByte(byte0, byte1, valore);
+    
+    for(int i=0; i<5; i++)
     {
-        str[2 - i] = '0' + ((valore % (char)pow(10, 1 + i)) / (char)pow(10, i));
-    }
-    str[3] = '\0';
-}
-
-double pow(double b, double e) //Funzioneper fare la potenza
-{
-    int i;
-    double number = 1;
-    for (i = 0; i < e; i++)
-    {
-        number *= b;
-    }
-    return (number);
-}
-
-int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuovamente un numero da un intervallo a un altro
-{
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
-char bitChage(char dato, char n) //funzione per la negazione di un bit dentro a un byte
-{
-    if (dato & (1 << (n)))
-    {
-        return dato |= (1 << (n));
-    }
-    else
-    {
-        return dato &= ~(1 << (n));
-    }
-}
-
-//funzione per il controllo dei dati ricevuti e del eventuale correzione di uno
-void bitParita(char *rx)
-{
-    char error = 0;             //Memorizza se c'è un errore
-    char sommaRow = 0;          //Tiene la somma dei bit per la riga
-    char errorRow = 0;          //Salva la riga con l'errore
-    char sommaColumn = 0;       //Tiene la somma dei bit per la colonna
-    char errorColumn = 0;       //Salva la colonna con l'errore
-    for (int i = 0; i < 5; i++) //Ciclo per controllare tutte le righe dei byte ricevuti
-    {
-        for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
-        {
-            sommaRow += (rx[i] >> y) & 1; //cicla sulle riga del byte
-        }
-        if (sommaRow % 2 == 1) //Controlla se la somma è pari o dispari
-        {
-            error = 1;
-            errorRow = i;
-        }
-    }
-    for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
-    {
-        for (int y = 0; y < 4; y++)
-        // Ciclo per fare la somma di tutti i bit della colonna
-        {
-            sommaColumn += (rx[y] >> i) & 1; //cicla sulle colonne
-        }
-        if (sommaColumn % 2 == 1) //Controlla se la somma è pari o dispari
-        {
-            error = 1;
-            errorColumn = i;
-        }
-    }
-    if (error != 0) //se è stato trovato un errore passerà alla sue correzione
-    {
-        ////correction = (char)pow(2, errorColumn - 1);
-        ////rx[errorRow] = correction;
-        rx[errorRow] = bitChage(rx[errorRow], errorColumn);
+        UART_Write_Text(txByte++); //Invia un byte per volta
     }
 }
 
@@ -457,55 +323,12 @@ void GetDigits(int Time)
     unita = (countdown % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
 }
 
-//funzione per inviare dati al raspberry in cui aggiunge gli eventuali bit di parità
-void sendByte(char byte0, char byte1, char valore)
+void SetDisplay(char d1, char d2, char d3, char value)
 {
-    txByte[0] = byte0 & 0x7F;         //primo byte di comando
-    txByte[1] = byte1 & 0x7F;         //secondo byte di comando
-    txByte[2] = valore & 0x7F;        //valore da mandare
-    txByte[3] = (valore >> 7) & 0x7F; //valore da mandare sul secondo byte in caso fosse più grande
-    char sommaRow = 0;                //Tiene la somma dei bit per la riga
-    char sommaColumn = 0;             //Tiene la somma dei bit per la colonna
-
-    for (int i = 0; i < 4; i++) //controlla i byte e gli aggiunge il bit di parità sul ottavo bit se necesario
-    {
-        for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
-        {
-            sommaRow += (txByte[i] >> y) & 1; //cicla sulle riga del byte
-        }
-        if (sommaRow % 2 == 1) //Controlla se la somma è pari o dispari
-        {
-            txByte[i] += 0x01 << 7; //aggiunge il bit alla fine
-            sommaRow = 0;
-        }
-        else
-        {
-            sommaRow = 0;
-        }
-    }
-    //costruisce la matrice di parità
-    for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
-    {
-        for (int y = 0; y < 4; y++)
-        // Ciclo per fare la somma di tutti i bit della colonna
-        {
-            sommaColumn += (txByte[y] >> i) & 1; //cicla sulle colonne
-        }
-        if (sommaColumn % 2 == 1) //Controlla se la somma è pari o dispari
-        {
-            txByte[4] += 0x01 << i; //aggiunge il bit solo nel posto specifico
-            sommaColumn = 0;
-        }
-        else
-        {
-            sommaColumn = 0;
-        }
-    }
-
-    for (int i = 0; i < 5; i++)
-    {
-        UART_Write_Text(txByte[i]); //Invia un byte per volta
-    }
+    Disp1=d1;
+    Disp2=d2;
+    Disp3=d3;
+    PORTD=value;
 }
 
 void __interrupt() ISR()
