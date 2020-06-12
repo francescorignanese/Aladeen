@@ -64,7 +64,7 @@ function parseMsg(data) {
 		
 		if (sa === '0') { //se è un sensore
 			switch (id_sa) {
-				case '1010': {
+				case '0001': {
 					console.log('Temperature');
 					key = 'temperature';
 					client.hmset('temps_list', {[date] : decimal}, (err, reply) => {
@@ -76,10 +76,10 @@ function parseMsg(data) {
 					});
 					break;
 				}
-				case '1110': {
+				case '0010': {
 					console.log('Humidity');
 					key = 'humidity';
-					client.hmset('temps_list', {[date] : decimal}, (err, reply) => {
+					client.hmset('humidity_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
 						} else {
@@ -88,10 +88,22 @@ function parseMsg(data) {
 					});
 					break;
 				}
-				case '1100': {
-					console.log('Traffic');
+				case '0011': {
+					console.log('Pressure');
+					key = 'pressure';
+					client.hmset('pressure_list', {[date] : decimal}, (err, reply) => {
+						if(err) {
+							console.error(err);
+						} else {
+							console.log(reply);
+						}
+					});
+					break;
+				}
+				case '0100': {
+					console.log('Traffic Cars');
 					key = 'traffic';
-					client.hmset('traffic_list', {[date] : decimal}, (err, reply) => {
+					client.hmset('traffic_cars_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
 						} else {
@@ -100,10 +112,18 @@ function parseMsg(data) {
 					});
 					break;
 				}
-				case '1000':
-					console.log('Timing');
-					key = 'timing';
+				case '0101': {
+					console.log('Traffic Trucks');
+					key = 'traffic';
+					client.hmset('traffic_trucks_list', {[date] : decimal}, (err, reply) => {
+						if(err) {
+							console.error(err);
+						} else {
+							console.log(reply);
+						}
+					});
 					break;
+				}
 			}
 		}
 		
