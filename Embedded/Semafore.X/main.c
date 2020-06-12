@@ -7,6 +7,39 @@
  TODO: Gestione sensori,controlli (integrare funzioni e migliorare il codice)
  */
 
+/*
+*PRIMO BYTE 1:
+SENSORE BYTE1.bit0=0;
+ATTUATORE BYTE1.bit0=1;
+
+*ID SENSORI:
+Temperatura: 0x02
+Umidità: 0x04
+Pressione: 0x06
+Traffico Macchine: 0x08
+Traffico Camion: 0x0A
+
+*ID SEMAFORI:
+Semaforo 1: 00011
+Semaforo 2: 00101
+Semaforo 3: 00111
+Semaforo 4: 01001
+
+*CODICE COLORI:
+Rosso: 01 
+Giallo: 10
+Verde: 11
+
+*SECONDO BYTE 2:
+Implementazioni future...
+
+*TERZO E QUARTO BYTE 3-4:
+Invio valori il massimo valore che si può inviare è 2^14
+
+*QUINTO BYTE 5:
+Byte di parità per trovare l'errore
+*/
+
 #pragma config FOSC = HS  // Oscillator Selection bits (RC oscillator)
 #pragma config WDTE = OFF // Watchdog Timer Enable bit (WDT enabled)
 #pragma config PWRTE = ON // Power-up Timer Enable bit (PWRT disabled)
@@ -236,9 +269,8 @@ void main(void)
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
 
-            //!I VALORI MESSI AL POSTO DEI PRIMI BYTE "0x00" SONO CASUALI VANNO CAMBIATI
-            sendByte(0x00, 0x00, temp);    //Invio dati di temperatura
-            sendByte(0x00, 0x00, umidita); //Invio dati di umidita
+            sendByte(0x02, 0x00, temp);    //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita); //Invio dati di umidita
         }
 
         //reset variabili
