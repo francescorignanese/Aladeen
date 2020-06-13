@@ -26,19 +26,22 @@ client.open(function (err) {
     // build message
     var message = new Message(JSON.stringify({
       typemessage:"sensors",
-      value:[
-        {
-          temperature: '50.0',
+      value:{
+          temperature: '40.0',
           umidity: '88.0',
           pressure: '20.0'
         }
-      ]
     }));
-    // A message can have custom properties that are also encoded and can be used for routing
-    //message.properties.add('propertyName', 'propertyValue');
+    
+    message.contentEncoding = "utf-8";
+    message.contentType = "application/json";
 
     // A unique identifier 
-    //message.messageId = uuid.v4();
+    message.messageId = uuid.v4();
+
+    //add custom properties
+    message.properties.add("Status", "Active");
+    
 
     console.log('Sending message: ' + message.getData());
     client.sendEvent(message, function (err) {
@@ -46,7 +49,7 @@ client.open(function (err) {
         console.error('Could not send: ' + err.toString());
         process.exit(-1);
       } else {
-        console.log('Message sent: ' + message.messageId);
+        console.log('Message sent: ');
         process.exit(0);
       }
     });
