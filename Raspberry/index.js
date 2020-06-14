@@ -4,7 +4,7 @@ const redis = require('redis');
 const port = new SerialPort('/COM6');
 const client = redis.createClient(6379, '192.168.0.99');
 let key;
-
+let sensor;
 //con questo parser lavoriamo con 5 byte alla volta
 const parser = port.pipe(new ByteLength({length: 5}))
 parser.on('data', parseMsg) 
@@ -56,17 +56,26 @@ function parseMsg(data) {
 	var decimal = parseInt(value, 2); //parso il binario in decimale
 	console.log(decimal);
 
-	let json = '{ "traffic":' + decimal+ '}';
+	//let json = '{ "traffic":' + decimal+ '}';
 
 	let corrupted = false;
 	let date = (new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]);
+	
+
+	let json = {
+		"data": new Date(),
+		"sensor": "",
+		"value": decimal,
+	};
 	if(!corrupted) {
 		
 		if (sa === '0') { //se è un sensore
+			
 			switch (id_sa) {
 				case '0001': {
 					console.log('Temperature');
-					key = 'temperature';
+					sensor = 'temperature';
+					json.sensor = sensor;
 					client.hmset('temps_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
@@ -78,7 +87,8 @@ function parseMsg(data) {
 				}
 				case '0010': {
 					console.log('Humidity');
-					key = 'humidity';
+					sensor = 'humidity';
+					json.sensor = sensor;
 					client.hmset('humidity_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
@@ -90,7 +100,8 @@ function parseMsg(data) {
 				}
 				case '0011': {
 					console.log('Pressure');
-					key = 'pressure';
+					sensor = 'pressure';
+					json.sensor = sensor;
 					client.hmset('pressure_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
@@ -102,7 +113,9 @@ function parseMsg(data) {
 				}
 				case '0100': {
 					console.log('Traffic Cars');
-					key = 'traffic';
+					sensor = 'traffic_cars';
+					json.sensor = sensor;
+					console.log(json);
 					client.hmset('traffic_cars_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
@@ -114,7 +127,8 @@ function parseMsg(data) {
 				}
 				case '0101': {
 					console.log('Traffic Trucks');
-					key = 'traffic';
+					sensor = 'traffic_camion';
+					json.sensor = sensor;
 					client.hmset('traffic_trucks_list', {[date] : decimal}, (err, reply) => {
 						if(err) {
 							console.error(err);
@@ -128,4 +142,37 @@ function parseMsg(data) {
 		}
 		
 	}
+	
+	let json_string = JSON.stringify(json);
+	console.log(json_string);
+
+	client.on("error", (err) => {
+		console.log("error", err)
+	 });
+	 client.on("connect", (err) => {
+		 console.log("connect");
+	 });
+	 client.on("ready", (err) => {
+		 redisNotReady = false;
+		 console.log("ready");
+	 });
+
+	 client.rpush(['test-cars', json_string], function (err, reply) {
+		console.log("Queue Length", reply);
+	});
+
+	client.lrange('test-cars', 0, 1, function (err, reply) {
+		console.log("Queue result", reply);
+	});
 }
+
+/*async function pub_sub(json) {
+    console.log('Started smartcross publisher...')
+    // Sleep 4 seconds and then publish garage door "opened" event.
+    await sleep(4);
+    client.publish(channel, json.toString());
+
+    await sleep(7);
+	client.publish(channel, 'temperatura');
+	client.publish(channel, 'umidità');
+}*/
