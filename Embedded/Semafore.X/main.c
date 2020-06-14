@@ -110,8 +110,8 @@ ProtocolBytes dataFromGateway;      //array dati da seriale
 Semaforo s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;    //definisco i vari semafori
 Semaforo* Semafori[16]={&s0,&s1,&s2,&s3,&s4,&s5,&s6,&s7,&s8,&s9,&s10,&s11,&s12,&s13,&s14,&s15};
 int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
-int colorsTime[3], new_colorsTime[3];             //0 � rosso, 1 � verde, 2 � giallo
 char colorIndex;               //variabile per stabilire il colore da accendere
+int n_semafori;
 
 
 void init_ADC();              //Inizializza l'adc
@@ -125,13 +125,15 @@ void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati 
 void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
+void SetDefaultTimers(int rosso, int verde, int giallo);   //setta i tempi di default delle luci del semaforo
+
 
 void main(void)
 {
-    TRISB = 0x1F;      //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
-    TRISE = 0x00;
+    TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
@@ -140,30 +142,25 @@ void main(void)
     //Init
     init_ADC();         //Inizializzazione adc
     UART_Init(9600);    //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(); //Inizializzazione tempi luci semaforo
+    SetDefaultTimers(0,0,0); //Inizializzazione tempi luci semaforo
     //?PIE1 = 0x01;
     /* 
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-    TMR1H = 60;         // preset for timer1 MSB register
-    TMR1L = 176;        // preset for timer1 LSB register
 
-    int colorsTime[3], time;    //0 � rosso, 1 � verde, 2 � giallo
-    char lux_select = 0;        //selezione luce per il semaforo
-    disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
-    char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
-    char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
-    Bit endCiclo;               //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
-    endCiclo.Bit=1;
-   
+    TMR1H = 60;  // preset for timer1 MSB register
+    TMR1L = 176; // preset for timer1 LSB register
+
     int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
     char lux_select = 0;     //selezione luce per il semaforo
     disp = 0;                //variabile per definire quale display deve accendersi, inizializzo a 0
     char temp = 0;           //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;        //Variabile per salvare l'umidita sul pin RA1
-    char endCiclo = 0;       //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+    char pressione = 0;      //Variabile per salvare la pressione sul pin RE0
+    Bit endCiclo;            //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+    endCiclo.Bit = 1;
 
     while (1)
     {
@@ -234,6 +231,7 @@ void main(void)
                         (*(Semafori[l])).times[i]=(*(Semafori[l])).new_times[i];
                     }
                 }   
+
             }
         }
 
@@ -246,13 +244,12 @@ void main(void)
             
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
-                lux_select = (lux_select + 1) % 3;
-                time = 1;
+                endCiclo.Bit = 0;
             }
-            
+
             if(lux_select==2 && time==(*Semafori[n_semafori]).times[2])
             {
-                endCiclo.Bit=1;
+                endCiclo.Bit = 1;
             }
             
             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
@@ -283,22 +280,23 @@ void main(void)
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
-        
         //*Gestione sensori -->
         if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
         {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);   //legge la temperatura e la mappa su quei valori
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100); //legge l'umidità e la mappa su quei valori
-
-            sendByte(0x02, 0x00, temp);    //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita); //Invio dati di umidita
+            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
+            
+            sendByte(0x02, 0x00, temp);      //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita);   //Invio dati di umidita
+            sendByte(0x06, 0x00, pressione); //Invio dati di pressione
         }
-
+        //*end <--
         //reset variabili
-        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
+        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
         //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
-        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
-        if(secondPassed.Bit && cycled.Bit)
+        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
+        if (secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
             cycled.Bit = 0;
@@ -521,13 +519,21 @@ void conteggioVeicoli()
     }
 }
 
-void SetDefaultTimers()
+void SetDefaultTimers(int rosso, int verde, int giallo)
 {
-    new_colorsTime[0]=30;
-    new_colorsTime[1]=30;
-    new_colorsTime[2]=30;
+    for(int l=0; l<16; l++)
+    {
+        for(int i=0; i<3; i++)
+        {
+            switch(i)
+            {
+                case 0: (*(Semafori[l])).new_times[i]=rosso; break;
+                case 1: (*(Semafori[l])).new_times[i]=verde; break;
+                case 2: (*(Semafori[l])).new_times[i]=giallo; break;
+            }
+        }   
+    }
 }
-
 void __interrupt() ISR()
 {
     //RICEVE DATI DA SERIALE
