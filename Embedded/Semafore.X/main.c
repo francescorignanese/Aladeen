@@ -82,7 +82,7 @@ typedef struct
 {
     Times new_times;
     Times times;
-}Semaforo;
+} Semaforo;
 
 struct
 {
@@ -106,13 +106,12 @@ unsigned char car[4];          //variabile per contare le macchine
 unsigned char truck[4];        //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 typedef char ProtocolBytes[15];
-ProtocolBytes dataFromGateway;      //array dati da seriale
-Semaforo s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;    //definisco i vari semafori
-Semaforo* Semafori[16]={&s0,&s1,&s2,&s3,&s4,&s5,&s6,&s7,&s8,&s9,&s10,&s11,&s12,&s13,&s14,&s15};
-int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
-char colorIndex;               //variabile per stabilire il colore da accendere
+ProtocolBytes dataFromGateway;                                                 //array dati da seriale
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
+Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
+int timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+char colorIndex;          //variabile per stabilire il colore da accendere
 int n_semafori;
-
 
 void init_ADC();              //Inizializza l'adc
 int ADC_Read(char canale);    //Lettura da un ingresso analogico
@@ -125,8 +124,7 @@ void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati 
 void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
-void SetDefaultTimers(int rosso, int verde, int giallo);   //setta i tempi di default delle luci del semaforo
-
+void SetDefaultTimers(int rosso, int verde, int giallo); //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
@@ -140,9 +138,9 @@ void main(void)
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
 
     //Init
-    init_ADC();         //Inizializzazione adc
-    UART_Init(9600);    //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(0,0,0); //Inizializzazione tempi luci semaforo
+    init_ADC();                //Inizializzazione adc
+    UART_Init(9600);           //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
     //?PIE1 = 0x01;
     /* 
     ?richiesta dati al raspberry 
@@ -204,34 +202,33 @@ void main(void)
                 for (int i = 0; i < 3; i++)
                 {
                     int index = i * 5;
-                    int colorId=((dataFromGateway[i*5] >> 5) & 0x03)-1;
-                    int semaforoId=(dataFromGateway[0]>>1)&0x07;
-                    
-                    (*(Semafori[semaforoId])).new_times[colorId]=GetTime(index);
+                    int colorId = ((dataFromGateway[i * 5] >> 5) & 0x03) - 1;
+                    int semaforoId = (dataFromGateway[0] >> 1) & 0x07;
+
+                    (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
                 }
             }
         }
 
         //AGGIORNAMENTO TEMPI LUCI
         //se avviene qualche cambiamento allora aggornero i tempi
-        if(endCiclo.Bit)
+        if (endCiclo.Bit)
         {
-            n_semafori=(n_semafori+1)%16;
-            while((*(Semafori[n_semafori])).times[0]==0)
+            n_semafori = (n_semafori + 1) % 16;
+            while ((*(Semafori[n_semafori])).times[0] == 0)
             {
                 n_semafori++;
             }
-            
-            for(int l=0; l<16; l++)
-            {
-                for(int i=0; i<3; i++)
-                {
-                    if((*(Semafori[l])).times[i]!=(*(Semafori[l])).new_times[i])
-                    {
-                        (*(Semafori[l])).times[i]=(*(Semafori[l])).new_times[i];
-                    }
-                }   
 
+            for (int l = 0; l < 16; l++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
+                    {
+                        (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
+                    }
+                }
             }
         }
 
@@ -240,18 +237,18 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
-            endCiclo.Bit=0;
-            
+            endCiclo.Bit = 0;
+
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 endCiclo.Bit = 0;
             }
 
-            if(lux_select==2 && time==(*Semafori[n_semafori]).times[2])
+            if (lux_select == 2 && time == (*Semafori[n_semafori]).times[2])
             {
                 endCiclo.Bit = 1;
             }
-            
+
             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
         }
 
@@ -286,7 +283,7 @@ void main(void)
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
             pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
-            
+
             sendByte(0x02, 0x00, temp);      //Invio dati di temperatura
             sendByte(0x04, 0x00, umidita);   //Invio dati di umidita
             sendByte(0x06, 0x00, pressione); //Invio dati di pressione
@@ -521,17 +518,23 @@ void conteggioVeicoli()
 
 void SetDefaultTimers(int rosso, int verde, int giallo)
 {
-    for(int l=0; l<16; l++)
+    for (int l = 0; l < 16; l++)
     {
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            switch(i)
+            switch (i)
             {
-                case 0: (*(Semafori[l])).new_times[i]=rosso; break;
-                case 1: (*(Semafori[l])).new_times[i]=verde; break;
-                case 2: (*(Semafori[l])).new_times[i]=giallo; break;
+            case 0:
+                (*(Semafori[l])).new_times[i] = rosso;
+                break;
+            case 1:
+                (*(Semafori[l])).new_times[i] = verde;
+                break;
+            case 2:
+                (*(Semafori[l])).new_times[i] = giallo;
+                break;
             }
-        }   
+        }
     }
 }
 void __interrupt() ISR()
