@@ -14,7 +14,6 @@ double pow(double b, double e) //Funzioneper fare la potenza
     return (number);
 }
 
-
 void intToString(int valore, char *str) //funzione per convertire un intero in una stringa
 {
     int i;

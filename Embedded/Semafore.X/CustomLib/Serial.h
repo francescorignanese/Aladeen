@@ -1,5 +1,5 @@
 //funzione per inviare dati al raspberry in cui aggiunge gli eventuali bit di paritÃ 
-char* BuildByte(char byte0, char byte1, char valore)
+char *BuildByte(char byte0, char byte1, char valore)
 {
     char txByte[5];
 
