@@ -138,11 +138,6 @@ void main(void)
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
-
-    //Init
-    init_ADC();                //Inizializzazione adc
-    UART_Init(9600);           //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
     //?PIE1 = 0x01;
     /* 
     ?richiesta dati al raspberry 
@@ -293,6 +288,7 @@ void main(void)
             sendByte(0x06, 0x00, pressione); //Invio dati di pressione
         }
         //*end <--
+
         //reset variabili
         //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
         //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
@@ -307,24 +303,23 @@ void main(void)
         {
             cycled.Bit = 1;
         }
-        //*end <--
 
         //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
-        // if (/* All arrivo del comando invio i mezzi */)
-        // {
-        //     for (int i = 0; i < 4; i++) //Invio tutti i valori
-        //     {
-        //         sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-        //         sendByte((0x01 << (i + 1)), 0x10, car[i]);
-        //         sendByte((0x01 << (i + 1)), 0x11, truck[i]);
-        //     }
-        //     for (int i = 0; i < 4; i++) //Reseto le variabili
-        //     {
-        //         motorcycle[i] = 0;
-        //         car[i] = 0;
-        //         truck[i] = 0;
-        //     }
-        // }
+        if ((dataFromGateway[1] & 0x7F) == 0x08)
+        {
+            for (int i = 0; i < 4; i++) //Invio tutti i valori
+            {
+                sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
+                sendByte((0x01 << (i + 1)), 0x10, car[i]);
+                sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+            }
+            for (int i = 0; i < 4; i++) //Reseto le variabili
+            {
+                motorcycle[i] = 0;
+                car[i] = 0;
+                truck[i] = 0;
+            }
+        }
         //!end <--
     }
 
