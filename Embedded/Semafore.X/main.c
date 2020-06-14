@@ -53,6 +53,7 @@ Byte di parità per trovare l'errore
 #pragma config CP = OFF   // Flash Program Memory Code Protection bit (Code protection off)
 
 #include <xc.h>
+#include <stdlib.h>
 #include "CustomLib/Conversions.h"
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
@@ -109,25 +110,26 @@ typedef char ProtocolBytes[15];
 ProtocolBytes dataFromGateway;                                                 //array dati da seriale
 Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
 Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
-int timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-char colorIndex;          //variabile per stabilire il colore da accendere
+char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+//Times colorsTime, new_colorsTime;            //0 � rosso, 1 � verde, 2 � giallo
+char colorIndex; //variabile per stabilire il colore da accendere
 int n_semafori;
 
-void init_ADC();              //Inizializza l'adc
-int ADC_Read(char canale);    //Lettura da un ingresso analogico
-void UART_Init(int baudrate); //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);    //Scrittura di un carattere sulla seriale
-char UART_Read();             //Lettura dalla seriale
-int GetTime(int index);
-void GetDigits(int Time);
-void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
-void conteggioVeicoli();                            //Conteggio mezzi
-void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
+void init_ADC();                                    //Inizializza l'adc
+int ADC_Read(char canale);                          //Lettura da un ingresso analogico
+void UART_Init(int baudrate);                       //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);                          //Scrittura di un carattere sulla seriale
+char UART_Read();                                   //Lettura dalla seriale
+int GetTime(int index);                             //Fonde un numero separato in due bit in un singolo int
+void GetDigits(int Time);                           //Suddivide un numero secondo centinaia, decine e unit�
+void sendByte(char byte0, char byte1, char valore); //Invia un blocco da 5 byte al raspberry
+void conteggioVeicoli();
+void SetDisplay(char d1, char d2, char d3, char value);  //Seleziona quale display accendere
 void SetDefaultTimers(int rosso, int verde, int giallo); //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
+    //Init
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
@@ -146,8 +148,10 @@ void main(void)
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
+    init_ADC();                //Inizializzazione adc
+    UART_Init(9600);           //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-
     TMR1H = 60;  // preset for timer1 MSB register
     TMR1L = 176; // preset for timer1 LSB register
 
@@ -241,7 +245,7 @@ void main(void)
 
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
-                endCiclo.Bit = 0;
+                endCiclo.Bit = 1;
             }
 
             if (lux_select == 2 && time == (*Semafori[n_semafori]).times[2])
@@ -323,6 +327,7 @@ void main(void)
         // }
         //!end <--
     }
+
     return;
 }
 
