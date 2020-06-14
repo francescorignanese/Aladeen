@@ -53,6 +53,7 @@ Byte di parità per trovare l'errore
 #pragma config CP = OFF   // Flash Program Memory Code Protection bit (Code protection off)
 
 #include <xc.h>
+#include <stdlib.h>
 #include "CustomLib/Conversions.h"
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
@@ -77,6 +78,13 @@ typedef struct
     unsigned int Bit : 1;
 } Bit;
 
+typedef int Times[3];
+typedef struct
+{
+    Times new_times;
+    Times times;
+} Semaforo;
+
 struct
 {
     unsigned int Bit : 1;
@@ -92,34 +100,36 @@ unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislp
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;   //conteggio per il tempo delle luci
 char comando = 0;              //Prende il dato dalla seriale
-unsigned char Time_Red = 10;   //tempo luce rossa (pre-impostato a 10s)
-unsigned char Time_Yellow = 5; //tempo luce gialla (pre-impostato a 10s)
-unsigned char Time_Green = 10; //tempo luce verde (pre-impostato a 10s)
 unsigned char time = 0;        //variabile per contare i secondi
 unsigned char countdown = 0;   //variabile per il conto alla rovescia
 unsigned char motorcycle[4];   //variabile per contare le macchine
 unsigned char car[4];          //variabile per contare le macchine
 unsigned char truck[4];        //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
-char dataFromGateway[15];      //array dati da seriale
-int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
-int colorsTime[3];             //0 � rosso, 1 � verde, 2 � giallo
-char colorIndex;               //variabile per stabilire il colore da accendere
+typedef char ProtocolBytes[15];
+ProtocolBytes dataFromGateway;                                                 //array dati da seriale
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
+Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
+char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+//Times colorsTime, new_colorsTime;            //0 � rosso, 1 � verde, 2 � giallo
+char colorIndex; //variabile per stabilire il colore da accendere
+int n_semafori;
 
-void init_ADC();              //Inizializza l'adc
-int ADC_Read(char canale);    //Lettura da un ingresso analogico
-void UART_Init(int baudrate); //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);    //Scrittura di un carattere sulla seriale
-char UART_Read();             //Lettura dalla seriale
-int GetTime(int index);
-void GetDigits(int Time);
-void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
-void conteggioVeicoli();                            //Conteggio mezzi
-void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
+void init_ADC();                                    //Inizializza l'adc
+int ADC_Read(char canale);                          //Lettura da un ingresso analogico
+void UART_Init(int baudrate);                       //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);                          //Scrittura di un carattere sulla seriale
+char UART_Read();                                   //Lettura dalla seriale
+int GetTime(int index);                             //Fonde un numero separato in due bit in un singolo int
+void GetDigits(int Time);                           //Suddivide un numero secondo centinaia, decine e unit�
+void sendByte(char byte0, char byte1, char valore); //Invia un blocco da 5 byte al raspberry
+void conteggioVeicoli();
+void SetDisplay(char d1, char d2, char d3, char value);  //Seleziona quale display accendere
+void SetDefaultTimers(int rosso, int verde, int giallo); //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
+    //Init
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
@@ -133,11 +143,12 @@ void main(void)
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
+    init_ADC();                //Inizializzazione adc
+    UART_Init(9600);           //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-    TMR1H = 60;      // preset for timer1 MSB register
-    TMR1L = 176;     // preset for timer1 LSB register
-    init_ADC();      //Inizializzazione adc
-    UART_Init(9600); //Inizializzazione seriale a 9600 b
+    TMR1H = 60;  // preset for timer1 MSB register
+    TMR1L = 176; // preset for timer1 LSB register
 
     int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
     char lux_select = 0;     //selezione luce per il semaforo
@@ -145,7 +156,8 @@ void main(void)
     char temp = 0;           //Variabile per salvare la temperatura sul pin RA0
     char umidita = 0;        //Variabile per salvare l'umidita sul pin RA1
     char pressione = 0;      //Variabile per salvare la pressione sul pin RE0
-    char endCiclo = 0;       //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+    Bit endCiclo;            //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+    endCiclo.Bit = 1;
 
     while (1)
     {
@@ -184,23 +196,39 @@ void main(void)
             //se il readgatewaydonenon � stato richiamato dal timeout inizia la modifica dei dati
             else
             {
-                bitParita(dataFromGateway); //controllo correttezza dati
+                //bitParita(dataFromGateway); //controllo correttezza dati
 
                 for (int i = 0; i < 3; i++)
                 {
                     int index = i * 5;
-                    colorIndex = (dataFromGateway[index] >> 5) & 0x03;
-                    colorsTime[colorIndex - 1] = GetTime(index);
+                    int colorId = ((dataFromGateway[i * 5] >> 5) & 0x03) - 1;
+                    int semaforoId = (dataFromGateway[0] >> 1) & 0x07;
+
+                    (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
                 }
             }
         }
 
+        //AGGIORNAMENTO TEMPI LUCI
         //se avviene qualche cambiamento allora aggornero i tempi
-        if (((Time_Red != colorsTime[0]) || (Time_Green != colorsTime[1]) || (Time_Yellow != colorsTime[2])) && endCiclo == 1)
+        if (endCiclo.Bit)
         {
-            Time_Red = colorsTime[0];
-            Time_Green = colorsTime[1];
-            Time_Yellow = colorsTime[2];
+            n_semafori = (n_semafori + 1) % 16;
+            while ((*(Semafori[n_semafori])).times[0] == 0)
+            {
+                n_semafori++;
+            }
+
+            for (int l = 0; l < 16; l++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
+                    {
+                        (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
+                    }
+                }
+            }
         }
 
         //ACCENSIONE LED IN BASE AL TEMPO
@@ -208,17 +236,23 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
+            endCiclo.Bit = 0;
 
-            if (colorsTime[lux_select] - time < 0)
+            if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 lux_select = (lux_select + 1) % 3;
                 time = 1;
             }
 
-            GetDigits(colorsTime[lux_select] - time);
+            if (lux_select == 2 && time == (*Semafori[n_semafori]).times[2])
+            {
+                endCiclo.Bit = 1;
+            }
+
+            GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
         }
 
-        //Mostra il timer sul display
+        //MOSTRA TIMER SU DISPLAY
         if (disp != old_disp) //Lo esegue solo quando "disp" cambia (cio� ad ogni ciclo while))
         {
             old_disp = disp;
@@ -256,6 +290,9 @@ void main(void)
         }
 
         //reset variabili
+        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
+        //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
+        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
         if (secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
@@ -286,6 +323,7 @@ void main(void)
         // }
         //!end <--
     }
+
     return;
 }
 
@@ -476,6 +514,28 @@ void conteggioVeicoli()
             truck[3]++;
         }
         count = 0;
+    }
+}
+
+void SetDefaultTimers(int rosso, int verde, int giallo)
+{
+    for (int l = 0; l < 16; l++)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            switch (i)
+            {
+            case 0:
+                (*(Semafori[l])).new_times[i] = rosso;
+                break;
+            case 1:
+                (*(Semafori[l])).new_times[i] = verde;
+                break;
+            case 2:
+                (*(Semafori[l])).new_times[i] = giallo;
+                break;
+            }
+        }
     }
 }
 
