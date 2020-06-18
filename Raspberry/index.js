@@ -8,7 +8,16 @@ let sensor;
 //con questo parser lavoriamo con 5 byte alla volta
 const parser = port.pipe(new ByteLength({length: 5}))
 parser.on('data', parseMsg) 
-
+client.on("error", (err) => {
+		console.log("error", err)
+	 });
+client.on("connect", (err) => {
+	console.log("Redis connected!");
+});
+client.on("ready", (err) => {
+	redisNotReady = false;
+	console.log("Redis ready to accept data!");
+});
 function parseMsg(data) {
 
 	//per ogni elemento del buffer ricevuto via seriale, estraiamo il valore in binario
@@ -61,9 +70,8 @@ function parseMsg(data) {
 	let corrupted = false;
 	let date = (new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]);
 	
-
 	let json = {
-		"data": new Date(),
+		"date": new Date(),
 		"sensor": "",
 		"value": decimal,
 	};
@@ -146,18 +154,7 @@ function parseMsg(data) {
 	let json_string = JSON.stringify(json);
 	console.log(json_string);
 
-	client.on("error", (err) => {
-		console.log("error", err)
-	 });
-	 client.on("connect", (err) => {
-		 console.log("connect");
-	 });
-	 client.on("ready", (err) => {
-		 redisNotReady = false;
-		 console.log("ready");
-	 });
-
-	 client.rpush(['test-cars', json_string], function (err, reply) {
+	client.rpush(['test-cars', json_string], function (err, reply) {
 		console.log("Queue Length", reply);
 	});
 
@@ -165,14 +162,3 @@ function parseMsg(data) {
 		console.log("Queue result", reply);
 	});
 }
-
-/*async function pub_sub(json) {
-    console.log('Started smartcross publisher...')
-    // Sleep 4 seconds and then publish garage door "opened" event.
-    await sleep(4);
-    client.publish(channel, json.toString());
-
-    await sleep(7);
-	client.publish(channel, 'temperatura');
-	client.publish(channel, 'umidità');
-}*/
