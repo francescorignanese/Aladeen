@@ -2063,6 +2063,7 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
                 break;
+
             default:
                 if (timerReadFromGateway >= 4)
                 {
