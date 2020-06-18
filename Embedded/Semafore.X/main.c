@@ -17,6 +17,7 @@ Temperatura: 0x02
 Umidità: 0x04
 Pressione: 0x06
 Traffico (INVIO): 0x08
+Sensori (INVIO): 0x0A
 
 
 *ID SEMAFORI:
@@ -164,18 +165,32 @@ void main(void)
         //se si stanno ricevendo dati dalla seriale
         if (readGateway.Bit)
         {
-            if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
+            switch ((dataFromGateway[1] & 0x7F)) //Controllo se devo ricevere o inviare in base alla ricezione e i comandi
             {
+            case 0x08: //Se vi è il comando 0x08 nel secondo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 1;
                 readGateway.Bit = 0;
-            }
+                break;
+            case 0x0A: //Se vi è il comando 0x0A nel secondo byte allora prendo solo un pachetto di dati
+                readGatewayDone.Bit = 1;
+                readGateway.Bit = 0;
+                break;
+                //Se non vi è un comando di invio allora mi aspetto i tempi e quindi 15 byte
+            default:
+                if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 1;
+                    readGateway.Bit = 0;
+                }
 
-            if (dataFromGatewayIndex >= 15)
-            {
-                readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 0;
-                readGateway.Bit = 0;
+                if (dataFromGatewayIndex >= 15)
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 0;
+                    readGateway.Bit = 0;
+                }
+                break;
             }
         }
 
@@ -276,19 +291,6 @@ void main(void)
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
-        //*Gestione sensori -->
-        if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
-        {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
-            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
-
-            sendByte(0x02, 0x00, temp);      //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita);   //Invio dati di umidita
-            sendByte(0x06, 0x00, pressione); //Invio dati di pressione
-        }
-        //*end <--
-
         //reset variabili
         //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
         //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
@@ -321,6 +323,18 @@ void main(void)
             }
         }
         //!end <--
+
+        //*Parte di invio dei sensori ad ogni richiesta del raspberry
+        if ((dataFromGateway[1] & 0x7F) == 0x0A)
+        {
+            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
+            sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
+            sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
+        }
+        //*end <--
     }
 
     return;

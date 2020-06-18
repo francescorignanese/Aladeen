@@ -1,0 +1,989 @@
+%CMF
+# %PSECTS Section
+# For each object file, details of its psects are enumerated here.
+# The begining of the section is indicated by %PSECTS.  The first
+# line indicates the name of the first object file, e.g.
+#    $foo.obj
+# Each line that follows describes a psect in that object file, until
+# the next object file.  The lines that describe a psect have the
+# format:
+#    <psect name> <class name> <space> <link address> <load addresses> <length> <delta>
+# All addresses and the length are given in unqualified hexadecimal
+# in delta units.  Any other numeric values are decimal.
+%PSECTS
+$C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+reset_vec CODE 0 0 0 3 2
+end_init CODE 0 E E 3 2
+config CONFIG 0 2007 2007 1 2
+$dist/default/production\Semafore.X.production.o
+cinit CODE 0 11 11 39 2
+text1 CODE 0 D61 D61 3A 2
+text2 CODE 0 C80 C80 25 2
+text3 CODE 0 C23 C23 B 2
+text4 CODE 0 674 674 C8 2
+text5 CODE 0 CF2 CF2 35 2
+text6 CODE 0 CCB CCB 27 2
+text7 CODE 0 C2E C2E 13 2
+text8 CODE 0 C69 C69 17 2
+text9 CODE 0 D27 D27 3A 2
+text10 CODE 0 F63 F63 9D 2
+text11 CODE 0 C54 C54 15 2
+text12 CODE 0 73C 73C A1 2
+text13 CODE 0 D9B D9B 3F 2
+text14 CODE 0 EF8 EF8 6B 2
+text15 CODE 0 E34 E34 5B 2
+text16 CODE 0 E8F E8F 69 2
+text17 CODE 0 CA5 CA5 26 2
+text18 CODE 0 DDA DDA 5A 2
+text19 CODE 0 586 586 EE 2
+text20 CODE 0 C1A C1A 9 2
+maintext CODE 0 4A 4A 53C 2
+cstackCOMMON COMMON 1 75 75 5 1
+cstackBANK0 BANK0 1 20 20 2D 1
+cstackBANK2 BANK2 1 158 158 17 1
+inittext CODE 0 C41 C41 13 2
+intentry CODE 0 4 4 A 2
+bssBANK0 BANK0 1 4D 4D 17 1
+bssBANK1 BANK1 1 A0 A0 2F 1
+bssBANK2 BANK2 1 110 110 48 1
+bssBANK3 BANK3 1 190 190 60 1
+idataBANK1 CODE 0 7DD 7DD 20 2
+strings STRING 0 800 800 11 2
+dataBANK1 BANK1 1 CF CF 20 1
+clrtext CODE 0 C12 C12 8 2
+bssCOMMON COMMON 1 70 70 5 1
+# %UNUSED Section
+# This section enumerates the unused ranges of each CLASS. Each entry
+# is described on a single line as follows:
+#    <class name> <range> <delta>
+# Addresses given in the range are in hexadecimal and units of delta.
+%UNUSED
+RAM 64-6F 1
+RAM EF-EF 1
+RAM 16F-16F 1
+BANK0 64-6F 1
+BANK1 EF-EF 1
+BANK2 16F-16F 1
+CONST 3-3 2
+CONST 7FD-7FF 2
+CONST 811-C11 2
+CONST 1000-1FFF 2
+ENTRY 3-3 2
+ENTRY 7FD-7FF 2
+ENTRY 811-C11 2
+ENTRY 1000-1FFF 2
+IDLOC 2000-2003 2
+STACK 64-6F 1
+CODE 3-3 2
+CODE 7FD-7FF 2
+CODE 811-C11 2
+CODE 1000-1FFF 2
+SFR0 0-1F 1
+SFR1 80-9F 1
+SFR2 100-10F 1
+SFR3 180-18F 1
+COMMON 7A-7D 1
+EEDATA 2100-21FF 2
+STRCODE 3-3 2
+STRCODE 7FD-7FF 2
+STRCODE 811-C11 2
+STRCODE 1000-1FFF 2
+STRING 3-3 2
+STRING 7FD-7FF 2
+STRING 811-C11 2
+STRING 1000-1FFF 2
+# %LINETAB Section
+# This section enumerates the file/line to address mappings.
+# The beginning of the section is indicated by %LINETAB.
+# The first line indicates the name of the first object file, e.g.
+#   $foo.obj
+# Each line that follows describes a single mapping until the next
+# object file.  Mappings have the following format:
+#    <address> <psect name> <class name> ><line number>:<file name>
+# The address is absolute and given given in unqualified hex 
+# in delta units of the psect. All mappings within an object file
+# are in ascending order of addresses.
+# All other numeric values are in decimal.
+%LINETAB
+$dist/default/production\Semafore.X.production.o
+11 cinit CODE >565:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+11 cinit CODE >568:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+11 cinit CODE >741:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+12 cinit CODE >742:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+13 cinit CODE >743:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+14 cinit CODE >744:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+15 cinit CODE >745:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+16 cinit CODE >746:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+17 cinit CODE >747:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+18 cinit CODE >748:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+19 cinit CODE >749:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+1A cinit CODE >750:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+1F cinit CODE >769:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+20 cinit CODE >770:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+21 cinit CODE >771:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+22 cinit CODE >772:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+23 cinit CODE >773:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+28 cinit CODE >776:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+29 cinit CODE >777:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+2A cinit CODE >778:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+2B cinit CODE >779:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+30 cinit CODE >782:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+31 cinit CODE >783:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+32 cinit CODE >784:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+33 cinit CODE >785:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+34 cinit CODE >786:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+39 cinit CODE >789:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+3A cinit CODE >790:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+3B cinit CODE >791:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+3C cinit CODE >792:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+41 cinit CODE >795:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+42 cinit CODE >796:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+43 cinit CODE >797:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+44 cinit CODE >798:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+45 cinit CODE >799:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+46 cinit CODE >805:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+46 cinit CODE >807:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+47 cinit CODE >808:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+4 intentry CODE >553:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C1A text20 CODE >391:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C1A text20 CODE >393:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C1A text20 CODE >394:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C20 text20 CODE >395:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C21 text20 CODE >396:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C22 text20 CODE >397:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+586 text19 CODE >444:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+586 text19 CODE >447:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+58C text19 CODE >449:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+592 text19 CODE >450:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+593 text19 CODE >451:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+597 text19 CODE >453:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5A0 text19 CODE >455:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5A4 text19 CODE >457:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5AD text19 CODE >459:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5B1 text19 CODE >461:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5BA text19 CODE >463:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5C0 text19 CODE >465:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5C2 text19 CODE >468:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5C7 text19 CODE >470:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5CD text19 CODE >471:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5CE text19 CODE >472:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5D2 text19 CODE >474:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5DB text19 CODE >476:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5DF text19 CODE >478:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5E8 text19 CODE >480:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5EC text19 CODE >482:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5F5 text19 CODE >484:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5FB text19 CODE >486:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5FD text19 CODE >489:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+602 text19 CODE >491:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+608 text19 CODE >492:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+609 text19 CODE >493:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+60D text19 CODE >495:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+616 text19 CODE >497:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+61A text19 CODE >499:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+623 text19 CODE >501:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+627 text19 CODE >503:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+630 text19 CODE >505:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+636 text19 CODE >507:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+638 text19 CODE >510:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+63D text19 CODE >512:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+643 text19 CODE >513:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+644 text19 CODE >514:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+648 text19 CODE >516:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+651 text19 CODE >518:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+655 text19 CODE >520:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+65E text19 CODE >522:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+662 text19 CODE >524:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+66B text19 CODE >526:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+671 text19 CODE >528:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+673 text19 CODE >530:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DDA text18 CODE >553:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DDA text18 CODE >556:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE4 text18 CODE >558:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE5 text18 CODE >559:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE6 text18 CODE >560:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE7 text18 CODE >561:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE8 text18 CODE >562:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DE9 text18 CODE >564:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DF1 text18 CODE >566:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DFF text18 CODE >567:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E03 text18 CODE >568:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E04 text18 CODE >573:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E08 text18 CODE >575:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E09 text18 CODE >576:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E0E text18 CODE >577:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E12 text18 CODE >580:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E16 text18 CODE >582:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E17 text18 CODE >583:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E1B text18 CODE >585:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E21 text18 CODE >587:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E22 text18 CODE >588:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E23 text18 CODE >589:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E27 text18 CODE >592:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E29 text18 CODE >593:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E2B text18 CODE >595:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CA5 text17 CODE >352:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CA8 text17 CODE >354:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CB4 text17 CODE >355:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CBB text17 CODE >356:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CBE text17 CODE >357:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CBE text17 CODE >358:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CC2 text17 CODE >359:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CCA text17 CODE >360:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+E8F text16 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E8F text16 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E92 text16 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E96 text16 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E9B text16 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E9D text16 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EA1 text16 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EA6 text16 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EAA text16 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EAC text16 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EB2 text16 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EB4 text16 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EB5 text16 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EBC text16 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EC0 text16 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EC4 text16 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+ECB text16 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+ED5 text16 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EDB text16 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EDC text16 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EE3 text16 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EE9 text16 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EEE text16 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EF3 text16 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+EF7 text16 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E34 text15 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E34 text15 CODE >12:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E37 text15 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E3B text15 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E40 text15 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E42 text15 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E46 text15 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E4B text15 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E51 text15 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E53 text15 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E54 text15 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E5B text15 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E5F text15 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E63 text15 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E6D text15 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E73 text15 CODE >28:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E7A text15 CODE >29:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E80 text15 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E85 text15 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E8A text15 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E8E text15 CODE >34:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EF8 text14 CODE >428:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+EF8 text14 CODE >430:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+EFE text14 CODE >431:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+F14 text14 CODE >432:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+F39 text14 CODE >433:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+F62 text14 CODE >434:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D9B text13 CODE >410:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D9B text13 CODE >418:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DA9 text13 CODE >419:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DB1 text13 CODE >420:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DC2 text13 CODE >422:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DCD text13 CODE >423:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DD5 text13 CODE >425:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+DD9 text13 CODE >426:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+73C text12 CODE >532:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+73C text12 CODE >534:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+740 text12 CODE >536:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+745 text12 CODE >541:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+763 text12 CODE >542:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+764 text12 CODE >544:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+782 text12 CODE >545:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+783 text12 CODE >547:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7A1 text12 CODE >548:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7A2 text12 CODE >549:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7B4 text12 CODE >550:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7C7 text12 CODE >551:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7DC text12 CODE >552:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C54 text11 CODE >436:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C57 text11 CODE >438:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C5C text11 CODE >439:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C61 text11 CODE >440:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C66 text11 CODE >441:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C68 text11 CODE >442:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+F63 text10 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F63 text10 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F66 text10 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F6A text10 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F75 text10 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F77 text10 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F77 text10 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F7B text10 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F86 text10 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F8A text10 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F92 text10 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F9A text10 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F9C text10 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+F9D text10 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FA6 text10 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FAA text10 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FAE text10 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FB7 text10 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FC9 text10 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FD7 text10 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FD8 text10 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FE1 text10 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FE7 text10 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FEC text10 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FF7 text10 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+FFF text10 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+D27 text9 CODE >362:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D27 text9 CODE >364:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D2A text9 CODE >365:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D2B text9 CODE >366:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D2E text9 CODE >367:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D2F text9 CODE >368:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D5D text9 CODE >369:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D5E text9 CODE >370:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D5F text9 CODE >371:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D60 text9 CODE >372:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C69 text8 CODE >4:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C6C text8 CODE >6:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C6D text8 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C71 text8 CODE >44:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C75 text8 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C77 text8 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C79 text8 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C7E text8 CODE >50:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C7F text8 CODE >51:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C2E text7 CODE >343:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C2E text7 CODE >345:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C32 text7 CODE >346:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C35 text7 CODE >347:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C39 text7 CODE >348:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C40 text7 CODE >349:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CCB text6 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CCB text6 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CCF text6 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CD3 text6 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CD9 text6 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CE0 text6 CODE >48:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CE7 text6 CODE >49:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CED text6 CODE >52:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CF1 text6 CODE >53:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CF2 text5 CODE >1:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+CF2 text5 CODE >3:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+D26 text5 CODE >4:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+674 text4 CODE >2:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+677 text4 CODE >6:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+67C text4 CODE >7:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+681 text4 CODE >8:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+686 text4 CODE >9:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+693 text4 CODE >10:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+694 text4 CODE >11:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+695 text4 CODE >13:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+697 text4 CODE >15:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+69B text4 CODE >17:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6AF text4 CODE >18:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6C2 text4 CODE >19:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6C8 text4 CODE >21:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6D0 text4 CODE >22:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6D1 text4 CODE >28:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6E4 text4 CODE >30:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6E8 text4 CODE >32:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+6EC text4 CODE >35:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+700 text4 CODE >36:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+713 text4 CODE >37:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+719 text4 CODE >39:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+726 text4 CODE >40:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+727 text4 CODE >46:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+73A text4 CODE >48:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+73B text4 CODE >49:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+C23 text3 CODE >374:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C26 text3 CODE >376:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C26 text3 CODE >377:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C2A text3 CODE >378:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C2B text3 CODE >379:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C2D text3 CODE >380:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C80 text2 CODE >382:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C83 text2 CODE >385:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C86 text2 CODE >387:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C91 text2 CODE >388:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CA4 text2 CODE >389:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D61 text1 CODE >399:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D64 text1 CODE >402:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D77 text1 CODE >404:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D79 text1 CODE >406:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D87 text1 CODE >407:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D9A text1 CODE >408:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4A maintext CODE >131:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4A maintext CODE >134:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4E maintext CODE >135:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+50 maintext CODE >136:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+51 maintext CODE >137:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+53 maintext CODE >138:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+55 maintext CODE >139:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+57 maintext CODE >140:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5B maintext CODE >141:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+5D maintext CODE >147:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+62 maintext CODE >148:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+6D maintext CODE >149:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+7D maintext CODE >151:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+81 maintext CODE >152:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+83 maintext CODE >155:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+86 maintext CODE >156:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+89 maintext CODE >157:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+89 maintext CODE >158:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+89 maintext CODE >159:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+89 maintext CODE >161:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+8C maintext CODE >166:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+93 maintext CODE >170:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+93 maintext CODE >171:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+94 maintext CODE >172:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+95 maintext CODE >173:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+96 maintext CODE >179:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+9C maintext CODE >181:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+9D maintext CODE >182:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+9E maintext CODE >183:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+9F maintext CODE >186:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+A5 maintext CODE >188:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+A6 maintext CODE >189:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+A7 maintext CODE >190:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+A9 maintext CODE >193:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+BE maintext CODE >194:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+BE maintext CODE >197:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C2 maintext CODE >200:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C3 maintext CODE >201:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C4 maintext CODE >202:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C5 maintext CODE >203:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C6 maintext CODE >206:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CA maintext CODE >208:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CB maintext CODE >209:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+CC maintext CODE >215:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+D0 maintext CODE >217:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+F1 maintext CODE >218:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+116 maintext CODE >219:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+12B maintext CODE >221:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+160 maintext CODE >222:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+175 maintext CODE >224:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+175 maintext CODE >228:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+17B maintext CODE >230:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+18B maintext CODE >231:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+18C maintext CODE >233:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+192 maintext CODE >231:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+1B5 maintext CODE >236:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+1C7 maintext CODE >238:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+1D9 maintext CODE >240:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+230 maintext CODE >242:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+27D maintext CODE >244:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+286 maintext CODE >245:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+28F maintext CODE >246:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+28F maintext CODE >250:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+299 maintext CODE >252:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+2A1 maintext CODE >253:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+2A2 maintext CODE >255:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+2DB maintext CODE >257:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+2DE maintext CODE >260:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+317 maintext CODE >262:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+31A maintext CODE >265:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+353 maintext CODE >269:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+35B maintext CODE >271:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+35F maintext CODE >272:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+360 maintext CODE >275:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+365 maintext CODE >277:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+379 maintext CODE >281:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+383 maintext CODE >283:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+398 maintext CODE >287:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3AC maintext CODE >288:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3AD maintext CODE >289:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3C0 maintext CODE >291:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3D8 maintext CODE >297:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3E0 maintext CODE >299:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3E1 maintext CODE >300:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3E2 maintext CODE >301:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3E2 maintext CODE >303:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3EA maintext CODE >305:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3EB maintext CODE >309:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+3F8 maintext CODE >311:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+40A maintext CODE >313:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+42F maintext CODE >314:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+456 maintext CODE >315:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+47D maintext CODE >316:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+486 maintext CODE >317:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+498 maintext CODE >319:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+49F maintext CODE >320:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4A3 maintext CODE >321:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4A7 maintext CODE >322:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4AE maintext CODE >327:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4BB maintext CODE >329:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+4ED maintext CODE >330:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+51E maintext CODE >331:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+54F maintext CODE >332:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+560 maintext CODE >333:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+571 maintext CODE >334:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+C12 clrtext CODE >756:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C12 clrtext CODE >757:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C13 clrtext CODE >758:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C13 clrtext CODE >759:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C14 clrtext CODE >760:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C15 clrtext CODE >761:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C16 clrtext CODE >762:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C17 clrtext CODE >763:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C18 clrtext CODE >764:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C19 clrtext CODE >765:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C41 inittext CODE >715:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C41 inittext CODE >716:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C42 inittext CODE >717:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C43 inittext CODE >718:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C44 inittext CODE >719:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C45 inittext CODE >726:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C45 inittext CODE >727:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4A inittext CODE >728:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4B inittext CODE >729:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4C inittext CODE >730:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4D inittext CODE >731:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4E inittext CODE >732:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C4F inittext CODE >733:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C50 inittext CODE >734:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C51 inittext CODE >735:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C52 inittext CODE >736:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+C53 inittext CODE >737:C:\Users\Rigna\AppData\Local\Temp\s1jg.s
+# %SYMTAB Section
+# An enumeration of all symbols in the program.
+# The beginning of the section is indicated by %SYMTAB.
+# Each line describes a single symbol as follows:
+#    <label> <value> [-]<load-adj> <class> <space> <psect> <file-name>
+# The value and load-adj are both in unqualified hexadecimal.
+# All other numeric values are in decimal.  The load-adj is the
+# quantity one needs to add to the symbol value in order to obtain the load
+# address of the symbol.  This value may be signed. If the symbol
+# was defined in a psect then <psect> will be "-". File-name
+# is the name of the object file in which the symbol was defined.
+%SYMTAB
+___latbits 2 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___awdiv@counter 2C 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__LdataBANK1 0 0 ABS 0 dataBANK1 -
+__end_of_SetDefaultTimers FBA 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__Hspace_0 2008 0 ABS 0 - -
+__Hspace_1 1F0 0 ABS 0 - -
+__Hspace_2 0 0 ABS 0 - -
+__Hspace_3 0 0 ABS 0 - -
+__HidataBANK1 0 0 ABS 0 idataBANK1 -
+_UART_TxChar 1846 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+__size_of_init_ADC 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_old_disp 5C 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__size_of_SetDefaultTimers 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__Heeprom_data 0 0 EEDATA 3 eeprom_data -
+BuildByte@txByte 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_s0 C3 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_s1 B7 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_s2 1E4 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s3 1D8 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s4 1CC 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s5 1C0 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s6 1B4 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s7 1A8 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s8 19C 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+_s9 190 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+?_map 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+main@i 165 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@l 169 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+__Hstrings 0 0 ABS 0 strings -
+BuildByte@valore 21 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_RCIF 65 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TMR0 1 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TXIF 64 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+_disp 5B 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_main 94 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
+btemp 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+map@x 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+start 1C 0 CODE 0 init C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+__size_of___aldiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of___awdiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of___awmod 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of_main 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__HbssCOMMON 0 0 ABS 0 bssCOMMON -
+?___wmul 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__end_of_GetTime 1BB4 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+__LidataBANK1 0 0 ABS 0 idataBANK1 -
+__Hpowerup 0 0 CODE 0 powerup -
+___awmod@sign 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__size_of_ADC_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_centinaia 5D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+_motorcycle 51 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__LbssCOMMON 0 0 ABS 0 bssCOMMON -
+___bmul@multiplicand 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_init_ADC 185C 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+___aldiv@divisor 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+wtemp0 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__Hfunctab 0 0 ENTRY 0 functab -
+_Semafori CF 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
+___aldiv@sign 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_SetDisplay 18A8 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
+___awdiv@sign 2D 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Hclrtext 0 0 ABS 0 clrtext -
+__end_of_init_ADC 1882 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+sendByte@txByte 3A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@sommaRow 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+sendByte@valore 35 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_readGateway 62 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+___wmul@multiplicand 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_ADCON0 1F 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_ADCON1 9F 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_ADRESH 1E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_ADRESL 9E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___awdiv@dividend 29 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+sendByte@i 3B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+UART_Init@baudrate 2F 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+GetTime@time 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@byte0 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@byte1 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@i_342 32 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@y_343 2E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_display 100C 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+__end_of___bmul 1900 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+__end_of___wmul 19E4 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+__Lmaintext 0 0 ABS 0 maintext -
+sendByte@byte0 39 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+sendByte@byte1 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_ADC_Read 194A 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
+___bmul@multiplier 23 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__end_of_BuildByte E78 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+___awdiv@divisor 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__end_of___aldiv 2000 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
+__end_of___awdiv 1DF0 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+__end_of___awmod 1D1E 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+__size_of_BuildByte 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_INTCON B 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_OPTION_REG 81 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__end_of_ADC_Read 1996 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
+___stackhi 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+___stacklo 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+_dataFromGatewayIndex 59 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_SetDisplay 18D2 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
+BuildByte@sommaColumn 2B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@i 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+BuildByte@y 2C 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_BuildByte CE8 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+main@colorId 15A 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+start_initialization 22 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
+_TRISCbits 87 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___aldiv@quotient 2B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_GO_nDONE FA 0 ABS 0 - dist/default/production\Semafore.X.production.o
+clear_ram0 1824 0 CODE 0 clrtext dist/default/production\Semafore.X.production.o
+__pcstackBANK0 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__pcstackBANK2 158 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@pressione 160 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+__end_of_UART_Write_Text 194A 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+_TMR0IF 5A 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TMR1IF 60 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___int_sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+__Hbank0 0 0 ABS 0 bank0 -
+__Hbank1 0 0 ABS 0 bank1 -
+__Hbank2 0 0 ABS 0 bank2 -
+__Hbank3 0 0 ABS 0 bank3 -
+__Hcinit 94 0 CODE 0 cinit -
+__Hidloc 0 0 IDLOC 0 idloc -
+__Hstack 0 0 STACK 2 stack -
+__stringbase 100A 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+_count_lux 74 0 COMMON 1 bssCOMMON dist/default/production\Semafore.X.production.o
+_countdown 5A 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_UART_TxChar 185C 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+__Hmaintext 0 0 ABS 0 maintext -
+__Hcommon 0 0 ABS 0 common -
+__Hconfig 4010 0 CONFIG 0 config -
+__Lbank0 0 0 ABS 0 bank0 -
+__Lbank1 0 0 ABS 0 bank1 -
+__Lbank2 0 0 ABS 0 bank2 -
+__Lbank3 0 0 ABS 0 bank3 -
+__Lcinit 22 0 CODE 0 cinit -
+__Lidloc 0 0 IDLOC 0 idloc -
+SetDefaultTimers@rosso 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+SetDefaultTimers@verde 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Lstack 0 0 STACK 2 stack -
+_GetTime 1B36 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+__Linittext 0 0 ABS 0 inittext -
+_PORTAbits 5 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_PORTBbits 6 0 ABS 0 - dist/default/production\Semafore.X.production.o
+GetTime@shortInt 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_INTCONbits B 0 ABS 0 - dist/default/production\Semafore.X.production.o
+SetDisplay@value 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Habs1 0 0 ABS 0 abs1 -
+__Hcode 0 0 ABS 0 code -
+__Hinit 1C 0 CODE 0 init -
+__Hsfr0 0 0 ABS 0 sfr0 -
+__Hsfr1 0 0 ABS 0 sfr1 -
+__Hsfr2 0 0 ABS 0 sfr2 -
+__Hsfr3 0 0 ABS 0 sfr3 -
+__Htext 0 0 ABS 0 text -
+__Labs1 0 0 ABS 0 abs1 -
+__Lcode 0 0 ABS 0 code -
+__Linit 1C 0 CODE 0 init -
+__Lsfr0 0 0 ABS 0 sfr0 -
+__Lsfr1 0 0 ABS 0 sfr1 -
+__Lsfr2 0 0 ABS 0 sfr2 -
+__Lsfr3 0 0 ABS 0 sfr3 -
+__Ltext 0 0 ABS 0 text -
+___bmul 18D2 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+___wmul 1996 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 -
+__LcstackBANK2 0 0 ABS 0 cstackBANK2 -
+__HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+_UART_Write_Text 1900 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+_ISR 1BB4 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__S0 2008 0 ABS 0 - -
+__S1 1F0 0 ABS 0 - -
+__S2 0 0 ABS 0 - -
+__S3 0 0 ABS 0 - -
+_car 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_map 19E4 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+_s10 14C 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+_s11 140 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+_s12 134 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+_s13 128 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+_s14 11C 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+_s15 110 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+?_ADC_Read 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+SetDefaultTimers@i 2E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+SetDefaultTimers@l 2C 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+saved_w 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_cycled 60 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_decine 5E 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_conteggioVeicoli B0C 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
+__end_of_ISR 1C68 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__end_of_map 1A4E 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+main@endCiclo 161 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+__CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__Lintentry 8 0 CODE 0 intentry -
+UART_Write_Text@i 23 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__stringtab 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\Rigna\AppData\Local\Temp\s1jg.o
+SetDisplay@d1 23 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+SetDisplay@d2 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+SetDisplay@d3 21 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__pdataBANK1 CF 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
+__size_of___bmul 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of___wmul 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__LbssBANK0 0 0 ABS 0 bssBANK0 -
+__LbssBANK1 0 0 ABS 0 bssBANK1 -
+__LbssBANK2 0 0 ABS 0 bssBANK2 -
+__LbssBANK3 0 0 ABS 0 bssBANK3 -
+__size_of_sendByte 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+?_GetTime 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+___awmod@counter 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_RCSTAbits 18 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_PIE1bits 8C 0 ABS 0 - dist/default/production\Semafore.X.production.o
+SetDefaultTimers@giallo 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__ptext10 1EC6 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
+__ptext11 18A8 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
+__ptext12 E78 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__ptext13 1B36 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+__ptext14 1DF0 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
+__ptext15 1C68 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+__ptext16 1D1E 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+__ptext17 194A 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
+__ptext18 1BB4 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__ptext19 B0C 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
+__ptext20 1834 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+__size_of_SetDisplay 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+___aldiv 1EC6 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
+___awdiv 1D1E 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+___awmod 1C68 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+__pmaintext 94 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
+UART_Write_Text@text 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Lcommon 0 0 ABS 0 common -
+__Lconfig 400E 0 CONFIG 0 config -
+__CFG_CP$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__Hinittext 0 0 ABS 0 inittext -
+___wmul@multiplier 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+ADC_Read@canale 23 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_dataFromGateway A0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+main@temp 15E 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@time 162 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@i_445 16B 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@i_446 16D 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@i_447 167 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+main@index 158 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+map@in_max 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+map@in_min 32 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__size_of_UART_Write_Text 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of_UART_TxChar 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__end_of__stringtab 100C 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+main@umidita 15F 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+__end_of_GetDigits 1EC6 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
+__end_of_conteggioVeicoli CE8 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
+__Lspace_0 0 0 ABS 0 - -
+__Lspace_1 0 0 ABS 0 - -
+__Lspace_2 0 0 ABS 0 - -
+__Lspace_3 0 0 ABS 0 - -
+_sendByte 1AC2 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+__pbssCOMMON 70 0 COMMON 1 bssCOMMON dist/default/production\Semafore.X.production.o
+__size_of_GetDigits 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+init_fetch0 1882 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 -
+__HcstackBANK2 0 0 ABS 0 cstackBANK2 -
+__Lend_init 1C 0 CODE 0 end_init -
+__CFG_LVP$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+__size_of_conteggioVeicoli 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+end_of_initialization 8C 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
+__end_of_sendByte 1B36 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+__Hintentry 1C 0 CODE 0 intentry -
+map@out_max 38 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+map@out_min 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Lstrings 0 0 ABS 0 strings -
+___awdiv@quotient 2E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+?___aldiv 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+?___awdiv 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+?___awmod 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_timerReadFromGateway 58 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__Hreset_vec 6 0 CODE 0 reset_vec -
+_GetDigits 1DF0 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
+__HbssBANK0 0 0 ABS 0 bssBANK0 -
+__HbssBANK1 0 0 ABS 0 bssBANK1 -
+__HbssBANK2 0 0 ABS 0 bssBANK2 -
+__HbssBANK3 0 0 ABS 0 bssBANK3 -
+___awmod@dividend 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_readGatewayDone 63 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_UART_Init 1AC2 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+__end_of_UART_Read 1846 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+GetDigits@Time 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__size_of_UART_Init 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of_UART_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__ptext1 1AC2 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+__ptext2 1900 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+__ptext3 1846 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+__ptext4 CE8 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+__ptext5 19E4 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+__ptext6 1996 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+__ptext7 185C 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+__ptext8 18D2 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+__ptext9 1A4E 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+___aldiv@dividend 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Lpowerup 0 0 CODE 0 powerup -
+__Leeprom_data 0 0 EEDATA 3 eeprom_data -
+__Lreset_vec 0 0 CODE 0 reset_vec -
+_UART_Init 1A4E 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+_UART_Read 1834 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+__CFG_FOSC$HS 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+main@lux_select 164 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+_SetDefaultTimers E78 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__end_of__initialization 8C 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
+___awmod@divisor 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__Lfunctab 0 0 ENTRY 0 functab -
+__end_of_display 1022 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+__pidataBANK1 FBA 0 CODE 0 idataBANK1 dist/default/production\Semafore.X.production.o
+__Lclrtext 0 0 ABS 0 clrtext -
+GetTime@index 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__CFG_PWRTE$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__pcstackCOMMON 75 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
+_TXSTAbits 98 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_n_semafori 55 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__Hend_init 22 0 CODE 0 end_init -
+init_ram0 188A 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
+_secondPassed 61 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+___aldiv@counter 29 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+UART_TxChar@ch 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__end_of_main B0C 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
+_GetDigits$1151 35 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__size_of_GetTime 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_PORTD 8 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_RCREG 1A 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_SPBRG 99 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_T1CON 10 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TMR1H F 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TMR1L E 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TRISA 85 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TRISB 86 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TRISC 87 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TRISD 88 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TRISE 89 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_TXREG 19 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__Hram 0 0 ABS 0 ram -
+__Lram 0 0 ABS 0 ram -
+_count 70 0 COMMON 1 bssCOMMON dist/default/production\Semafore.X.production.o
+interrupt_function 8 0 CODE 0 intentry dist/default/production\Semafore.X.production.o
+__CFG_CPD$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_truck AF 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_unita 5F 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__pintentry 8 0 CODE 0 intentry dist/default/production\Semafore.X.production.o
+__size_of_ISR 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__size_of_map 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__HdataBANK1 0 0 ABS 0 dataBANK1 -
+__initialization 22 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
+___bmul@product 22 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+__pbssBANK0 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__pbssBANK1 A0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+__pbssBANK2 110 0 BANK2 1 bssBANK2 dist/default/production\Semafore.X.production.o
+__pbssBANK3 190 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
+__CFG_WRT$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+__pstrings 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
+___wmul@product 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+main@semaforoId 15C 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
+# %SPLITSTAB Section
+# This section enumerates all the psect splits performed by the assembler.
+# The beginning of the section is indicated by %SPLITSTAB.
+# Each line is a record a particular split, where the parent psect is on
+# the left and the child on the right.  Note that a child psect is always
+# split form the top of the parent psect. All splits from a given parent
+# are listed in the order in which they occurred.
+%SPLITSTAB
+# %DABS Section
+# This section contains a table of all usuage of the assember
+# directive DABS in the program. Each line has the following format:
+#   <name> <space> <address> <size>
+# If the DABS was originally labelled then that shall be <name>,
+# otherwise name will be "-".  The <space> number is in decimal.
+# <address> and <size> are in byte units as unqaulified hexadecimal
+%DABS
+- 1 7E 2
+# %SEGMENTS Section
+# This sections enumerates the segments of the program.  Each segment
+# is described on a single line as follows:
+#    <name> <space> <link address> <file address> <size> <delta>
+# Addresses and size are in unqualified hexadecimal.  The link address
+# and size are in units of delta. The file address is in units of bytes.
+# All other numeric quantities are in decimal.
+%SEGMENTS
+text1 0 D61 1AC2 3A 2
+text2 0 C80 1900 25 2
+text3 0 C23 1846 B 2
+text5 0 CF2 19E4 35 2
+text6 0 CCB 1996 27 2
+text7 0 C2E 185C 13 2
+text8 0 C69 18D2 17 2
+text9 0 D27 1A4E 3A 2
+text10 0 F63 1EC6 9D 2
+text11 0 C54 18A8 15 2
+text13 0 D9B 1B36 3F 2
+text14 0 EF8 1DF0 6B 2
+text15 0 E34 1C68 5B 2
+text16 0 E8F 1D1E 69 2
+text17 0 CA5 194A 26 2
+text18 0 DDA 1BB4 5A 2
+text20 0 C1A 1834 9 2
+cstackBANK0 1 20 20 44 1
+inittext 0 C41 1882 13 2
+intentry 0 4 8 7F9 2
+reset_vec 0 0 0 3 2
+bssBANK1 1 A0 A0 4F 1
+bssBANK2 1 110 110 5F 1
+bssBANK3 1 190 190 60 1
+strings 0 800 1000 11 2
+clrtext 0 C12 1824 8 2
+bssCOMMON 1 70 70 A 1
+config 0 2007 400E 1 2
+# OTES Section
+# This section contains data of all the note-psects.  The beginning of the section
+# is indicated by OTES. The first line indicates the name and decimal
+# byte-length of the first note-psect, e.g.
+#   $codecov_info_hdr 16
+# Each line that follows contains the byte-data of the psect in hexadecimal as a
+# space-separated list. These lines are limited to 16 bytes of data.
+%NOTES
