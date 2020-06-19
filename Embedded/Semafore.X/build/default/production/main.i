@@ -2209,6 +2209,12 @@ void main(void)
                 car[i] = 0;
                 truck[i] = 0;
             }
+
+
+
+
+
+            int i[5];
         }
 
 
@@ -2221,6 +2227,10 @@ void main(void)
             sendByte(0x02, 0x00, temp);
             sendByte(0x04, 0x00, umidita);
             sendByte(0x06, 0x00, pressione);
+
+
+
+
         }
 
     }

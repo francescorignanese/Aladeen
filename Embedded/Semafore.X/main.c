@@ -321,6 +321,10 @@ void main(void)
                 car[i] = 0;
                 truck[i] = 0;
             }
+            for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            {
+                dataFromGateway[i] = 0;
+            }
         }
         //!end <--
 
@@ -333,6 +337,10 @@ void main(void)
             sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
             sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
             sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
+            for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            {
+                dataFromGateway[i] = 0;
+            }
         }
         //*end <--
     }

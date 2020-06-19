@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.10\pic\dat\en_msgs.txt \
   -cs -h+dist/default/production\Semafore.X.production.sym \
   --cmf=dist/default/production\Semafore.X.production.cmf -z -Q16F877A \
-  -oC:\Users\Rigna\AppData\Local\Temp\sofo.2 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\Rigna\AppData\Local\Temp\speo.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/Semafore.X.production.map -E1 -ver=XC8 \
   --acfsm=1493 -ASTACK=064h-06Fh -pstack=STACK -ACODE=00h-07FFhx4 \
   -ASTRCODE=00h-01FFFh -ASTRING=00h-0FFhx32 -ACONST=00h-0FFhx32 \
@@ -18,7 +18,7 @@ Linker command line:
   -pfunctab=ENTRY -ACONFIG=02007h-02007h -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
-  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\sofo.o \
+  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\speo.o \
   dist/default/production\Semafore.X.production.o 
 
 Object code version is 3.11
@@ -28,7 +28,7 @@ Machine type is 16F877A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Rigna\AppData\Local\Temp\sofo.o
+C:\Users\Rigna\AppData\Local\Temp\speo.o
                 end_init                              E        E        3        8       0
                 reset_vec                             0        0        3        0       0
                 config                             2007     2007        1     400E       0
@@ -268,7 +268,7 @@ _ADRESL                    (abs)        009E
 _BuildByte                 text4        0674
 _GO_nDONE                  (abs)        00FA
 _GetDigits                 text14       0EF8
-_GetDigits$1151            cstackBANK0  0035
+_GetDigits$1152            cstackBANK0  0035
 _GetTime                   text13       0D9B
 _INTCON                    (abs)        000B
 _INTCONbits                (abs)        000B
@@ -611,6 +611,7 @@ FUNCTION INFORMATION:
   i               2   15[BANK2 ] int 
   i               2   21[BANK2 ] int 
   l               2   17[BANK2 ] int 
+  i              10    0        int [5]
   colorsTime      6    0        int [3]
   time            2   10[BANK2 ] int 
   lux_select      1   12[BANK2 ] unsigned char 
@@ -653,7 +654,7 @@ Total ram usage:       39 bytes
 
  *************** function _sendByte *****************
  Defined at:
-		line 400 in file "main.c"
+		line 410 in file "main.c"
  Parameters:    Size  Location     Type
   byte0           1    wreg     unsigned char 
   byte1           1   20[BANK0 ] unsigned char 
@@ -689,7 +690,7 @@ Total ram usage:        9 bytes
 
  *************** function _UART_Write_Text *****************
  Defined at:
-		line 383 in file "main.c"
+		line 393 in file "main.c"
  Parameters:    Size  Location     Type
   text            1    wreg     PTR unsigned char 
 		 -> BuildByte@txByte(5), 
@@ -722,7 +723,7 @@ Total ram usage:        4 bytes
 
  *************** function _UART_TxChar *****************
  Defined at:
-		line 375 in file "main.c"
+		line 385 in file "main.c"
  Parameters:    Size  Location     Type
   ch              1    wreg     unsigned char 
  Auto vars:     Size  Location     Type
@@ -858,7 +859,7 @@ Total ram usage:        6 bytes
 
  *************** function _init_ADC *****************
  Defined at:
-		line 344 in file "main.c"
+		line 354 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -920,7 +921,7 @@ Total ram usage:        4 bytes
 
  *************** function _UART_Init *****************
  Defined at:
-		line 363 in file "main.c"
+		line 373 in file "main.c"
  Parameters:    Size  Location     Type
   baudrate        2   15[BANK0 ] int 
  Auto vars:     Size  Location     Type
@@ -983,7 +984,7 @@ Total ram usage:       15 bytes
 
  *************** function _SetDisplay *****************
  Defined at:
-		line 437 in file "main.c"
+		line 447 in file "main.c"
  Parameters:    Size  Location     Type
   d1              1    wreg     unsigned char 
   d2              1    0[BANK0 ] unsigned char 
@@ -1016,7 +1017,7 @@ Total ram usage:        4 bytes
 
  *************** function _SetDefaultTimers *****************
  Defined at:
-		line 533 in file "main.c"
+		line 543 in file "main.c"
  Parameters:    Size  Location     Type
   rosso           2    0[BANK0 ] int 
   verde           2    2[BANK0 ] int 
@@ -1049,7 +1050,7 @@ Total ram usage:       16 bytes
 
  *************** function _GetTime *****************
  Defined at:
-		line 411 in file "main.c"
+		line 421 in file "main.c"
  Parameters:    Size  Location     Type
   index           2    0[BANK0 ] int 
  Auto vars:     Size  Location     Type
@@ -1080,7 +1081,7 @@ Total ram usage:        7 bytes
 
  *************** function _GetDigits *****************
  Defined at:
-		line 429 in file "main.c"
+		line 439 in file "main.c"
  Parameters:    Size  Location     Type
   Time            2   16[BANK0 ] int 
  Auto vars:     Size  Location     Type
@@ -1180,7 +1181,7 @@ Total ram usage:        9 bytes
 
  *************** function _ADC_Read *****************
  Defined at:
-		line 353 in file "main.c"
+		line 363 in file "main.c"
  Parameters:    Size  Location     Type
   canale          1    wreg     unsigned char 
  Auto vars:     Size  Location     Type
@@ -1210,7 +1211,7 @@ Total ram usage:        4 bytes
 
  *************** function _ISR *****************
  Defined at:
-		line 554 in file "main.c"
+		line 564 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1241,7 +1242,7 @@ Total ram usage:        4 bytes
 
  *************** function _conteggioVeicoli *****************
  Defined at:
-		line 445 in file "main.c"
+		line 455 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -1270,7 +1271,7 @@ Total ram usage:        1 bytes
 
  *************** function _UART_Read *****************
  Defined at:
-		line 392 in file "main.c"
+		line 402 in file "main.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
