@@ -79,12 +79,6 @@ typedef struct
     unsigned int Bit : 1;
 } Bit;
 
-typedef int Times[3];
-typedef struct
-{
-    Times new_times;
-    Times times;
-} Semaforo;
 
 struct
 {
@@ -157,6 +151,7 @@ void main(void)
     disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
     unsigned char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
     unsigned char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
+    unsigned char pressione =0;
     Bit endCiclo;               //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
     endCiclo.Bit=1;
    
@@ -476,27 +471,6 @@ void SetDefaultTimers(int rosso, int verde, int giallo)
     }
 }
 
-void SetDefaultTimers(int rosso, int verde, int giallo)
-{
-    for (int l = 0; l < 16; l++)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            switch (i)
-            {
-            case 0:
-                (*(Semafori[l])).new_times[i] = rosso;
-                break;
-            case 1:
-                (*(Semafori[l])).new_times[i] = verde;
-                break;
-            case 2:
-                (*(Semafori[l])).new_times[i] = giallo;
-                break;
-            }
-        }
-    }
-}
 void __interrupt() ISR()
 {
     //RICEVE DATI DA SERIALE
