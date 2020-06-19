@@ -12,6 +12,8 @@ debug
 dist
 nbproject
 Makefile
+debug.c
+test.c
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
