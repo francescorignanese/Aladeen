@@ -92,74 +92,74 @@ struct
     unsigned int Timeout : 1;
 } readGatewayDone;
 
+typedef int Times[3];
+typedef struct
+{
+    Times new_times;
+    Times times;
+}Semaforo;
+
 Bit readGateway, secondPassed, cycled;
-char str[4]; //stringa di salvatagio per la conversione da int to string
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
+unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char old_disp, disp;  //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;        //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;   //conteggio per il tempo delle luci
-char comando = 0;              //Prende il dato dalla seriale
+unsigned char comando = 0;              //Prende il dato dalla seriale
 unsigned char time = 0;        //variabile per contare i secondi
 unsigned char countdown = 0;   //variabile per il conto alla rovescia
 unsigned char motorcycle[4];   //variabile per contare le macchine
 unsigned char car[4];          //variabile per contare le macchine
 unsigned char truck[4];        //variabile per contare i camion
-char dataFromGatewayIndex = 0; //indice array dati da seriale
-typedef char ProtocolBytes[15];
-ProtocolBytes dataFromGateway;                                                 //array dati da seriale
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
-Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
-char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-//Times colorsTime, new_colorsTime;            //0 � rosso, 1 � verde, 2 � giallo
-char colorIndex; //variabile per stabilire il colore da accendere
-int n_semafori;
+unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
+typedef unsigned char ProtocolBytes[15];
+ProtocolBytes dataFromGateway;      //array dati da seriale
+Semaforo s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;    //definisco i vari semafori
+Semaforo* Semafori[16]={&s0,&s1,&s2,&s3,&s4,&s5,&s6,&s7,&s8,&s9,&s10,&s11,&s12,&s13,&s14,&s15};
+unsigned char timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
+unsigned char n_semafori=15;
 
-void init_ADC();                                    //Inizializza l'adc
-int ADC_Read(char canale);                          //Lettura da un ingresso analogico
-void UART_Init(int baudrate);                       //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);                          //Scrittura di un carattere sulla seriale
-char UART_Read();                                   //Lettura dalla seriale
-int GetTime(int index);                             //Fonde un numero separato in due bit in un singolo int
-void GetDigits(int Time);                           //Suddivide un numero secondo centinaia, decine e unit�
-void sendByte(char byte0, char byte1, char valore); //Invia un blocco da 5 byte al raspberry
-void conteggioVeicoli();
-void SetDisplay(char d1, char d2, char d3, char value);  //Seleziona quale display accendere
-void SetDefaultTimers(int rosso, int verde, int giallo); //setta i tempi di default delle luci del semaforo
+void init_ADC();              //Inizializza l'adc
+int ADC_Read(char canale);    //Lettura da un ingresso analogico
+void UART_Init(int baudrate); //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);    //Scrittura di un carattere sulla seriale
+char UART_Read();             //Lettura dalla seriale
+int GetTime(unsigned char index);
+void GetDigits(int Time);
+void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
+void conteggioVeicoli();                            //Conteggio mezzi
+void sendByte(char byte0, char byte1, char valore);
+void SetDisplay(char d1, char d2, char d3, char value);
+void SetDefaultTimers(int rosso, int verde, int giallo);   //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
-    //Init
-    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x1F;      //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
-    TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
+    TRISE = 0x00;
     INTCON = 0xE0;     //abilito le varie variabili per chiamare gli interrupt
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
-    //?PIE1 = 0x01;
-    /* 
-    ?richiesta dati al raspberry 
-    ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
-    */
-    init_ADC();                //Inizializzazione adc
-    UART_Init(9600);           //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
+
+    //Init
+    init_ADC();         //Inizializzazione adc
+    UART_Init(9600);    //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(2,2,2); //Inizializzazione tempi luci semaforo
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-    TMR1H = 60;  // preset for timer1 MSB register
-    TMR1L = 176; // preset for timer1 LSB register
+    TMR1H = 60;         // preset for timer1 MSB register
+    TMR1L = 176;        // preset for timer1 LSB register
 
-    int colorsTime[3], time; //0 � rosso, 1 � verde, 2 � giallo
-    char lux_select = 0;     //selezione luce per il semaforo
-    disp = 0;                //variabile per definire quale display deve accendersi, inizializzo a 0
-    char temp = 0;           //Variabile per salvare la temperatura sul pin RA0
-    char umidita = 0;        //Variabile per salvare l'umidita sul pin RA1
-    char pressione = 0;      //Variabile per salvare la pressione sul pin RE0
-    Bit endCiclo;            //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
-    endCiclo.Bit = 1;
-
+    int time;    //0 � rosso, 1 � verde, 2 � giallo
+    unsigned char lux_select = 0;        //selezione luce per il semaforo
+    disp = 0;                   //variabile per definire quale display deve accendersi, inizializzo a 0
+    unsigned char temp = 0;              //Variabile per salvare la temperatura sul pin RA0
+    unsigned char umidita = 0;           //Variabile per salvare l'umidita sul pin RA1
+    Bit endCiclo;               //variabile per il controllo del ciclo così da cambiare i tempi solo a fine del ciclo
+    endCiclo.Bit=1;
+   
     while (1)
     {
         //se si stanno ricevendo dati dalla seriale
@@ -211,39 +211,44 @@ void main(void)
             //se il readgatewaydonenon � stato richiamato dal timeout inizia la modifica dei dati
             else
             {
-                //bitParita(dataFromGateway); //controllo correttezza dati
-
-                for (int i = 0; i < 3; i++)
+                bitParita(dataFromGateway); //controllo correttezza dati
+                unsigned char tmp;
+                for (unsigned char i = 0; i < 3; i++)
                 {
-                    int index = i * 5;
-                    int colorId = ((dataFromGateway[i * 5] >> 5) & 0x03) - 1;
-                    int semaforoId = (dataFromGateway[0] >> 1) & 0x07;
+                    unsigned char index = i * 5;
+                    tmp=dataFromGateway[index];
+                    unsigned char semaforoId=(tmp>>1)&0x0F;
+                    tmp=dataFromGateway[index];
+                    unsigned char colorId=((tmp >> 5) & 0x03)-1;
 
-                    (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
+                    
+                    (*(Semafori[semaforoId])).new_times[colorId]=GetTime(index);
                 }
             }
         }
-
+         
         //AGGIORNAMENTO TEMPI LUCI
         //se avviene qualche cambiamento allora aggornero i tempi
-        if (endCiclo.Bit)
+        if(endCiclo.Bit)
         {
-            n_semafori = (n_semafori + 1) % 16;
-            while ((*(Semafori[n_semafori])).times[0] == 0)
+            //for su tutti i semafori per aggiornare eventuali modifiche ai timers
+            for(unsigned char l=0; l<16; l++)
             {
-                n_semafori++;
-            }
-
-            for (int l = 0; l < 16; l++)
-            {
-                for (int i = 0; i < 3; i++)
+                for(unsigned char i=0; i<3; i++)
                 {
-                    if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
+                    if((*(Semafori[l])).times[i]!=(*(Semafori[l])).new_times[i])
                     {
-                        (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
+                        (*(Semafori[l])).times[i]=(*(Semafori[l])).new_times[i];
                     }
-                }
+                }   
             }
+            
+            
+            //incrementando n_semafori quando il tempo � 0 assicura che vengano saltati i semafori che non vengoo inizializzati dal raspberry, quindi inesistenti nell'incrocio
+            do
+            {
+                n_semafori=(n_semafori+1)%16;
+            }while((*(Semafori[n_semafori])).times[0]==0 && n_semafori>0);
         }
 
         //ACCENSIONE LED IN BASE AL TEMPO
@@ -251,20 +256,22 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
-            endCiclo.Bit = 0;
-
+            endCiclo.Bit=0;
+            
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 endCiclo.Bit = 1;
             }
 
-            if (lux_select == 2 && time == (*Semafori[n_semafori]).times[2])
+            
+            if(lux_select==2 && time>=(*Semafori[n_semafori]).times[2])
             {
-                endCiclo.Bit = 1;
+                endCiclo.Bit=1;
             }
-
+            
             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
         }
+        
 
         //MOSTRA TIMER SU DISPLAY
         if (disp != old_disp) //Lo esegue solo quando "disp" cambia (cio� ad ogni ciclo while))
@@ -275,35 +282,40 @@ void main(void)
             case 0:                //==> desplay delle centinaia, porta RA2
                 if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
                 {
-                    SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    SetDisplay(1,0,0,display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 }
                 break;
             case 1:                              //==> desplay delle dedcine, porta RA3
                 if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
                 {
-                    SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                    SetDisplay(0,1,0,display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 }
                 break;
-            case 2:                                  //==> desplay delle unit�, porta RA4
-                SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            case 2: //==> desplay delle unit�, porta RA4
+                SetDisplay(0,0,1,display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+                break;
+            case 3: //==> desplay debug, porta RA5
+                SetDisplay(1,0,0,display[n_semafori]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
                 break;
             }
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
+
+
         //reset variabili
-        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
+        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
         //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
-        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
-        if (secondPassed.Bit && cycled.Bit)
+        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
+        if(secondPassed.Bit && cycled.Bit)
         {
             secondPassed.Bit = 0;
-            cycled.Bit = 0;
+            cycled.Bit=0;
         }
-
-        if (secondPassed.Bit && !cycled.Bit)
+        
+        if(secondPassed.Bit && !cycled.Bit)
         {
-            cycled.Bit = 1;
+            cycled.Bit=1;
         }
 
         //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
@@ -348,10 +360,11 @@ void main(void)
     return;
 }
 
+
 //inizializzo ADC (potenziometro)
 void init_ADC()
 {
-    TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
+    TRISA = 0xC3;   //imposto i pin come ingressi trane RA2 RA3 RA4
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
     __delay_us(10); //delay condensatore 10us
@@ -361,19 +374,18 @@ void init_ADC()
 int ADC_Read(char canale)
 {
     ADCON0 = (1 << ADON) | (canale << CHS0);
-    __delay_us(2); //attendo 1.6 uS
-    GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE)
-        ;                          //attendo la fine della conversione
+    __delay_us(2);      //attendo 1.6 uS
+    GO_nDONE = 1;       // avvio la conversione ADGO GO
+    while (GO_nDONE);   //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
 void UART_Init(int baudrate)
 {
     TRISCbits.TRISC6 = 0; //TRISC= 0x80;   //10000000
-    TXSTAbits.TXEN = 1;   //TXSTA= 0x20;   //00100000
-    RCSTAbits.SPEN = 1;   //RCSTA= 0x90;   //10010000
-    RCSTAbits.CREN = 1;   //RCSTA= 0x90;   //10010000
+    TXSTAbits.TXEN = 1; //TXSTA= 0x20;   //00100000
+    RCSTAbits.SPEN = 1; //RCSTA= 0x90;   //10010000
+    RCSTAbits.CREN = 1; //RCSTA= 0x90;   //10010000
     SPBRG = (_XTAL_FREQ / (long)(64UL * baudrate)) - 1;
     INTCONbits.GIE = 1;  //abilito global interrupt
     INTCONbits.PEIE = 1; //peripherial interrupt
@@ -382,15 +394,14 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF)
-        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
-    TXIF = 0; //lo resetto
+    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    TXIF = 0;          //lo resetto
     TXREG = ch;
 }
 
 void UART_Write_Text(char *text)
 {
-    int i;
+    unsigned char i;
     for (i = 0; text[i] != '\0'; i++)
     {
         UART_TxChar(text[i]);
@@ -399,24 +410,23 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF)
-        ;
+    while (!RCIF);
     RCIF = 0;
     return RCREG;
 }
 
 void sendByte(char byte0, char byte1, char valore)
 {
-    char *txByte;
-    txByte = BuildByte(byte0, byte1, valore);
-
-    for (int i = 0; i < 5; i++)
+    char* txByte;
+    txByte=BuildByte(byte0, byte1, valore);
+    
+    for(unsigned char i=0; i<5; i++)
     {
         UART_Write_Text(txByte++); //Invia un byte per volta
     }
 }
 
-int GetTime(int index)
+int GetTime(unsigned char index)
 {
     int time;
     struct
@@ -444,97 +454,25 @@ void GetDigits(int Time)
 
 void SetDisplay(char d1, char d2, char d3, char value)
 {
-    Disp1 = d1;
-    Disp2 = d2;
-    Disp3 = d3;
-    PORTD = value;
+    Disp1=d1;
+    Disp2=d2;
+    Disp3=d3;
+    PORTD=value;
 }
 
-void conteggioVeicoli()
+void SetDefaultTimers(int rosso, int verde, int giallo)
 {
-    //Controllo per la strada 1
-    if (!PORTBbits.RB3) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    for(unsigned char l=0; l<16; l++)
     {
-        count++;
-    }
-    else if (PORTBbits.RB3) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        if (count >= 500)
+        for(unsigned char i=0; i<3; i++)
         {
-            motorcycle[0]++;
-        }
-        if (count >= 1500)
-        {
-            car[0]++;
-        }
-        if (count >= 3000)
-        {
-            truck[0]++;
-        }
-        count = 0;
-    }
-    //Controllo per la strada 2
-    if (!PORTBbits.RB4) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (PORTBbits.RB4) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        if (count >= 500)
-        {
-            motorcycle[1]++;
-        }
-        if (count >= 1500)
-        {
-            car[1]++;
-        }
-        if (count >= 3000)
-        {
-            truck[1]++;
-        }
-        count = 0;
-    }
-    //Controllo per la strada 3
-    if (!PORTBbits.RB5) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (PORTBbits.RB5) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        if (count >= 500)
-        {
-            motorcycle[2]++;
-        }
-        if (count >= 1500)
-        {
-            car[2]++;
-        }
-        if (count >= 3000)
-        {
-            truck[2]++;
-        }
-        count = 0;
-    }
-    //Controllo per la strada 4
-    if (!PORTAbits.RA5) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (PORTAbits.RA5) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        if (count >= 500)
-        {
-            motorcycle[3]++;
-        }
-        if (count >= 1500)
-        {
-            car[3]++;
-        }
-        if (count >= 3000)
-        {
-            truck[3]++;
-        }
-        count = 0;
+            switch(i)
+            {
+                case 0: (*(Semafori[l])).new_times[i]=rosso; break;
+                case 1: (*(Semafori[l])).new_times[i]=verde; break;
+                case 2: (*(Semafori[l])).new_times[i]=giallo; break;
+            }
+        }   
     }
 }
 
@@ -581,8 +519,23 @@ void __interrupt() ISR()
     //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
     if (TMR0IF) //timer0 "TMR0IF"
     {
-        TMR0IF = 0; //resetto timer0
-        conteggioVeicoli();
+        TMR0IF = 0;         //resetto timer0
+        if (!PORTBbits.RB3) //controllo pressione del tasto per il verificare se sia una macchina o un camion
+        {
+            count++;
+        }
+        if (PORTBbits.RB3) //al rilascio del tasto eseguo il conteggio in base alla pressione
+        {
+            if (count >= 500)
+            {
+                //car++;
+            }
+            if (count >= 3000)
+            {
+                //truck++;
+            }
+            count = 0;
+        }
         TMR0 = 6;
     }
     //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
