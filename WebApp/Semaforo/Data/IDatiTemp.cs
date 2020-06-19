@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Data
 {
-    public interface IDati
+    public interface IDatiTemp
     {
-        
-        IEnumerable<DataSem> GetAll();
-        IEnumerable<DataSem> GetById(int id);
+        DTemp Get(byte id);
+
+        IEnumerable<DTemp> GetAll();
     }
 }

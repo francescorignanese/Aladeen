@@ -17,7 +17,7 @@ namespace Data
             connectionString = ("STRINGA DI CONNESSIONE"); // Percorso del DataBase
         }
 
-        public IEnumerable<DataSem> GetData()
+        public IEnumerable<DataSem> GetAll()
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -27,13 +27,18 @@ namespace Data
             }
         }
 
-        public DataSem GetDataById(int id)
+        public DataSem GetById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 return connection.Get<DataSem>(id);
             }
             
+        }
+
+        IEnumerable<DataSem> IDati.GetById(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
