@@ -17,6 +17,7 @@ Temperatura: 0x02
 Umidità: 0x04
 Pressione: 0x06
 Traffico (INVIO): 0x08
+Sensori (INVIO): 0x0A
 
 
 *ID SEMAFORI:
@@ -53,6 +54,7 @@ Byte di parità per trovare l'errore
 #pragma config CP = OFF   // Flash Program Memory Code Protection bit (Code protection off)
 
 #include <xc.h>
+#include <stdlib.h>
 #include "CustomLib/Conversions.h"
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
@@ -82,7 +84,7 @@ typedef struct
 {
     Times new_times;
     Times times;
-}Semaforo;
+} Semaforo;
 
 struct
 {
@@ -106,30 +108,29 @@ unsigned char car[4];          //variabile per contare le macchine
 unsigned char truck[4];        //variabile per contare i camion
 char dataFromGatewayIndex = 0; //indice array dati da seriale
 typedef char ProtocolBytes[15];
-ProtocolBytes dataFromGateway;      //array dati da seriale
-Semaforo s0,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;    //definisco i vari semafori
-Semaforo* Semafori[16]={&s0,&s1,&s2,&s3,&s4,&s5,&s6,&s7,&s8,&s9,&s10,&s11,&s12,&s13,&s14,&s15};
-int timerReadFromGateway;      //timer per definire se la lettura dati eccede un tempo limite
-char colorIndex;               //variabile per stabilire il colore da accendere
+ProtocolBytes dataFromGateway;                                                 //array dati da seriale
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
+Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
+char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+//Times colorsTime, new_colorsTime;            //0 � rosso, 1 � verde, 2 � giallo
+char colorIndex; //variabile per stabilire il colore da accendere
 int n_semafori;
 
-
-void init_ADC();              //Inizializza l'adc
-int ADC_Read(char canale);    //Lettura da un ingresso analogico
-void UART_Init(int baudrate); //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);    //Scrittura di un carattere sulla seriale
-char UART_Read();             //Lettura dalla seriale
-int GetTime(int index);
-void GetDigits(int Time);
-void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
-void conteggioVeicoli();                            //Conteggio mezzi
-void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
-void SetDefaultTimers(int rosso, int verde, int giallo);   //setta i tempi di default delle luci del semaforo
-
+void init_ADC();                                    //Inizializza l'adc
+int ADC_Read(char canale);                          //Lettura da un ingresso analogico
+void UART_Init(int baudrate);                       //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);                          //Scrittura di un carattere sulla seriale
+char UART_Read();                                   //Lettura dalla seriale
+int GetTime(int index);                             //Fonde un numero separato in due bit in un singolo int
+void GetDigits(int Time);                           //Suddivide un numero secondo centinaia, decine e unit�
+void sendByte(char byte0, char byte1, char valore); //Invia un blocco da 5 byte al raspberry
+void conteggioVeicoli();
+void SetDisplay(char d1, char d2, char d3, char value);  //Seleziona quale display accendere
+void SetDefaultTimers(int rosso, int verde, int giallo); //setta i tempi di default delle luci del semaforo
 
 void main(void)
 {
+    //Init
     TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
@@ -138,18 +139,15 @@ void main(void)
     OPTION_REG = 0x04; //imposto il prescaler a 1:32 del timer0
     TMR0 = 6;          //imposto il tempo iniziale a 6 per farlo attivare ogni 0,001 secondi
     T1CON = 0x31;      //Imposto il prescaler a 1:8 e attivo il timer1
-
-    //Init
-    init_ADC();         //Inizializzazione adc
-    UART_Init(9600);    //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(0,0,0); //Inizializzazione tempi luci semaforo
     //?PIE1 = 0x01;
     /* 
     ?richiesta dati al raspberry 
     ?atendi un tempo oltre ciò se non ha ricevuto niente mette dei dati standard 
     */
+    init_ADC();                //Inizializzazione adc
+    UART_Init(9600);           //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(0, 0, 0); //Inizializzazione tempi luci semaforo
     //imposto il tempo iniziale a 15536 di timer1 per farlo attivare ogni 0, 050 secondi
-
     TMR1H = 60;  // preset for timer1 MSB register
     TMR1L = 176; // preset for timer1 LSB register
 
@@ -167,18 +165,32 @@ void main(void)
         //se si stanno ricevendo dati dalla seriale
         if (readGateway.Bit)
         {
-            if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
+            switch ((dataFromGateway[1] & 0x7F)) //Controllo se devo ricevere o inviare in base alla ricezione e i comandi
             {
+            case 0x08: //Se vi è il comando 0x08 nel secondo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 1;
                 readGateway.Bit = 0;
-            }
+                break;
+            case 0x0A: //Se vi è il comando 0x0A nel secondo byte allora prendo solo un pachetto di dati
+                readGatewayDone.Bit = 1;
+                readGateway.Bit = 0;
+                break;
+                //Se non vi è un comando di invio allora mi aspetto i tempi e quindi 15 byte
+            default:
+                if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 1;
+                    readGateway.Bit = 0;
+                }
 
-            if (dataFromGatewayIndex >= 15)
-            {
-                readGatewayDone.Bit = 1;
-                readGatewayDone.Timeout = 0;
-                readGateway.Bit = 0;
+                if (dataFromGatewayIndex >= 15)
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 0;
+                    readGateway.Bit = 0;
+                }
+                break;
             }
         }
 
@@ -204,34 +216,33 @@ void main(void)
                 for (int i = 0; i < 3; i++)
                 {
                     int index = i * 5;
-                    int colorId=((dataFromGateway[i*5] >> 5) & 0x03)-1;
-                    int semaforoId=(dataFromGateway[0]>>1)&0x07;
-                    
-                    (*(Semafori[semaforoId])).new_times[colorId]=GetTime(index);
+                    int colorId = ((dataFromGateway[i * 5] >> 5) & 0x03) - 1;
+                    int semaforoId = (dataFromGateway[0] >> 1) & 0x07;
+
+                    (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
                 }
             }
         }
 
         //AGGIORNAMENTO TEMPI LUCI
         //se avviene qualche cambiamento allora aggornero i tempi
-        if(endCiclo.Bit)
+        if (endCiclo.Bit)
         {
-            n_semafori=(n_semafori+1)%16;
-            while((*(Semafori[n_semafori])).times[0]==0)
+            n_semafori = (n_semafori + 1) % 16;
+            while ((*(Semafori[n_semafori])).times[0] == 0)
             {
                 n_semafori++;
             }
-            
-            for(int l=0; l<16; l++)
-            {
-                for(int i=0; i<3; i++)
-                {
-                    if((*(Semafori[l])).times[i]!=(*(Semafori[l])).new_times[i])
-                    {
-                        (*(Semafori[l])).times[i]=(*(Semafori[l])).new_times[i];
-                    }
-                }   
 
+            for (int l = 0; l < 16; l++)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
+                    {
+                        (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
+                    }
+                }
             }
         }
 
@@ -240,18 +251,18 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
-            endCiclo.Bit=0;
-            
-            if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
-            {
-                endCiclo.Bit = 0;
-            }
+            endCiclo.Bit = 0;
 
-            if(lux_select==2 && time==(*Semafori[n_semafori]).times[2])
+            if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 endCiclo.Bit = 1;
             }
-            
+
+            if (lux_select == 2 && time == (*Semafori[n_semafori]).times[2])
+            {
+                endCiclo.Bit = 1;
+            }
+
             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
         }
 
@@ -280,18 +291,6 @@ void main(void)
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
-        //*Gestione sensori -->
-        if (secondPassed.Bit && cycled.Bit) //legge i sensori ogni secondo
-        {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
-            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
-            
-            sendByte(0x02, 0x00, temp);      //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita);   //Invio dati di umidita
-            sendByte(0x06, 0x00, pressione); //Invio dati di pressione
-        }
-        //*end <--
         //reset variabili
         //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
         //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
@@ -306,26 +305,46 @@ void main(void)
         {
             cycled.Bit = 1;
         }
-        //*end <--
 
         //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
-        // if (/* All arrivo del comando invio i mezzi */)
-        // {
-        //     for (int i = 0; i < 4; i++) //Invio tutti i valori
-        //     {
-        //         sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-        //         sendByte((0x01 << (i + 1)), 0x10, car[i]);
-        //         sendByte((0x01 << (i + 1)), 0x11, truck[i]);
-        //     }
-        //     for (int i = 0; i < 4; i++) //Reseto le variabili
-        //     {
-        //         motorcycle[i] = 0;
-        //         car[i] = 0;
-        //         truck[i] = 0;
-        //     }
-        // }
+        if ((dataFromGateway[1] & 0x7F) == 0x08)
+        {
+            for (int i = 0; i < 4; i++) //Invio tutti i valori
+            {
+                sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
+                sendByte((0x01 << (i + 1)), 0x10, car[i]);
+                sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+            }
+            for (int i = 0; i < 4; i++) //Reseto le variabili
+            {
+                motorcycle[i] = 0;
+                car[i] = 0;
+                truck[i] = 0;
+            }
+            for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            {
+                dataFromGateway[i] = 0;
+            }
+        }
         //!end <--
+
+        //*Parte di invio dei sensori ad ogni richiesta del raspberry
+        if ((dataFromGateway[1] & 0x7F) == 0x0A)
+        {
+            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
+            sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
+            sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
+            sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
+            for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            {
+                dataFromGateway[i] = 0;
+            }
+        }
+        //*end <--
     }
+
     return;
 }
 
@@ -521,17 +540,23 @@ void conteggioVeicoli()
 
 void SetDefaultTimers(int rosso, int verde, int giallo)
 {
-    for(int l=0; l<16; l++)
+    for (int l = 0; l < 16; l++)
     {
-        for(int i=0; i<3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            switch(i)
+            switch (i)
             {
-                case 0: (*(Semafori[l])).new_times[i]=rosso; break;
-                case 1: (*(Semafori[l])).new_times[i]=verde; break;
-                case 2: (*(Semafori[l])).new_times[i]=giallo; break;
+            case 0:
+                (*(Semafori[l])).new_times[i] = rosso;
+                break;
+            case 1:
+                (*(Semafori[l])).new_times[i] = verde;
+                break;
+            case 2:
+                (*(Semafori[l])).new_times[i] = giallo;
+                break;
             }
-        }   
+        }
     }
 }
 void __interrupt() ISR()

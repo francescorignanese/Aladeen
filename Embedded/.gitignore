@@ -7,13 +7,9 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-build
-debug
-dist
-nbproject
-Makefile
 debug.c
 test.c
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
