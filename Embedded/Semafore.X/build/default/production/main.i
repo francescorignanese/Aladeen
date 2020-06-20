@@ -1940,6 +1940,7 @@ char *BuildByte(char byte0, char byte1, char valore)
         }
     }
 
+
     for (int i = 0; i < 8; i++)
     {
         for (int y = 0; y < 4; y++)
@@ -2055,10 +2056,41 @@ void main(void)
             case 0x08:
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
+                    sendByte((0x01 << (i + 1)), 0x10, car[i]);
+                    sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+                }
+
+                for (int i = 0; i < 4; i++)
+                {
+                    motorcycle[i] = 0;
+                    car[i] = 0;
+                    truck[i] = 0;
+                }
+
+                for (unsigned char i = 0; i < 5; i++)
+                {
+                    dataFromGateway[i] = 0;
+                }
                 break;
             case 0x0A:
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
+
+                temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
+                umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
+                pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
+                sendByte(0x02, 0x00, temp);
+                sendByte(0x04, 0x00, umidita);
+                sendByte(0x06, 0x00, pressione);
+
+                for (unsigned char i = 0; i < 5; i++)
+                {
+                    dataFromGateway[i] = 0;
+                }
                 break;
 
             default:
@@ -2144,6 +2176,7 @@ void main(void)
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 endCiclo.Bit = 1;
+                time=1;
             }
 
             if (lux_select == 2 && time >= (*Semafori[n_semafori]).times[2])
@@ -2196,44 +2229,6 @@ void main(void)
         {
             cycled.Bit = 1;
         }
-
-
-        if ((dataFromGateway[0] & 0x7F) == 0x08)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-                sendByte((0x01 << (i + 1)), 0x10, car[i]);
-                sendByte((0x01 << (i + 1)), 0x11, truck[i]);
-            }
-            for (int i = 0; i < 4; i++)
-            {
-                motorcycle[i] = 0;
-                car[i] = 0;
-                truck[i] = 0;
-            }
-            for (unsigned char i = 0; i < 5; i++)
-            {
-                dataFromGateway[i] = 0;
-            }
-        }
-
-
-
-        if ((dataFromGateway[0] & 0x7F) == 0x0A)
-        {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-            sendByte(0x02, 0x00, temp);
-            sendByte(0x04, 0x00, umidita);
-            sendByte(0x06, 0x00, pressione);
-            for (unsigned char i = 0; i < 5; i++)
-            {
-                dataFromGateway[i] = 0;
-            }
-        }
-
     }
 
     return;
@@ -2303,7 +2298,7 @@ void sendByte(char byte0, char byte1, char valore)
 
     for (unsigned char i = 0; i < 5; i++)
     {
-        UART_TxChar(txByte++);
+        UART_TxChar(*(txByte++));
     }
 }
 

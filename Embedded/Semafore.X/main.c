@@ -167,10 +167,41 @@ void main(void)
             case 0x08: //Se vi è il comando 0x08 nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
+                
+                for (int i = 0; i < 4; i++) //Invio tutti i valori
+                {
+                    sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
+                    sendByte((0x01 << (i + 1)), 0x10, car[i]);
+                    sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+                }
+                
+                for (int i = 0; i < 4; i++) //Reseto le variabili
+                {
+                    motorcycle[i] = 0;
+                    car[i] = 0;
+                    truck[i] = 0;
+                }
+                
+                for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+                {
+                    dataFromGateway[i] = 0;
+                }
                 break;
             case 0x0A: //Se vi è il comando 0x0A nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
+                
+                temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+                umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+                pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
+                sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
+                sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
+                sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
+                
+                for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
+                {
+                    dataFromGateway[i] = 0;
+                }
                 break;
                 //Se non vi è un comando di invio allora mi aspetto i tempi e quindi 15 byte
             default:
@@ -240,7 +271,7 @@ void main(void)
             }
 
             //incrementando n_semafori quando il tempo � 0 assicura che vengano saltati i semafori che non vengoo inizializzati dal raspberry, quindi inesistenti nell'incrocio
-            do
+            do //si usa il do while perch� al primo avvio n_semafori � 0 e un while lo escluderebbe cpme condizione di incremento, serve quindi solo per quando n_semafori � 0
             {
                 n_semafori = (n_semafori + 1) % 16;
             } while ((*(Semafori[n_semafori])).times[0] == 0 && n_semafori > 0);
@@ -256,6 +287,7 @@ void main(void)
             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
             {
                 endCiclo.Bit = 1;
+                time=1;
             }
 
             if (lux_select == 2 && time >= (*Semafori[n_semafori]).times[2])
@@ -308,44 +340,6 @@ void main(void)
         {
             cycled.Bit = 1;
         }
-
-        //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
-        if ((dataFromGateway[0] & 0x7F) == 0x08)
-        {
-            for (int i = 0; i < 4; i++) //Invio tutti i valori
-            {
-                sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-                sendByte((0x01 << (i + 1)), 0x10, car[i]);
-                sendByte((0x01 << (i + 1)), 0x11, truck[i]);
-            }
-            for (int i = 0; i < 4; i++) //Reseto le variabili
-            {
-                motorcycle[i] = 0;
-                car[i] = 0;
-                truck[i] = 0;
-            }
-            for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
-            {
-                dataFromGateway[i] = 0;
-            }
-        }
-        //!end <--
-
-        //*Parte di invio dei sensori ad ogni richiesta del raspberry
-        if ((dataFromGateway[0] & 0x7F) == 0x0A)
-        {
-            temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
-            umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
-            pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
-            sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
-            sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
-            sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
-            for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
-            {
-                dataFromGateway[i] = 0;
-            }
-        }
-        //*end <--
     }
 
     return;
@@ -415,7 +409,7 @@ void sendByte(char byte0, char byte1, char valore)
 
     for (unsigned char i = 0; i < 5; i++)
     {
-        UART_TxChar(txByte++); //Invia un byte per volta
+        UART_TxChar(*(txByte++)); //Invia un byte per volta
     }
 }
 
