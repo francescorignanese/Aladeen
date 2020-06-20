@@ -42,8 +42,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "118
 [; ;main.c: 118: void UART_Init(int baudrate);
 [v _UART_Init `(v ~T0 @X0 0 ef1`i ]
-"127
-[; ;main.c: 127: void SetDefaultTimers(int rosso, int verde, int giallo);
+"124
+[; ;main.c: 124: void SetDefaultTimers(int rosso, int verde, int giallo);
 [v _SetDefaultTimers `(v ~T0 @X0 0 ef3`i`i`i ]
 "648 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 648: extern volatile unsigned char TMR1H __attribute__((address(0x00F)));
@@ -57,11 +57,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "122
 [; ;main.c: 122: void GetDigits(int Time);
 [v _GetDigits `(v ~T0 @X0 0 ef1`i ]
-"126
-[; ;main.c: 126: void SetDisplay(char d1, char d2, char d3, char value);
+"127
+[; ;main.c: 127: void SetDisplay(char d1, char d2, char d3, char value);
 [v _SetDisplay `(v ~T0 @X0 0 ef4`uc`uc`uc`uc ]
-"125
-[; ;main.c: 125: void sendByte(char byte0, char byte1, char valore);
+"126
+[; ;main.c: 126: void sendByte(char byte0, char byte1, char valore);
 [v _sendByte `(v ~T0 @X0 0 ef3`uc`uc`uc ]
 "117
 [; ;main.c: 117: int ADC_Read(char canale);
@@ -184,8 +184,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _RCREG `Vuc ~T0 @X0 0 e@26 ]
 "426 main.c
 [; ;main.c: 426:     {
-[s S223 :7 `uc 1 ]
-[n S223 . Val ]
+[s S229 :7 `uc 1 ]
+[n S229 . Val ]
 "172 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 172:     struct {
 [s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -1618,13 +1618,34 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e $ < _i -> 4 `i 195  ]
 [e :U 196 ]
 }
+"327
+[; ;main.c: 327:             for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 198  ]
+[e $U 199  ]
+[e :U 198 ]
+"328
+[; ;main.c: 328:             {
+{
+"329
+[; ;main.c: 329:                 dataFromGateway[i] = 0;
+[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
+"330
+[; ;main.c: 330:             }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 198  ]
+[e :U 199 ]
+}
 "331
 [; ;main.c: 331:         }
 }
 [e :U 191 ]
 "335
 [; ;main.c: 335:         if ((dataFromGateway[0] & 0x7F) == 0x0A)
-[e $ ! == & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i -> 10 `i 198  ]
+[e $ ! == & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i -> 10 `i 201  ]
 "336
 [; ;main.c: 336:         {
 {
@@ -1646,10 +1667,31 @@ Version 4.0 HI-TECH Software Intermediate Code
 "342
 [; ;main.c: 342:             sendByte(0x06, 0x00, pressione);
 [e ( _sendByte (3 , , -> -> 6 `i `uc -> -> 0 `i `uc -> _pressione `uc ]
+"343
+[; ;main.c: 343:             for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 202  ]
+[e $U 203  ]
+[e :U 202 ]
+"344
+[; ;main.c: 344:             {
+{
+"345
+[; ;main.c: 345:                 dataFromGateway[i] = 0;
+[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
+"346
+[; ;main.c: 346:             }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 202  ]
+[e :U 203 ]
+}
 "347
 [; ;main.c: 347:         }
 }
-[e :U 198 ]
+[e :U 201 ]
 "349
 [; ;main.c: 349:     }
 }
@@ -1685,7 +1727,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
 "361
 [; ;main.c: 361: }
-[e :UE 199 ]
+[e :UE 205 ]
 }
 "364
 [; ;main.c: 364: int ADC_Read(char canale)
@@ -1711,22 +1753,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _GO_nDONE -> -> 1 `i `b ]
 "369
 [; ;main.c: 369:     while (GO_nDONE)
-[e $U 201  ]
-[e :U 202 ]
+[e $U 207  ]
+[e :U 208 ]
 "370
 [; ;main.c: 370:         ;
-[e :U 201 ]
+[e :U 207 ]
 "369
 [; ;main.c: 369:     while (GO_nDONE)
-[e $ _GO_nDONE 202  ]
-[e :U 203 ]
+[e $ _GO_nDONE 208  ]
+[e :U 209 ]
 "371
 [; ;main.c: 371:     return ADRESL + (ADRESH << 8);
 [e ) + -> _ADRESL `i << -> _ADRESH `i -> 8 `i ]
-[e $UE 200  ]
+[e $UE 206  ]
 "372
 [; ;main.c: 372: }
-[e :UE 200 ]
+[e :UE 206 ]
 }
 "374
 [; ;main.c: 374: void UART_Init(int baudrate)
@@ -1767,7 +1809,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
 "384
 [; ;main.c: 384: }
-[e :UE 204 ]
+[e :UE 210 ]
 }
 "386
 [; ;main.c: 386: void UART_TxChar(char ch)
@@ -1784,15 +1826,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "388
 [; ;main.c: 388:     while (!TXIF)
-[e $U 206  ]
-[e :U 207 ]
+[e $U 212  ]
+[e :U 213 ]
 "389
 [; ;main.c: 389:         ;
-[e :U 206 ]
+[e :U 212 ]
 "388
 [; ;main.c: 388:     while (!TXIF)
-[e $ ! _TXIF 207  ]
-[e :U 208 ]
+[e $ ! _TXIF 213  ]
+[e :U 214 ]
 "390
 [; ;main.c: 390:     TXIF = 0;
 [e = _TXIF -> -> 0 `i `b ]
@@ -1801,7 +1843,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _TXREG -> _ch `uc ]
 "392
 [; ;main.c: 392: }
-[e :UE 205 ]
+[e :UE 211 ]
 }
 "394
 [; ;main.c: 394: void UART_Write_Text(char *text)
@@ -1823,8 +1865,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 397:     for (i = 0; text[i] != '\0'; i++)
 {
 [e = _i -> -> 0 `i `uc ]
-[e $U 213  ]
-[e :U 210 ]
+[e $U 219  ]
+[e :U 216 ]
 "398
 [; ;main.c: 398:     {
 {
@@ -1835,13 +1877,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 400:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e :U 213 ]
-[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 210  ]
-[e :U 211 ]
+[e :U 219 ]
+[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 216  ]
+[e :U 217 ]
 }
 "401
 [; ;main.c: 401: }
-[e :UE 209 ]
+[e :UE 215 ]
 }
 "403
 [; ;main.c: 403: char UART_Read()
@@ -1853,25 +1895,25 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "405
 [; ;main.c: 405:     while (!RCIF)
-[e $U 215  ]
-[e :U 216 ]
+[e $U 221  ]
+[e :U 222 ]
 "406
 [; ;main.c: 406:         ;
-[e :U 215 ]
+[e :U 221 ]
 "405
 [; ;main.c: 405:     while (!RCIF)
-[e $ ! _RCIF 216  ]
-[e :U 217 ]
+[e $ ! _RCIF 222  ]
+[e :U 223 ]
 "407
 [; ;main.c: 407:     RCIF = 0;
 [e = _RCIF -> -> 0 `i `b ]
 "408
 [; ;main.c: 408:     return RCREG;
 [e ) -> _RCREG `uc ]
-[e $UE 214  ]
+[e $UE 220  ]
 "409
 [; ;main.c: 409: }
-[e :UE 214 ]
+[e :UE 220 ]
 }
 "411
 [; ;main.c: 411: void sendByte(char byte0, char byte1, char valore)
@@ -1899,9 +1941,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 219  ]
-[e $U 220  ]
-[e :U 219 ]
+[e $ < -> _i `i -> 5 `i 225  ]
+[e $U 226  ]
+[e :U 225 ]
 "417
 [; ;main.c: 417:     {
 {
@@ -1912,12 +1954,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 419:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 219  ]
-[e :U 220 ]
+[e $ < -> _i `i -> 5 `i 225  ]
+[e :U 226 ]
 }
 "420
 [; ;main.c: 420: }
-[e :UE 218 ]
+[e :UE 224 ]
 }
 "422
 [; ;main.c: 422: int GetTime(unsigned char index)
@@ -1937,7 +1979,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _time `i ~T0 @X0 1 a ]
 "428
 [; ;main.c: 428:     } shortInt;
-[v _shortInt `S223 ~T0 @X0 1 a ]
+[v _shortInt `S229 ~T0 @X0 1 a ]
 "430
 [; ;main.c: 430:     shortInt.Val = dataFromGateway[index + 3] & 0x7F;
 [e = . _shortInt 0 -> & -> *U + &U _dataFromGateway * -> -> + -> _index `i -> 3 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i `uc ]
@@ -1956,10 +1998,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "437
 [; ;main.c: 437:     return time;
 [e ) _time ]
-[e $UE 222  ]
+[e $UE 228  ]
 "438
 [; ;main.c: 438: }
-[e :UE 222 ]
+[e :UE 228 ]
 }
 "440
 [; ;main.c: 440: void GetDigits(int Time)
@@ -1988,7 +2030,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _unita -> % % -> _countdown `i -> 100 `i -> 10 `i `uc ]
 "446
 [; ;main.c: 446: }
-[e :UE 224 ]
+[e :UE 230 ]
 }
 "448
 [; ;main.c: 448: void SetDisplay(char d1, char d2, char d3, char value)
@@ -2020,7 +2062,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _PORTD -> _value `uc ]
 "454
 [; ;main.c: 454: }
-[e :UE 225 ]
+[e :UE 231 ]
 }
 "456
 [; ;main.c: 456: void SetDefaultTimers(int rosso, int verde, int giallo)
@@ -2042,9 +2084,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]
-[e $ < -> _l `i -> 16 `i 227  ]
-[e $U 228  ]
-[e :U 227 ]
+[e $ < -> _l `i -> 16 `i 233  ]
+[e $U 234  ]
+[e :U 233 ]
 "459
 [; ;main.c: 459:     {
 {
@@ -2053,72 +2095,72 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 230  ]
-[e $U 231  ]
-[e :U 230 ]
+[e $ < -> _i `i -> 3 `i 236  ]
+[e $U 237  ]
+[e :U 236 ]
 "461
 [; ;main.c: 461:         {
 {
 "462
 [; ;main.c: 462:             switch (i)
-[e $U 234  ]
+[e $U 240  ]
 "463
 [; ;main.c: 463:             {
 {
 "464
 [; ;main.c: 464:             case 0:
-[e :U 235 ]
+[e :U 241 ]
 "465
 [; ;main.c: 465:                 (*(Semafori[l])).new_times[i] = rosso;
 [e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _rosso ]
 "466
 [; ;main.c: 466:                 break;
-[e $U 233  ]
+[e $U 239  ]
 "467
 [; ;main.c: 467:             case 1:
-[e :U 236 ]
+[e :U 242 ]
 "468
 [; ;main.c: 468:                 (*(Semafori[l])).new_times[i] = verde;
 [e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _verde ]
 "469
 [; ;main.c: 469:                 break;
-[e $U 233  ]
+[e $U 239  ]
 "470
 [; ;main.c: 470:             case 2:
-[e :U 237 ]
+[e :U 243 ]
 "471
 [; ;main.c: 471:                 (*(Semafori[l])).new_times[i] = giallo;
 [e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _giallo ]
 "472
 [; ;main.c: 472:                 break;
-[e $U 233  ]
+[e $U 239  ]
 "473
 [; ;main.c: 473:             }
 }
-[e $U 233  ]
-[e :U 234 ]
-[e [\ -> _i `i , $ -> 0 `i 235
- , $ -> 1 `i 236
- , $ -> 2 `i 237
- 233 ]
-[e :U 233 ]
+[e $U 239  ]
+[e :U 240 ]
+[e [\ -> _i `i , $ -> 0 `i 241
+ , $ -> 1 `i 242
+ , $ -> 2 `i 243
+ 239 ]
+[e :U 239 ]
 "474
 [; ;main.c: 474:         }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 230  ]
-[e :U 231 ]
+[e $ < -> _i `i -> 3 `i 236  ]
+[e :U 237 ]
 }
 "475
 [; ;main.c: 475:     }
 }
 [e ++ _l -> -> 1 `i `uc ]
-[e $ < -> _l `i -> 16 `i 227  ]
-[e :U 228 ]
+[e $ < -> _l `i -> 16 `i 233  ]
+[e :U 234 ]
 }
 "476
 [; ;main.c: 476: }
-[e :UE 226 ]
+[e :UE 232 ]
 }
 "478
 [; ;main.c: 478: void conteggioVeicoli()
@@ -2130,7 +2172,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "481
 [; ;main.c: 481:     if (!PORTBbits.RB3)
-[e $ ! ! != -> . . _PORTBbits 0 3 `i -> 0 `i 239  ]
+[e $ ! ! != -> . . _PORTBbits 0 3 `i -> 0 `i 245  ]
 "482
 [; ;main.c: 482:     {
 {
@@ -2140,17 +2182,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "484
 [; ;main.c: 484:     }
 }
-[e $U 240  ]
+[e $U 246  ]
 "485
 [; ;main.c: 485:     else if (PORTBbits.RB3)
-[e :U 239 ]
-[e $ ! != -> . . _PORTBbits 0 3 `i -> 0 `i 241  ]
+[e :U 245 ]
+[e $ ! != -> . . _PORTBbits 0 3 `i -> 0 `i 247  ]
 "486
 [; ;main.c: 486:     {
 {
 "487
 [; ;main.c: 487:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 242  ]
+[e $ ! >= _count -> -> 500 `i `ui 248  ]
 "488
 [; ;main.c: 488:         {
 {
@@ -2160,10 +2202,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "490
 [; ;main.c: 490:         }
 }
-[e :U 242 ]
+[e :U 248 ]
 "491
 [; ;main.c: 491:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 243  ]
+[e $ ! >= _count -> -> 1500 `i `ui 249  ]
 "492
 [; ;main.c: 492:         {
 {
@@ -2173,10 +2215,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "494
 [; ;main.c: 494:         }
 }
-[e :U 243 ]
+[e :U 249 ]
 "495
 [; ;main.c: 495:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 244  ]
+[e $ ! >= _count -> -> 3000 `i `ui 250  ]
 "496
 [; ;main.c: 496:         {
 {
@@ -2186,18 +2228,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "498
 [; ;main.c: 498:         }
 }
-[e :U 244 ]
+[e :U 250 ]
 "499
 [; ;main.c: 499:         count = 0;
 [e = _count -> -> 0 `i `ui ]
 "500
 [; ;main.c: 500:     }
 }
-[e :U 241 ]
-[e :U 240 ]
+[e :U 247 ]
+[e :U 246 ]
 "502
 [; ;main.c: 502:     if (!PORTBbits.RB4)
-[e $ ! ! != -> . . _PORTBbits 0 4 `i -> 0 `i 245  ]
+[e $ ! ! != -> . . _PORTBbits 0 4 `i -> 0 `i 251  ]
 "503
 [; ;main.c: 503:     {
 {
@@ -2207,17 +2249,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "505
 [; ;main.c: 505:     }
 }
-[e $U 246  ]
+[e $U 252  ]
 "506
 [; ;main.c: 506:     else if (PORTBbits.RB4)
-[e :U 245 ]
-[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 247  ]
+[e :U 251 ]
+[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 253  ]
 "507
 [; ;main.c: 507:     {
 {
 "508
 [; ;main.c: 508:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 248  ]
+[e $ ! >= _count -> -> 500 `i `ui 254  ]
 "509
 [; ;main.c: 509:         {
 {
@@ -2227,10 +2269,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "511
 [; ;main.c: 511:         }
 }
-[e :U 248 ]
+[e :U 254 ]
 "512
 [; ;main.c: 512:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 249  ]
+[e $ ! >= _count -> -> 1500 `i `ui 255  ]
 "513
 [; ;main.c: 513:         {
 {
@@ -2240,10 +2282,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "515
 [; ;main.c: 515:         }
 }
-[e :U 249 ]
+[e :U 255 ]
 "516
 [; ;main.c: 516:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 250  ]
+[e $ ! >= _count -> -> 3000 `i `ui 256  ]
 "517
 [; ;main.c: 517:         {
 {
@@ -2253,18 +2295,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "519
 [; ;main.c: 519:         }
 }
-[e :U 250 ]
+[e :U 256 ]
 "520
 [; ;main.c: 520:         count = 0;
 [e = _count -> -> 0 `i `ui ]
 "521
 [; ;main.c: 521:     }
 }
-[e :U 247 ]
-[e :U 246 ]
+[e :U 253 ]
+[e :U 252 ]
 "523
 [; ;main.c: 523:     if (!PORTBbits.RB5)
-[e $ ! ! != -> . . _PORTBbits 0 5 `i -> 0 `i 251  ]
+[e $ ! ! != -> . . _PORTBbits 0 5 `i -> 0 `i 257  ]
 "524
 [; ;main.c: 524:     {
 {
@@ -2274,17 +2316,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "526
 [; ;main.c: 526:     }
 }
-[e $U 252  ]
+[e $U 258  ]
 "527
 [; ;main.c: 527:     else if (PORTBbits.RB5)
-[e :U 251 ]
-[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 253  ]
+[e :U 257 ]
+[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 259  ]
 "528
 [; ;main.c: 528:     {
 {
 "529
 [; ;main.c: 529:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 254  ]
+[e $ ! >= _count -> -> 500 `i `ui 260  ]
 "530
 [; ;main.c: 530:         {
 {
@@ -2294,10 +2336,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "532
 [; ;main.c: 532:         }
 }
-[e :U 254 ]
+[e :U 260 ]
 "533
 [; ;main.c: 533:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 255  ]
+[e $ ! >= _count -> -> 1500 `i `ui 261  ]
 "534
 [; ;main.c: 534:         {
 {
@@ -2307,10 +2349,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "536
 [; ;main.c: 536:         }
 }
-[e :U 255 ]
+[e :U 261 ]
 "537
 [; ;main.c: 537:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 256  ]
+[e $ ! >= _count -> -> 3000 `i `ui 262  ]
 "538
 [; ;main.c: 538:         {
 {
@@ -2320,18 +2362,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "540
 [; ;main.c: 540:         }
 }
-[e :U 256 ]
+[e :U 262 ]
 "541
 [; ;main.c: 541:         count = 0;
 [e = _count -> -> 0 `i `ui ]
 "542
 [; ;main.c: 542:     }
 }
-[e :U 253 ]
-[e :U 252 ]
+[e :U 259 ]
+[e :U 258 ]
 "544
 [; ;main.c: 544:     if (!PORTAbits.RA5)
-[e $ ! ! != -> . . _PORTAbits 0 5 `i -> 0 `i 257  ]
+[e $ ! ! != -> . . _PORTAbits 0 5 `i -> 0 `i 263  ]
 "545
 [; ;main.c: 545:     {
 {
@@ -2341,17 +2383,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 "547
 [; ;main.c: 547:     }
 }
-[e $U 258  ]
+[e $U 264  ]
 "548
 [; ;main.c: 548:     else if (PORTAbits.RA5)
-[e :U 257 ]
-[e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 259  ]
+[e :U 263 ]
+[e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 265  ]
 "549
 [; ;main.c: 549:     {
 {
 "550
 [; ;main.c: 550:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 260  ]
+[e $ ! >= _count -> -> 500 `i `ui 266  ]
 "551
 [; ;main.c: 551:         {
 {
@@ -2361,10 +2403,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "553
 [; ;main.c: 553:         }
 }
-[e :U 260 ]
+[e :U 266 ]
 "554
 [; ;main.c: 554:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 261  ]
+[e $ ! >= _count -> -> 1500 `i `ui 267  ]
 "555
 [; ;main.c: 555:         {
 {
@@ -2374,10 +2416,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "557
 [; ;main.c: 557:         }
 }
-[e :U 261 ]
+[e :U 267 ]
 "558
 [; ;main.c: 558:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 262  ]
+[e $ ! >= _count -> -> 3000 `i `ui 268  ]
 "559
 [; ;main.c: 559:         {
 {
@@ -2387,18 +2429,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "561
 [; ;main.c: 561:         }
 }
-[e :U 262 ]
+[e :U 268 ]
 "562
 [; ;main.c: 562:         count = 0;
 [e = _count -> -> 0 `i `ui ]
 "563
 [; ;main.c: 563:     }
 }
-[e :U 259 ]
-[e :U 258 ]
+[e :U 265 ]
+[e :U 264 ]
 "564
 [; ;main.c: 564: }
-[e :UE 238 ]
+[e :UE 244 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
 "566
@@ -2411,7 +2453,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "569
 [; ;main.c: 569:     if (RCIF && readGateway.Bit == 0)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 264  ]
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 270  ]
 "570
 [; ;main.c: 570:     {
 {
@@ -2433,10 +2475,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "576
 [; ;main.c: 576:     }
 }
-[e :U 264 ]
+[e :U 270 ]
 "577
 [; ;main.c: 577:     if (RCIF && readGateway.Bit == 1)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 265  ]
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 271  ]
 "578
 [; ;main.c: 578:     {
 {
@@ -2452,10 +2494,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "582
 [; ;main.c: 582:     }
 }
-[e :U 265 ]
+[e :U 271 ]
 "586
 [; ;main.c: 586:     if (TMR0IF)
-[e $ ! _TMR0IF 266  ]
+[e $ ! _TMR0IF 272  ]
 "587
 [; ;main.c: 587:     {
 {
@@ -2471,10 +2513,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "591
 [; ;main.c: 591:     }
 }
-[e :U 266 ]
+[e :U 272 ]
 "593
 [; ;main.c: 593:     if (TMR1IF)
-[e $ ! _TMR1IF 267  ]
+[e $ ! _TMR1IF 273  ]
 "594
 [; ;main.c: 594:     {
 {
@@ -2486,7 +2528,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ++ _count_lux -> -> 1 `i `uc ]
 "598
 [; ;main.c: 598:         if (count_lux >= 20)
-[e $ ! >= -> _count_lux `i -> 20 `i 268  ]
+[e $ ! >= -> _count_lux `i -> 20 `i 274  ]
 "599
 [; ;main.c: 599:         {
 {
@@ -2502,7 +2544,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "603
 [; ;main.c: 603:         }
 }
-[e :U 268 ]
+[e :U 274 ]
 "605
 [; ;main.c: 605:         TMR1H = 60;
 [e = _TMR1H -> -> 60 `i `uc ]
@@ -2512,8 +2554,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "607
 [; ;main.c: 607:     }
 }
-[e :U 267 ]
+[e :U 273 ]
 "608
 [; ;main.c: 608: }
-[e :UE 263 ]
+[e :UE 269 ]
 }

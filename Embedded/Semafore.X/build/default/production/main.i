@@ -2009,10 +2009,10 @@ char UART_Read();
 int GetTime(unsigned char index);
 void GetDigits(int Time);
 void sendByte(char byte0, char byte1, char valore);
+void SetDefaultTimers(int rosso, int verde, int giallo);
 void conteggioVeicoli();
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
-void SetDefaultTimers(int rosso, int verde, int giallo);
 
 void main(void)
 {
@@ -2212,10 +2212,10 @@ void main(void)
                 car[i] = 0;
                 truck[i] = 0;
             }
-
-
-
-
+            for (unsigned char i = 0; i < 5; i++)
+            {
+                dataFromGateway[i] = 0;
+            }
         }
 
 
@@ -2228,10 +2228,10 @@ void main(void)
             sendByte(0x02, 0x00, temp);
             sendByte(0x04, 0x00, umidita);
             sendByte(0x06, 0x00, pressione);
-
-
-
-
+            for (unsigned char i = 0; i < 5; i++)
+            {
+                dataFromGateway[i] = 0;
+            }
         }
 
     }
