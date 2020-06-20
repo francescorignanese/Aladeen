@@ -7,6 +7,9 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+debug.c
+test.c
+
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
