@@ -165,13 +165,13 @@ void main(void)
         //se si stanno ricevendo dati dalla seriale
         if (readGateway.Bit)
         {
-            switch ((dataFromGateway[1] & 0x7F)) //Controllo se devo ricevere o inviare in base alla ricezione e i comandi
+            switch ((dataFromGateway[0] & 0x7F)) //Controllo se devo ricevere o inviare in base alla ricezione e i comandi
             {
-            case 0x08: //Se vi è il comando 0x08 nel secondo byte allora prendo solo un pachetto di dati
+            case 0x08: //Se vi è il comando 0x08 nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
                 break;
-            case 0x0A: //Se vi è il comando 0x0A nel secondo byte allora prendo solo un pachetto di dati
+            case 0x0A: //Se vi è il comando 0x0A nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
                 break;
@@ -307,7 +307,7 @@ void main(void)
         }
 
         //!Parte di invio mezzi ad ogni richiesta del raspberry da completare la ricezione del comando -->
-        if ((dataFromGateway[1] & 0x7F) == 0x08)
+        if ((dataFromGateway[0] & 0x7F) == 0x08)
         {
             for (int i = 0; i < 4; i++) //Invio tutti i valori
             {
@@ -321,15 +321,15 @@ void main(void)
                 car[i] = 0;
                 truck[i] = 0;
             }
-            for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
-            {
-                dataFromGateway[i] = 0;
-            }
+            // for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            // {
+            //     dataFromGateway[i] = 0;
+            // }
         }
         //!end <--
 
         //*Parte di invio dei sensori ad ogni richiesta del raspberry
-        if ((dataFromGateway[1] & 0x7F) == 0x0A)
+        if ((dataFromGateway[0] & 0x7F) == 0x0A)
         {
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
@@ -337,10 +337,10 @@ void main(void)
             sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
             sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
             sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
-            for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
-            {
-                dataFromGateway[i] = 0;
-            }
+            // for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto così da non continuare ad inviare
+            // {
+            //     dataFromGateway[i] = 0;
+            // }
         }
         //*end <--
     }
@@ -412,7 +412,7 @@ void sendByte(char byte0, char byte1, char valore)
 
     for (int i = 0; i < 5; i++)
     {
-        UART_Write_Text(txByte++); //Invia un byte per volta
+        UART_TxChar(txByte++); //Invia un byte per volta
     }
 }
 

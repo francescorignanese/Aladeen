@@ -2053,7 +2053,7 @@ void main(void)
 
         if (readGateway.Bit)
         {
-            switch ((dataFromGateway[1] & 0x7F))
+            switch ((dataFromGateway[0] & 0x7F))
             {
             case 0x08:
                 readGatewayDone.Bit = 1;
@@ -2195,7 +2195,7 @@ void main(void)
         }
 
 
-        if ((dataFromGateway[1] & 0x7F) == 0x08)
+        if ((dataFromGateway[0] & 0x7F) == 0x08)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -2213,13 +2213,11 @@ void main(void)
 
 
 
-
-            int i[5];
         }
 
 
 
-        if ((dataFromGateway[1] & 0x7F) == 0x0A)
+        if ((dataFromGateway[0] & 0x7F) == 0x0A)
         {
             temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
             umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
@@ -2302,7 +2300,7 @@ void sendByte(char byte0, char byte1, char valore)
 
     for (int i = 0; i < 5; i++)
     {
-        UART_Write_Text(txByte++);
+        UART_TxChar(txByte++);
     }
 }
 
