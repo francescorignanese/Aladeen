@@ -2046,6 +2046,12 @@ void main(void)
     Bit endCiclo;
     endCiclo.Bit = 1;
 
+    for(int i=0; i<4;i++)
+    {
+        motorcycle[i]=15;
+        car[i]=63;
+        truck[i]=255;
+    }
     while (1)
     {
 
@@ -2059,9 +2065,9 @@ void main(void)
 
                 for (int i = 0; i < 4; i++)
                 {
-                    sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-                    sendByte((0x01 << (i + 1)), 0x10, car[i]);
-                    sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x01, motorcycle[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x10, car[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x11, truck[i]);
                 }
 
                 for (int i = 0; i < 4; i++)

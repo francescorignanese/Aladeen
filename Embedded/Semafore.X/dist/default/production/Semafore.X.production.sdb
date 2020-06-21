@@ -41,29 +41,29 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "129 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"349
+"355
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
-"358
+"364
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
-"368
+"374
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
-"380
+"386
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
-"397
+"403
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
-"405
+"411
 [v _sendByte sendByte `(v  1 e 1 0 ]
-"416
+"422
 [v _GetTime GetTime `(i  1 e 2 0 ]
-"434
+"440
 [v _GetDigits GetDigits `(v  1 e 1 0 ]
-"442
+"448
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
-"450
+"456
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
-"472
+"478
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
-"560
+"566
 [v _ISR ISR `II(v  1 e 1 0 ]
 "59 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -280,28 +280,30 @@
 "129
 [v _main main `(v  1 e 1 0 ]
 {
-"264
-[v main@i_449 i `uc  1 a 1 17 ]
-"246
+"270
+[v main@i_450 i `uc  1 a 1 19 ]
+"252
 [v main@index index `uc  1 a 1 8 ]
-"250
+"256
 [v main@colorId colorId `uc  1 a 1 1 ]
-"248
+"254
 [v main@semaforoId semaforoId `uc  1 a 1 0 ]
-"244
-[v main@i_442 i `uc  1 a 1 13 ]
-"201
-[v main@i_439 i `uc  1 a 1 12 ]
-"185
-[v main@i_437 i `uc  1 a 1 11 ]
-"178
-[v main@i_436 i `i  1 a 2 14 ]
-"171
-[v main@i i `i  1 a 2 18 ]
-"262
-[v main@l l `uc  1 a 1 16 ]
-"243
+"250
+[v main@i_443 i `uc  1 a 1 13 ]
+"207
+[v main@i_440 i `uc  1 a 1 12 ]
+"191
+[v main@i_438 i `uc  1 a 1 11 ]
+"184
+[v main@i_437 i `i  1 a 2 16 ]
+"177
+[v main@i_436 i `i  1 a 2 20 ]
+"268
+[v main@l l `uc  1 a 1 18 ]
+"249
 [v main@tmp tmp `uc  1 a 1 6 ]
+"160
+[v main@i i `i  1 a 2 14 ]
 "151
 [v main@time time `i  1 a 2 9 ]
 "152
@@ -316,31 +318,31 @@
 [v main@umidita umidita `uc  1 a 1 3 ]
 "154
 [v main@temp temp `uc  1 a 1 2 ]
-"346
+"352
 } 0
-"405
+"411
 [v _sendByte sendByte `(v  1 e 1 0 ]
 {
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
-"410
+"416
 [v sendByte@i i `uc  1 a 1 27 ]
-"407
+"413
 [v sendByte@txByte txByte `*.4uc  1 a 1 26 ]
-"405
+"411
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
 [v sendByte@byte1 byte1 `uc  1 p 1 20 ]
 [v sendByte@valore valore `uc  1 p 1 21 ]
-"408
-[v sendByte@byte0 byte0 `uc  1 a 1 25 ]
 "414
+[v sendByte@byte0 byte0 `uc  1 a 1 25 ]
+"420
 } 0
-"380
+"386
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 0 ]
-"386
+"392
 } 0
 "2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
@@ -388,10 +390,10 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
 "53
 } 0
-"349 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"355 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
 {
-"355
+"361
 } 0
 "14 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/BitsFlow.h
 [v _bitParita bitParita `(v  1 e 1 0 ]
@@ -444,11 +446,11 @@
 [v ___bmul@multiplier multiplier `uc  1 a 1 3 ]
 "51
 } 0
-"368 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"374 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
 [v UART_Init@baudrate baudrate `i  1 p 2 15 ]
-"378
+"384
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -463,7 +465,7 @@
 [v ___aldiv@dividend dividend `l  1 p 4 4 ]
 "41
 } 0
-"442 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"448 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
 {
 [v SetDisplay@d1 d1 `uc  1 a 1 wreg ]
@@ -471,44 +473,44 @@
 [v SetDisplay@d2 d2 `uc  1 p 1 0 ]
 [v SetDisplay@d3 d3 `uc  1 p 1 1 ]
 [v SetDisplay@value value `uc  1 p 1 2 ]
-"444
-[v SetDisplay@d1 d1 `uc  1 a 1 3 ]
-"448
-} 0
 "450
+[v SetDisplay@d1 d1 `uc  1 a 1 3 ]
+"454
+} 0
+"456
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
 {
-"454
+"460
 [v SetDefaultTimers@i i `uc  1 a 1 13 ]
-"452
+"458
 [v SetDefaultTimers@l l `uc  1 a 1 12 ]
-"450
+"456
 [v SetDefaultTimers@rosso rosso `i  1 p 2 0 ]
 [v SetDefaultTimers@verde verde `i  1 p 2 2 ]
 [v SetDefaultTimers@giallo giallo `i  1 p 2 4 ]
-"470
+"476
 } 0
-"416
+"422
 [v _GetTime GetTime `(i  1 e 2 0 ]
 {
 [v GetTime@index index `uc  1 a 1 wreg ]
-"418
+"424
 [v GetTime@time time `i  1 a 2 6 ]
 [s S258 . 1 `uc 1 Val 1 0 :7:0 
 ]
-"422
+"428
 [v GetTime@shortInt shortInt `S258  1 a 1 5 ]
-"416
+"422
 [v GetTime@index index `uc  1 a 1 wreg ]
-"424
+"430
 [v GetTime@index index `uc  1 a 1 4 ]
-"432
+"438
 } 0
-"434
+"440
 [v _GetDigits GetDigits `(v  1 e 1 0 ]
 {
 [v GetDigits@Time Time `i  1 p 2 16 ]
-"440
+"446
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
@@ -534,27 +536,27 @@
 [v ___awdiv@dividend dividend `i  1 p 2 9 ]
 "41
 } 0
-"358 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"364 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
 {
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
-"360
-[v ADC_Read@canale canale `uc  1 a 1 3 ]
 "366
+[v ADC_Read@canale canale `uc  1 a 1 3 ]
+"372
 } 0
-"560
+"566
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"602
+"608
 } 0
-"472
+"478
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
 {
-"558
+"564
 } 0
-"397
+"403
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
 {
-"403
+"409
 } 0

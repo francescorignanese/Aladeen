@@ -182,10 +182,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "1066
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1066: extern volatile unsigned char RCREG __attribute__((address(0x01A)));
 [v _RCREG `Vuc ~T0 @X0 0 e@26 ]
-"420 main.c
-[; ;main.c: 420:     {
-[s S227 :7 `uc 1 ]
-[n S227 . Val ]
+"426 main.c
+[; ;main.c: 426:     {
+[s S230 :7 `uc 1 ]
+[n S230 . Val ]
 "172 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 172:     struct {
 [s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -1134,412 +1134,423 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 158:     endCiclo.Bit = 1;
 [e = . _endCiclo 0 -> -> 1 `i `uc ]
 "160
-[; ;main.c: 160:     while (1)
-[e :U 150 ]
-"161
-[; ;main.c: 161:     {
-{
-"163
-[; ;main.c: 163:         if (readGateway.Bit)
-[e $ ! != -> . _readGateway 0 `i -> 0 `i 152  ]
-"164
-[; ;main.c: 164:         {
-{
-"165
-[; ;main.c: 165:             switch ((dataFromGateway[0] & 0x7F))
-[e $U 154  ]
-"166
-[; ;main.c: 166:             {
-{
-"167
-[; ;main.c: 167:             case 0x08:
-[e :U 155 ]
-"168
-[; ;main.c: 168:                 readGatewayDone.Bit = 1;
-[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
-"169
-[; ;main.c: 169:                 readGateway.Bit = 0;
-[e = . _readGateway 0 -> -> 0 `i `uc ]
-"171
-[; ;main.c: 171:                 for (int i = 0; i < 4; i++)
+[; ;main.c: 160:     for(int i=0; i<4;i++)
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $ < _i -> 4 `i 156  ]
-[e $U 157  ]
-[e :U 156 ]
-"172
-[; ;main.c: 172:                 {
+[e $ < _i -> 4 `i 149  ]
+[e $U 150  ]
+[e :U 149 ]
+"161
+[; ;main.c: 161:     {
 {
-"173
-[; ;main.c: 173:                     sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-[e ( _sendByte (3 , , -> << -> 1 `i + _i -> 1 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
-"174
-[; ;main.c: 174:                     sendByte((0x01 << (i + 1)), 0x10, car[i]);
-[e ( _sendByte (3 , , -> << -> 1 `i + _i -> 1 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
-"175
-[; ;main.c: 175:                     sendByte((0x01 << (i + 1)), 0x11, truck[i]);
-[e ( _sendByte (3 , , -> << -> 1 `i + _i -> 1 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
-"176
-[; ;main.c: 176:                 }
+"162
+[; ;main.c: 162:         motorcycle[i]=15;
+[e = *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 15 `i `uc ]
+"163
+[; ;main.c: 163:         car[i]=63;
+[e = *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux -> -> 63 `i `uc ]
+"164
+[; ;main.c: 164:         truck[i]=255;
+[e = *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 255 `i `uc ]
+"165
+[; ;main.c: 165:     }
 }
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 4 `i 156  ]
-[e :U 157 ]
+[e $ < _i -> 4 `i 149  ]
+[e :U 150 ]
 }
-"178
-[; ;main.c: 178:                 for (int i = 0; i < 4; i++)
+"166
+[; ;main.c: 166:     while (1)
+[e :U 153 ]
+"167
+[; ;main.c: 167:     {
+{
+"169
+[; ;main.c: 169:         if (readGateway.Bit)
+[e $ ! != -> . _readGateway 0 `i -> 0 `i 155  ]
+"170
+[; ;main.c: 170:         {
+{
+"171
+[; ;main.c: 171:             switch ((dataFromGateway[0] & 0x7F))
+[e $U 157  ]
+"172
+[; ;main.c: 172:             {
+{
+"173
+[; ;main.c: 173:             case 0x08:
+[e :U 158 ]
+"174
+[; ;main.c: 174:                 readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"175
+[; ;main.c: 175:                 readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"177
+[; ;main.c: 177:                 for (int i = 0; i < 4; i++)
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
 [e $ < _i -> 4 `i 159  ]
 [e $U 160  ]
 [e :U 159 ]
-"179
-[; ;main.c: 179:                 {
+"178
+[; ;main.c: 178:                 {
 {
+"179
+[; ;main.c: 179:                     sendByte((0x01 << (i + 1))|0x01, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> | << -> 1 `i + _i -> 1 `i -> 1 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
 "180
-[; ;main.c: 180:                     motorcycle[i] = 0;
-[e = *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 0 `i `uc ]
+[; ;main.c: 180:                     sendByte((0x01 << (i + 1))|0x01, 0x10, car[i]);
+[e ( _sendByte (3 , , -> | << -> 1 `i + _i -> 1 `i -> 1 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "181
-[; ;main.c: 181:                     car[i] = 0;
-[e = *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux -> -> 0 `i `uc ]
+[; ;main.c: 181:                     sendByte((0x01 << (i + 1))|0x01, 0x11, truck[i]);
+[e ( _sendByte (3 , , -> | << -> 1 `i + _i -> 1 `i -> 1 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "182
-[; ;main.c: 182:                     truck[i] = 0;
-[e = *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 0 `i `uc ]
-"183
-[; ;main.c: 183:                 }
+[; ;main.c: 182:                 }
 }
 [e ++ _i -> 1 `i ]
 [e $ < _i -> 4 `i 159  ]
 [e :U 160 ]
 }
-"185
-[; ;main.c: 185:                 for (unsigned char i = 0; i < 5; i++)
+"184
+[; ;main.c: 184:                 for (int i = 0; i < 4; i++)
 {
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 162  ]
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 4 `i 162  ]
 [e $U 163  ]
 [e :U 162 ]
-"186
-[; ;main.c: 186:                 {
+"185
+[; ;main.c: 185:                 {
 {
+"186
+[; ;main.c: 186:                     motorcycle[i] = 0;
+[e = *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 0 `i `uc ]
 "187
-[; ;main.c: 187:                     dataFromGateway[i] = 0;
-[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
+[; ;main.c: 187:                     car[i] = 0;
+[e = *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux -> -> 0 `i `uc ]
 "188
-[; ;main.c: 188:                 }
+[; ;main.c: 188:                     truck[i] = 0;
+[e = *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 0 `i `uc ]
+"189
+[; ;main.c: 189:                 }
 }
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 162  ]
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 4 `i 162  ]
 [e :U 163 ]
 }
-"189
-[; ;main.c: 189:                 break;
-[e $U 153  ]
-"190
-[; ;main.c: 190:             case 0x0A:
-[e :U 165 ]
 "191
-[; ;main.c: 191:                 readGatewayDone.Bit = 1;
-[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
-"192
-[; ;main.c: 192:                 readGateway.Bit = 0;
-[e = . _readGateway 0 -> -> 0 `i `uc ]
-"194
-[; ;main.c: 194:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
-[e = _temp -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 0 `i `uc -> 2 `i -> 0 `i -> 255 `i -U -> 20 `i -> 60 `i `uc `uc ]
-"195
-[; ;main.c: 195:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-[e = _umidita -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 1 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
-"196
-[; ;main.c: 196:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-[e = _pressione -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 5 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
-"197
-[; ;main.c: 197:                 sendByte(0x02, 0x00, temp);
-[e ( _sendByte (3 , , -> -> 2 `i `uc -> -> 0 `i `uc -> _temp `uc ]
-"198
-[; ;main.c: 198:                 sendByte(0x04, 0x00, umidita);
-[e ( _sendByte (3 , , -> -> 4 `i `uc -> -> 0 `i `uc -> _umidita `uc ]
-"199
-[; ;main.c: 199:                 sendByte(0x06, 0x00, pressione);
-[e ( _sendByte (3 , , -> -> 6 `i `uc -> -> 0 `i `uc -> _pressione `uc ]
-"201
-[; ;main.c: 201:                 for (unsigned char i = 0; i < 5; i++)
+[; ;main.c: 191:                 for (unsigned char i = 0; i < 5; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 166  ]
-[e $U 167  ]
-[e :U 166 ]
-"202
-[; ;main.c: 202:                 {
+[e $ < -> _i `i -> 5 `i 165  ]
+[e $U 166  ]
+[e :U 165 ]
+"192
+[; ;main.c: 192:                 {
 {
-"203
-[; ;main.c: 203:                     dataFromGateway[i] = 0;
+"193
+[; ;main.c: 193:                     dataFromGateway[i] = 0;
 [e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
-"204
-[; ;main.c: 204:                 }
+"194
+[; ;main.c: 194:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 166  ]
-[e :U 167 ]
+[e $ < -> _i `i -> 5 `i 165  ]
+[e :U 166 ]
 }
+"195
+[; ;main.c: 195:                 break;
+[e $U 156  ]
+"196
+[; ;main.c: 196:             case 0x0A:
+[e :U 168 ]
+"197
+[; ;main.c: 197:                 readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"198
+[; ;main.c: 198:                 readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"200
+[; ;main.c: 200:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
+[e = _temp -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 0 `i `uc -> 2 `i -> 0 `i -> 255 `i -U -> 20 `i -> 60 `i `uc `uc ]
+"201
+[; ;main.c: 201:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
+[e = _umidita -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 1 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+"202
+[; ;main.c: 202:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
+[e = _pressione -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 5 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+"203
+[; ;main.c: 203:                 sendByte(0x02, 0x00, temp);
+[e ( _sendByte (3 , , -> -> 2 `i `uc -> -> 0 `i `uc -> _temp `uc ]
+"204
+[; ;main.c: 204:                 sendByte(0x04, 0x00, umidita);
+[e ( _sendByte (3 , , -> -> 4 `i `uc -> -> 0 `i `uc -> _umidita `uc ]
 "205
-[; ;main.c: 205:                 break;
-[e $U 153  ]
+[; ;main.c: 205:                 sendByte(0x06, 0x00, pressione);
+[e ( _sendByte (3 , , -> -> 6 `i `uc -> -> 0 `i `uc -> _pressione `uc ]
 "207
-[; ;main.c: 207:             default:
+[; ;main.c: 207:                 for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 169  ]
+[e $U 170  ]
 [e :U 169 ]
 "208
-[; ;main.c: 208:                 if (timerReadFromGateway >= 4)
-[e $ ! >= -> _timerReadFromGateway `i -> 4 `i 170  ]
+[; ;main.c: 208:                 {
+{
 "209
-[; ;main.c: 209:                 {
-{
+[; ;main.c: 209:                     dataFromGateway[i] = 0;
+[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
 "210
-[; ;main.c: 210:                     readGatewayDone.Bit = 1;
-[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
-"211
-[; ;main.c: 211:                     readGatewayDone.Timeout = 1;
-[e = . _readGatewayDone 1 -> -> 1 `i `uc ]
-"212
-[; ;main.c: 212:                     readGateway.Bit = 0;
-[e = . _readGateway 0 -> -> 0 `i `uc ]
-"213
-[; ;main.c: 213:                 }
+[; ;main.c: 210:                 }
 }
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 169  ]
 [e :U 170 ]
+}
+"211
+[; ;main.c: 211:                 break;
+[e $U 156  ]
+"213
+[; ;main.c: 213:             default:
+[e :U 172 ]
+"214
+[; ;main.c: 214:                 if (timerReadFromGateway >= 4)
+[e $ ! >= -> _timerReadFromGateway `i -> 4 `i 173  ]
 "215
-[; ;main.c: 215:                 if (dataFromGatewayIndex >= 15)
-[e $ ! >= -> _dataFromGatewayIndex `i -> 15 `i 171  ]
+[; ;main.c: 215:                 {
+{
 "216
-[; ;main.c: 216:                 {
-{
-"217
-[; ;main.c: 217:                     readGatewayDone.Bit = 1;
+[; ;main.c: 216:                     readGatewayDone.Bit = 1;
 [e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"217
+[; ;main.c: 217:                     readGatewayDone.Timeout = 1;
+[e = . _readGatewayDone 1 -> -> 1 `i `uc ]
 "218
-[; ;main.c: 218:                     readGatewayDone.Timeout = 0;
-[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
+[; ;main.c: 218:                     readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
 "219
-[; ;main.c: 219:                     readGateway.Bit = 0;
-[e = . _readGateway 0 -> -> 0 `i `uc ]
-"220
-[; ;main.c: 220:                 }
+[; ;main.c: 219:                 }
 }
-[e :U 171 ]
-"221
-[; ;main.c: 221:                 break;
-[e $U 153  ]
-"222
-[; ;main.c: 222:             }
-}
-[e $U 153  ]
-[e :U 154 ]
-[e [\ & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i , $ -> 8 `i 155
- , $ -> 10 `i 165
- 169 ]
-[e :U 153 ]
-"223
-[; ;main.c: 223:         }
-}
-[e :U 152 ]
-"226
-[; ;main.c: 226:         if (readGatewayDone.Bit)
-[e $ ! != -> . _readGatewayDone 0 `i -> 0 `i 172  ]
-"227
-[; ;main.c: 227:         {
-{
-"229
-[; ;main.c: 229:             readGateway.Bit = 0;
-[e = . _readGateway 0 -> -> 0 `i `uc ]
-"230
-[; ;main.c: 230:             dataFromGatewayIndex = 0;
-[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
-"231
-[; ;main.c: 231:             readGatewayDone.Bit = 0;
-[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
-"232
-[; ;main.c: 232:             timerReadFromGateway = 0;
-[e = _timerReadFromGateway -> -> 0 `i `uc ]
-"235
-[; ;main.c: 235:             if (readGatewayDone.Timeout)
-[e $ ! != -> . _readGatewayDone 1 `i -> 0 `i 173  ]
-"236
-[; ;main.c: 236:             {
-{
-"237
-[; ;main.c: 237:                 readGatewayDone.Timeout = 0;
-[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
-"238
-[; ;main.c: 238:             }
-}
-[e $U 174  ]
-"240
-[; ;main.c: 240:             else
 [e :U 173 ]
-"241
-[; ;main.c: 241:             {
+"221
+[; ;main.c: 221:                 if (dataFromGatewayIndex >= 15)
+[e $ ! >= -> _dataFromGatewayIndex `i -> 15 `i 174  ]
+"222
+[; ;main.c: 222:                 {
 {
+"223
+[; ;main.c: 223:                     readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"224
+[; ;main.c: 224:                     readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
+"225
+[; ;main.c: 225:                     readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"226
+[; ;main.c: 226:                 }
+}
+[e :U 174 ]
+"227
+[; ;main.c: 227:                 break;
+[e $U 156  ]
+"228
+[; ;main.c: 228:             }
+}
+[e $U 156  ]
+[e :U 157 ]
+[e [\ & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i , $ -> 8 `i 158
+ , $ -> 10 `i 168
+ 172 ]
+[e :U 156 ]
+"229
+[; ;main.c: 229:         }
+}
+[e :U 155 ]
+"232
+[; ;main.c: 232:         if (readGatewayDone.Bit)
+[e $ ! != -> . _readGatewayDone 0 `i -> 0 `i 175  ]
+"233
+[; ;main.c: 233:         {
+{
+"235
+[; ;main.c: 235:             readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"236
+[; ;main.c: 236:             dataFromGatewayIndex = 0;
+[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
+"237
+[; ;main.c: 237:             readGatewayDone.Bit = 0;
+[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
+"238
+[; ;main.c: 238:             timerReadFromGateway = 0;
+[e = _timerReadFromGateway -> -> 0 `i `uc ]
+"241
+[; ;main.c: 241:             if (readGatewayDone.Timeout)
+[e $ ! != -> . _readGatewayDone 1 `i -> 0 `i 176  ]
 "242
-[; ;main.c: 242:                 bitParita(dataFromGateway);
-[e ( _bitParita (1 -> &U _dataFromGateway `*uc ]
+[; ;main.c: 242:             {
+{
 "243
-[; ;main.c: 243:                 unsigned char tmp;
-[v _tmp `uc ~T0 @X0 1 a ]
+[; ;main.c: 243:                 readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
 "244
-[; ;main.c: 244:                 for (unsigned char i = 0; i < 3; i++)
+[; ;main.c: 244:             }
+}
+[e $U 177  ]
+"246
+[; ;main.c: 246:             else
+[e :U 176 ]
+"247
+[; ;main.c: 247:             {
+{
+"248
+[; ;main.c: 248:                 bitParita(dataFromGateway);
+[e ( _bitParita (1 -> &U _dataFromGateway `*uc ]
+"249
+[; ;main.c: 249:                 unsigned char tmp;
+[v _tmp `uc ~T0 @X0 1 a ]
+"250
+[; ;main.c: 250:                 for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 175  ]
-[e $U 176  ]
-[e :U 175 ]
-"245
-[; ;main.c: 245:                 {
+[e $ < -> _i `i -> 3 `i 178  ]
+[e $U 179  ]
+[e :U 178 ]
+"251
+[; ;main.c: 251:                 {
 {
-"246
-[; ;main.c: 246:                     unsigned char index = i * 5;
+"252
+[; ;main.c: 252:                     unsigned char index = i * 5;
 [v _index `uc ~T0 @X0 1 a ]
 [e = _index -> * -> _i `i -> 5 `i `uc ]
-"247
-[; ;main.c: 247:                     tmp = dataFromGateway[index];
+"253
+[; ;main.c: 253:                     tmp = dataFromGateway[index];
 [e = _tmp *U + &U _dataFromGateway * -> _index `ux -> -> # *U &U _dataFromGateway `ui `ux ]
-"248
-[; ;main.c: 248:                     unsigned char semaforoId = (tmp >> 1) & 0x0F;
+"254
+[; ;main.c: 254:                     unsigned char semaforoId = (tmp >> 1) & 0x0F;
 [v _semaforoId `uc ~T0 @X0 1 a ]
 [e = _semaforoId -> & >> -> _tmp `i -> 1 `i -> 15 `i `uc ]
-"249
-[; ;main.c: 249:                     tmp = dataFromGateway[index];
+"255
+[; ;main.c: 255:                     tmp = dataFromGateway[index];
 [e = _tmp *U + &U _dataFromGateway * -> _index `ux -> -> # *U &U _dataFromGateway `ui `ux ]
-"250
-[; ;main.c: 250:                     unsigned char colorId = ((tmp >> 5) & 0x03) - 1;
+"256
+[; ;main.c: 256:                     unsigned char colorId = ((tmp >> 5) & 0x03) - 1;
 [v _colorId `uc ~T0 @X0 1 a ]
 [e = _colorId -> - & >> -> _tmp `i -> 5 `i -> 3 `i -> 1 `i `uc ]
-"252
-[; ;main.c: 252:                     (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
+"258
+[; ;main.c: 258:                     (*(Semafori[semaforoId])).new_times[colorId] = GetTime(index);
 [e = *U + &U . *U *U + &U _Semafori * -> _semaforoId `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _colorId `ux -> -> # *U &U . *U *U + &U _Semafori * -> _semaforoId `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux ( _GetTime (1 _index ]
-"253
-[; ;main.c: 253:                 }
+"259
+[; ;main.c: 259:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 175  ]
-[e :U 176 ]
+[e $ < -> _i `i -> 3 `i 178  ]
+[e :U 179 ]
 }
-"254
-[; ;main.c: 254:             }
-}
-[e :U 174 ]
-"255
-[; ;main.c: 255:         }
-}
-[e :U 172 ]
-"259
-[; ;main.c: 259:         if (endCiclo.Bit)
-[e $ ! != -> . _endCiclo 0 `i -> 0 `i 178  ]
 "260
-[; ;main.c: 260:         {
+[; ;main.c: 260:             }
+}
+[e :U 177 ]
+"261
+[; ;main.c: 261:         }
+}
+[e :U 175 ]
+"265
+[; ;main.c: 265:         if (endCiclo.Bit)
+[e $ ! != -> . _endCiclo 0 `i -> 0 `i 181  ]
+"266
+[; ;main.c: 266:         {
 {
-"262
-[; ;main.c: 262:             for (unsigned char l = 0; l < 16; l++)
+"268
+[; ;main.c: 268:             for (unsigned char l = 0; l < 16; l++)
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]
-[e $ < -> _l `i -> 16 `i 179  ]
-[e $U 180  ]
-[e :U 179 ]
-"263
-[; ;main.c: 263:             {
+[e $ < -> _l `i -> 16 `i 182  ]
+[e $U 183  ]
+[e :U 182 ]
+"269
+[; ;main.c: 269:             {
 {
-"264
-[; ;main.c: 264:                 for (unsigned char i = 0; i < 3; i++)
+"270
+[; ;main.c: 270:                 for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 182  ]
-[e $U 183  ]
-[e :U 182 ]
-"265
-[; ;main.c: 265:                 {
-{
-"266
-[; ;main.c: 266:                     if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
-[e $ ! != *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux 185  ]
-"267
-[; ;main.c: 267:                     {
-{
-"268
-[; ;main.c: 268:                         (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
-[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux ]
-"269
-[; ;main.c: 269:                     }
-}
+[e $ < -> _i `i -> 3 `i 185  ]
+[e $U 186  ]
 [e :U 185 ]
-"270
-[; ;main.c: 270:                 }
+"271
+[; ;main.c: 271:                 {
+{
+"272
+[; ;main.c: 272:                     if ((*(Semafori[l])).times[i] != (*(Semafori[l])).new_times[i])
+[e $ ! != *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux 188  ]
+"273
+[; ;main.c: 273:                     {
+{
+"274
+[; ;main.c: 274:                         (*(Semafori[l])).times[i] = (*(Semafori[l])).new_times[i];
+[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux ]
+"275
+[; ;main.c: 275:                     }
+}
+[e :U 188 ]
+"276
+[; ;main.c: 276:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 182  ]
-[e :U 183 ]
+[e $ < -> _i `i -> 3 `i 185  ]
+[e :U 186 ]
 }
-"271
-[; ;main.c: 271:             }
+"277
+[; ;main.c: 277:             }
 }
 [e ++ _l -> -> 1 `i `uc ]
-[e $ < -> _l `i -> 16 `i 179  ]
-[e :U 180 ]
+[e $ < -> _l `i -> 16 `i 182  ]
+[e :U 183 ]
 }
-"274
-[; ;main.c: 274:             do
-[e :U 188 ]
-"275
-[; ;main.c: 275:             {
+"280
+[; ;main.c: 280:             do
+[e :U 191 ]
+"281
+[; ;main.c: 281:             {
 {
-"276
-[; ;main.c: 276:                 n_semafori = (n_semafori + 1) % 16;
-[e = _n_semafori -> % + -> _n_semafori `i -> 1 `i -> 16 `i `uc ]
-"277
-[; ;main.c: 277:             } while ((*(Semafori[n_semafori])).times[0] == 0 && n_semafori > 0);
-}
-[e $ && == *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux -> 0 `i > -> _n_semafori `i -> 0 `i 188  ]
-[e :U 187 ]
-"278
-[; ;main.c: 278:         }
-}
-[e :U 178 ]
 "282
-[; ;main.c: 282:         if (secondPassed.Bit && cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 189  ]
+[; ;main.c: 282:                 n_semafori = (n_semafori + 1) % 16;
+[e = _n_semafori -> % + -> _n_semafori `i -> 1 `i -> 16 `i `uc ]
 "283
-[; ;main.c: 283:         {
-{
-"284
-[; ;main.c: 284:             time++;
-[e ++ _time -> 1 `i ]
-"285
-[; ;main.c: 285:             endCiclo.Bit = 0;
-[e = . _endCiclo 0 -> -> 0 `i `uc ]
-"287
-[; ;main.c: 287:             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
-[e $ ! < - *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux _time -> 0 `i 190  ]
-"288
-[; ;main.c: 288:             {
-{
-"289
-[; ;main.c: 289:                 endCiclo.Bit = 1;
-[e = . _endCiclo 0 -> -> 1 `i `uc ]
-"290
-[; ;main.c: 290:                 time=1;
-[e = _time -> 1 `i ]
-"291
-[; ;main.c: 291:             }
+[; ;main.c: 283:             } while ((*(Semafori[n_semafori])).times[0] == 0 && n_semafori > 0);
 }
+[e $ && == *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux -> 0 `i > -> _n_semafori `i -> 0 `i 191  ]
 [e :U 190 ]
+"284
+[; ;main.c: 284:         }
+}
+[e :U 181 ]
+"288
+[; ;main.c: 288:         if (secondPassed.Bit && cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 192  ]
+"289
+[; ;main.c: 289:         {
+{
+"290
+[; ;main.c: 290:             time++;
+[e ++ _time -> 1 `i ]
+"291
+[; ;main.c: 291:             endCiclo.Bit = 0;
+[e = . _endCiclo 0 -> -> 0 `i `uc ]
 "293
-[; ;main.c: 293:             if (lux_select == 2 && time >= (*Semafori[n_semafori]).times[2])
-[e $ ! && == -> _lux_select `i -> 2 `i >= _time *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux 191  ]
+[; ;main.c: 293:             if ((*Semafori[n_semafori]).times[lux_select] - time < 0)
+[e $ ! < - *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux _time -> 0 `i 193  ]
 "294
 [; ;main.c: 294:             {
 {
@@ -1547,998 +1558,1014 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 295:                 endCiclo.Bit = 1;
 [e = . _endCiclo 0 -> -> 1 `i `uc ]
 "296
-[; ;main.c: 296:             }
+[; ;main.c: 296:                 time=1;
+[e = _time -> 1 `i ]
+"297
+[; ;main.c: 297:             }
 }
-[e :U 191 ]
-"298
-[; ;main.c: 298:             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
-[e ( _GetDigits (1 - *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux _time ]
+[e :U 193 ]
 "299
-[; ;main.c: 299:         }
-}
-[e :U 189 ]
+[; ;main.c: 299:             if (lux_select == 2 && time >= (*Semafori[n_semafori]).times[2])
+[e $ ! && == -> _lux_select `i -> 2 `i >= _time *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> -> -> 2 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux 194  ]
+"300
+[; ;main.c: 300:             {
+{
+"301
+[; ;main.c: 301:                 endCiclo.Bit = 1;
+[e = . _endCiclo 0 -> -> 1 `i `uc ]
 "302
-[; ;main.c: 302:         if (disp != old_disp)
-[e $ ! != -> _disp `i -> _old_disp `i 192  ]
-"303
-[; ;main.c: 303:         {
-{
+[; ;main.c: 302:             }
+}
+[e :U 194 ]
 "304
-[; ;main.c: 304:             old_disp = disp;
-[e = _old_disp _disp ]
+[; ;main.c: 304:             GetDigits((*Semafori[n_semafori]).times[lux_select] - time);
+[e ( _GetDigits (1 - *U + &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _n_semafori `ux -> -> # *U &U _Semafori `ui `ux 1 `ui `ux _time ]
 "305
-[; ;main.c: 305:             switch (disp)
-[e $U 194  ]
-"306
-[; ;main.c: 306:             {
-{
-"307
-[; ;main.c: 307:             case 0:
-[e :U 195 ]
+[; ;main.c: 305:         }
+}
+[e :U 192 ]
 "308
-[; ;main.c: 308:                 if (centinaia > 0)
-[e $ ! > -> _centinaia `i -> 0 `i 196  ]
+[; ;main.c: 308:         if (disp != old_disp)
+[e $ ! != -> _disp `i -> _old_disp `i 195  ]
 "309
-[; ;main.c: 309:                 {
+[; ;main.c: 309:         {
 {
 "310
-[; ;main.c: 310:                     SetDisplay(1, 0, 0, display[centinaia]);
-[e ( _SetDisplay (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc *U + &U _display * -> _centinaia `ux -> -> # *U &U _display `ui `ux ]
+[; ;main.c: 310:             old_disp = disp;
+[e = _old_disp _disp ]
 "311
-[; ;main.c: 311:                 }
-}
-[e :U 196 ]
+[; ;main.c: 311:             switch (disp)
+[e $U 197  ]
 "312
-[; ;main.c: 312:                 break;
-[e $U 193  ]
+[; ;main.c: 312:             {
+{
 "313
-[; ;main.c: 313:             case 1:
-[e :U 197 ]
+[; ;main.c: 313:             case 0:
+[e :U 198 ]
 "314
-[; ;main.c: 314:                 if (decine > 0 || centinaia > 0)
-[e $ ! || > -> _decine `i -> 0 `i > -> _centinaia `i -> 0 `i 198  ]
+[; ;main.c: 314:                 if (centinaia > 0)
+[e $ ! > -> _centinaia `i -> 0 `i 199  ]
 "315
 [; ;main.c: 315:                 {
 {
 "316
-[; ;main.c: 316:                     SetDisplay(0, 1, 0, display[decine]);
-[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 1 `i `uc -> -> 0 `i `uc *U + &U _display * -> _decine `ux -> -> # *U &U _display `ui `ux ]
+[; ;main.c: 316:                     SetDisplay(1, 0, 0, display[centinaia]);
+[e ( _SetDisplay (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc *U + &U _display * -> _centinaia `ux -> -> # *U &U _display `ui `ux ]
 "317
 [; ;main.c: 317:                 }
 }
-[e :U 198 ]
+[e :U 199 ]
 "318
 [; ;main.c: 318:                 break;
-[e $U 193  ]
+[e $U 196  ]
 "319
-[; ;main.c: 319:             case 2:
-[e :U 199 ]
-"320
-[; ;main.c: 320:                 SetDisplay(0, 0, 1, display[unita]);
-[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc *U + &U _display * -> _unita `ux -> -> # *U &U _display `ui `ux ]
-"321
-[; ;main.c: 321:                 break;
-[e $U 193  ]
-"322
-[; ;main.c: 322:             case 3:
+[; ;main.c: 319:             case 1:
 [e :U 200 ]
-"323
-[; ;main.c: 323:                 SetDisplay(1, 0, 0, display[n_semafori]);
-[e ( _SetDisplay (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc *U + &U _display * -> _n_semafori `ux -> -> # *U &U _display `ui `ux ]
-"324
-[; ;main.c: 324:                 break;
-[e $U 193  ]
-"325
-[; ;main.c: 325:             }
-}
-[e $U 193  ]
-[e :U 194 ]
-[e [\ -> _disp `i , $ -> 0 `i 195
- , $ -> 1 `i 197
- , $ -> 2 `i 199
- , $ -> 3 `i 200
- 193 ]
-[e :U 193 ]
-"326
-[; ;main.c: 326:         }
-}
-[e :U 192 ]
-"327
-[; ;main.c: 327:         disp = (disp + 1) % 3;
-[e = _disp -> % + -> _disp `i -> 1 `i -> 3 `i `uc ]
-"333
-[; ;main.c: 333:         if (secondPassed.Bit && cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 201  ]
-"334
-[; ;main.c: 334:         {
+"320
+[; ;main.c: 320:                 if (decine > 0 || centinaia > 0)
+[e $ ! || > -> _decine `i -> 0 `i > -> _centinaia `i -> 0 `i 201  ]
+"321
+[; ;main.c: 321:                 {
 {
-"335
-[; ;main.c: 335:             secondPassed.Bit = 0;
-[e = . _secondPassed 0 -> -> 0 `i `uc ]
-"336
-[; ;main.c: 336:             cycled.Bit = 0;
-[e = . _cycled 0 -> -> 0 `i `uc ]
-"337
-[; ;main.c: 337:         }
+"322
+[; ;main.c: 322:                     SetDisplay(0, 1, 0, display[decine]);
+[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 1 `i `uc -> -> 0 `i `uc *U + &U _display * -> _decine `ux -> -> # *U &U _display `ui `ux ]
+"323
+[; ;main.c: 323:                 }
 }
 [e :U 201 ]
+"324
+[; ;main.c: 324:                 break;
+[e $U 196  ]
+"325
+[; ;main.c: 325:             case 2:
+[e :U 202 ]
+"326
+[; ;main.c: 326:                 SetDisplay(0, 0, 1, display[unita]);
+[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc *U + &U _display * -> _unita `ux -> -> # *U &U _display `ui `ux ]
+"327
+[; ;main.c: 327:                 break;
+[e $U 196  ]
+"328
+[; ;main.c: 328:             case 3:
+[e :U 203 ]
+"329
+[; ;main.c: 329:                 SetDisplay(1, 0, 0, display[n_semafori]);
+[e ( _SetDisplay (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc *U + &U _display * -> _n_semafori `ux -> -> # *U &U _display `ui `ux ]
+"330
+[; ;main.c: 330:                 break;
+[e $U 196  ]
+"331
+[; ;main.c: 331:             }
+}
+[e $U 196  ]
+[e :U 197 ]
+[e [\ -> _disp `i , $ -> 0 `i 198
+ , $ -> 1 `i 200
+ , $ -> 2 `i 202
+ , $ -> 3 `i 203
+ 196 ]
+[e :U 196 ]
+"332
+[; ;main.c: 332:         }
+}
+[e :U 195 ]
+"333
+[; ;main.c: 333:         disp = (disp + 1) % 3;
+[e = _disp -> % + -> _disp `i -> 1 `i -> 3 `i `uc ]
 "339
-[; ;main.c: 339:         if (secondPassed.Bit && !cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i ! != -> . _cycled 0 `i -> 0 `i 202  ]
+[; ;main.c: 339:         if (secondPassed.Bit && cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 204  ]
 "340
 [; ;main.c: 340:         {
 {
 "341
-[; ;main.c: 341:             cycled.Bit = 1;
-[e = . _cycled 0 -> -> 1 `i `uc ]
+[; ;main.c: 341:             secondPassed.Bit = 0;
+[e = . _secondPassed 0 -> -> 0 `i `uc ]
 "342
-[; ;main.c: 342:         }
-}
-[e :U 202 ]
+[; ;main.c: 342:             cycled.Bit = 0;
+[e = . _cycled 0 -> -> 0 `i `uc ]
 "343
-[; ;main.c: 343:     }
+[; ;main.c: 343:         }
 }
-[e :U 149 ]
-[e $U 150  ]
-[e :U 151 ]
+[e :U 204 ]
 "345
-[; ;main.c: 345:     return;
-[e $UE 148  ]
+[; ;main.c: 345:         if (secondPassed.Bit && !cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i ! != -> . _cycled 0 `i -> 0 `i 205  ]
 "346
-[; ;main.c: 346: }
+[; ;main.c: 346:         {
+{
+"347
+[; ;main.c: 347:             cycled.Bit = 1;
+[e = . _cycled 0 -> -> 1 `i `uc ]
+"348
+[; ;main.c: 348:         }
+}
+[e :U 205 ]
+"349
+[; ;main.c: 349:     }
+}
+[e :U 152 ]
+[e $U 153  ]
+[e :U 154 ]
+"351
+[; ;main.c: 351:     return;
+[e $UE 148  ]
+"352
+[; ;main.c: 352: }
 [e :UE 148 ]
 }
-"349
-[; ;main.c: 349: void init_ADC()
+"355
+[; ;main.c: 355: void init_ADC()
 [v _init_ADC `(v ~T0 @X0 1 ef ]
-"350
-[; ;main.c: 350: {
+"356
+[; ;main.c: 356: {
 {
 [e :U _init_ADC ]
 [f ]
-"351
-[; ;main.c: 351:     TRISA = 0xE3;
+"357
+[; ;main.c: 357:     TRISA = 0xE3;
 [e = _TRISA -> -> 227 `i `uc ]
-"352
-[; ;main.c: 352:     ADCON0 = 0x00;
-[e = _ADCON0 -> -> 0 `i `uc ]
-"353
-[; ;main.c: 353:     ADCON1 = 0x80;
-[e = _ADCON1 -> -> 128 `i `uc ]
-"354
-[; ;main.c: 354:     _delay((unsigned long)((10)*(32000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-"355
-[; ;main.c: 355: }
-[e :UE 203 ]
-}
 "358
-[; ;main.c: 358: int ADC_Read(char canale)
-[v _ADC_Read `(i ~T0 @X0 1 ef1`uc ]
+[; ;main.c: 358:     ADCON0 = 0x00;
+[e = _ADCON0 -> -> 0 `i `uc ]
 "359
-[; ;main.c: 359: {
+[; ;main.c: 359:     ADCON1 = 0x80;
+[e = _ADCON1 -> -> 128 `i `uc ]
+"360
+[; ;main.c: 360:     _delay((unsigned long)((10)*(32000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+"361
+[; ;main.c: 361: }
+[e :UE 206 ]
+}
+"364
+[; ;main.c: 364: int ADC_Read(char canale)
+[v _ADC_Read `(i ~T0 @X0 1 ef1`uc ]
+"365
+[; ;main.c: 365: {
 {
 [e :U _ADC_Read ]
-"358
-[; ;main.c: 358: int ADC_Read(char canale)
-[v _canale `uc ~T0 @X0 1 r1 ]
-"359
-[; ;main.c: 359: {
-[f ]
-"360
-[; ;main.c: 360:     ADCON0 = (1 << 0) | (canale << 3);
-[e = _ADCON0 -> | << -> 1 `i -> 0 `i << -> _canale `i -> 3 `i `uc ]
-"361
-[; ;main.c: 361:     _delay((unsigned long)((2)*(32000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
-"362
-[; ;main.c: 362:     GO_nDONE = 1;
-[e = _GO_nDONE -> -> 1 `i `b ]
-"363
-[; ;main.c: 363:     while (GO_nDONE)
-[e $U 205  ]
-[e :U 206 ]
 "364
-[; ;main.c: 364:         ;
-[e :U 205 ]
-"363
-[; ;main.c: 363:     while (GO_nDONE)
-[e $ _GO_nDONE 206  ]
-[e :U 207 ]
+[; ;main.c: 364: int ADC_Read(char canale)
+[v _canale `uc ~T0 @X0 1 r1 ]
 "365
-[; ;main.c: 365:     return ADRESL + (ADRESH << 8);
-[e ) + -> _ADRESL `i << -> _ADRESH `i -> 8 `i ]
-[e $UE 204  ]
+[; ;main.c: 365: {
+[f ]
 "366
-[; ;main.c: 366: }
-[e :UE 204 ]
-}
+[; ;main.c: 366:     ADCON0 = (1 << 0) | (canale << 3);
+[e = _ADCON0 -> | << -> 1 `i -> 0 `i << -> _canale `i -> 3 `i `uc ]
+"367
+[; ;main.c: 367:     _delay((unsigned long)((2)*(32000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
 "368
-[; ;main.c: 368: void UART_Init(int baudrate)
-[v _UART_Init `(v ~T0 @X0 1 ef1`i ]
+[; ;main.c: 368:     GO_nDONE = 1;
+[e = _GO_nDONE -> -> 1 `i `b ]
 "369
-[; ;main.c: 369: {
+[; ;main.c: 369:     while (GO_nDONE)
+[e $U 208  ]
+[e :U 209 ]
+"370
+[; ;main.c: 370:         ;
+[e :U 208 ]
+"369
+[; ;main.c: 369:     while (GO_nDONE)
+[e $ _GO_nDONE 209  ]
+[e :U 210 ]
+"371
+[; ;main.c: 371:     return ADRESL + (ADRESH << 8);
+[e ) + -> _ADRESL `i << -> _ADRESH `i -> 8 `i ]
+[e $UE 207  ]
+"372
+[; ;main.c: 372: }
+[e :UE 207 ]
+}
+"374
+[; ;main.c: 374: void UART_Init(int baudrate)
+[v _UART_Init `(v ~T0 @X0 1 ef1`i ]
+"375
+[; ;main.c: 375: {
 {
 [e :U _UART_Init ]
-"368
-[; ;main.c: 368: void UART_Init(int baudrate)
-[v _baudrate `i ~T0 @X0 1 r1 ]
-"369
-[; ;main.c: 369: {
-[f ]
-"370
-[; ;main.c: 370:     TRISCbits.TRISC6 = 0;
-[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
-"371
-[; ;main.c: 371:     TXSTAbits.TXEN = 1;
-[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
-"372
-[; ;main.c: 372:     RCSTAbits.SPEN = 1;
-[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
-"373
-[; ;main.c: 373:     RCSTAbits.CREN = 1;
-[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
 "374
-[; ;main.c: 374:     SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
-[e = _SPBRG -> - / -> 32000000 `l -> * -> 64 `ul -> -> _baudrate `l `ul `l -> -> 1 `i `l `uc ]
+[; ;main.c: 374: void UART_Init(int baudrate)
+[v _baudrate `i ~T0 @X0 1 r1 ]
 "375
-[; ;main.c: 375:     INTCONbits.GIE = 1;
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 375: {
+[f ]
 "376
-[; ;main.c: 376:     INTCONbits.PEIE = 1;
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 376:     TRISCbits.TRISC6 = 0;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
 "377
-[; ;main.c: 377:     PIE1bits.RCIE = 1;
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+[; ;main.c: 377:     TXSTAbits.TXEN = 1;
+[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
 "378
-[; ;main.c: 378: }
-[e :UE 208 ]
-}
+[; ;main.c: 378:     RCSTAbits.SPEN = 1;
+[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
+"379
+[; ;main.c: 379:     RCSTAbits.CREN = 1;
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
 "380
-[; ;main.c: 380: void UART_TxChar(char ch)
-[v _UART_TxChar `(v ~T0 @X0 1 ef1`uc ]
+[; ;main.c: 380:     SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
+[e = _SPBRG -> - / -> 32000000 `l -> * -> 64 `ul -> -> _baudrate `l `ul `l -> -> 1 `i `l `uc ]
 "381
-[; ;main.c: 381: {
+[; ;main.c: 381:     INTCONbits.GIE = 1;
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+"382
+[; ;main.c: 382:     INTCONbits.PEIE = 1;
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+"383
+[; ;main.c: 383:     PIE1bits.RCIE = 1;
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+"384
+[; ;main.c: 384: }
+[e :UE 211 ]
+}
+"386
+[; ;main.c: 386: void UART_TxChar(char ch)
+[v _UART_TxChar `(v ~T0 @X0 1 ef1`uc ]
+"387
+[; ;main.c: 387: {
 {
 [e :U _UART_TxChar ]
-"380
-[; ;main.c: 380: void UART_TxChar(char ch)
-[v _ch `uc ~T0 @X0 1 r1 ]
-"381
-[; ;main.c: 381: {
-[f ]
-"382
-[; ;main.c: 382:     while (!TXIF)
-[e $U 210  ]
-[e :U 211 ]
-"383
-[; ;main.c: 383:         ;
-[e :U 210 ]
-"382
-[; ;main.c: 382:     while (!TXIF)
-[e $ ! _TXIF 211  ]
-[e :U 212 ]
-"384
-[; ;main.c: 384:     TXIF = 0;
-[e = _TXIF -> -> 0 `i `b ]
-"385
-[; ;main.c: 385:     TXREG = ch;
-[e = _TXREG -> _ch `uc ]
 "386
-[; ;main.c: 386: }
-[e :UE 209 ]
-}
+[; ;main.c: 386: void UART_TxChar(char ch)
+[v _ch `uc ~T0 @X0 1 r1 ]
+"387
+[; ;main.c: 387: {
+[f ]
 "388
-[; ;main.c: 388: void UART_Write_Text(char *text)
-[v _UART_Write_Text `(v ~T0 @X0 1 ef1`*uc ]
+[; ;main.c: 388:     while (!TXIF)
+[e $U 213  ]
+[e :U 214 ]
 "389
-[; ;main.c: 389: {
+[; ;main.c: 389:         ;
+[e :U 213 ]
+"388
+[; ;main.c: 388:     while (!TXIF)
+[e $ ! _TXIF 214  ]
+[e :U 215 ]
+"390
+[; ;main.c: 390:     TXIF = 0;
+[e = _TXIF -> -> 0 `i `b ]
+"391
+[; ;main.c: 391:     TXREG = ch;
+[e = _TXREG -> _ch `uc ]
+"392
+[; ;main.c: 392: }
+[e :UE 212 ]
+}
+"394
+[; ;main.c: 394: void UART_Write_Text(char *text)
+[v _UART_Write_Text `(v ~T0 @X0 1 ef1`*uc ]
+"395
+[; ;main.c: 395: {
 {
 [e :U _UART_Write_Text ]
-"388
-[; ;main.c: 388: void UART_Write_Text(char *text)
+"394
+[; ;main.c: 394: void UART_Write_Text(char *text)
 [v _text `*uc ~T0 @X0 1 r1 ]
-"389
-[; ;main.c: 389: {
+"395
+[; ;main.c: 395: {
 [f ]
-"390
-[; ;main.c: 390:     unsigned char i;
+"396
+[; ;main.c: 396:     unsigned char i;
 [v _i `uc ~T0 @X0 1 a ]
-"391
-[; ;main.c: 391:     for (i = 0; text[i] != '\0'; i++)
+"397
+[; ;main.c: 397:     for (i = 0; text[i] != '\0'; i++)
 {
 [e = _i -> -> 0 `i `uc ]
-[e $U 217  ]
-[e :U 214 ]
-"392
-[; ;main.c: 392:     {
+[e $U 220  ]
+[e :U 217 ]
+"398
+[; ;main.c: 398:     {
 {
-"393
-[; ;main.c: 393:         UART_TxChar(text[i]);
+"399
+[; ;main.c: 399:         UART_TxChar(text[i]);
 [e ( _UART_TxChar (1 *U + _text * -> _i `ux -> -> # *U _text `ui `ux ]
-"394
-[; ;main.c: 394:     }
+"400
+[; ;main.c: 400:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e :U 217 ]
-[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 214  ]
-[e :U 215 ]
+[e :U 220 ]
+[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 217  ]
+[e :U 218 ]
 }
-"395
-[; ;main.c: 395: }
-[e :UE 213 ]
+"401
+[; ;main.c: 401: }
+[e :UE 216 ]
 }
-"397
-[; ;main.c: 397: char UART_Read()
+"403
+[; ;main.c: 403: char UART_Read()
 [v _UART_Read `(uc ~T0 @X0 1 ef ]
-"398
-[; ;main.c: 398: {
+"404
+[; ;main.c: 404: {
 {
 [e :U _UART_Read ]
 [f ]
-"399
-[; ;main.c: 399:     while (!RCIF)
-[e $U 219  ]
-[e :U 220 ]
-"400
-[; ;main.c: 400:         ;
-[e :U 219 ]
-"399
-[; ;main.c: 399:     while (!RCIF)
-[e $ ! _RCIF 220  ]
-[e :U 221 ]
-"401
-[; ;main.c: 401:     RCIF = 0;
-[e = _RCIF -> -> 0 `i `b ]
-"402
-[; ;main.c: 402:     return RCREG;
-[e ) -> _RCREG `uc ]
-[e $UE 218  ]
-"403
-[; ;main.c: 403: }
-[e :UE 218 ]
-}
 "405
-[; ;main.c: 405: void sendByte(char byte0, char byte1, char valore)
-[v _sendByte `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+[; ;main.c: 405:     while (!RCIF)
+[e $U 222  ]
+[e :U 223 ]
 "406
-[; ;main.c: 406: {
+[; ;main.c: 406:         ;
+[e :U 222 ]
+"405
+[; ;main.c: 405:     while (!RCIF)
+[e $ ! _RCIF 223  ]
+[e :U 224 ]
+"407
+[; ;main.c: 407:     RCIF = 0;
+[e = _RCIF -> -> 0 `i `b ]
+"408
+[; ;main.c: 408:     return RCREG;
+[e ) -> _RCREG `uc ]
+[e $UE 221  ]
+"409
+[; ;main.c: 409: }
+[e :UE 221 ]
+}
+"411
+[; ;main.c: 411: void sendByte(char byte0, char byte1, char valore)
+[v _sendByte `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+"412
+[; ;main.c: 412: {
 {
 [e :U _sendByte ]
-"405
-[; ;main.c: 405: void sendByte(char byte0, char byte1, char valore)
+"411
+[; ;main.c: 411: void sendByte(char byte0, char byte1, char valore)
 [v _byte0 `uc ~T0 @X0 1 r1 ]
 [v _byte1 `uc ~T0 @X0 1 r2 ]
 [v _valore `uc ~T0 @X0 1 r3 ]
-"406
-[; ;main.c: 406: {
+"412
+[; ;main.c: 412: {
 [f ]
-"407
-[; ;main.c: 407:     char *txByte;
+"413
+[; ;main.c: 413:     char *txByte;
 [v _txByte `*uc ~T0 @X0 1 a ]
-"408
-[; ;main.c: 408:     txByte = BuildByte(byte0, byte1, valore);
+"414
+[; ;main.c: 414:     txByte = BuildByte(byte0, byte1, valore);
 [e = _txByte ( _BuildByte (3 , , _byte0 _byte1 _valore ]
-"410
-[; ;main.c: 410:     for (unsigned char i = 0; i < 5; i++)
+"416
+[; ;main.c: 416:     for (unsigned char i = 0; i < 5; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 223  ]
-[e $U 224  ]
-[e :U 223 ]
-"411
-[; ;main.c: 411:     {
+[e $ < -> _i `i -> 5 `i 226  ]
+[e $U 227  ]
+[e :U 226 ]
+"417
+[; ;main.c: 417:     {
 {
-"412
-[; ;main.c: 412:         UART_TxChar(*(txByte++));
+"418
+[; ;main.c: 418:         UART_TxChar(*(txByte++));
 [e ( _UART_TxChar (1 *U ++ _txByte * -> -> 1 `i `x -> -> # *U _txByte `i `x ]
-"413
-[; ;main.c: 413:     }
+"419
+[; ;main.c: 419:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 223  ]
-[e :U 224 ]
+[e $ < -> _i `i -> 5 `i 226  ]
+[e :U 227 ]
 }
-"414
-[; ;main.c: 414: }
-[e :UE 222 ]
+"420
+[; ;main.c: 420: }
+[e :UE 225 ]
 }
-"416
-[; ;main.c: 416: int GetTime(unsigned char index)
+"422
+[; ;main.c: 422: int GetTime(unsigned char index)
 [v _GetTime `(i ~T0 @X0 1 ef1`uc ]
-"417
-[; ;main.c: 417: {
+"423
+[; ;main.c: 423: {
 {
 [e :U _GetTime ]
-"416
-[; ;main.c: 416: int GetTime(unsigned char index)
-[v _index `uc ~T0 @X0 1 r1 ]
-"417
-[; ;main.c: 417: {
-[f ]
-"418
-[; ;main.c: 418:     int time;
-[v _time `i ~T0 @X0 1 a ]
 "422
-[; ;main.c: 422:     } shortInt;
-[v _shortInt `S227 ~T0 @X0 1 a ]
+[; ;main.c: 422: int GetTime(unsigned char index)
+[v _index `uc ~T0 @X0 1 r1 ]
+"423
+[; ;main.c: 423: {
+[f ]
 "424
-[; ;main.c: 424:     shortInt.Val = dataFromGateway[index + 3] & 0x7F;
-[e = . _shortInt 0 -> & -> *U + &U _dataFromGateway * -> -> + -> _index `i -> 3 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i `uc ]
-"425
-[; ;main.c: 425:     time = shortInt.Val;
-[e = _time -> . _shortInt 0 `i ]
-"426
-[; ;main.c: 426:     time = (time << 7) & 0x80;
-[e = _time & << _time -> 7 `i -> 128 `i ]
+[; ;main.c: 424:     int time;
+[v _time `i ~T0 @X0 1 a ]
 "428
-[; ;main.c: 428:     shortInt.Val = dataFromGateway[index + 2] & 0x7F;
-[e = . _shortInt 0 -> & -> *U + &U _dataFromGateway * -> -> + -> _index `i -> 2 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i `uc ]
-"429
-[; ;main.c: 429:     time = time | shortInt.Val;
-[e = _time | _time -> . _shortInt 0 `i ]
+[; ;main.c: 428:     } shortInt;
+[v _shortInt `S230 ~T0 @X0 1 a ]
+"430
+[; ;main.c: 430:     shortInt.Val = dataFromGateway[index + 3] & 0x7F;
+[e = . _shortInt 0 -> & -> *U + &U _dataFromGateway * -> -> + -> _index `i -> 3 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i `uc ]
 "431
-[; ;main.c: 431:     return time;
-[e ) _time ]
-[e $UE 226  ]
+[; ;main.c: 431:     time = shortInt.Val;
+[e = _time -> . _shortInt 0 `i ]
 "432
-[; ;main.c: 432: }
-[e :UE 226 ]
-}
+[; ;main.c: 432:     time = (time << 7) & 0x80;
+[e = _time & << _time -> 7 `i -> 128 `i ]
 "434
-[; ;main.c: 434: void GetDigits(int Time)
-[v _GetDigits `(v ~T0 @X0 1 ef1`i ]
+[; ;main.c: 434:     shortInt.Val = dataFromGateway[index + 2] & 0x7F;
+[e = . _shortInt 0 -> & -> *U + &U _dataFromGateway * -> -> + -> _index `i -> 2 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i `uc ]
 "435
-[; ;main.c: 435: {
+[; ;main.c: 435:     time = time | shortInt.Val;
+[e = _time | _time -> . _shortInt 0 `i ]
+"437
+[; ;main.c: 437:     return time;
+[e ) _time ]
+[e $UE 229  ]
+"438
+[; ;main.c: 438: }
+[e :UE 229 ]
+}
+"440
+[; ;main.c: 440: void GetDigits(int Time)
+[v _GetDigits `(v ~T0 @X0 1 ef1`i ]
+"441
+[; ;main.c: 441: {
 {
 [e :U _GetDigits ]
-"434
-[; ;main.c: 434: void GetDigits(int Time)
-[v _Time `i ~T0 @X0 1 r1 ]
-"435
-[; ;main.c: 435: {
-[f ]
-"436
-[; ;main.c: 436:     countdown = Time;
-[e = _countdown -> _Time `uc ]
-"437
-[; ;main.c: 437:     centinaia = countdown / 100;
-[e = _centinaia -> / -> _countdown `i -> 100 `i `uc ]
-"438
-[; ;main.c: 438:     decine = (countdown % 100) / 10;
-[e = _decine -> / % -> _countdown `i -> 100 `i -> 10 `i `uc ]
-"439
-[; ;main.c: 439:     unita = (countdown % 100) % 10;
-[e = _unita -> % % -> _countdown `i -> 100 `i -> 10 `i `uc ]
 "440
-[; ;main.c: 440: }
-[e :UE 228 ]
-}
+[; ;main.c: 440: void GetDigits(int Time)
+[v _Time `i ~T0 @X0 1 r1 ]
+"441
+[; ;main.c: 441: {
+[f ]
 "442
-[; ;main.c: 442: void SetDisplay(char d1, char d2, char d3, char value)
-[v _SetDisplay `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+[; ;main.c: 442:     countdown = Time;
+[e = _countdown -> _Time `uc ]
 "443
-[; ;main.c: 443: {
+[; ;main.c: 443:     centinaia = countdown / 100;
+[e = _centinaia -> / -> _countdown `i -> 100 `i `uc ]
+"444
+[; ;main.c: 444:     decine = (countdown % 100) / 10;
+[e = _decine -> / % -> _countdown `i -> 100 `i -> 10 `i `uc ]
+"445
+[; ;main.c: 445:     unita = (countdown % 100) % 10;
+[e = _unita -> % % -> _countdown `i -> 100 `i -> 10 `i `uc ]
+"446
+[; ;main.c: 446: }
+[e :UE 231 ]
+}
+"448
+[; ;main.c: 448: void SetDisplay(char d1, char d2, char d3, char value)
+[v _SetDisplay `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+"449
+[; ;main.c: 449: {
 {
 [e :U _SetDisplay ]
-"442
-[; ;main.c: 442: void SetDisplay(char d1, char d2, char d3, char value)
+"448
+[; ;main.c: 448: void SetDisplay(char d1, char d2, char d3, char value)
 [v _d1 `uc ~T0 @X0 1 r1 ]
 [v _d2 `uc ~T0 @X0 1 r2 ]
 [v _d3 `uc ~T0 @X0 1 r3 ]
 [v _value `uc ~T0 @X0 1 r4 ]
-"443
-[; ;main.c: 443: {
+"449
+[; ;main.c: 449: {
 [f ]
-"444
-[; ;main.c: 444:     PORTAbits.RA2 = d1;
-[e = . . _PORTAbits 0 2 -> _d1 `uc ]
-"445
-[; ;main.c: 445:     PORTAbits.RA3 = d2;
-[e = . . _PORTAbits 0 3 -> _d2 `uc ]
-"446
-[; ;main.c: 446:     PORTAbits.RA4 = d3;
-[e = . . _PORTAbits 0 4 -> _d3 `uc ]
-"447
-[; ;main.c: 447:     PORTD = value;
-[e = _PORTD -> _value `uc ]
-"448
-[; ;main.c: 448: }
-[e :UE 229 ]
-}
 "450
-[; ;main.c: 450: void SetDefaultTimers(int rosso, int verde, int giallo)
-[v _SetDefaultTimers `(v ~T0 @X0 1 ef3`i`i`i ]
+[; ;main.c: 450:     PORTAbits.RA2 = d1;
+[e = . . _PORTAbits 0 2 -> _d1 `uc ]
 "451
-[; ;main.c: 451: {
+[; ;main.c: 451:     PORTAbits.RA3 = d2;
+[e = . . _PORTAbits 0 3 -> _d2 `uc ]
+"452
+[; ;main.c: 452:     PORTAbits.RA4 = d3;
+[e = . . _PORTAbits 0 4 -> _d3 `uc ]
+"453
+[; ;main.c: 453:     PORTD = value;
+[e = _PORTD -> _value `uc ]
+"454
+[; ;main.c: 454: }
+[e :UE 232 ]
+}
+"456
+[; ;main.c: 456: void SetDefaultTimers(int rosso, int verde, int giallo)
+[v _SetDefaultTimers `(v ~T0 @X0 1 ef3`i`i`i ]
+"457
+[; ;main.c: 457: {
 {
 [e :U _SetDefaultTimers ]
-"450
-[; ;main.c: 450: void SetDefaultTimers(int rosso, int verde, int giallo)
+"456
+[; ;main.c: 456: void SetDefaultTimers(int rosso, int verde, int giallo)
 [v _rosso `i ~T0 @X0 1 r1 ]
 [v _verde `i ~T0 @X0 1 r2 ]
 [v _giallo `i ~T0 @X0 1 r3 ]
-"451
-[; ;main.c: 451: {
+"457
+[; ;main.c: 457: {
 [f ]
-"452
-[; ;main.c: 452:     for (unsigned char l = 0; l < 16; l++)
+"458
+[; ;main.c: 458:     for (unsigned char l = 0; l < 16; l++)
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]
-[e $ < -> _l `i -> 16 `i 231  ]
-[e $U 232  ]
-[e :U 231 ]
-"453
-[; ;main.c: 453:     {
+[e $ < -> _l `i -> 16 `i 234  ]
+[e $U 235  ]
+[e :U 234 ]
+"459
+[; ;main.c: 459:     {
 {
-"454
-[; ;main.c: 454:         for (unsigned char i = 0; i < 3; i++)
+"460
+[; ;main.c: 460:         for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 234  ]
-[e $U 235  ]
-[e :U 234 ]
-"455
-[; ;main.c: 455:         {
-{
-"456
-[; ;main.c: 456:             switch (i)
+[e $ < -> _i `i -> 3 `i 237  ]
 [e $U 238  ]
-"457
-[; ;main.c: 457:             {
-{
-"458
-[; ;main.c: 458:             case 0:
-[e :U 239 ]
-"459
-[; ;main.c: 459:                 (*(Semafori[l])).new_times[i] = rosso;
-[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _rosso ]
-"460
-[; ;main.c: 460:                 break;
-[e $U 237  ]
+[e :U 237 ]
 "461
-[; ;main.c: 461:             case 1:
-[e :U 240 ]
+[; ;main.c: 461:         {
+{
 "462
-[; ;main.c: 462:                 (*(Semafori[l])).new_times[i] = verde;
-[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _verde ]
+[; ;main.c: 462:             switch (i)
+[e $U 241  ]
 "463
-[; ;main.c: 463:                 break;
-[e $U 237  ]
+[; ;main.c: 463:             {
+{
 "464
-[; ;main.c: 464:             case 2:
-[e :U 241 ]
+[; ;main.c: 464:             case 0:
+[e :U 242 ]
 "465
-[; ;main.c: 465:                 (*(Semafori[l])).new_times[i] = giallo;
-[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _giallo ]
+[; ;main.c: 465:                 (*(Semafori[l])).new_times[i] = rosso;
+[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _rosso ]
 "466
 [; ;main.c: 466:                 break;
-[e $U 237  ]
+[e $U 240  ]
 "467
-[; ;main.c: 467:             }
-}
-[e $U 237  ]
-[e :U 238 ]
-[e [\ -> _i `i , $ -> 0 `i 239
- , $ -> 1 `i 240
- , $ -> 2 `i 241
- 237 ]
-[e :U 237 ]
+[; ;main.c: 467:             case 1:
+[e :U 243 ]
 "468
-[; ;main.c: 468:         }
+[; ;main.c: 468:                 (*(Semafori[l])).new_times[i] = verde;
+[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _verde ]
+"469
+[; ;main.c: 469:                 break;
+[e $U 240  ]
+"470
+[; ;main.c: 470:             case 2:
+[e :U 244 ]
+"471
+[; ;main.c: 471:                 (*(Semafori[l])).new_times[i] = giallo;
+[e = *U + &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + &U _Semafori * -> _l `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _giallo ]
+"472
+[; ;main.c: 472:                 break;
+[e $U 240  ]
+"473
+[; ;main.c: 473:             }
+}
+[e $U 240  ]
+[e :U 241 ]
+[e [\ -> _i `i , $ -> 0 `i 242
+ , $ -> 1 `i 243
+ , $ -> 2 `i 244
+ 240 ]
+[e :U 240 ]
+"474
+[; ;main.c: 474:         }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 234  ]
-[e :U 235 ]
+[e $ < -> _i `i -> 3 `i 237  ]
+[e :U 238 ]
 }
-"469
-[; ;main.c: 469:     }
+"475
+[; ;main.c: 475:     }
 }
 [e ++ _l -> -> 1 `i `uc ]
-[e $ < -> _l `i -> 16 `i 231  ]
-[e :U 232 ]
+[e $ < -> _l `i -> 16 `i 234  ]
+[e :U 235 ]
 }
-"470
-[; ;main.c: 470: }
-[e :UE 230 ]
+"476
+[; ;main.c: 476: }
+[e :UE 233 ]
 }
-"472
-[; ;main.c: 472: void conteggioVeicoli()
+"478
+[; ;main.c: 478: void conteggioVeicoli()
 [v _conteggioVeicoli `(v ~T0 @X0 1 ef ]
-"473
-[; ;main.c: 473: {
+"479
+[; ;main.c: 479: {
 {
 [e :U _conteggioVeicoli ]
 [f ]
-"475
-[; ;main.c: 475:     if (!PORTBbits.RB3)
-[e $ ! ! != -> . . _PORTBbits 0 3 `i -> 0 `i 243  ]
-"476
-[; ;main.c: 476:     {
-{
-"477
-[; ;main.c: 477:         count++;
-[e ++ _count -> -> 1 `i `ui ]
-"478
-[; ;main.c: 478:     }
-}
-[e $U 244  ]
-"479
-[; ;main.c: 479:     else if (PORTBbits.RB3)
-[e :U 243 ]
-[e $ ! != -> . . _PORTBbits 0 3 `i -> 0 `i 245  ]
-"480
-[; ;main.c: 480:     {
-{
 "481
-[; ;main.c: 481:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 246  ]
+[; ;main.c: 481:     if (!PORTBbits.RB3)
+[e $ ! ! != -> . . _PORTBbits 0 3 `i -> 0 `i 246  ]
 "482
-[; ;main.c: 482:         {
+[; ;main.c: 482:     {
 {
 "483
-[; ;main.c: 483:             motorcycle[0]++;
-[e ++ *U + &U _motorcycle * -> -> -> 0 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 483:         count++;
+[e ++ _count -> -> 1 `i `ui ]
 "484
-[; ;main.c: 484:         }
+[; ;main.c: 484:     }
 }
-[e :U 246 ]
+[e $U 247  ]
 "485
-[; ;main.c: 485:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 247  ]
+[; ;main.c: 485:     else if (PORTBbits.RB3)
+[e :U 246 ]
+[e $ ! != -> . . _PORTBbits 0 3 `i -> 0 `i 248  ]
 "486
-[; ;main.c: 486:         {
+[; ;main.c: 486:     {
 {
 "487
-[; ;main.c: 487:             car[0]++;
-[e ++ *U + &U _car * -> -> -> 0 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
+[; ;main.c: 487:         if (count >= 500)
+[e $ ! >= _count -> -> 500 `i `ui 249  ]
 "488
-[; ;main.c: 488:         }
-}
-[e :U 247 ]
+[; ;main.c: 488:         {
+{
 "489
-[; ;main.c: 489:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 248  ]
+[; ;main.c: 489:             motorcycle[0]++;
+[e ++ *U + &U _motorcycle * -> -> -> 0 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
 "490
-[; ;main.c: 490:         {
-{
-"491
-[; ;main.c: 491:             truck[0]++;
-[e ++ *U + &U _truck * -> -> -> 0 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
-"492
-[; ;main.c: 492:         }
+[; ;main.c: 490:         }
 }
-[e :U 248 ]
-"493
-[; ;main.c: 493:         count = 0;
-[e = _count -> -> 0 `i `ui ]
-"494
-[; ;main.c: 494:     }
-}
-[e :U 245 ]
-[e :U 244 ]
-"496
-[; ;main.c: 496:     if (!PORTBbits.RB4)
-[e $ ! ! != -> . . _PORTBbits 0 4 `i -> 0 `i 249  ]
-"497
-[; ;main.c: 497:     {
-{
-"498
-[; ;main.c: 498:         count++;
-[e ++ _count -> -> 1 `i `ui ]
-"499
-[; ;main.c: 499:     }
-}
-[e $U 250  ]
-"500
-[; ;main.c: 500:     else if (PORTBbits.RB4)
 [e :U 249 ]
-[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 251  ]
-"501
-[; ;main.c: 501:     {
+"491
+[; ;main.c: 491:         if (count >= 1500)
+[e $ ! >= _count -> -> 1500 `i `ui 250  ]
+"492
+[; ;main.c: 492:         {
 {
-"502
-[; ;main.c: 502:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 252  ]
-"503
-[; ;main.c: 503:         {
-{
-"504
-[; ;main.c: 504:             motorcycle[1]++;
-[e ++ *U + &U _motorcycle * -> -> -> 1 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
-"505
-[; ;main.c: 505:         }
+"493
+[; ;main.c: 493:             car[0]++;
+[e ++ *U + &U _car * -> -> -> 0 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
+"494
+[; ;main.c: 494:         }
 }
-[e :U 252 ]
-"506
-[; ;main.c: 506:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 253  ]
-"507
-[; ;main.c: 507:         {
+[e :U 250 ]
+"495
+[; ;main.c: 495:         if (count >= 3000)
+[e $ ! >= _count -> -> 3000 `i `ui 251  ]
+"496
+[; ;main.c: 496:         {
 {
-"508
-[; ;main.c: 508:             car[1]++;
-[e ++ *U + &U _car * -> -> -> 1 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
-"509
-[; ;main.c: 509:         }
-}
-[e :U 253 ]
-"510
-[; ;main.c: 510:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 254  ]
-"511
-[; ;main.c: 511:         {
-{
-"512
-[; ;main.c: 512:             truck[1]++;
-[e ++ *U + &U _truck * -> -> -> 1 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
-"513
-[; ;main.c: 513:         }
-}
-[e :U 254 ]
-"514
-[; ;main.c: 514:         count = 0;
-[e = _count -> -> 0 `i `ui ]
-"515
-[; ;main.c: 515:     }
+"497
+[; ;main.c: 497:             truck[0]++;
+[e ++ *U + &U _truck * -> -> -> 0 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
+"498
+[; ;main.c: 498:         }
 }
 [e :U 251 ]
-[e :U 250 ]
-"517
-[; ;main.c: 517:     if (!PORTBbits.RB5)
-[e $ ! ! != -> . . _PORTBbits 0 5 `i -> 0 `i 255  ]
-"518
-[; ;main.c: 518:     {
-{
-"519
-[; ;main.c: 519:         count++;
-[e ++ _count -> -> 1 `i `ui ]
-"520
-[; ;main.c: 520:     }
-}
-[e $U 256  ]
-"521
-[; ;main.c: 521:     else if (PORTBbits.RB5)
-[e :U 255 ]
-[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 257  ]
-"522
-[; ;main.c: 522:     {
-{
-"523
-[; ;main.c: 523:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 258  ]
-"524
-[; ;main.c: 524:         {
-{
-"525
-[; ;main.c: 525:             motorcycle[2]++;
-[e ++ *U + &U _motorcycle * -> -> -> 2 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
-"526
-[; ;main.c: 526:         }
-}
-[e :U 258 ]
-"527
-[; ;main.c: 527:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 259  ]
-"528
-[; ;main.c: 528:         {
-{
-"529
-[; ;main.c: 529:             car[2]++;
-[e ++ *U + &U _car * -> -> -> 2 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
-"530
-[; ;main.c: 530:         }
-}
-[e :U 259 ]
-"531
-[; ;main.c: 531:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 260  ]
-"532
-[; ;main.c: 532:         {
-{
-"533
-[; ;main.c: 533:             truck[2]++;
-[e ++ *U + &U _truck * -> -> -> 2 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
-"534
-[; ;main.c: 534:         }
-}
-[e :U 260 ]
-"535
-[; ;main.c: 535:         count = 0;
+"499
+[; ;main.c: 499:         count = 0;
 [e = _count -> -> 0 `i `ui ]
-"536
-[; ;main.c: 536:     }
+"500
+[; ;main.c: 500:     }
+}
+[e :U 248 ]
+[e :U 247 ]
+"502
+[; ;main.c: 502:     if (!PORTBbits.RB4)
+[e $ ! ! != -> . . _PORTBbits 0 4 `i -> 0 `i 252  ]
+"503
+[; ;main.c: 503:     {
+{
+"504
+[; ;main.c: 504:         count++;
+[e ++ _count -> -> 1 `i `ui ]
+"505
+[; ;main.c: 505:     }
+}
+[e $U 253  ]
+"506
+[; ;main.c: 506:     else if (PORTBbits.RB4)
+[e :U 252 ]
+[e $ ! != -> . . _PORTBbits 0 4 `i -> 0 `i 254  ]
+"507
+[; ;main.c: 507:     {
+{
+"508
+[; ;main.c: 508:         if (count >= 500)
+[e $ ! >= _count -> -> 500 `i `ui 255  ]
+"509
+[; ;main.c: 509:         {
+{
+"510
+[; ;main.c: 510:             motorcycle[1]++;
+[e ++ *U + &U _motorcycle * -> -> -> 1 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
+"511
+[; ;main.c: 511:         }
+}
+[e :U 255 ]
+"512
+[; ;main.c: 512:         if (count >= 1500)
+[e $ ! >= _count -> -> 1500 `i `ui 256  ]
+"513
+[; ;main.c: 513:         {
+{
+"514
+[; ;main.c: 514:             car[1]++;
+[e ++ *U + &U _car * -> -> -> 1 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
+"515
+[; ;main.c: 515:         }
+}
+[e :U 256 ]
+"516
+[; ;main.c: 516:         if (count >= 3000)
+[e $ ! >= _count -> -> 3000 `i `ui 257  ]
+"517
+[; ;main.c: 517:         {
+{
+"518
+[; ;main.c: 518:             truck[1]++;
+[e ++ *U + &U _truck * -> -> -> 1 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
+"519
+[; ;main.c: 519:         }
 }
 [e :U 257 ]
-[e :U 256 ]
-"538
-[; ;main.c: 538:     if (!PORTAbits.RA5)
-[e $ ! ! != -> . . _PORTAbits 0 5 `i -> 0 `i 261  ]
-"539
-[; ;main.c: 539:     {
-{
-"540
-[; ;main.c: 540:         count++;
-[e ++ _count -> -> 1 `i `ui ]
-"541
-[; ;main.c: 541:     }
-}
-[e $U 262  ]
-"542
-[; ;main.c: 542:     else if (PORTAbits.RA5)
-[e :U 261 ]
-[e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 263  ]
-"543
-[; ;main.c: 543:     {
-{
-"544
-[; ;main.c: 544:         if (count >= 500)
-[e $ ! >= _count -> -> 500 `i `ui 264  ]
-"545
-[; ;main.c: 545:         {
-{
-"546
-[; ;main.c: 546:             motorcycle[3]++;
-[e ++ *U + &U _motorcycle * -> -> -> 3 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
-"547
-[; ;main.c: 547:         }
-}
-[e :U 264 ]
-"548
-[; ;main.c: 548:         if (count >= 1500)
-[e $ ! >= _count -> -> 1500 `i `ui 265  ]
-"549
-[; ;main.c: 549:         {
-{
-"550
-[; ;main.c: 550:             car[3]++;
-[e ++ *U + &U _car * -> -> -> 3 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
-"551
-[; ;main.c: 551:         }
-}
-[e :U 265 ]
-"552
-[; ;main.c: 552:         if (count >= 3000)
-[e $ ! >= _count -> -> 3000 `i `ui 266  ]
-"553
-[; ;main.c: 553:         {
-{
-"554
-[; ;main.c: 554:             truck[3]++;
-[e ++ *U + &U _truck * -> -> -> 3 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
-"555
-[; ;main.c: 555:         }
-}
-[e :U 266 ]
-"556
-[; ;main.c: 556:         count = 0;
+"520
+[; ;main.c: 520:         count = 0;
 [e = _count -> -> 0 `i `ui ]
-"557
-[; ;main.c: 557:     }
+"521
+[; ;main.c: 521:     }
+}
+[e :U 254 ]
+[e :U 253 ]
+"523
+[; ;main.c: 523:     if (!PORTBbits.RB5)
+[e $ ! ! != -> . . _PORTBbits 0 5 `i -> 0 `i 258  ]
+"524
+[; ;main.c: 524:     {
+{
+"525
+[; ;main.c: 525:         count++;
+[e ++ _count -> -> 1 `i `ui ]
+"526
+[; ;main.c: 526:     }
+}
+[e $U 259  ]
+"527
+[; ;main.c: 527:     else if (PORTBbits.RB5)
+[e :U 258 ]
+[e $ ! != -> . . _PORTBbits 0 5 `i -> 0 `i 260  ]
+"528
+[; ;main.c: 528:     {
+{
+"529
+[; ;main.c: 529:         if (count >= 500)
+[e $ ! >= _count -> -> 500 `i `ui 261  ]
+"530
+[; ;main.c: 530:         {
+{
+"531
+[; ;main.c: 531:             motorcycle[2]++;
+[e ++ *U + &U _motorcycle * -> -> -> 2 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
+"532
+[; ;main.c: 532:         }
+}
+[e :U 261 ]
+"533
+[; ;main.c: 533:         if (count >= 1500)
+[e $ ! >= _count -> -> 1500 `i `ui 262  ]
+"534
+[; ;main.c: 534:         {
+{
+"535
+[; ;main.c: 535:             car[2]++;
+[e ++ *U + &U _car * -> -> -> 2 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
+"536
+[; ;main.c: 536:         }
+}
+[e :U 262 ]
+"537
+[; ;main.c: 537:         if (count >= 3000)
+[e $ ! >= _count -> -> 3000 `i `ui 263  ]
+"538
+[; ;main.c: 538:         {
+{
+"539
+[; ;main.c: 539:             truck[2]++;
+[e ++ *U + &U _truck * -> -> -> 2 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
+"540
+[; ;main.c: 540:         }
 }
 [e :U 263 ]
-[e :U 262 ]
+"541
+[; ;main.c: 541:         count = 0;
+[e = _count -> -> 0 `i `ui ]
+"542
+[; ;main.c: 542:     }
+}
+[e :U 260 ]
+[e :U 259 ]
+"544
+[; ;main.c: 544:     if (!PORTAbits.RA5)
+[e $ ! ! != -> . . _PORTAbits 0 5 `i -> 0 `i 264  ]
+"545
+[; ;main.c: 545:     {
+{
+"546
+[; ;main.c: 546:         count++;
+[e ++ _count -> -> 1 `i `ui ]
+"547
+[; ;main.c: 547:     }
+}
+[e $U 265  ]
+"548
+[; ;main.c: 548:     else if (PORTAbits.RA5)
+[e :U 264 ]
+[e $ ! != -> . . _PORTAbits 0 5 `i -> 0 `i 266  ]
+"549
+[; ;main.c: 549:     {
+{
+"550
+[; ;main.c: 550:         if (count >= 500)
+[e $ ! >= _count -> -> 500 `i `ui 267  ]
+"551
+[; ;main.c: 551:         {
+{
+"552
+[; ;main.c: 552:             motorcycle[3]++;
+[e ++ *U + &U _motorcycle * -> -> -> 3 `i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 1 `i `uc ]
+"553
+[; ;main.c: 553:         }
+}
+[e :U 267 ]
+"554
+[; ;main.c: 554:         if (count >= 1500)
+[e $ ! >= _count -> -> 1500 `i `ui 268  ]
+"555
+[; ;main.c: 555:         {
+{
+"556
+[; ;main.c: 556:             car[3]++;
+[e ++ *U + &U _car * -> -> -> 3 `i `ui `ux -> -> # *U &U _car `ui `ux -> -> 1 `i `uc ]
+"557
+[; ;main.c: 557:         }
+}
+[e :U 268 ]
 "558
-[; ;main.c: 558: }
-[e :UE 242 ]
+[; ;main.c: 558:         if (count >= 3000)
+[e $ ! >= _count -> -> 3000 `i `ui 269  ]
+"559
+[; ;main.c: 559:         {
+{
+"560
+[; ;main.c: 560:             truck[3]++;
+[e ++ *U + &U _truck * -> -> -> 3 `i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 1 `i `uc ]
+"561
+[; ;main.c: 561:         }
+}
+[e :U 269 ]
+"562
+[; ;main.c: 562:         count = 0;
+[e = _count -> -> 0 `i `ui ]
+"563
+[; ;main.c: 563:     }
+}
+[e :U 266 ]
+[e :U 265 ]
+"564
+[; ;main.c: 564: }
+[e :UE 245 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
-"560
-[; ;main.c: 560: void __attribute__((picinterrupt(("")))) ISR()
+"566
+[; ;main.c: 566: void __attribute__((picinterrupt(("")))) ISR()
 [v _ISR `(v ~T1 @X0 1 ef ]
-"561
-[; ;main.c: 561: {
+"567
+[; ;main.c: 567: {
 {
 [e :U _ISR ]
 [f ]
-"563
-[; ;main.c: 563:     if (RCIF && readGateway.Bit == 0)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 268  ]
-"564
-[; ;main.c: 564:     {
-{
-"565
-[; ;main.c: 565:         readGateway.Bit = 1;
-[e = . _readGateway 0 -> -> 1 `i `uc ]
-"566
-[; ;main.c: 566:         readGatewayDone.Bit = 0;
-[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
-"567
-[; ;main.c: 567:         readGatewayDone.Timeout = 0;
-[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
-"568
-[; ;main.c: 568:         dataFromGatewayIndex = 0;
-[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
 "569
-[; ;main.c: 569:         timerReadFromGateway = 0;
-[e = _timerReadFromGateway -> -> 0 `i `uc ]
+[; ;main.c: 569:     if (RCIF && readGateway.Bit == 0)
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 271  ]
 "570
-[; ;main.c: 570:     }
-}
-[e :U 268 ]
-"571
-[; ;main.c: 571:     if (RCIF && readGateway.Bit == 1)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 269  ]
-"572
-[; ;main.c: 572:     {
+[; ;main.c: 570:     {
 {
+"571
+[; ;main.c: 571:         readGateway.Bit = 1;
+[e = . _readGateway 0 -> -> 1 `i `uc ]
+"572
+[; ;main.c: 572:         readGatewayDone.Bit = 0;
+[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
 "573
-[; ;main.c: 573:         dataFromGateway[dataFromGatewayIndex] = UART_Read();
-[e = *U + &U _dataFromGateway * -> _dataFromGatewayIndex `ux -> -> # *U &U _dataFromGateway `ui `ux -> ( _UART_Read ..  `uc ]
+[; ;main.c: 573:         readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
 "574
-[; ;main.c: 574:         dataFromGatewayIndex++;
-[e ++ _dataFromGatewayIndex -> -> 1 `i `uc ]
+[; ;main.c: 574:         dataFromGatewayIndex = 0;
+[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
 "575
 [; ;main.c: 575:         timerReadFromGateway = 0;
 [e = _timerReadFromGateway -> -> 0 `i `uc ]
 "576
 [; ;main.c: 576:     }
 }
-[e :U 269 ]
+[e :U 271 ]
+"577
+[; ;main.c: 577:     if (RCIF && readGateway.Bit == 1)
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 272  ]
+"578
+[; ;main.c: 578:     {
+{
+"579
+[; ;main.c: 579:         dataFromGateway[dataFromGatewayIndex] = UART_Read();
+[e = *U + &U _dataFromGateway * -> _dataFromGatewayIndex `ux -> -> # *U &U _dataFromGateway `ui `ux -> ( _UART_Read ..  `uc ]
 "580
-[; ;main.c: 580:     if (TMR0IF)
-[e $ ! _TMR0IF 270  ]
+[; ;main.c: 580:         dataFromGatewayIndex++;
+[e ++ _dataFromGatewayIndex -> -> 1 `i `uc ]
 "581
-[; ;main.c: 581:     {
-{
+[; ;main.c: 581:         timerReadFromGateway = 0;
+[e = _timerReadFromGateway -> -> 0 `i `uc ]
 "582
-[; ;main.c: 582:         TMR0IF = 0;
-[e = _TMR0IF -> -> 0 `i `b ]
-"583
-[; ;main.c: 583:         conteggioVeicoli();
-[e ( _conteggioVeicoli ..  ]
-"584
-[; ;main.c: 584:         TMR0 = 6;
-[e = _TMR0 -> -> 6 `i `uc ]
-"585
-[; ;main.c: 585:     }
-}
-[e :U 270 ]
-"587
-[; ;main.c: 587:     if (TMR1IF)
-[e $ ! _TMR1IF 271  ]
-"588
-[; ;main.c: 588:     {
-{
-"589
-[; ;main.c: 589:         TMR1IF = 0;
-[e = _TMR1IF -> -> 0 `i `b ]
-"590
-[; ;main.c: 590:         count_lux++;
-[e ++ _count_lux -> -> 1 `i `uc ]
-"592
-[; ;main.c: 592:         if (count_lux >= 20)
-[e $ ! >= -> _count_lux `i -> 20 `i 272  ]
-"593
-[; ;main.c: 593:         {
-{
-"594
-[; ;main.c: 594:             secondPassed.Bit = 1;
-[e = . _secondPassed 0 -> -> 1 `i `uc ]
-"595
-[; ;main.c: 595:             count_lux = 0;
-[e = _count_lux -> -> 0 `i `uc ]
-"596
-[; ;main.c: 596:             timerReadFromGateway++;
-[e ++ _timerReadFromGateway -> -> 1 `i `uc ]
-"597
-[; ;main.c: 597:         }
+[; ;main.c: 582:     }
 }
 [e :U 272 ]
-"599
-[; ;main.c: 599:         TMR1H = 60;
-[e = _TMR1H -> -> 60 `i `uc ]
-"600
-[; ;main.c: 600:         TMR1L = 176;
-[e = _TMR1L -> -> 176 `i `uc ]
-"601
-[; ;main.c: 601:     }
+"586
+[; ;main.c: 586:     if (TMR0IF)
+[e $ ! _TMR0IF 273  ]
+"587
+[; ;main.c: 587:     {
+{
+"588
+[; ;main.c: 588:         TMR0IF = 0;
+[e = _TMR0IF -> -> 0 `i `b ]
+"589
+[; ;main.c: 589:         conteggioVeicoli();
+[e ( _conteggioVeicoli ..  ]
+"590
+[; ;main.c: 590:         TMR0 = 6;
+[e = _TMR0 -> -> 6 `i `uc ]
+"591
+[; ;main.c: 591:     }
 }
-[e :U 271 ]
+[e :U 273 ]
+"593
+[; ;main.c: 593:     if (TMR1IF)
+[e $ ! _TMR1IF 274  ]
+"594
+[; ;main.c: 594:     {
+{
+"595
+[; ;main.c: 595:         TMR1IF = 0;
+[e = _TMR1IF -> -> 0 `i `b ]
+"596
+[; ;main.c: 596:         count_lux++;
+[e ++ _count_lux -> -> 1 `i `uc ]
+"598
+[; ;main.c: 598:         if (count_lux >= 20)
+[e $ ! >= -> _count_lux `i -> 20 `i 275  ]
+"599
+[; ;main.c: 599:         {
+{
+"600
+[; ;main.c: 600:             secondPassed.Bit = 1;
+[e = . _secondPassed 0 -> -> 1 `i `uc ]
+"601
+[; ;main.c: 601:             count_lux = 0;
+[e = _count_lux -> -> 0 `i `uc ]
 "602
-[; ;main.c: 602: }
-[e :UE 267 ]
+[; ;main.c: 602:             timerReadFromGateway++;
+[e ++ _timerReadFromGateway -> -> 1 `i `uc ]
+"603
+[; ;main.c: 603:         }
+}
+[e :U 275 ]
+"605
+[; ;main.c: 605:         TMR1H = 60;
+[e = _TMR1H -> -> 60 `i `uc ]
+"606
+[; ;main.c: 606:         TMR1L = 176;
+[e = _TMR1L -> -> 176 `i `uc ]
+"607
+[; ;main.c: 607:     }
+}
+[e :U 274 ]
+"608
+[; ;main.c: 608: }
+[e :UE 270 ]
 }

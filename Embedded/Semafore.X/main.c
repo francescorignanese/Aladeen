@@ -170,9 +170,9 @@ void main(void)
                 
                 for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
-                    sendByte((0x01 << (i + 1)), 0x01, motorcycle[i]);
-                    sendByte((0x01 << (i + 1)), 0x10, car[i]);
-                    sendByte((0x01 << (i + 1)), 0x11, truck[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x01, motorcycle[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x10, car[i]);
+                    sendByte((0x01 << (i + 1))|0x01, 0x11, truck[i]);
                 }
                 
                 for (int i = 0; i < 4; i++) //Reseto le variabili
