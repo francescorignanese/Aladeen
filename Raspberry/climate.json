@@ -1,0 +1,12 @@
+{
+    "sensor": "climate",
+    "id_cross": 1,
+    "date": "2020-06-21T09:01:07.498Z",
+    "time": "2020-06-21T09:01:07.498Z",
+    "data_climate": [
+        {
+            "type": "pressure",
+            "value": 0
+        }
+    ]
+}

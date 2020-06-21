@@ -11,9 +11,9 @@ let sensor;
 //RICHIESTA DATI TRAFFICO
 function sendToPic() {
 
-	let wanted_traffik = true;
+	let wanted_traffic = true;
 
-	if(wanted_traffik)
+	if(wanted_traffic)
 	{ 
 		let traffic_cmd = [0x0A, 0x00, 0x00, 0x00, 0x00];
 		port.write(traffic_cmd);
@@ -39,14 +39,12 @@ client.on("ready", (err) => {
 
 
 function parseMsg(data) {
-	console.log('dataaaaa', data);
 	//per ogni elemento del buffer ricevuto via seriale, estraiamo il valore in binario
 	let msgSize = data.length;
 	for (let i = 0; i < msgSize; i++) {
 		let valore = parseInt(data[i], 10).toString(2);
-		console.log(data[i]);
 		//aggiungiamo gli 0 omessi perchè non significanti
-		console.log(valore.padStart(8, '0'));
+		//console.log(valore.padStart(8, '0'));
 	}
 
 	//creiamo due variabili dove inserire il balore binario dei cinque byte
@@ -88,7 +86,7 @@ function parseMsg(data) {
 		console.log('Il secondo byte è pieno!');
 		
 	}
-	console.log(byte2_type);
+	//console.log(byte2_type);
 
 	//BYTE 3 & 4
 	let clean_value3 = arrayBin[2].substring(1,8);
@@ -108,9 +106,12 @@ function parseMsg(data) {
 		"id_cross": 1,
 		"date": new Date(),
 		"time": new Date(),
-		"type": "", //temp, humidity, pressure
-		"value": decimal,
+		"data_climate": []
 	};
+	let json_weather = {
+		"type": "",  //temp, humidity, pressure
+		"value": 0
+	}
  
 	//JSON UNICO PER DATI TRAFFICO-SEMAFORI-STRADE
 	let json_traffic = {
@@ -125,14 +126,14 @@ function parseMsg(data) {
 	let json_carrier = {
 		"id_road": 0, //1, 2, 3, 4 
 		"id_semaphores": 0, //coppia 0 o 1
-		"data_veichles": []
+		"data_vehicles": []
 	}
-	let json_veichle = {
+	let json_vehicle = {
 		"type": "",  //car, heavy, moto
 		"value": 0
 	}
 	let climate_received = false;
-	let veichle_received = false;
+	let vehicle_received = false;
 	if(!corrupted) {
 		
 		if (byte1_sa === '0') { //se è un sensore
@@ -141,22 +142,22 @@ function parseMsg(data) {
 			switch (byte1_id) {
 				case '0001': {
 					console.log('Temperature');
-					json_climate.type = 'temperature';
-					json_climate.value = decimal;
+					json_weather.type = 'temperature';
+					json_weather.value = decimal;
 					climate_received = true;
 					break;
 				}
 				case '0010': {
 					console.log('Humidity');
-					json_climate.type = 'humidity';
-					json_climate.value = decimal;
+					json_weather.type = 'humidity';
+					json_weather.value = decimal;
 					climate_received = true;
 					break;
 				}
 				case '0011': {
 					console.log('Pressure');
-					json_climate.type = 'pressure';
-					json_climate.value = decimal;
+					json_weather.type = 'pressure';
+					json_weather.value = decimal;
 					climate_received = true;
 					break;
 				}
@@ -193,26 +194,25 @@ function parseMsg(data) {
 			}
 
 			if (byte2_full) {
+				vehicle_received = true;
 				switch(byte2_type) {
 					case '01': {
-						json_veichle.type = 'motorcycle';
-						json_veichle.value = decimal;
-						console.log(json_veichle.type);
-						veichle_received = true;
+						json_vehicle.type = 'motorcycle';
+						json_vehicle.value = decimal;
+						console.log(json_vehicle.type);
+						
 						break;
 					}
 					case '10': {
-						json_veichle.type = 'car';
-						json_veichle.value = decimal;
-						console.log(json_veichle.type);
-						veichle_received = true;
+						json_vehicle.type = 'car';
+						json_vehicle.value = decimal;
+						console.log(json_vehicle.type);
 						break;
 					}
 					case '11': {
-						json_veichle.type = 'truck';
-						json_veichle.value = decimal;
-						console.log(json_veichle.type);
-						veichle_received = true;
+						json_vehicle.type = 'truck';
+						json_vehicle.value = decimal;
+						console.log(json_vehicle.type);
 						break;
 					}
 				}
@@ -223,16 +223,17 @@ function parseMsg(data) {
 	
 	let json_string;
 	if(climate_received) {
+		json_climate.data_climate.push(json_weather);
 		json_string = JSON.stringify(json_climate);
 		console.log(json_string);
 		client.rpush([json_climate.sensor, json_string], function (err, reply) {
 			//console.log("Queue Length", reply);
 		});
+		fs.writeFileSync("climate.json", json_string);
 	}
 
-
-	if(veichle_received) {
-		json_carrier.data_veichles.push(json_veichle);
+	if(vehicle_received) {
+		json_carrier.data_vehicles.push(json_vehicle);
 		json_traffic.data_carriers.push(json_carrier);
 		console.log(json_traffic);
 		json_string = JSON.stringify(json_traffic);
@@ -240,12 +241,15 @@ function parseMsg(data) {
 		client.rpush([json_traffic.sensor, json_string], function (err, reply) {
 			//console.log("Queue Length", reply);
 		});
+		fs.writeFileSync("traffic.json", json_string);
 	}
-	fs.writeFileSync("prova.json", json_string);
+	
 	console.log('................');
 	
 
 	client.lrange(json_climate.sensor, 0, 1, function (err, reply) {
 		//console.log("Queue result", reply);
 	});
+
+	
 }

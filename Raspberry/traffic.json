@@ -1,0 +1,19 @@
+{
+    "description": "Data collection of the traffic from all the roads",
+    "sensor": "traffic",
+    "id_cross": 1,
+    "date": "2020-06-21T08:57:47.490Z",
+    "time": "2020-06-21T08:57:47.490Z",
+    "data_carriers": [
+        {
+            "id_road": 0,
+            "id_semaphores": 0,
+            "data_vehicles": [
+                {
+                    "type": "motorcycle",
+                    "value": 0
+                }
+            ]
+        }
+    ]
+}

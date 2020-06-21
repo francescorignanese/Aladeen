@@ -1,1 +1,1 @@
-{"description":"Data collection of the traffic from all the roads","sensor":"traffic","id_cross":1,"date":"2020-06-20T18:39:26.348Z","time":"2020-06-20T18:39:26.348Z","data_carriers":[{"id_road":2,"id_semaphores":0,"data_veichles":[{"type":"car","value":5159}]}]}
+{"description":"Data collection of the traffic from all the roads","sensor":"traffic","id_cross":1,"date":"2020-06-21T08:05:01.748Z","time":"2020-06-21T08:05:01.748Z","data_carriers":[{"id_road":0,"id_semaphores":0,"data_vehicles":[{"type":"motorcycle","value":255}]}]}
