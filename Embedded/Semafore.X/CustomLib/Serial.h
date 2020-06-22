@@ -9,7 +9,7 @@ char *BuildByte(char byte0, char byte1, char valore)
     txByte[3] = (valore >> 7) & 0x7F; //valore da mandare sul secondo byte in caso fosse piÃ¹ grande
     char sommaRow = 0;                //Tiene la somma dei bit per la riga
     char sommaColumn = 0;             //Tiene la somma dei bit per la colonna
-
+    
     for (int i = 0; i < 4; i++) //controlla i byte e gli aggiunge il bit di paritÃ  sul ottavo bit se necesario
     {
         for (int y = 0; y < 8; y++) //Ciclo per fare la somma di tutti i bit sulla riga
@@ -26,6 +26,7 @@ char *BuildByte(char byte0, char byte1, char valore)
             sommaRow = 0;
         }
     }
+
     //costruisce la matrice di paritÃ 
     for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
     {
@@ -44,6 +45,6 @@ char *BuildByte(char byte0, char byte1, char valore)
             sommaColumn = 0;
         }
     }
-
+    
     return txByte;
 }

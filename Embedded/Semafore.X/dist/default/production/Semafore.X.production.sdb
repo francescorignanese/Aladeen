@@ -41,29 +41,29 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "129 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"375
+"369
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
-"384
+"378
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
-"394
+"388
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
-"406
+"400
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
-"423
+"417
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
-"431
+"425
 [v _sendByte sendByte `(v  1 e 1 0 ]
-"442
+"436
 [v _GetTime GetTime `(i  1 e 2 0 ]
-"460
+"454
 [v _GetDigits GetDigits `(v  1 e 1 0 ]
-"468
+"462
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
-"476
+"470
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
-"498
+"492
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
-"586
+"580
 [v _ISR ISR `II(v  1 e 1 0 ]
 "59 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -280,32 +280,32 @@
 "129
 [v _main main `(v  1 e 1 0 ]
 {
-"233
-[v main@i_444 i `uc  1 a 1 17 ]
-"215
-[v main@index index `uc  1 a 1 10 ]
-"219
+"284
+[v main@i_449 i `uc  1 a 1 17 ]
+"266
+[v main@index index `uc  1 a 1 8 ]
+"270
 [v main@colorId colorId `uc  1 a 1 1 ]
-"217
+"268
 [v main@semaforoId semaforoId `uc  1 a 1 0 ]
-"213
-[v main@i i `uc  1 a 1 11 ]
-"363
-[v main@i_449 i `uc  1 a 1 13 ]
-"347
-[v main@i_447 i `uc  1 a 1 12 ]
-"341
-[v main@i_446 i `i  1 a 2 14 ]
-"315
-[v main@i_445 i `i  1 a 2 18 ]
-"231
+"264
+[v main@i_442 i `uc  1 a 1 13 ]
+"221
+[v main@i_439 i `uc  1 a 1 12 ]
+"205
+[v main@i_437 i `uc  1 a 1 11 ]
+"198
+[v main@i_436 i `i  1 a 2 14 ]
+"171
+[v main@i i `i  1 a 2 18 ]
+"282
 [v main@l l `uc  1 a 1 16 ]
-"212
+"263
 [v main@tmp tmp `uc  1 a 1 6 ]
 "151
-[v main@time time `i  1 a 2 7 ]
+[v main@time time `i  1 a 2 9 ]
 "152
-[v main@lux_select lux_select `uc  1 a 1 9 ]
+[v main@lux_select lux_select `uc  1 a 1 7 ]
 [s S25 . 1 `uc 1 Bit 1 0 :1:0 
 ]
 "157
@@ -316,41 +316,41 @@
 [v main@umidita umidita `uc  1 a 1 3 ]
 "154
 [v main@temp temp `uc  1 a 1 2 ]
-"372
+"366
 } 0
-"431
+"425
 [v _sendByte sendByte `(v  1 e 1 0 ]
 {
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
-"436
+"430
 [v sendByte@i i `uc  1 a 1 27 ]
-"433
+"427
 [v sendByte@txByte txByte `*.4uc  1 a 1 26 ]
-"431
+"425
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
 [v sendByte@byte1 byte1 `uc  1 p 1 20 ]
 [v sendByte@valore valore `uc  1 p 1 21 ]
-"434
+"428
 [v sendByte@byte0 byte0 `uc  1 a 1 25 ]
-"440
+"434
 } 0
-"406
+"400
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 0 ]
-"412
+"406
 } 0
 "2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
 {
 [v BuildByte@byte0 byte0 `uc  1 a 1 wreg ]
-"32
+"33
 [v BuildByte@y_343 y `i  1 a 2 14 ]
 "15
 [v BuildByte@y y `i  1 a 2 12 ]
-"30
+"31
 [v BuildByte@i_342 i `i  1 a 2 18 ]
 "13
 [v BuildByte@i i `i  1 a 2 16 ]
@@ -366,7 +366,7 @@
 [v BuildByte@valore valore `uc  1 p 1 1 ]
 "6
 [v BuildByte@byte0 byte0 `uc  1 a 1 4 ]
-"49
+"50
 } 0
 "1 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
 [v _map map `(i  1 e 2 0 ]
@@ -388,10 +388,10 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
 "53
 } 0
-"375 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+"369 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
 {
-"381
+"375
 } 0
 "14 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X/CustomLib/BitsFlow.h
 [v _bitParita bitParita `(v  1 e 1 0 ]
@@ -444,11 +444,11 @@
 [v ___bmul@multiplier multiplier `uc  1 a 1 3 ]
 "51
 } 0
-"394 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+"388 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
 [v UART_Init@baudrate baudrate `i  1 p 2 15 ]
-"404
+"398
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -463,7 +463,7 @@
 [v ___aldiv@dividend dividend `l  1 p 4 4 ]
 "41
 } 0
-"468 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+"462 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
 {
 [v SetDisplay@d1 d1 `uc  1 a 1 wreg ]
@@ -471,44 +471,44 @@
 [v SetDisplay@d2 d2 `uc  1 p 1 0 ]
 [v SetDisplay@d3 d3 `uc  1 p 1 1 ]
 [v SetDisplay@value value `uc  1 p 1 2 ]
-"470
+"464
 [v SetDisplay@d1 d1 `uc  1 a 1 3 ]
-"474
+"468
 } 0
-"476
+"470
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
 {
-"480
+"474
 [v SetDefaultTimers@i i `uc  1 a 1 13 ]
-"478
+"472
 [v SetDefaultTimers@l l `uc  1 a 1 12 ]
-"476
+"470
 [v SetDefaultTimers@rosso rosso `i  1 p 2 0 ]
 [v SetDefaultTimers@verde verde `i  1 p 2 2 ]
 [v SetDefaultTimers@giallo giallo `i  1 p 2 4 ]
-"496
+"490
 } 0
-"442
+"436
 [v _GetTime GetTime `(i  1 e 2 0 ]
 {
 [v GetTime@index index `uc  1 a 1 wreg ]
-"444
+"438
 [v GetTime@time time `i  1 a 2 6 ]
 [s S258 . 1 `uc 1 Val 1 0 :7:0 
 ]
-"448
-[v GetTime@shortInt shortInt `S258  1 a 1 5 ]
 "442
+[v GetTime@shortInt shortInt `S258  1 a 1 5 ]
+"436
 [v GetTime@index index `uc  1 a 1 wreg ]
-"450
+"444
 [v GetTime@index index `uc  1 a 1 4 ]
-"458
+"452
 } 0
-"460
+"454
 [v _GetDigits GetDigits `(v  1 e 1 0 ]
 {
 [v GetDigits@Time Time `i  1 p 2 16 ]
-"466
+"460
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
 [v ___awmod __awmod `(i  1 e 2 0 ]
@@ -534,27 +534,27 @@
 [v ___awdiv@dividend dividend `i  1 p 2 9 ]
 "41
 } 0
-"384 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
+"378 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
 {
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
-"386
+"380
 [v ADC_Read@canale canale `uc  1 a 1 3 ]
-"392
+"386
 } 0
-"586
+"580
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"628
+"622
 } 0
-"498
+"492
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
 {
-"584
+"578
 } 0
-"423
+"417
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
 {
-"429
+"423
 } 0
