@@ -1208,11 +1208,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 176:                         sendByte(0x03, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
 "177
-[; ;main.c: 177:                         sendByte(0x03, 0x10, car[i]);
-[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+[; ;main.c: 177:                         sendByte(0x03, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "178
-[; ;main.c: 178:                         sendByte(0x03, 0x11, truck[i]);
-[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+[; ;main.c: 178:                         sendByte(0x03, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "179
 [; ;main.c: 179:                         break;
 [e $U 159  ]
@@ -1223,11 +1223,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 181:                         sendByte(0x05, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
 "182
-[; ;main.c: 182:                         sendByte(0x05, 0x10, car[i]);
-[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+[; ;main.c: 182:                         sendByte(0x05, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "183
-[; ;main.c: 183:                         sendByte(0x05, 0x11, truck[i]);
-[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+[; ;main.c: 183:                         sendByte(0x05, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "184
 [; ;main.c: 184:                         break;
 [e $U 159  ]
@@ -1238,11 +1238,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 186:                         sendByte(0x07, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
 "187
-[; ;main.c: 187:                         sendByte(0x07, 0x10, car[i]);
-[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+[; ;main.c: 187:                         sendByte(0x07, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "188
-[; ;main.c: 188:                         sendByte(0x07, 0x11, truck[i]);
-[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+[; ;main.c: 188:                         sendByte(0x07, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "189
 [; ;main.c: 189:                         break;
 [e $U 159  ]
@@ -1253,11 +1253,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 191:                         sendByte(0x09, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
 "192
-[; ;main.c: 192:                         sendByte(0x09, 0x10, car[i]);
-[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 16 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+[; ;main.c: 192:                         sendByte(0x09, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "193
-[; ;main.c: 193:                         sendByte(0x09, 0x11, truck[i]);
-[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 17 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+[; ;main.c: 193:                         sendByte(0x09, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "194
 [; ;main.c: 194:                         break;
 [e $U 159  ]

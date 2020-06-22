@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\Rigna\AppData\Local\Temp\st2s.o
+$C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 E E 3 2
 config CONFIG 0 2007 2007 1 2
@@ -109,53 +109,53 @@ STRING 1000-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Semafore.X.production.o
-11 cinit CODE >593:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-11 cinit CODE >596:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-11 cinit CODE >777:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-12 cinit CODE >778:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-13 cinit CODE >779:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-14 cinit CODE >780:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-15 cinit CODE >781:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-16 cinit CODE >782:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-17 cinit CODE >783:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-18 cinit CODE >784:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-19 cinit CODE >785:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-1A cinit CODE >786:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-1F cinit CODE >790:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-20 cinit CODE >791:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-21 cinit CODE >792:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-22 cinit CODE >793:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-23 cinit CODE >794:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-24 cinit CODE >795:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-25 cinit CODE >796:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-26 cinit CODE >797:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-27 cinit CODE >798:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-2C cinit CODE >817:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-2D cinit CODE >818:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-2E cinit CODE >819:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-2F cinit CODE >820:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-30 cinit CODE >821:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-35 cinit CODE >824:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-36 cinit CODE >825:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-37 cinit CODE >826:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-38 cinit CODE >827:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-3D cinit CODE >830:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-3E cinit CODE >831:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-3F cinit CODE >832:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-40 cinit CODE >833:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-41 cinit CODE >834:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-46 cinit CODE >837:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-47 cinit CODE >838:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-48 cinit CODE >839:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-49 cinit CODE >840:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-4E cinit CODE >843:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-4F cinit CODE >844:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-50 cinit CODE >845:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-51 cinit CODE >846:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-52 cinit CODE >847:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-53 cinit CODE >853:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-53 cinit CODE >855:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-54 cinit CODE >856:C:\Users\Rigna\AppData\Local\Temp\st2s.s
+11 cinit CODE >593:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+11 cinit CODE >596:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+11 cinit CODE >777:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+12 cinit CODE >778:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+13 cinit CODE >779:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+14 cinit CODE >780:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+15 cinit CODE >781:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+16 cinit CODE >782:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+17 cinit CODE >783:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+18 cinit CODE >784:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+19 cinit CODE >785:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+1A cinit CODE >786:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+1F cinit CODE >790:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+20 cinit CODE >791:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+21 cinit CODE >792:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+22 cinit CODE >793:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+23 cinit CODE >794:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+24 cinit CODE >795:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+25 cinit CODE >796:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+26 cinit CODE >797:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+27 cinit CODE >798:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+2C cinit CODE >817:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+2D cinit CODE >818:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+2E cinit CODE >819:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+2F cinit CODE >820:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+30 cinit CODE >821:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+35 cinit CODE >824:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+36 cinit CODE >825:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+37 cinit CODE >826:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+38 cinit CODE >827:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+3D cinit CODE >830:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+3E cinit CODE >831:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+3F cinit CODE >832:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+40 cinit CODE >833:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+41 cinit CODE >834:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+46 cinit CODE >837:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+47 cinit CODE >838:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+48 cinit CODE >839:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+49 cinit CODE >840:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+4E cinit CODE >843:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+4F cinit CODE >844:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+50 cinit CODE >845:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+51 cinit CODE >846:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+52 cinit CODE >847:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+53 cinit CODE >853:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+53 cinit CODE >855:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+54 cinit CODE >856:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
 4 intentry CODE >580:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 AA2 text21 CODE >417:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 AA2 text21 CODE >419:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
@@ -582,33 +582,33 @@ F0 maintext CODE >181:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X
 63B maintext CODE >357:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 63B maintext CODE >359:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
 643 maintext CODE >361:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semafore.X\main.c
-A9A clrtext CODE >804:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9A clrtext CODE >805:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9B clrtext CODE >806:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9B clrtext CODE >807:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9C clrtext CODE >808:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9D clrtext CODE >809:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9E clrtext CODE >810:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-A9F clrtext CODE >811:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AA0 clrtext CODE >812:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AA1 clrtext CODE >813:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACB inittext CODE >751:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACB inittext CODE >752:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACC inittext CODE >753:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACD inittext CODE >754:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACE inittext CODE >755:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACF inittext CODE >762:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ACF inittext CODE >763:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD4 inittext CODE >764:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD5 inittext CODE >765:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD6 inittext CODE >766:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD7 inittext CODE >767:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD8 inittext CODE >768:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-AD9 inittext CODE >769:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ADA inittext CODE >770:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ADB inittext CODE >771:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ADC inittext CODE >772:C:\Users\Rigna\AppData\Local\Temp\st2s.s
-ADD inittext CODE >773:C:\Users\Rigna\AppData\Local\Temp\st2s.s
+A9A clrtext CODE >804:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9A clrtext CODE >805:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9B clrtext CODE >806:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9B clrtext CODE >807:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9C clrtext CODE >808:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9D clrtext CODE >809:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9E clrtext CODE >810:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+A9F clrtext CODE >811:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AA0 clrtext CODE >812:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AA1 clrtext CODE >813:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACB inittext CODE >751:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACB inittext CODE >752:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACC inittext CODE >753:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACD inittext CODE >754:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACE inittext CODE >755:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACF inittext CODE >762:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ACF inittext CODE >763:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD4 inittext CODE >764:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD5 inittext CODE >765:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD6 inittext CODE >766:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD7 inittext CODE >767:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD8 inittext CODE >768:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+AD9 inittext CODE >769:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ADA inittext CODE >770:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ADB inittext CODE >771:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ADC inittext CODE >772:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
+ADD inittext CODE >773:C:\Users\Rigna\AppData\Local\Temp\sp0s.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -656,12 +656,12 @@ BuildByte@valore 21 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.pro
 _RCIF 65 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TXIF 64 0 ABS 0 - dist/default/production\Semafore.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\st2s.o
+___sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 _disp 5C 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 _main AE 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
 map@x 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-start 1C 0 CODE 0 init C:\Users\Rigna\AppData\Local\Temp\st2s.o
+start 1C 0 CODE 0 init C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 __size_of___aldiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awmod 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
@@ -675,12 +675,12 @@ __Hpowerup 0 0 CODE 0 powerup -
 ___awmod@sign 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_ADC_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _centinaia 5E 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\st2s.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 _motorcycle 54 0 BANK0 1 dataBANK0 dist/default/production\Semafore.X.production.o
 __LbssCOMMON 0 0 ABS 0 bssCOMMON -
 ___bmul@multiplicand 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
@@ -729,8 +729,8 @@ __size_of_BuildByte 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _INTCON B 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _OPTION_REG 81 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __end_of_ADC_Read 16A0 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\st2s.o
-___stacklo 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\st2s.o
+___stackhi 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\sp0s.o
+___stacklo 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 _dataFromGatewayIndex 5A 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 __end_of_SetDisplay 15E6 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
 BuildByte@sommaColumn 2B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
@@ -748,7 +748,7 @@ __pcstackBANK2 158 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.prod
 main@pressione 15C 0 BANK2 1 cstackBANK2 dist/default/production\Semafore.X.production.o
 _TMR0IF 5A 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR1IF 60 0 ABS 0 - dist/default/production\Semafore.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\st2s.o
+___int_sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -831,7 +831,7 @@ bitParita@sommaColumn 29 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.
 __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
 __stringtab 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\Rigna\AppData\Local\Temp\st2s.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\Rigna\AppData\Local\Temp\sp0s.o
 SetDisplay@d1 23 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d2 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d3 21 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o

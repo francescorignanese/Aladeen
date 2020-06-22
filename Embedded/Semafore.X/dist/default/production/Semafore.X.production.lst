@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.10 build 88905656 
-                                                                                               Mon Jun 22 14:57:08 2020
+                                                                                               Mon Jun 22 15:10:25 2020
 
 Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1 
      1                           	processor	16F877A
@@ -1209,8 +1209,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1195  00B9  3003               	movlw	3
   1196  00BA  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1197                           
-  1198                           ;main.c: 177:                         sendByte(0x03, 0x10, car[i]);
-  1199  00BF  3010               	movlw	16
+  1198                           ;main.c: 177:                         sendByte(0x03, 0x02, car[i]);
+  1199  00BF  3002               	movlw	2
   1200  00C0  1283               	bcf	3,5	;RP0=0, select bank0
   1201  00C1  1303               	bcf	3,6	;RP1=0, select bank0
   1202  00C2  00BC               	movwf	??_main
@@ -1231,8 +1231,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1217  00D1  3003               	movlw	3
   1218  00D2  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1219                           
-  1220                           ;main.c: 178:                         sendByte(0x03, 0x11, truck[i]);
-  1221  00D7  3011               	movlw	17
+  1220                           ;main.c: 178:                         sendByte(0x03, 0x03, truck[i]);
+  1221  00D7  3003               	movlw	3
   1222  00D8  1283               	bcf	3,5	;RP0=0, select bank0
   1223  00D9  1303               	bcf	3,6	;RP1=0, select bank0
   1224  00DA  00BC               	movwf	??_main
@@ -1277,8 +1277,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1263  0100  3005               	movlw	5
   1264  0101  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1265                           
-  1266                           ;main.c: 182:                         sendByte(0x05, 0x10, car[i]);
-  1267  0106  3010               	movlw	16
+  1266                           ;main.c: 182:                         sendByte(0x05, 0x02, car[i]);
+  1267  0106  3002               	movlw	2
   1268  0107  1283               	bcf	3,5	;RP0=0, select bank0
   1269  0108  1303               	bcf	3,6	;RP1=0, select bank0
   1270  0109  00BC               	movwf	??_main
@@ -1299,8 +1299,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1285  0118  3005               	movlw	5
   1286  0119  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1287                           
-  1288                           ;main.c: 183:                         sendByte(0x05, 0x11, truck[i]);
-  1289  011E  3011               	movlw	17
+  1288                           ;main.c: 183:                         sendByte(0x05, 0x03, truck[i]);
+  1289  011E  3003               	movlw	3
   1290  011F  1283               	bcf	3,5	;RP0=0, select bank0
   1291  0120  1303               	bcf	3,6	;RP1=0, select bank0
   1292  0121  00BC               	movwf	??_main
@@ -1345,8 +1345,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1331  0147  3007               	movlw	7
   1332  0148  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1333                           
-  1334                           ;main.c: 187:                         sendByte(0x07, 0x10, car[i]);
-  1335  014D  3010               	movlw	16
+  1334                           ;main.c: 187:                         sendByte(0x07, 0x02, car[i]);
+  1335  014D  3002               	movlw	2
   1336  014E  1283               	bcf	3,5	;RP0=0, select bank0
   1337  014F  1303               	bcf	3,6	;RP1=0, select bank0
   1338  0150  00BC               	movwf	??_main
@@ -1367,8 +1367,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1353  015F  3007               	movlw	7
   1354  0160  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1355                           
-  1356                           ;main.c: 188:                         sendByte(0x07, 0x11, truck[i]);
-  1357  0165  3011               	movlw	17
+  1356                           ;main.c: 188:                         sendByte(0x07, 0x03, truck[i]);
+  1357  0165  3003               	movlw	3
   1358  0166  1283               	bcf	3,5	;RP0=0, select bank0
   1359  0167  1303               	bcf	3,6	;RP1=0, select bank0
   1360  0168  00BC               	movwf	??_main
@@ -1413,8 +1413,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1399  018E  3009               	movlw	9
   1400  018F  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1401                           
-  1402                           ;main.c: 192:                         sendByte(0x09, 0x10, car[i]);
-  1403  0194  3010               	movlw	16
+  1402                           ;main.c: 192:                         sendByte(0x09, 0x02, car[i]);
+  1403  0194  3002               	movlw	2
   1404  0195  1283               	bcf	3,5	;RP0=0, select bank0
   1405  0196  1303               	bcf	3,6	;RP1=0, select bank0
   1406  0197  00BC               	movwf	??_main
@@ -1435,8 +1435,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1421  01A6  3009               	movlw	9
   1422  01A7  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1423                           
-  1424                           ;main.c: 193:                         sendByte(0x09, 0x11, truck[i]);
-  1425  01AC  3011               	movlw	17
+  1424                           ;main.c: 193:                         sendByte(0x09, 0x03, truck[i]);
+  1425  01AC  3003               	movlw	3
   1426  01AD  1283               	bcf	3,5	;RP0=0, select bank0
   1427  01AE  1303               	bcf	3,6	;RP1=0, select bank0
   1428  01AF  00BC               	movwf	??_main
@@ -6624,7 +6624,7 @@ EEDATA             100      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.10 build 88905656 
-Symbol Table                                                                                   Mon Jun 22 14:57:08 2020
+Symbol Table                                                                                   Mon Jun 22 15:10:25 2020
 
                         pc 0002             ___bmul@product 0022                __CFG_CP$OFF 0000  
                        l83 0C0D                         l98 0BA7               ___awdiv@sign 002D  
