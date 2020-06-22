@@ -95,17 +95,17 @@ typedef struct
 Bit readGateway, secondPassed, cycled;
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char old_disp, disp;           //varibile per fare lo switch in loop tra i dislpay
-unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
-unsigned char count_lux = 0;            //conteggio per il tempo delle luci
-unsigned char comando = 0;              //Prende il dato dalla seriale
-unsigned char time = 0;                 //variabile per contare i secondi
-unsigned char countdown = 0;            //variabile per il conto alla rovescia
-unsigned char motorcycle[4];            //variabile per contare le macchine
-unsigned char car[4];                   //variabile per contare le macchine
-unsigned char truck[4];                 //variabile per contare i camion
-unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
+unsigned char unita, decine, centinaia;             //varibile per scomporre il numero per il countdown e stamparlo sui display
+unsigned char old_disp, disp;                       //varibile per fare lo switch in loop tra i dislpay
+unsigned int count = 0;                             //variabile per il conteggio del tempo di pressione del tasto
+unsigned char count_lux = 0;                        //conteggio per il tempo delle luci
+unsigned char comando = 0;                          //Prende il dato dalla seriale
+unsigned char time = 0;                             //variabile per contare i secondi
+unsigned char countdown = 0;                        //variabile per il conto alla rovescia
+unsigned char motorcycle[4] = {213, 213, 213, 213}; //variabile per contare le macchine
+unsigned char car[4] = {213, 213, 213, 213};        //variabile per contare le macchine
+unsigned char truck[4] = {213, 213, 213, 213};      //variabile per contare i camion
+unsigned char dataFromGatewayIndex = 0;             //indice array dati da seriale
 typedef unsigned char ProtocolBytes[15];
 ProtocolBytes dataFromGateway;                                                 //array dati da seriale
 Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori

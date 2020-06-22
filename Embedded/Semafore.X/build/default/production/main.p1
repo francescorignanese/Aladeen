@@ -990,14 +990,38 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 "105
-[; ;main.c: 105: unsigned char motorcycle[4];
+[; ;main.c: 105: unsigned char motorcycle[4] = {213, 213, 213, 213};
 [v _motorcycle `uc ~T0 @X0 -> 4 `i e ]
+[i _motorcycle
+:U ..
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+..
+]
 "106
-[; ;main.c: 106: unsigned char car[4];
+[; ;main.c: 106: unsigned char car[4] = {213, 213, 213, 213};
 [v _car `uc ~T0 @X0 -> 4 `i e ]
+[i _car
+:U ..
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+..
+]
 "107
-[; ;main.c: 107: unsigned char truck[4];
+[; ;main.c: 107: unsigned char truck[4] = {213, 213, 213, 213};
 [v _truck `uc ~T0 @X0 -> 4 `i e ]
+[i _truck
+:U ..
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+-> -> 213 `i `uc
+..
+]
 "108
 [; ;main.c: 108: unsigned char dataFromGatewayIndex = 0;
 [v _dataFromGatewayIndex `uc ~T0 @X0 1 e ]
