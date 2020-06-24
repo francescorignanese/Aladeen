@@ -23,16 +23,15 @@ client.open(function (err) {
       process.exit(-1);
     });
 
-    // var data= new Date();
-    // var ora= data.getHours.toString()+":"+data.getMinutes.toString()+":"+data.getSeconds.toString();
-    // // build message
+    // TRAFFIC MESSAGE
+
     var message = new Message(JSON.stringify(
     {
       "description": "Dati unificati traffico",
       "sensor": "traffic",
       "id_cross": 1,
-      "date": new Date(),
-      "time": new Date(),
+      "date": new Date().toISOString().slice(0,10),
+      "time": new Date().toISOString().slice(11,19),
       "data_carriers": [
         {
           "id_road": 1,
@@ -85,7 +84,42 @@ client.open(function (err) {
     message.properties.add("Status", "Active");
     
 
-    console.log('Sending message: ' + message.getData());
+    //CLIMATE MESSAGE
+
+    var message1 = new Message(JSON.stringify(
+    {
+      "description": "Dati unificati traffico",
+      "sensor": "climate",
+      "id_cross": 1,
+      "date": new Date().toISOString().slice(0,10),
+      "time": new Date().toISOString().slice(11,19),
+      "data_climate": [
+        {
+            "type": "pressure",
+            "value": 10
+        },
+        {
+          "type": "humidity",
+          "value": 70
+        },
+        {
+          "type": "temperature",
+          "value": 24
+        }
+      ]
+    }));
+
+    message1.contentEncoding = "utf-8";
+    message1.contentType = "application/json";
+
+    // A unique identifier 
+    message1.messageId = uuid.v4();
+
+    //add custom properties
+    message1.properties.add("Status", "Active");
+
+    //console.log('Sending message: ' + message.getData());
+    
     client.sendEvent(message, function (err) {
       if (err) {
         console.error('Could not send: ' + err.toString());
@@ -98,3 +132,28 @@ client.open(function (err) {
   }
 
 });
+
+/*
+let json_climate = 
+{
+  "description": "Dati unificati traffico",
+  "sensor": "climate",
+  "id_cross": 1,
+  "date": new Date().toISOString().slice(0,10),
+  "time": new Date().toISOString().slice(11,19),
+  "data_climate": [
+    {
+        "type": "pressure",
+        "value": 10
+    },
+    {
+      "type": "humidity",
+      "value": 70
+    },
+    {
+      "type": "temperature",
+      "value": 24
+    }
+  ]
+}
+*/
