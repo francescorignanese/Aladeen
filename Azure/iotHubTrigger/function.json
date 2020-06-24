@@ -1,0 +1,20 @@
+{
+  "bindings": [
+    {
+      "type": "eventHubTrigger",
+      "name": "IoTHubMessages",
+      "direction": "in",
+      "eventHubName": "smartcrosshub",
+      "connection": "IotHubConnectionString",
+      "cardinality": "many",
+      "consumerGroup": "$Default"
+    },
+    {
+      "type": "signalR",
+      "name": "signalRMessages",
+      "hubName": "smartcross",
+      "connectionStringSetting": "signalRConnectionString",
+      "direction": "out"
+    }
+  ]
+}

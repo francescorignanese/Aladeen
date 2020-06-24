@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "obj",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "trafficqueue",
+      "connection": "smartcrossqueuebus_SERVICEBUS"
+    }
+  ]
+}
