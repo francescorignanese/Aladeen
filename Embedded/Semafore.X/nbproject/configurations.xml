@@ -584,7 +584,7 @@
         <property key="stack-type" value="compiled"/>
         <property key="user-pack-device-support" value=""/>
       </XC8-config-global>
-      <item path="debug.c" ex="false" overriding="false">
+      <item path="debug.c" ex="true" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>
@@ -594,7 +594,7 @@
         <XC8-config-global>
         </XC8-config-global>
       </item>
-      <item path="main.c" ex="true" overriding="false">
+      <item path="main.c" ex="false" overriding="false">
         <HI-TECH-COMP>
         </HI-TECH-COMP>
         <HI-TECH-LINK>

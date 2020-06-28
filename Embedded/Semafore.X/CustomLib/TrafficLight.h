@@ -73,6 +73,27 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 
 
 
+void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori, Update *_to_update, unsigned char _id_semaforo)
+{
+                for (unsigned char i = 0; i < 3; i++)
+                {
+                    unsigned char index = i * 5;           
+                    unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+                    unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+                    
+                    if(semaforoId != _id_semaforo)
+                    {
+                        (*_semafori[semaforoId]).times[colorId] = GetTime(index, _dataFromGateway);
+                    }
+                    else
+                    {
+                        (*_to_update).id=semaforoId;
+                        (*_to_update).new_times[colorId]=GetTime(index, _dataFromGateway);
+                    }
+                }
+}
+
+
 //CONTEGGIO VEICOLI
 void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 {
