@@ -1634,16 +1634,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 201 ]
 }
 "177
-[; ;main.c: 177:                 for (unsigned char i = 0; i < 5; i++)
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 203  ]
-[e $U 204  ]
-[e :U 203 ]
+[; ;main.c: 177:                         sendByte(0x03, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "178
-[; ;main.c: 178:                 {
-{
+[; ;main.c: 178:                         sendByte(0x03, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "179
 [; ;main.c: 179:                     dataFromGateway[i] = 0;
 [e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
@@ -1658,11 +1653,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 181:                 break;
 [e $U 194  ]
 "182
-[; ;main.c: 182:             case 0x0A:
-[e :U 206 ]
+[; ;main.c: 182:                         sendByte(0x05, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "183
-[; ;main.c: 183:                 readGatewayDone.Bit = 1;
-[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+[; ;main.c: 183:                         sendByte(0x05, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "184
 [; ;main.c: 184:                 readGateway.Bit = 0;
 [e = . _readGateway 0 -> -> 0 `i `uc ]
@@ -1670,11 +1665,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 186:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
 [e = _temp -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 0 `i `uc -> 2 `i -> 0 `i -> 255 `i -U -> 20 `i -> 60 `i `uc `uc ]
 "187
-[; ;main.c: 187:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-[e = _umidita -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 1 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+[; ;main.c: 187:                         sendByte(0x07, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "188
-[; ;main.c: 188:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-[e = _pressione -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 5 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+[; ;main.c: 188:                         sendByte(0x07, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "189
 [; ;main.c: 189:                 sendByte(0x02, 0x00, temp);
 [e ( _sendByte (3 , , -> -> 2 `i `uc -> -> 0 `i `uc -> _temp `uc ]
@@ -1682,16 +1677,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 190:                 sendByte(0x04, 0x00, umidita);
 [e ( _sendByte (3 , , -> -> 4 `i `uc -> -> 0 `i `uc -> _umidita `uc ]
 "191
-[; ;main.c: 191:                 sendByte(0x06, 0x00, pressione);
-[e ( _sendByte (3 , , -> -> 6 `i `uc -> -> 0 `i `uc -> _pressione `uc ]
+[; ;main.c: 191:                         sendByte(0x09, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
+"192
+[; ;main.c: 192:                         sendByte(0x09, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
 "193
-[; ;main.c: 193:                 for (unsigned char i = 0; i < 5; i++)
-{
-[v _i `uc ~T0 @X0 1 a ]
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 207  ]
-[e $U 208  ]
-[e :U 207 ]
+[; ;main.c: 193:                         sendByte(0x09, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
 "194
 [; ;main.c: 194:                 {
 {

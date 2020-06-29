@@ -162,9 +162,29 @@ void main(void)
                 
                 for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
-                    sendByte((0x01 << (i + 1))|0x01, 0x01, motorcycle[i]);
-                    sendByte((0x01 << (i + 1))|0x01, 0x10, car[i]);
-                    sendByte((0x01 << (i + 1))|0x01, 0x11, truck[i]);
+                    switch (i)
+                    {
+                    case 0:
+                        sendByte(0x03, 0x01, motorcycle[i]);
+                        sendByte(0x03, 0x02, car[i]);
+                        sendByte(0x03, 0x03, truck[i]);
+                        break;
+                    case 1:
+                        sendByte(0x05, 0x01, motorcycle[i]);
+                        sendByte(0x05, 0x02, car[i]);
+                        sendByte(0x05, 0x03, truck[i]);
+                        break;
+                    case 2:
+                        sendByte(0x07, 0x01, motorcycle[i]);
+                        sendByte(0x07, 0x02, car[i]);
+                        sendByte(0x07, 0x03, truck[i]);
+                        break;
+                    case 3:
+                        sendByte(0x09, 0x01, motorcycle[i]);
+                        sendByte(0x09, 0x02, car[i]);
+                        sendByte(0x09, 0x03, truck[i]);
+                        break;
+                    }
                 }
                 
                 for (int i = 0; i < 4; i++) //Resetto le variabili

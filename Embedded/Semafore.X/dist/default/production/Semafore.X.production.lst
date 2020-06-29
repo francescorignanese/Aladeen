@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.10 build 88905656 
-                                                                                               Sun Jun 28 15:09:19 2020
+                                                                                               Mon Jun 22 15:10:25 2020
 
 Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1 
      1                           	processor	16F877A
@@ -1135,497 +1135,732 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   1121  008D                     l259:	
   1122                           ;main.c: 158:             {;main.c: 159:             case 0x08:
   1123                           
-  1124                           
-  1125                           ;main.c: 160:                 readGatewayDone.Bit = 1;
-  1126  008D  145A               	bsf	_readGatewayDone,0
-  1127                           
-  1128                           ;main.c: 161:                 readGateway.Bit = 0;
-  1129  008E  1059               	bcf	_readGateway,0
-  1130  008F                     l2935:	
-  1131                           
-  1132                           ;main.c: 163:                 for (int i = 0; i < 4; i++)
-  1133  008F  1683               	bsf	3,5	;RP0=1, select bank3
-  1134  0090  1703               	bsf	3,6	;RP1=1, select bank3
-  1135  0091  01E7               	clrf	main@i^(0+384)
-  1136  0092  01E8               	clrf	(main@i+1)^(0+384)
-  1137  0093                     l2937:	
-  1138  0093  0868               	movf	(main@i+1)^(0+384),w
-  1139  0094  3A80               	xorlw	128
-  1140  0095  00FF               	movwf	btemp+1
-  1141  0096  3080               	movlw	128
-  1142  0097  027F               	subwf	btemp+1,w
-  1143  0098  1D03               	skipz
-  1144  0099  289C               	goto	u2835
-  1145  009A  3004               	movlw	4
-  1146  009B  0267               	subwf	main@i^(0+384),w
-  1147  009C                     u2835:	
-  1148  009C  1C03               	skipc
-  1149  009D  289F               	goto	u2831
-  1150  009E  28A0               	goto	u2830
-  1151  009F                     u2831:	
-  1152  009F  28A1               	goto	l2941
-  1153  00A0                     u2830:	
-  1154  00A0  2920               	goto	l2947
-  1155  00A1                     l2941:	
-  1156                           
-  1157                           ;main.c: 164:                 {;main.c: 165:                     sendByte((0x01 << (i + 
-      +                          1))|0x01, 0x01, motorcycle[i]);
-  1158  00A1  1283               	bcf	3,5	;RP0=0, select bank0
-  1159  00A2  1303               	bcf	3,6	;RP1=0, select bank0
-  1160  00A3  01B8               	clrf	sendByte@byte1
-  1161  00A4  0AB8               	incf	sendByte@byte1,f
-  1162  00A5  1683               	bsf	3,5	;RP0=1, select bank3
-  1163  00A6  1703               	bsf	3,6	;RP1=1, select bank3
-  1164  00A7  0867               	movf	main@i^(0+384),w
-  1165  00A8  3E5F               	addlw	(low (_motorcycle| 0))& (0+255)
-  1166  00A9  0084               	movwf	4
-  1167  00AA  1383               	bcf	3,7	;select IRP bank0
-  1168  00AB  0800               	movf	0,w
-  1169  00AC  1283               	bcf	3,5	;RP0=0, select bank0
-  1170  00AD  1303               	bcf	3,6	;RP1=0, select bank0
-  1171  00AE  00C0               	movwf	??_main
-  1172  00AF  0840               	movf	??_main,w
-  1173  00B0  00B9               	movwf	sendByte@valore
-  1174  00B1  3001               	movlw	1
-  1175  00B2  00C1               	movwf	??_main+1
-  1176  00B3  1683               	bsf	3,5	;RP0=1, select bank3
-  1177  00B4  1703               	bsf	3,6	;RP1=1, select bank3
-  1178  00B5  0867               	movf	main@i^(0+384),w
-  1179  00B6  3E01               	addlw	1
-  1180  00B7  3E01               	addlw	1
-  1181  00B8  1283               	bcf	3,5	;RP0=0, select bank0
-  1182  00B9  1303               	bcf	3,6	;RP1=0, select bank0
-  1183  00BA  28BD               	goto	u2844
-  1184  00BB                     u2845:	
-  1185  00BB  1003               	clrc
-  1186  00BC  0DC1               	rlf	??_main+1,f
-  1187  00BD                     u2844:	
-  1188  00BD  3EFF               	addlw	-1
-  1189  00BE  1D03               	skipz
-  1190  00BF  28BB               	goto	u2845
-  1191  00C0  0841               	movf	??_main+1,w
-  1192  00C1  3801               	iorlw	1
-  1193  00C2  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1194                           
-  1195                           ;main.c: 166:                     sendByte((0x01 << (i + 1))|0x01, 0x10, car[i]);
-  1196  00C7  3010               	movlw	16
-  1197  00C8  1283               	bcf	3,5	;RP0=0, select bank0
-  1198  00C9  1303               	bcf	3,6	;RP1=0, select bank0
-  1199  00CA  00C0               	movwf	??_main
-  1200  00CB  0840               	movf	??_main,w
-  1201  00CC  00B8               	movwf	sendByte@byte1
-  1202  00CD  1683               	bsf	3,5	;RP0=1, select bank3
-  1203  00CE  1703               	bsf	3,6	;RP1=1, select bank3
-  1204  00CF  0867               	movf	main@i^(0+384),w
-  1205  00D0  3E5B               	addlw	(low (_car| 0))& (0+255)
-  1206  00D1  0084               	movwf	4
-  1207  00D2  1383               	bcf	3,7	;select IRP bank0
-  1208  00D3  0800               	movf	0,w
-  1209  00D4  1283               	bcf	3,5	;RP0=0, select bank0
-  1210  00D5  1303               	bcf	3,6	;RP1=0, select bank0
-  1211  00D6  00C1               	movwf	??_main+1
-  1212  00D7  0841               	movf	??_main+1,w
-  1213  00D8  00B9               	movwf	sendByte@valore
-  1214  00D9  3001               	movlw	1
-  1215  00DA  00C2               	movwf	??_main+2
-  1216  00DB  1683               	bsf	3,5	;RP0=1, select bank3
-  1217  00DC  1703               	bsf	3,6	;RP1=1, select bank3
-  1218  00DD  0867               	movf	main@i^(0+384),w
-  1219  00DE  3E01               	addlw	1
-  1220  00DF  3E01               	addlw	1
-  1221  00E0  1283               	bcf	3,5	;RP0=0, select bank0
-  1222  00E1  1303               	bcf	3,6	;RP1=0, select bank0
-  1223  00E2  28E5               	goto	u2854
-  1224  00E3                     u2855:	
-  1225  00E3  1003               	clrc
-  1226  00E4  0DC2               	rlf	??_main+2,f
-  1227  00E5                     u2854:	
-  1228  00E5  3EFF               	addlw	-1
-  1229  00E6  1D03               	skipz
-  1230  00E7  28E3               	goto	u2855
-  1231  00E8  0842               	movf	??_main+2,w
-  1232  00E9  3801               	iorlw	1
-  1233  00EA  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1234                           
-  1235                           ;main.c: 167:                     sendByte((0x01 << (i + 1))|0x01, 0x11, truck[i]);
-  1236  00EF  3011               	movlw	17
-  1237  00F0  1283               	bcf	3,5	;RP0=0, select bank0
-  1238  00F1  1303               	bcf	3,6	;RP1=0, select bank0
-  1239  00F2  00C0               	movwf	??_main
-  1240  00F3  0840               	movf	??_main,w
-  1241  00F4  00B8               	movwf	sendByte@byte1
-  1242  00F5  1683               	bsf	3,5	;RP0=1, select bank3
-  1243  00F6  1703               	bsf	3,6	;RP1=1, select bank3
-  1244  00F7  0867               	movf	main@i^(0+384),w
-  1245  00F8  3EE9               	addlw	(low (_truck| 0))& (0+255)
-  1246  00F9  0084               	movwf	4
-  1247  00FA  1383               	bcf	3,7	;select IRP bank1
-  1248  00FB  0800               	movf	0,w
-  1249  00FC  1283               	bcf	3,5	;RP0=0, select bank0
-  1250  00FD  1303               	bcf	3,6	;RP1=0, select bank0
-  1251  00FE  00C1               	movwf	??_main+1
-  1252  00FF  0841               	movf	??_main+1,w
-  1253  0100  00B9               	movwf	sendByte@valore
-  1254  0101  3001               	movlw	1
-  1255  0102  00C2               	movwf	??_main+2
-  1256  0103  1683               	bsf	3,5	;RP0=1, select bank3
-  1257  0104  1703               	bsf	3,6	;RP1=1, select bank3
-  1258  0105  0867               	movf	main@i^(0+384),w
-  1259  0106  3E01               	addlw	1
-  1260  0107  3E01               	addlw	1
-  1261  0108  1283               	bcf	3,5	;RP0=0, select bank0
-  1262  0109  1303               	bcf	3,6	;RP1=0, select bank0
-  1263  010A  290D               	goto	u2864
-  1264  010B                     u2865:	
-  1265  010B  1003               	clrc
-  1266  010C  0DC2               	rlf	??_main+2,f
-  1267  010D                     u2864:	
-  1268  010D  3EFF               	addlw	-1
-  1269  010E  1D03               	skipz
-  1270  010F  290B               	goto	u2865
-  1271  0110  0842               	movf	??_main+2,w
-  1272  0111  3801               	iorlw	1
-  1273  0112  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1274  0117                     l2943:	
-  1275                           
-  1276                           ;main.c: 168:                 }
-  1277  0117  3001               	movlw	1
-  1278  0118  1683               	bsf	3,5	;RP0=1, select bank3
-  1279  0119  1703               	bsf	3,6	;RP1=1, select bank3
-  1280  011A  07E7               	addwf	main@i^(0+384),f
-  1281  011B  1803               	skipnc
-  1282  011C  0AE8               	incf	(main@i+1)^(0+384),f
-  1283  011D  3000               	movlw	0
-  1284  011E  07E8               	addwf	(main@i+1)^(0+384),f
-  1285  011F  2893               	goto	l2937
-  1286  0120                     l2947:	
+  1124                           ;main.c: 149:     TMR1L = 176;
+  1125  0091  30B0               	movlw	176
+  1126  0092  008E               	movwf	14	;volatile
+  1127  0093                     l3202:	
+  1128                           
+  1129                           ;main.c: 151:     int time;;main.c: 152:     unsigned char lux_select = 0;
+  1130  0093  1283               	bcf	3,5	;RP0=0, select bank2
+  1131  0094  1703               	bsf	3,6	;RP1=1, select bank2
+  1132  0095  01DF               	clrf	main@lux_select^(0+256)
+  1133  0096                     l3204:	
+  1134                           
+  1135                           ;main.c: 153:     disp = 0;
+  1136  0096  1283               	bcf	3,5	;RP0=0, select bank0
+  1137  0097  1303               	bcf	3,6	;RP1=0, select bank0
+  1138  0098  01DC               	clrf	_disp
+  1139  0099                     l3206:	
+  1140  0099                     l3208:	
+  1141  0099                     l3210:	
+  1142  0099                     l3212:	
+  1143                           
+  1144                           ;main.c: 157:     Bit endCiclo;;main.c: 158:     endCiclo.Bit = 1;
+  1145  0099  1283               	bcf	3,5	;RP0=0, select bank2
+  1146  009A  1703               	bsf	3,6	;RP1=1, select bank2
+  1147  009B  145D               	bsf	main@endCiclo^(0+256),0
+  1148  009C                     l3214:	
+  1149                           
+  1150                           ;main.c: 161:     {;main.c: 163:         if (readGateway.Bit)
+  1151  009C  1303               	bcf	3,6	;RP1=0, select bank0
+  1152  009D  1C63               	btfss	_readGateway,0
+  1153  009E  28A0               	goto	u3211
+  1154  009F  28A1               	goto	u3210
+  1155  00A0                     u3211:	
+  1156  00A0  2B38               	goto	l212
+  1157  00A1                     u3210:	
+  1158  00A1  2B23               	goto	l3294
+  1159  00A2                     l214:	
+  1160                           ;main.c: 166:             {;main.c: 167:             case 0x08:
+  1161                           
+  1162                           
+  1163                           ;main.c: 168:                 readGatewayDone.Bit = 1;
+  1164  00A2  1464               	bsf	_readGatewayDone,0
+  1165                           
+  1166                           ;main.c: 169:                 readGateway.Bit = 0;
+  1167  00A3  1063               	bcf	_readGateway,0
+  1168  00A4                     l3218:	
+  1169                           
+  1170                           ;main.c: 171:                 for (int i = 0; i < 4; i++)
+  1171  00A4  1283               	bcf	3,5	;RP0=0, select bank2
+  1172  00A5  1703               	bsf	3,6	;RP1=1, select bank2
+  1173  00A6  01EA               	clrf	main@i^(0+256)
+  1174  00A7  01EB               	clrf	(main@i+1)^(0+256)
+  1175  00A8  29C5               	goto	l3234
+  1176  00A9                     l3224:	
+  1177                           
+  1178                           ;main.c: 176:                         sendByte(0x03, 0x01, motorcycle[i]);
+  1179  00A9  1283               	bcf	3,5	;RP0=0, select bank0
+  1180  00AA  1303               	bcf	3,6	;RP1=0, select bank0
+  1181  00AB  01B4               	clrf	sendByte@byte1
+  1182  00AC  0AB4               	incf	sendByte@byte1,f
+  1183  00AD  1283               	bcf	3,5	;RP0=0, select bank2
+  1184  00AE  1703               	bsf	3,6	;RP1=1, select bank2
+  1185  00AF  086A               	movf	main@i^(0+256),w
+  1186  00B0  3E54               	addlw	(low (_motorcycle| 0))& (0+255)
+  1187  00B1  0084               	movwf	4
+  1188  00B2  1383               	bcf	3,7	;select IRP bank0
+  1189  00B3  0800               	movf	0,w
+  1190  00B4  1283               	bcf	3,5	;RP0=0, select bank0
+  1191  00B5  1303               	bcf	3,6	;RP1=0, select bank0
+  1192  00B6  00BC               	movwf	??_main
+  1193  00B7  083C               	movf	??_main,w
+  1194  00B8  00B5               	movwf	sendByte@valore
+  1195  00B9  3003               	movlw	3
+  1196  00BA  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1197                           
+  1198                           ;main.c: 177:                         sendByte(0x03, 0x02, car[i]);
+  1199  00BF  3002               	movlw	2
+  1200  00C0  1283               	bcf	3,5	;RP0=0, select bank0
+  1201  00C1  1303               	bcf	3,6	;RP1=0, select bank0
+  1202  00C2  00BC               	movwf	??_main
+  1203  00C3  083C               	movf	??_main,w
+  1204  00C4  00B4               	movwf	sendByte@byte1
+  1205  00C5  1283               	bcf	3,5	;RP0=0, select bank2
+  1206  00C6  1703               	bsf	3,6	;RP1=1, select bank2
+  1207  00C7  086A               	movf	main@i^(0+256),w
+  1208  00C8  3E50               	addlw	(low (_car| 0))& (0+255)
+  1209  00C9  0084               	movwf	4
+  1210  00CA  1383               	bcf	3,7	;select IRP bank0
+  1211  00CB  0800               	movf	0,w
+  1212  00CC  1283               	bcf	3,5	;RP0=0, select bank0
+  1213  00CD  1303               	bcf	3,6	;RP1=0, select bank0
+  1214  00CE  00BD               	movwf	??_main+1
+  1215  00CF  083D               	movf	??_main+1,w
+  1216  00D0  00B5               	movwf	sendByte@valore
+  1217  00D1  3003               	movlw	3
+  1218  00D2  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1219                           
+  1220                           ;main.c: 178:                         sendByte(0x03, 0x03, truck[i]);
+  1221  00D7  3003               	movlw	3
+  1222  00D8  1283               	bcf	3,5	;RP0=0, select bank0
+  1223  00D9  1303               	bcf	3,6	;RP1=0, select bank0
+  1224  00DA  00BC               	movwf	??_main
+  1225  00DB  083C               	movf	??_main,w
+  1226  00DC  00B4               	movwf	sendByte@byte1
+  1227  00DD  1283               	bcf	3,5	;RP0=0, select bank2
+  1228  00DE  1703               	bsf	3,6	;RP1=1, select bank2
+  1229  00DF  086A               	movf	main@i^(0+256),w
+  1230  00E0  3E4C               	addlw	(low (_truck| 0))& (0+255)
+  1231  00E1  0084               	movwf	4
+  1232  00E2  1383               	bcf	3,7	;select IRP bank0
+  1233  00E3  0800               	movf	0,w
+  1234  00E4  1283               	bcf	3,5	;RP0=0, select bank0
+  1235  00E5  1303               	bcf	3,6	;RP1=0, select bank0
+  1236  00E6  00BD               	movwf	??_main+1
+  1237  00E7  083D               	movf	??_main+1,w
+  1238  00E8  00B5               	movwf	sendByte@valore
+  1239  00E9  3003               	movlw	3
+  1240  00EA  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1241                           
+  1242                           ;main.c: 179:                         break;
+  1243  00EF  29DA               	goto	l3236
+  1244  00F0                     l3226:	
+  1245                           
+  1246                           ;main.c: 181:                         sendByte(0x05, 0x01, motorcycle[i]);
+  1247  00F0  1283               	bcf	3,5	;RP0=0, select bank0
+  1248  00F1  1303               	bcf	3,6	;RP1=0, select bank0
+  1249  00F2  01B4               	clrf	sendByte@byte1
+  1250  00F3  0AB4               	incf	sendByte@byte1,f
+  1251  00F4  1283               	bcf	3,5	;RP0=0, select bank2
+  1252  00F5  1703               	bsf	3,6	;RP1=1, select bank2
+  1253  00F6  086A               	movf	main@i^(0+256),w
+  1254  00F7  3E54               	addlw	(low (_motorcycle| 0))& (0+255)
+  1255  00F8  0084               	movwf	4
+  1256  00F9  1383               	bcf	3,7	;select IRP bank0
+  1257  00FA  0800               	movf	0,w
+  1258  00FB  1283               	bcf	3,5	;RP0=0, select bank0
+  1259  00FC  1303               	bcf	3,6	;RP1=0, select bank0
+  1260  00FD  00BC               	movwf	??_main
+  1261  00FE  083C               	movf	??_main,w
+  1262  00FF  00B5               	movwf	sendByte@valore
+  1263  0100  3005               	movlw	5
+  1264  0101  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1265                           
+  1266                           ;main.c: 182:                         sendByte(0x05, 0x02, car[i]);
+  1267  0106  3002               	movlw	2
+  1268  0107  1283               	bcf	3,5	;RP0=0, select bank0
+  1269  0108  1303               	bcf	3,6	;RP1=0, select bank0
+  1270  0109  00BC               	movwf	??_main
+  1271  010A  083C               	movf	??_main,w
+  1272  010B  00B4               	movwf	sendByte@byte1
+  1273  010C  1283               	bcf	3,5	;RP0=0, select bank2
+  1274  010D  1703               	bsf	3,6	;RP1=1, select bank2
+  1275  010E  086A               	movf	main@i^(0+256),w
+  1276  010F  3E50               	addlw	(low (_car| 0))& (0+255)
+  1277  0110  0084               	movwf	4
+  1278  0111  1383               	bcf	3,7	;select IRP bank0
+  1279  0112  0800               	movf	0,w
+  1280  0113  1283               	bcf	3,5	;RP0=0, select bank0
+  1281  0114  1303               	bcf	3,6	;RP1=0, select bank0
+  1282  0115  00BD               	movwf	??_main+1
+  1283  0116  083D               	movf	??_main+1,w
+  1284  0117  00B5               	movwf	sendByte@valore
+  1285  0118  3005               	movlw	5
+  1286  0119  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1287                           
-  1288                           ;main.c: 170:                 for (int i = 0; i < 4; i++)
-  1289  0120  1683               	bsf	3,5	;RP0=1, select bank3
-  1290  0121  1703               	bsf	3,6	;RP1=1, select bank3
-  1291  0122  01E5               	clrf	main@i_457^(0+384)
-  1292  0123  01E6               	clrf	(main@i_457+1)^(0+384)
-  1293  0124                     l2953:	
-  1294                           
-  1295                           ;main.c: 171:                 {;main.c: 172:                     motorcycle[i] = 0;
-  1296  0124  1683               	bsf	3,5	;RP0=1, select bank3
-  1297  0125  1703               	bsf	3,6	;RP1=1, select bank3
-  1298  0126  0865               	movf	main@i_457^(0+384),w
-  1299  0127  3E5F               	addlw	(low (_motorcycle| 0))& (0+255)
-  1300  0128  0084               	movwf	4
-  1301  0129  1383               	bcf	3,7	;select IRP bank0
-  1302  012A  0180               	clrf	0
-  1303                           
-  1304                           ;main.c: 173:                     car[i] = 0;
-  1305  012B  0865               	movf	main@i_457^(0+384),w
-  1306  012C  3E5B               	addlw	(low (_car| 0))& (0+255)
-  1307  012D  0084               	movwf	4
-  1308  012E  0180               	clrf	0
+  1288                           ;main.c: 183:                         sendByte(0x05, 0x03, truck[i]);
+  1289  011E  3003               	movlw	3
+  1290  011F  1283               	bcf	3,5	;RP0=0, select bank0
+  1291  0120  1303               	bcf	3,6	;RP1=0, select bank0
+  1292  0121  00BC               	movwf	??_main
+  1293  0122  083C               	movf	??_main,w
+  1294  0123  00B4               	movwf	sendByte@byte1
+  1295  0124  1283               	bcf	3,5	;RP0=0, select bank2
+  1296  0125  1703               	bsf	3,6	;RP1=1, select bank2
+  1297  0126  086A               	movf	main@i^(0+256),w
+  1298  0127  3E4C               	addlw	(low (_truck| 0))& (0+255)
+  1299  0128  0084               	movwf	4
+  1300  0129  1383               	bcf	3,7	;select IRP bank0
+  1301  012A  0800               	movf	0,w
+  1302  012B  1283               	bcf	3,5	;RP0=0, select bank0
+  1303  012C  1303               	bcf	3,6	;RP1=0, select bank0
+  1304  012D  00BD               	movwf	??_main+1
+  1305  012E  083D               	movf	??_main+1,w
+  1306  012F  00B5               	movwf	sendByte@valore
+  1307  0130  3005               	movlw	5
+  1308  0131  120A  158A  23A8  120A  118A  	fcall	_sendByte
   1309                           
-  1310                           ;main.c: 174:                     truck[i] = 0;
-  1311  012F  0865               	movf	main@i_457^(0+384),w
-  1312  0130  3EE9               	addlw	(low (_truck| 0))& (0+255)
-  1313  0131  0084               	movwf	4
-  1314  0132  0180               	clrf	0
-  1315  0133                     l2955:	
-  1316                           
-  1317                           ;main.c: 175:                 }
-  1318  0133  3001               	movlw	1
-  1319  0134  07E5               	addwf	main@i_457^(0+384),f
-  1320  0135  1803               	skipnc
-  1321  0136  0AE6               	incf	(main@i_457+1)^(0+384),f
-  1322  0137  3000               	movlw	0
-  1323  0138  07E6               	addwf	(main@i_457+1)^(0+384),f
-  1324  0139                     l2957:	
-  1325  0139  0866               	movf	(main@i_457+1)^(0+384),w
-  1326  013A  3A80               	xorlw	128
-  1327  013B  00FF               	movwf	btemp+1
-  1328  013C  3080               	movlw	128
-  1329  013D  027F               	subwf	btemp+1,w
-  1330  013E  1D03               	skipz
-  1331  013F  2942               	goto	u2875
-  1332  0140  3004               	movlw	4
-  1333  0141  0265               	subwf	main@i_457^(0+384),w
-  1334  0142                     u2875:	
-  1335  0142  1C03               	skipc
-  1336  0143  2945               	goto	u2871
-  1337  0144  2946               	goto	u2870
-  1338  0145                     u2871:	
-  1339  0145  2924               	goto	l2953
-  1340  0146                     u2870:	
-  1341  0146                     l2959:	
-  1342                           
-  1343                           ;main.c: 177:                 for (unsigned char i = 0; i < 5; i++)
-  1344  0146  1683               	bsf	3,5	;RP0=1, select bank3
-  1345  0147  1703               	bsf	3,6	;RP1=1, select bank3
-  1346  0148  01E2               	clrf	main@i_458^(0+384)
-  1347  0149                     l2965:	
-  1348                           
-  1349                           ;main.c: 178:                 {;main.c: 179:                     dataFromGateway[i] = 0;
-  1350  0149  0862               	movf	main@i_458^(0+384),w
-  1351  014A  3E90               	addlw	(low (_dataFromGateway| (0+256)))& (0+255)
-  1352  014B  0084               	movwf	4
-  1353  014C  1783               	bsf	3,7	;select IRP bank3
-  1354  014D  0180               	clrf	0
-  1355  014E                     l2967:	
-  1356                           
-  1357                           ;main.c: 180:                 }
-  1358  014E  3001               	movlw	1
-  1359  014F  1283               	bcf	3,5	;RP0=0, select bank0
-  1360  0150  1303               	bcf	3,6	;RP1=0, select bank0
-  1361  0151  00C0               	movwf	??_main
-  1362  0152  0840               	movf	??_main,w
-  1363  0153  1683               	bsf	3,5	;RP0=1, select bank3
-  1364  0154  1703               	bsf	3,6	;RP1=1, select bank3
-  1365  0155  07E2               	addwf	main@i_458^(0+384),f
-  1366  0156                     l2969:	
-  1367  0156  3005               	movlw	5
-  1368  0157  0262               	subwf	main@i_458^(0+384),w
-  1369  0158  1C03               	skipc
-  1370  0159  295B               	goto	u2881
-  1371  015A  295C               	goto	u2880
-  1372  015B                     u2881:	
-  1373  015B  2949               	goto	l2965
-  1374  015C                     u2880:	
-  1375  015C  2A66               	goto	l257
-  1376  015D                     l267:	
-  1377                           ;main.c: 182:             case 0x0A:
-  1378                           
-  1379                           
-  1380                           ;main.c: 183:                 readGatewayDone.Bit = 1;
-  1381  015D  145A               	bsf	_readGatewayDone,0
-  1382                           
-  1383                           ;main.c: 184:                 readGateway.Bit = 0;
-  1384  015E  1059               	bcf	_readGateway,0
-  1385  015F                     l2971:	
-  1386                           
-  1387                           ;main.c: 186:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
-  1388  015F  3000               	movlw	0
-  1389  0160  120A  158A  2569  120A  118A  	fcall	_ADC_Read
-  1390  0165  1283               	bcf	3,5	;RP0=0, select bank0
-  1391  0166  1303               	bcf	3,6	;RP1=0, select bank0
-  1392  0167  0824               	movf	?_ADC_Read,w
-  1393  0168  00C0               	movwf	??_main
-  1394  0169  0825               	movf	?_ADC_Read+1,w
-  1395  016A  00C1               	movwf	??_main+1
-  1396  016B  0D41               	rlf	??_main+1,w
-  1397  016C  0CC1               	rrf	??_main+1,f
-  1398  016D  0CC0               	rrf	??_main,f
-  1399  016E  0D41               	rlf	??_main+1,w
-  1400  016F  0CC1               	rrf	??_main+1,f
-  1401  0170  0CC0               	rrf	??_main,f
-  1402  0171  0840               	movf	??_main,w
-  1403  0172  00B4               	movwf	map@x
-  1404  0173  0841               	movf	??_main+1,w
-  1405  0174  00B5               	movwf	map@x+1
-  1406  0175  3000               	movlw	0
-  1407  0176  00B6               	movwf	map@in_min
-  1408  0177  00B7               	movwf	map@in_min+1
-  1409  0178  30FF               	movlw	255
-  1410  0179  00B8               	movwf	map@in_max
-  1411  017A  3000               	movlw	0
-  1412  017B  00B9               	movwf	map@in_max+1
-  1413  017C  30EC               	movlw	236
-  1414  017D  00BA               	movwf	map@out_min
-  1415  017E  30FF               	movlw	255
-  1416  017F  00BB               	movwf	map@out_min+1
-  1417  0180  303C               	movlw	60
-  1418  0181  00BC               	movwf	map@out_max
-  1419  0182  3000               	movlw	0
-  1420  0183  00BD               	movwf	map@out_max+1
-  1421  0184  120A  158A  25E7  120A  118A  	fcall	_map
-  1422  0189  1283               	bcf	3,5	;RP0=0, select bank0
-  1423  018A  1303               	bcf	3,6	;RP1=0, select bank0
-  1424  018B  0834               	movf	?_map,w
-  1425  018C  00C2               	movwf	??_main+2
-  1426  018D  0842               	movf	??_main+2,w
-  1427  018E  1683               	bsf	3,5	;RP0=1, select bank3
-  1428  018F  1703               	bsf	3,6	;RP1=1, select bank3
-  1429  0190  00DD               	movwf	main@temp^(0+384)
-  1430                           
-  1431                           ;main.c: 187:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-  1432  0191  3001               	movlw	1
-  1433  0192  120A  158A  2569  120A  118A  	fcall	_ADC_Read
-  1434  0197  1283               	bcf	3,5	;RP0=0, select bank0
-  1435  0198  1303               	bcf	3,6	;RP1=0, select bank0
-  1436  0199  0824               	movf	?_ADC_Read,w
-  1437  019A  00C0               	movwf	??_main
-  1438  019B  0825               	movf	?_ADC_Read+1,w
-  1439  019C  00C1               	movwf	??_main+1
-  1440  019D  0D41               	rlf	??_main+1,w
-  1441  019E  0CC1               	rrf	??_main+1,f
-  1442  019F  0CC0               	rrf	??_main,f
-  1443  01A0  0D41               	rlf	??_main+1,w
-  1444  01A1  0CC1               	rrf	??_main+1,f
-  1445  01A2  0CC0               	rrf	??_main,f
-  1446  01A3  0840               	movf	??_main,w
-  1447  01A4  00B4               	movwf	map@x
-  1448  01A5  0841               	movf	??_main+1,w
-  1449  01A6  00B5               	movwf	map@x+1
-  1450  01A7  3000               	movlw	0
-  1451  01A8  00B6               	movwf	map@in_min
-  1452  01A9  00B7               	movwf	map@in_min+1
-  1453  01AA  30FF               	movlw	255
-  1454  01AB  00B8               	movwf	map@in_max
-  1455  01AC  3000               	movlw	0
-  1456  01AD  00B9               	movwf	map@in_max+1
-  1457  01AE  3000               	movlw	0
-  1458  01AF  00BA               	movwf	map@out_min
-  1459  01B0  00BB               	movwf	map@out_min+1
-  1460  01B1  3064               	movlw	100
-  1461  01B2  00BC               	movwf	map@out_max
-  1462  01B3  3000               	movlw	0
-  1463  01B4  00BD               	movwf	map@out_max+1
-  1464  01B5  120A  158A  25E7  120A  118A  	fcall	_map
-  1465  01BA  1283               	bcf	3,5	;RP0=0, select bank0
-  1466  01BB  1303               	bcf	3,6	;RP1=0, select bank0
-  1467  01BC  0834               	movf	?_map,w
-  1468  01BD  00C2               	movwf	??_main+2
-  1469  01BE  0842               	movf	??_main+2,w
-  1470  01BF  1683               	bsf	3,5	;RP0=1, select bank3
-  1471  01C0  1703               	bsf	3,6	;RP1=1, select bank3
-  1472  01C1  00DE               	movwf	main@umidita^(0+384)
-  1473                           
-  1474                           ;main.c: 188:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-  1475  01C2  3005               	movlw	5
-  1476  01C3  120A  158A  2569  120A  118A  	fcall	_ADC_Read
-  1477  01C8  1283               	bcf	3,5	;RP0=0, select bank0
-  1478  01C9  1303               	bcf	3,6	;RP1=0, select bank0
-  1479  01CA  0824               	movf	?_ADC_Read,w
-  1480  01CB  00C0               	movwf	??_main
-  1481  01CC  0825               	movf	?_ADC_Read+1,w
-  1482  01CD  00C1               	movwf	??_main+1
-  1483  01CE  0D41               	rlf	??_main+1,w
-  1484  01CF  0CC1               	rrf	??_main+1,f
-  1485  01D0  0CC0               	rrf	??_main,f
-  1486  01D1  0D41               	rlf	??_main+1,w
-  1487  01D2  0CC1               	rrf	??_main+1,f
-  1488  01D3  0CC0               	rrf	??_main,f
-  1489  01D4  0840               	movf	??_main,w
-  1490  01D5  00B4               	movwf	map@x
-  1491  01D6  0841               	movf	??_main+1,w
-  1492  01D7  00B5               	movwf	map@x+1
-  1493  01D8  3000               	movlw	0
-  1494  01D9  00B6               	movwf	map@in_min
-  1495  01DA  00B7               	movwf	map@in_min+1
-  1496  01DB  30FF               	movlw	255
-  1497  01DC  00B8               	movwf	map@in_max
-  1498  01DD  3000               	movlw	0
-  1499  01DE  00B9               	movwf	map@in_max+1
-  1500  01DF  3000               	movlw	0
-  1501  01E0  00BA               	movwf	map@out_min
-  1502  01E1  00BB               	movwf	map@out_min+1
-  1503  01E2  3064               	movlw	100
-  1504  01E3  00BC               	movwf	map@out_max
-  1505  01E4  3000               	movlw	0
-  1506  01E5  00BD               	movwf	map@out_max+1
-  1507  01E6  120A  158A  25E7  120A  118A  	fcall	_map
-  1508  01EB  1283               	bcf	3,5	;RP0=0, select bank0
-  1509  01EC  1303               	bcf	3,6	;RP1=0, select bank0
-  1510  01ED  0834               	movf	?_map,w
-  1511  01EE  00C2               	movwf	??_main+2
-  1512  01EF  0842               	movf	??_main+2,w
-  1513  01F0  1683               	bsf	3,5	;RP0=1, select bank3
-  1514  01F1  1703               	bsf	3,6	;RP1=1, select bank3
-  1515  01F2  00DF               	movwf	main@pressione^(0+384)
-  1516  01F3                     l2973:	
-  1517                           
-  1518                           ;main.c: 189:                 sendByte(0x02, 0x00, temp);
-  1519  01F3  1283               	bcf	3,5	;RP0=0, select bank0
-  1520  01F4  1303               	bcf	3,6	;RP1=0, select bank0
-  1521  01F5  01B8               	clrf	sendByte@byte1
-  1522  01F6  1683               	bsf	3,5	;RP0=1, select bank3
-  1523  01F7  1703               	bsf	3,6	;RP1=1, select bank3
-  1524  01F8  085D               	movf	main@temp^(0+384),w
-  1525  01F9  1283               	bcf	3,5	;RP0=0, select bank0
-  1526  01FA  1303               	bcf	3,6	;RP1=0, select bank0
-  1527  01FB  00C0               	movwf	??_main
-  1528  01FC  0840               	movf	??_main,w
-  1529  01FD  00B9               	movwf	sendByte@valore
-  1530  01FE  3002               	movlw	2
-  1531  01FF  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1532  0204                     l2975:	
-  1533                           
-  1534                           ;main.c: 190:                 sendByte(0x04, 0x00, umidita);
-  1535  0204  1283               	bcf	3,5	;RP0=0, select bank0
-  1536  0205  1303               	bcf	3,6	;RP1=0, select bank0
-  1537  0206  01B8               	clrf	sendByte@byte1
-  1538  0207  1683               	bsf	3,5	;RP0=1, select bank3
-  1539  0208  1703               	bsf	3,6	;RP1=1, select bank3
-  1540  0209  085E               	movf	main@umidita^(0+384),w
-  1541  020A  1283               	bcf	3,5	;RP0=0, select bank0
-  1542  020B  1303               	bcf	3,6	;RP1=0, select bank0
-  1543  020C  00C0               	movwf	??_main
-  1544  020D  0840               	movf	??_main,w
-  1545  020E  00B9               	movwf	sendByte@valore
-  1546  020F  3004               	movlw	4
-  1547  0210  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1548  0215                     l2977:	
-  1549                           
-  1550                           ;main.c: 191:                 sendByte(0x06, 0x00, pressione);
-  1551  0215  1283               	bcf	3,5	;RP0=0, select bank0
-  1552  0216  1303               	bcf	3,6	;RP1=0, select bank0
-  1553  0217  01B8               	clrf	sendByte@byte1
-  1554  0218  1683               	bsf	3,5	;RP0=1, select bank3
-  1555  0219  1703               	bsf	3,6	;RP1=1, select bank3
-  1556  021A  085F               	movf	main@pressione^(0+384),w
-  1557  021B  1283               	bcf	3,5	;RP0=0, select bank0
-  1558  021C  1303               	bcf	3,6	;RP1=0, select bank0
-  1559  021D  00C0               	movwf	??_main
-  1560  021E  0840               	movf	??_main,w
-  1561  021F  00B9               	movwf	sendByte@valore
-  1562  0220  3006               	movlw	6
-  1563  0221  120A  158A  25B6  120A  118A  	fcall	_sendByte
-  1564  0226                     l2979:	
-  1565                           
-  1566                           ;main.c: 193:                 for (unsigned char i = 0; i < 5; i++)
-  1567  0226  1683               	bsf	3,5	;RP0=1, select bank3
-  1568  0227  1703               	bsf	3,6	;RP1=1, select bank3
-  1569  0228  01E3               	clrf	main@i_460^(0+384)
-  1570  0229                     l2981:	
-  1571  0229  3005               	movlw	5
-  1572  022A  0263               	subwf	main@i_460^(0+384),w
-  1573  022B  1C03               	skipc
-  1574  022C  2A2E               	goto	u2891
-  1575  022D  2A2F               	goto	u2890
-  1576  022E                     u2891:	
-  1577  022E  2A30               	goto	l2985
-  1578  022F                     u2890:	
-  1579  022F  2A66               	goto	l257
-  1580  0230                     l2985:	
-  1581                           
-  1582                           ;main.c: 194:                 {;main.c: 195:                     dataFromGateway[i] = 0;
-  1583  0230  0863               	movf	main@i_460^(0+384),w
-  1584  0231  3E90               	addlw	(low (_dataFromGateway| (0+256)))& (0+255)
-  1585  0232  0084               	movwf	4
-  1586  0233  1783               	bsf	3,7	;select IRP bank3
-  1587  0234  0180               	clrf	0
-  1588  0235                     l2987:	
-  1589                           
-  1590                           ;main.c: 196:                 }
-  1591  0235  3001               	movlw	1
-  1592  0236  1283               	bcf	3,5	;RP0=0, select bank0
-  1593  0237  1303               	bcf	3,6	;RP1=0, select bank0
-  1594  0238  00C0               	movwf	??_main
-  1595  0239  0840               	movf	??_main,w
-  1596  023A  1683               	bsf	3,5	;RP0=1, select bank3
-  1597  023B  1703               	bsf	3,6	;RP1=1, select bank3
-  1598  023C  07E3               	addwf	main@i_460^(0+384),f
-  1599  023D  2A29               	goto	l2981
-  1600  023E                     l2991:	
-  1601                           
-  1602                           ;main.c: 200:                 if (timerReadFromGateway >= 4)
-  1603  023E  3004               	movlw	4
-  1604  023F  0250               	subwf	_timerReadFromGateway,w
-  1605  0240  1C03               	skipc
-  1606  0241  2A43               	goto	u2901
-  1607  0242  2A44               	goto	u2900
-  1608  0243                     u2901:	
-  1609  0243  2A47               	goto	l2995
-  1610  0244                     u2900:	
-  1611  0244                     l2993:	
-  1612                           
-  1613                           ;main.c: 201:                 {;main.c: 202:                     readGatewayDone.Bit = 1
+  1310                           ;main.c: 184:                         break;
+  1311  0136  29DA               	goto	l3236
+  1312  0137                     l3228:	
+  1313                           
+  1314                           ;main.c: 186:                         sendByte(0x07, 0x01, motorcycle[i]);
+  1315  0137  1283               	bcf	3,5	;RP0=0, select bank0
+  1316  0138  1303               	bcf	3,6	;RP1=0, select bank0
+  1317  0139  01B4               	clrf	sendByte@byte1
+  1318  013A  0AB4               	incf	sendByte@byte1,f
+  1319  013B  1283               	bcf	3,5	;RP0=0, select bank2
+  1320  013C  1703               	bsf	3,6	;RP1=1, select bank2
+  1321  013D  086A               	movf	main@i^(0+256),w
+  1322  013E  3E54               	addlw	(low (_motorcycle| 0))& (0+255)
+  1323  013F  0084               	movwf	4
+  1324  0140  1383               	bcf	3,7	;select IRP bank0
+  1325  0141  0800               	movf	0,w
+  1326  0142  1283               	bcf	3,5	;RP0=0, select bank0
+  1327  0143  1303               	bcf	3,6	;RP1=0, select bank0
+  1328  0144  00BC               	movwf	??_main
+  1329  0145  083C               	movf	??_main,w
+  1330  0146  00B5               	movwf	sendByte@valore
+  1331  0147  3007               	movlw	7
+  1332  0148  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1333                           
+  1334                           ;main.c: 187:                         sendByte(0x07, 0x02, car[i]);
+  1335  014D  3002               	movlw	2
+  1336  014E  1283               	bcf	3,5	;RP0=0, select bank0
+  1337  014F  1303               	bcf	3,6	;RP1=0, select bank0
+  1338  0150  00BC               	movwf	??_main
+  1339  0151  083C               	movf	??_main,w
+  1340  0152  00B4               	movwf	sendByte@byte1
+  1341  0153  1283               	bcf	3,5	;RP0=0, select bank2
+  1342  0154  1703               	bsf	3,6	;RP1=1, select bank2
+  1343  0155  086A               	movf	main@i^(0+256),w
+  1344  0156  3E50               	addlw	(low (_car| 0))& (0+255)
+  1345  0157  0084               	movwf	4
+  1346  0158  1383               	bcf	3,7	;select IRP bank0
+  1347  0159  0800               	movf	0,w
+  1348  015A  1283               	bcf	3,5	;RP0=0, select bank0
+  1349  015B  1303               	bcf	3,6	;RP1=0, select bank0
+  1350  015C  00BD               	movwf	??_main+1
+  1351  015D  083D               	movf	??_main+1,w
+  1352  015E  00B5               	movwf	sendByte@valore
+  1353  015F  3007               	movlw	7
+  1354  0160  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1355                           
+  1356                           ;main.c: 188:                         sendByte(0x07, 0x03, truck[i]);
+  1357  0165  3003               	movlw	3
+  1358  0166  1283               	bcf	3,5	;RP0=0, select bank0
+  1359  0167  1303               	bcf	3,6	;RP1=0, select bank0
+  1360  0168  00BC               	movwf	??_main
+  1361  0169  083C               	movf	??_main,w
+  1362  016A  00B4               	movwf	sendByte@byte1
+  1363  016B  1283               	bcf	3,5	;RP0=0, select bank2
+  1364  016C  1703               	bsf	3,6	;RP1=1, select bank2
+  1365  016D  086A               	movf	main@i^(0+256),w
+  1366  016E  3E4C               	addlw	(low (_truck| 0))& (0+255)
+  1367  016F  0084               	movwf	4
+  1368  0170  1383               	bcf	3,7	;select IRP bank0
+  1369  0171  0800               	movf	0,w
+  1370  0172  1283               	bcf	3,5	;RP0=0, select bank0
+  1371  0173  1303               	bcf	3,6	;RP1=0, select bank0
+  1372  0174  00BD               	movwf	??_main+1
+  1373  0175  083D               	movf	??_main+1,w
+  1374  0176  00B5               	movwf	sendByte@valore
+  1375  0177  3007               	movlw	7
+  1376  0178  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1377                           
+  1378                           ;main.c: 189:                         break;
+  1379  017D  29DA               	goto	l3236
+  1380  017E                     l3230:	
+  1381                           
+  1382                           ;main.c: 191:                         sendByte(0x09, 0x01, motorcycle[i]);
+  1383  017E  1283               	bcf	3,5	;RP0=0, select bank0
+  1384  017F  1303               	bcf	3,6	;RP1=0, select bank0
+  1385  0180  01B4               	clrf	sendByte@byte1
+  1386  0181  0AB4               	incf	sendByte@byte1,f
+  1387  0182  1283               	bcf	3,5	;RP0=0, select bank2
+  1388  0183  1703               	bsf	3,6	;RP1=1, select bank2
+  1389  0184  086A               	movf	main@i^(0+256),w
+  1390  0185  3E54               	addlw	(low (_motorcycle| 0))& (0+255)
+  1391  0186  0084               	movwf	4
+  1392  0187  1383               	bcf	3,7	;select IRP bank0
+  1393  0188  0800               	movf	0,w
+  1394  0189  1283               	bcf	3,5	;RP0=0, select bank0
+  1395  018A  1303               	bcf	3,6	;RP1=0, select bank0
+  1396  018B  00BC               	movwf	??_main
+  1397  018C  083C               	movf	??_main,w
+  1398  018D  00B5               	movwf	sendByte@valore
+  1399  018E  3009               	movlw	9
+  1400  018F  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1401                           
+  1402                           ;main.c: 192:                         sendByte(0x09, 0x02, car[i]);
+  1403  0194  3002               	movlw	2
+  1404  0195  1283               	bcf	3,5	;RP0=0, select bank0
+  1405  0196  1303               	bcf	3,6	;RP1=0, select bank0
+  1406  0197  00BC               	movwf	??_main
+  1407  0198  083C               	movf	??_main,w
+  1408  0199  00B4               	movwf	sendByte@byte1
+  1409  019A  1283               	bcf	3,5	;RP0=0, select bank2
+  1410  019B  1703               	bsf	3,6	;RP1=1, select bank2
+  1411  019C  086A               	movf	main@i^(0+256),w
+  1412  019D  3E50               	addlw	(low (_car| 0))& (0+255)
+  1413  019E  0084               	movwf	4
+  1414  019F  1383               	bcf	3,7	;select IRP bank0
+  1415  01A0  0800               	movf	0,w
+  1416  01A1  1283               	bcf	3,5	;RP0=0, select bank0
+  1417  01A2  1303               	bcf	3,6	;RP1=0, select bank0
+  1418  01A3  00BD               	movwf	??_main+1
+  1419  01A4  083D               	movf	??_main+1,w
+  1420  01A5  00B5               	movwf	sendByte@valore
+  1421  01A6  3009               	movlw	9
+  1422  01A7  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1423                           
+  1424                           ;main.c: 193:                         sendByte(0x09, 0x03, truck[i]);
+  1425  01AC  3003               	movlw	3
+  1426  01AD  1283               	bcf	3,5	;RP0=0, select bank0
+  1427  01AE  1303               	bcf	3,6	;RP1=0, select bank0
+  1428  01AF  00BC               	movwf	??_main
+  1429  01B0  083C               	movf	??_main,w
+  1430  01B1  00B4               	movwf	sendByte@byte1
+  1431  01B2  1283               	bcf	3,5	;RP0=0, select bank2
+  1432  01B3  1703               	bsf	3,6	;RP1=1, select bank2
+  1433  01B4  086A               	movf	main@i^(0+256),w
+  1434  01B5  3E4C               	addlw	(low (_truck| 0))& (0+255)
+  1435  01B6  0084               	movwf	4
+  1436  01B7  1383               	bcf	3,7	;select IRP bank0
+  1437  01B8  0800               	movf	0,w
+  1438  01B9  1283               	bcf	3,5	;RP0=0, select bank0
+  1439  01BA  1303               	bcf	3,6	;RP1=0, select bank0
+  1440  01BB  00BD               	movwf	??_main+1
+  1441  01BC  083D               	movf	??_main+1,w
+  1442  01BD  00B5               	movwf	sendByte@valore
+  1443  01BE  3009               	movlw	9
+  1444  01BF  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1445                           
+  1446                           ;main.c: 194:                         break;
+  1447  01C4  29DA               	goto	l3236
+  1448  01C5                     l3234:	
+  1449                           
+  1450                           ; Switch on 2 bytes has been partitioned into a top level switch of size 1, and 1 sub-sw
+      +                          itches
+  1451                           ; Switch size 1, requested type "simple"
+  1452                           ; Number of cases is 1, Range of values is 0 to 0
+  1453                           ; switch strategies available:
+  1454                           ; Name         Instructions Cycles
+  1455                           ; simple_byte            4     3 (average)
+  1456                           ; direct_byte           11     8 (fixed)
+  1457                           ; jumptable            260     6 (fixed)
+  1458                           ;	Chosen strategy is simple_byte
+  1459  01C5  1283               	bcf	3,5	;RP0=0, select bank2
+  1460  01C6  1703               	bsf	3,6	;RP1=1, select bank2
+  1461  01C7  086B               	movf	(main@i+1)^(0+256),w
+  1462  01C8  3A00               	xorlw	0	; case 0
+  1463  01C9  1903               	skipnz
+  1464  01CA  29CC               	goto	l3550
+  1465  01CB  29DA               	goto	l3236
+  1466  01CC                     l3550:	
+  1467                           
+  1468                           ; Switch size 1, requested type "simple"
+  1469                           ; Number of cases is 4, Range of values is 0 to 3
+  1470                           ; switch strategies available:
+  1471                           ; Name         Instructions Cycles
+  1472                           ; simple_byte           13     7 (average)
+  1473                           ; direct_byte           20     8 (fixed)
+  1474                           ; jumptable            260     6 (fixed)
+  1475                           ;	Chosen strategy is simple_byte
+  1476  01CC  086A               	movf	main@i^(0+256),w
+  1477  01CD  3A00               	xorlw	0	; case 0
+  1478  01CE  1903               	skipnz
+  1479  01CF  28A9               	goto	l3224
+  1480  01D0  3A01               	xorlw	1	; case 1
+  1481  01D1  1903               	skipnz
+  1482  01D2  28F0               	goto	l3226
+  1483  01D3  3A03               	xorlw	3	; case 2
+  1484  01D4  1903               	skipnz
+  1485  01D5  2937               	goto	l3228
+  1486  01D6  3A01               	xorlw	1	; case 3
+  1487  01D7  1903               	skipnz
+  1488  01D8  297E               	goto	l3230
+  1489  01D9  29DA               	goto	l3236
+  1490  01DA                     l3236:	
+  1491                           
+  1492                           ;main.c: 196:                 }
+  1493  01DA  3001               	movlw	1
+  1494  01DB  1283               	bcf	3,5	;RP0=0, select bank2
+  1495  01DC  1703               	bsf	3,6	;RP1=1, select bank2
+  1496  01DD  07EA               	addwf	main@i^(0+256),f
+  1497  01DE  1803               	skipnc
+  1498  01DF  0AEB               	incf	(main@i+1)^(0+256),f
+  1499  01E0  3000               	movlw	0
+  1500  01E1  07EB               	addwf	(main@i+1)^(0+256),f
+  1501  01E2                     l3238:	
+  1502  01E2  086B               	movf	(main@i+1)^(0+256),w
+  1503  01E3  3A80               	xorlw	128
+  1504  01E4  00FF               	movwf	btemp+1
+  1505  01E5  3080               	movlw	128
+  1506  01E6  027F               	subwf	btemp+1,w
+  1507  01E7  1D03               	skipz
+  1508  01E8  29EB               	goto	u3225
+  1509  01E9  3004               	movlw	4
+  1510  01EA  026A               	subwf	main@i^(0+256),w
+  1511  01EB                     u3225:	
+  1512  01EB  1C03               	skipc
+  1513  01EC  29EE               	goto	u3221
+  1514  01ED  29EF               	goto	u3220
+  1515  01EE                     u3221:	
+  1516  01EE  29C5               	goto	l3234
+  1517  01EF                     u3220:	
+  1518  01EF                     l3240:	
+  1519                           
+  1520                           ;main.c: 198:                 for (int i = 0; i < 4; i++)
+  1521  01EF  1283               	bcf	3,5	;RP0=0, select bank2
+  1522  01F0  1703               	bsf	3,6	;RP1=1, select bank2
+  1523  01F1  01E6               	clrf	main@i_436^(0+256)
+  1524  01F2  01E7               	clrf	(main@i_436+1)^(0+256)
+  1525  01F3                     l3242:	
+  1526  01F3  0867               	movf	(main@i_436+1)^(0+256),w
+  1527  01F4  3A80               	xorlw	128
+  1528  01F5  00FF               	movwf	btemp+1
+  1529  01F6  3080               	movlw	128
+  1530  01F7  027F               	subwf	btemp+1,w
+  1531  01F8  1D03               	skipz
+  1532  01F9  29FC               	goto	u3235
+  1533  01FA  3004               	movlw	4
+  1534  01FB  0266               	subwf	main@i_436^(0+256),w
+  1535  01FC                     u3235:	
+  1536  01FC  1C03               	skipc
+  1537  01FD  29FF               	goto	u3231
+  1538  01FE  2A00               	goto	u3230
+  1539  01FF                     u3231:	
+  1540  01FF  2A01               	goto	l3246
+  1541  0200                     u3230:	
+  1542  0200  2A17               	goto	l3252
+  1543  0201                     l3246:	
+  1544                           
+  1545                           ;main.c: 199:                 {;main.c: 200:                     motorcycle[i] = 0;
+  1546  0201  1283               	bcf	3,5	;RP0=0, select bank2
+  1547  0202  1703               	bsf	3,6	;RP1=1, select bank2
+  1548  0203  0866               	movf	main@i_436^(0+256),w
+  1549  0204  3E54               	addlw	(low (_motorcycle| 0))& (0+255)
+  1550  0205  0084               	movwf	4
+  1551  0206  1383               	bcf	3,7	;select IRP bank0
+  1552  0207  0180               	clrf	0
+  1553                           
+  1554                           ;main.c: 201:                     car[i] = 0;
+  1555  0208  0866               	movf	main@i_436^(0+256),w
+  1556  0209  3E50               	addlw	(low (_car| 0))& (0+255)
+  1557  020A  0084               	movwf	4
+  1558  020B  0180               	clrf	0
+  1559                           
+  1560                           ;main.c: 202:                     truck[i] = 0;
+  1561  020C  0866               	movf	main@i_436^(0+256),w
+  1562  020D  3E4C               	addlw	(low (_truck| 0))& (0+255)
+  1563  020E  0084               	movwf	4
+  1564  020F  0180               	clrf	0
+  1565  0210                     l3248:	
+  1566                           
+  1567                           ;main.c: 203:                 }
+  1568  0210  3001               	movlw	1
+  1569  0211  07E6               	addwf	main@i_436^(0+256),f
+  1570  0212  1803               	skipnc
+  1571  0213  0AE7               	incf	(main@i_436+1)^(0+256),f
+  1572  0214  3000               	movlw	0
+  1573  0215  07E7               	addwf	(main@i_436+1)^(0+256),f
+  1574  0216  29F3               	goto	l3242
+  1575  0217                     l3252:	
+  1576                           
+  1577                           ;main.c: 205:                 for (unsigned char i = 0; i < 5; i++)
+  1578  0217  1283               	bcf	3,5	;RP0=0, select bank2
+  1579  0218  1703               	bsf	3,6	;RP1=1, select bank2
+  1580  0219  01E3               	clrf	main@i_437^(0+256)
+  1581  021A                     l3254:	
+  1582  021A  3005               	movlw	5
+  1583  021B  0263               	subwf	main@i_437^(0+256),w
+  1584  021C  1C03               	skipc
+  1585  021D  2A1F               	goto	u3241
+  1586  021E  2A20               	goto	u3240
+  1587  021F                     u3241:	
+  1588  021F  2A21               	goto	l3258
+  1589  0220                     u3240:	
+  1590  0220  2B38               	goto	l212
+  1591  0221                     l3258:	
+  1592                           
+  1593                           ;main.c: 206:                 {;main.c: 207:                     dataFromGateway[i] = 0;
+  1594  0221  0863               	movf	main@i_437^(0+256),w
+  1595  0222  3EA0               	addlw	(low (_dataFromGateway| 0))& (0+255)
+  1596  0223  0084               	movwf	4
+  1597  0224  1383               	bcf	3,7	;select IRP bank1
+  1598  0225  0180               	clrf	0
+  1599  0226                     l3260:	
+  1600                           
+  1601                           ;main.c: 208:                 }
+  1602  0226  3001               	movlw	1
+  1603  0227  1283               	bcf	3,5	;RP0=0, select bank0
+  1604  0228  1303               	bcf	3,6	;RP1=0, select bank0
+  1605  0229  00BC               	movwf	??_main
+  1606  022A  083C               	movf	??_main,w
+  1607  022B  1283               	bcf	3,5	;RP0=0, select bank2
+  1608  022C  1703               	bsf	3,6	;RP1=1, select bank2
+  1609  022D  07E3               	addwf	main@i_437^(0+256),f
+  1610  022E  2A1A               	goto	l3254
+  1611  022F                     l228:	
+  1612                           ;main.c: 210:             case 0x0A:
+  1613                           
+  1614                           
+  1615                           ;main.c: 211:                 readGatewayDone.Bit = 1;
+  1616  022F  1464               	bsf	_readGatewayDone,0
+  1617                           
+  1618                           ;main.c: 212:                 readGateway.Bit = 0;
+  1619  0230  1063               	bcf	_readGateway,0
+  1620  0231                     l3264:	
+  1621                           
+  1622                           ;main.c: 214:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
+  1623  0231  3000               	movlw	0
+  1624  0232  120A  158A  232A  120A  118A  	fcall	_ADC_Read
+  1625  0237  1283               	bcf	3,5	;RP0=0, select bank0
+  1626  0238  1303               	bcf	3,6	;RP1=0, select bank0
+  1627  0239  0820               	movf	?_ADC_Read,w
+  1628  023A  00BC               	movwf	??_main
+  1629  023B  0821               	movf	?_ADC_Read+1,w
+  1630  023C  00BD               	movwf	??_main+1
+  1631  023D  0D3D               	rlf	??_main+1,w
+  1632  023E  0CBD               	rrf	??_main+1,f
+  1633  023F  0CBC               	rrf	??_main,f
+  1634  0240  0D3D               	rlf	??_main+1,w
+  1635  0241  0CBD               	rrf	??_main+1,f
+  1636  0242  0CBC               	rrf	??_main,f
+  1637  0243  083C               	movf	??_main,w
+  1638  0244  00B0               	movwf	map@x
+  1639  0245  083D               	movf	??_main+1,w
+  1640  0246  00B1               	movwf	map@x+1
+  1641  0247  3000               	movlw	0
+  1642  0248  00B2               	movwf	map@in_min
+  1643  0249  00B3               	movwf	map@in_min+1
+  1644  024A  30FF               	movlw	255
+  1645  024B  00B4               	movwf	map@in_max
+  1646  024C  3000               	movlw	0
+  1647  024D  00B5               	movwf	map@in_max+1
+  1648  024E  30EC               	movlw	236
+  1649  024F  00B6               	movwf	map@out_min
+  1650  0250  30FF               	movlw	255
+  1651  0251  00B7               	movwf	map@out_min+1
+  1652  0252  303C               	movlw	60
+  1653  0253  00B8               	movwf	map@out_max
+  1654  0254  3000               	movlw	0
+  1655  0255  00B9               	movwf	map@out_max+1
+  1656  0256  120A  158A  23D9  120A  118A  	fcall	_map
+  1657  025B  1283               	bcf	3,5	;RP0=0, select bank0
+  1658  025C  1303               	bcf	3,6	;RP1=0, select bank0
+  1659  025D  0830               	movf	?_map,w
+  1660  025E  00BE               	movwf	??_main+2
+  1661  025F  083E               	movf	??_main+2,w
+  1662  0260  1283               	bcf	3,5	;RP0=0, select bank2
+  1663  0261  1703               	bsf	3,6	;RP1=1, select bank2
+  1664  0262  00DA               	movwf	main@temp^(0+256)
+  1665                           
+  1666                           ;main.c: 215:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
+  1667  0263  3001               	movlw	1
+  1668  0264  120A  158A  232A  120A  118A  	fcall	_ADC_Read
+  1669  0269  1283               	bcf	3,5	;RP0=0, select bank0
+  1670  026A  1303               	bcf	3,6	;RP1=0, select bank0
+  1671  026B  0820               	movf	?_ADC_Read,w
+  1672  026C  00BC               	movwf	??_main
+  1673  026D  0821               	movf	?_ADC_Read+1,w
+  1674  026E  00BD               	movwf	??_main+1
+  1675  026F  0D3D               	rlf	??_main+1,w
+  1676  0270  0CBD               	rrf	??_main+1,f
+  1677  0271  0CBC               	rrf	??_main,f
+  1678  0272  0D3D               	rlf	??_main+1,w
+  1679  0273  0CBD               	rrf	??_main+1,f
+  1680  0274  0CBC               	rrf	??_main,f
+  1681  0275  083C               	movf	??_main,w
+  1682  0276  00B0               	movwf	map@x
+  1683  0277  083D               	movf	??_main+1,w
+  1684  0278  00B1               	movwf	map@x+1
+  1685  0279  3000               	movlw	0
+  1686  027A  00B2               	movwf	map@in_min
+  1687  027B  00B3               	movwf	map@in_min+1
+  1688  027C  30FF               	movlw	255
+  1689  027D  00B4               	movwf	map@in_max
+  1690  027E  3000               	movlw	0
+  1691  027F  00B5               	movwf	map@in_max+1
+  1692  0280  3000               	movlw	0
+  1693  0281  00B6               	movwf	map@out_min
+  1694  0282  00B7               	movwf	map@out_min+1
+  1695  0283  3064               	movlw	100
+  1696  0284  00B8               	movwf	map@out_max
+  1697  0285  3000               	movlw	0
+  1698  0286  00B9               	movwf	map@out_max+1
+  1699  0287  120A  158A  23D9  120A  118A  	fcall	_map
+  1700  028C  1283               	bcf	3,5	;RP0=0, select bank0
+  1701  028D  1303               	bcf	3,6	;RP1=0, select bank0
+  1702  028E  0830               	movf	?_map,w
+  1703  028F  00BE               	movwf	??_main+2
+  1704  0290  083E               	movf	??_main+2,w
+  1705  0291  1283               	bcf	3,5	;RP0=0, select bank2
+  1706  0292  1703               	bsf	3,6	;RP1=1, select bank2
+  1707  0293  00DB               	movwf	main@umidita^(0+256)
+  1708                           
+  1709                           ;main.c: 216:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
+  1710  0294  3005               	movlw	5
+  1711  0295  120A  158A  232A  120A  118A  	fcall	_ADC_Read
+  1712  029A  1283               	bcf	3,5	;RP0=0, select bank0
+  1713  029B  1303               	bcf	3,6	;RP1=0, select bank0
+  1714  029C  0820               	movf	?_ADC_Read,w
+  1715  029D  00BC               	movwf	??_main
+  1716  029E  0821               	movf	?_ADC_Read+1,w
+  1717  029F  00BD               	movwf	??_main+1
+  1718  02A0  0D3D               	rlf	??_main+1,w
+  1719  02A1  0CBD               	rrf	??_main+1,f
+  1720  02A2  0CBC               	rrf	??_main,f
+  1721  02A3  0D3D               	rlf	??_main+1,w
+  1722  02A4  0CBD               	rrf	??_main+1,f
+  1723  02A5  0CBC               	rrf	??_main,f
+  1724  02A6  083C               	movf	??_main,w
+  1725  02A7  00B0               	movwf	map@x
+  1726  02A8  083D               	movf	??_main+1,w
+  1727  02A9  00B1               	movwf	map@x+1
+  1728  02AA  3000               	movlw	0
+  1729  02AB  00B2               	movwf	map@in_min
+  1730  02AC  00B3               	movwf	map@in_min+1
+  1731  02AD  30FF               	movlw	255
+  1732  02AE  00B4               	movwf	map@in_max
+  1733  02AF  3000               	movlw	0
+  1734  02B0  00B5               	movwf	map@in_max+1
+  1735  02B1  3000               	movlw	0
+  1736  02B2  00B6               	movwf	map@out_min
+  1737  02B3  00B7               	movwf	map@out_min+1
+  1738  02B4  3064               	movlw	100
+  1739  02B5  00B8               	movwf	map@out_max
+  1740  02B6  3000               	movlw	0
+  1741  02B7  00B9               	movwf	map@out_max+1
+  1742  02B8  120A  158A  23D9  120A  118A  	fcall	_map
+  1743  02BD  1283               	bcf	3,5	;RP0=0, select bank0
+  1744  02BE  1303               	bcf	3,6	;RP1=0, select bank0
+  1745  02BF  0830               	movf	?_map,w
+  1746  02C0  00BE               	movwf	??_main+2
+  1747  02C1  083E               	movf	??_main+2,w
+  1748  02C2  1283               	bcf	3,5	;RP0=0, select bank2
+  1749  02C3  1703               	bsf	3,6	;RP1=1, select bank2
+  1750  02C4  00DC               	movwf	main@pressione^(0+256)
+  1751  02C5                     l3266:	
+  1752                           
+  1753                           ;main.c: 217:                 sendByte(0x02, 0x00, temp);
+  1754  02C5  1283               	bcf	3,5	;RP0=0, select bank0
+  1755  02C6  1303               	bcf	3,6	;RP1=0, select bank0
+  1756  02C7  01B4               	clrf	sendByte@byte1
+  1757  02C8  1283               	bcf	3,5	;RP0=0, select bank2
+  1758  02C9  1703               	bsf	3,6	;RP1=1, select bank2
+  1759  02CA  085A               	movf	main@temp^(0+256),w
+  1760  02CB  1283               	bcf	3,5	;RP0=0, select bank0
+  1761  02CC  1303               	bcf	3,6	;RP1=0, select bank0
+  1762  02CD  00BC               	movwf	??_main
+  1763  02CE  083C               	movf	??_main,w
+  1764  02CF  00B5               	movwf	sendByte@valore
+  1765  02D0  3002               	movlw	2
+  1766  02D1  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1767  02D6                     l3268:	
+  1768                           
+  1769                           ;main.c: 218:                 sendByte(0x04, 0x00, umidita);
+  1770  02D6  1283               	bcf	3,5	;RP0=0, select bank0
+  1771  02D7  1303               	bcf	3,6	;RP1=0, select bank0
+  1772  02D8  01B4               	clrf	sendByte@byte1
+  1773  02D9  1283               	bcf	3,5	;RP0=0, select bank2
+  1774  02DA  1703               	bsf	3,6	;RP1=1, select bank2
+  1775  02DB  085B               	movf	main@umidita^(0+256),w
+  1776  02DC  1283               	bcf	3,5	;RP0=0, select bank0
+  1777  02DD  1303               	bcf	3,6	;RP1=0, select bank0
+  1778  02DE  00BC               	movwf	??_main
+  1779  02DF  083C               	movf	??_main,w
+  1780  02E0  00B5               	movwf	sendByte@valore
+  1781  02E1  3004               	movlw	4
+  1782  02E2  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1783  02E7                     l3270:	
+  1784                           
+  1785                           ;main.c: 219:                 sendByte(0x06, 0x00, pressione);
+  1786  02E7  1283               	bcf	3,5	;RP0=0, select bank0
+  1787  02E8  1303               	bcf	3,6	;RP1=0, select bank0
+  1788  02E9  01B4               	clrf	sendByte@byte1
+  1789  02EA  1283               	bcf	3,5	;RP0=0, select bank2
+  1790  02EB  1703               	bsf	3,6	;RP1=1, select bank2
+  1791  02EC  085C               	movf	main@pressione^(0+256),w
+  1792  02ED  1283               	bcf	3,5	;RP0=0, select bank0
+  1793  02EE  1303               	bcf	3,6	;RP1=0, select bank0
+  1794  02EF  00BC               	movwf	??_main
+  1795  02F0  083C               	movf	??_main,w
+  1796  02F1  00B5               	movwf	sendByte@valore
+  1797  02F2  3006               	movlw	6
+  1798  02F3  120A  158A  23A8  120A  118A  	fcall	_sendByte
+  1799  02F8                     l3272:	
+  1800                           
+  1801                           ;main.c: 221:                 for (unsigned char i = 0; i < 5; i++)
+  1802  02F8  1283               	bcf	3,5	;RP0=0, select bank2
+  1803  02F9  1703               	bsf	3,6	;RP1=1, select bank2
+  1804  02FA  01E4               	clrf	main@i_439^(0+256)
+  1805  02FB                     l3274:	
+  1806  02FB  3005               	movlw	5
+  1807  02FC  0264               	subwf	main@i_439^(0+256),w
+  1808  02FD  1C03               	skipc
+  1809  02FE  2B00               	goto	u3251
+  1810  02FF  2B01               	goto	u3250
+  1811  0300                     u3251:	
+  1812  0300  2B02               	goto	l3278
+  1813  0301                     u3250:	
+  1814  0301  2B38               	goto	l212
+  1815  0302                     l3278:	
+  1816                           
+  1817                           ;main.c: 222:                 {;main.c: 223:                     dataFromGateway[i] = 0;
+  1818  0302  0864               	movf	main@i_439^(0+256),w
+  1819  0303  3EA0               	addlw	(low (_dataFromGateway| 0))& (0+255)
+  1820  0304  0084               	movwf	4
+  1821  0305  1383               	bcf	3,7	;select IRP bank1
+  1822  0306  0180               	clrf	0
+  1823  0307                     l3280:	
+  1824                           
+  1825                           ;main.c: 224:                 }
+  1826  0307  3001               	movlw	1
+  1827  0308  1283               	bcf	3,5	;RP0=0, select bank0
+  1828  0309  1303               	bcf	3,6	;RP1=0, select bank0
+  1829  030A  00BC               	movwf	??_main
+  1830  030B  083C               	movf	??_main,w
+  1831  030C  1283               	bcf	3,5	;RP0=0, select bank2
+  1832  030D  1703               	bsf	3,6	;RP1=1, select bank2
+  1833  030E  07E4               	addwf	main@i_439^(0+256),f
+  1834  030F  2AFB               	goto	l3274
+  1835  0310                     l3284:	
+  1836                           
+  1837                           ;main.c: 228:                 if (timerReadFromGateway >= 4)
+  1838  0310  3004               	movlw	4
+  1839  0311  0259               	subwf	_timerReadFromGateway,w
+  1840  0312  1C03               	skipc
+  1841  0313  2B15               	goto	u3261
+  1842  0314  2B16               	goto	u3260
+  1843  0315                     u3261:	
+  1844  0315  2B19               	goto	l3288
+  1845  0316                     u3260:	
+  1846  0316                     l3286:	
+  1847                           
+  1848                           ;main.c: 229:                 {;main.c: 230:                     readGatewayDone.Bit = 1
       +                          ;
   1614  0244  145A               	bsf	_readGatewayDone,0
   1615                           
@@ -5987,7 +6222,7 @@ EEDATA             100      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.10 build 88905656 
-Symbol Table                                                                                   Sun Jun 28 15:09:19 2020
+Symbol Table                                                                                   Mon Jun 22 15:10:25 2020
 
                                pc 0002                    ___bmul@product 0026                       __CFG_CP$OFF 0000  
                               l77 0E1B                                l94 05D9                      ___awdiv@sign 0031  
