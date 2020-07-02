@@ -96,7 +96,7 @@ Bit readGateway, secondPassed, cycled;
 //Array per la visualizzazione dei numeri sui display
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char old_disp, disp;           //varibile per fare lo switch in loop tra i dislpay
+unsigned char disp;                     //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;            //conteggio per il tempo delle luci
 unsigned char comando = 0;              //Prende il dato dalla seriale
@@ -107,11 +107,15 @@ unsigned char truck[4];                 //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
 ProtocolBytes dataFromGateway;                                                 //array dati da seriale
+/*
 Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
 Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
+ */
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7; //definisco i vari semafori
+Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
 unsigned char id_semaforo = 0;
-Update to_update;
+//Update to_update;
 
 void init_ADC();              //Inizializza l'adc
 int ADC_Read(char canale);    //Lettura da un ingresso analogico
@@ -252,7 +256,7 @@ void main(void)
             else
             {
                 //bitParita(dataFromGateway); //controllo correttezza dati
-                SetReceivedTimes(dataFromGateway, Semafori, &to_update, id_semaforo);
+                SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
 
@@ -261,47 +265,54 @@ void main(void)
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit && cycled.Bit)
         {
-            time++;
-            if ((*Semafori[id_semaforo]).times[lux_select] - time < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown è terminato...
+            time++;                                                         //incrementa il timer per il calcolo del countdown
+            
+            do                                                              //Per ogni semaforo calcolerà il countdown per le luci in base alla luce
             {
-                lux_select++; //...si incrementa il contatore delle luci...
-                time=1;       //...si resetta il timer
+                ChangeTrafficLight(Semafori, &id_semaforo);                 //incrementa l'id del semaforo
+                lux_select=(*Semafori[id_semaforo]).lux_select;
                 
-                if (lux_select >= 3)    //se il contatore delle luci è arrivato a 3, ovvero è finito il giallo...
+                if ((*Semafori[id_semaforo]).times[lux_select] - time < 0)  //se il timer ha raggiunto il tempo della luce, quindi il countdown è terminato...
                 {
-                    lux_select=0;   //...resetta il contatore delle luci, tornando al verde...
-                    
-                    //AGGIORNAMENTO TEMPI LUCI E CAMBIO SEMAFORO
-                    UpdateTimes(Semafori, &to_update);            //...aggiorna i tempi delle luci...
-                    ChangeTrafficLight(Semafori, &id_semaforo);   //...incrementa l'id del semaforo
-                } 
-            }
-
-            GetDigits(&centinaia, &decine, &unita, (*Semafori[id_semaforo]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unità del countdown
+                    lux_select++;                                           //...si incrementa il contatore delle luci...
+                    time=1;                                                 //...si resetta il timer
+                
+                    if (lux_select >= 3)                                    //Se il contatore delle luci è arrivato a 3, ovvero è finito il giallo...
+                    {
+                        lux_select=0;                                       //...resetta il contatore delle luci, tornando al verde...
+                        
+                        if(id_semaforo==0)                                  //...e se il ciclo terminato è quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
+                        {
+                            //AGGIORNAMENTO TEMPI LUCI
+                            UpdateTimes(Semafori);                  //...e aggiorna i tempi delle luci...   
+                        }
+                    }
+                }
+                
+                (*Semafori[id_semaforo]).lux_select=lux_select;             //aggiorna il valore di lòux_select nel caso sia cambiato
+                GetDigits(&centinaia, &decine, &unita, (*Semafori[id_semaforo]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unità del countdown
+                
+            }while(id_semaforo>0);
         }
 
         //MOSTRA TIMER SU DISPLAY
-        if (disp != old_disp) //Lo esegue solo quando "disp" cambia (cioï¿½ ad ogni ciclo while))
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
-            old_disp = disp;
-            switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+        case 0:                //==> desplay delle centinaia, porta RA2
+            if (centinaia > 0) //mostra la cifra delle centinaia solo se ï¿½ consistente (maggiore di 0)
             {
-            case 0:                //==> desplay delle centinaia, porta RA2
-                if (centinaia > 0) //mostra la cifra delle centinaia solo se ï¿½ consistente (maggiore di 0)
-                {
-                    SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
-                }           
-                break;
-            case 1:                              //==> desplay delle dedcine, porta RA3
-                if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-                {
-                    SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
-                }
-                break;
-            case 2:                                  //==> desplay delle unitï¿½, porta RA4
-                SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
-                break;
+                SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+            }           
+            break;
+        case 1:                              //==> desplay delle dedcine, porta RA3
+            if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+            {
+                SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
             }
+            break;
+        case 2:                                  //==> desplay delle unitï¿½, porta RA4
+            SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+            break;
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
