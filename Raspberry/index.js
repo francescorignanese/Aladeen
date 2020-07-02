@@ -3,7 +3,7 @@ const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const redis = require('redis');
 const port = new SerialPort('/COM7');
-const client = redis.createClient(6379, '192.168.0.99');
+//const client = redis.createClient(6379, '192.168.0.99');
 let key;
 let sensor;
 
@@ -15,7 +15,7 @@ function sendToPic() {
 
 	if(wanted_traffic)
 	{ 
-		let traffic_cmd = [0x0A, 0x00, 0x00, 0x00, 0x00];
+		let traffic_cmd = [0x08, 0x00, 0x00, 0x00, 0x00];
 		port.write(traffic_cmd);
 		console.log('Sent value to Pic:', traffic_cmd);
 		
@@ -26,7 +26,7 @@ sendToPic();
 //con questo parser lavoriamo con 5 byte alla volta
 const parser = port.pipe(new ByteLength({length: 5}))
 parser.on('data', parseMsg);
-client.on("error", (err) => {
+/*client.on("error", (err) => {
 		console.log("error", err)
 	 });
 client.on("connect", (err) => {
@@ -35,25 +35,56 @@ client.on("connect", (err) => {
 client.on("ready", (err) => {
 	redisNotReady = false;
 	console.log("Redis ready to accept data!");
-});
+});*/
 
 
 function parseMsg(data) {
 	//per ogni elemento del buffer ricevuto via seriale, estraiamo il valore in binario
 	let msgSize = data.length;
+	let pacchetto = [];
 	for (let i = 0; i < msgSize; i++) {
 		let valore = parseInt(data[i], 10).toString(2);
 		//aggiungiamo gli 0 omessi perchè non significanti
 		//console.log(valore.padStart(8, '0'));
+		
+		let lista = pacchetto.push(valore);
+		
+		console.log(pacchetto);
 	}
+	
+	/*for(let i = 0; i < covid_json.length; i++) {
+		//popolo il template con i dati recuperati dal file originale
+		//console.log(covid_json[i].denominazione_regione)
+		if(covid_json[i].denominazione_regione=="Veneto"){
+			var covid_unit = {
+				"data": covid_json[i].data,
+				"totale_positivi": covid_json[i].totale_positivi,
+				"dimessi_guariti": covid_json[i].dimessi_guariti,
+				"deceduti": covid_json[i].deceduti
+			};
+			
+			covid_small.dati.push(covid_unit);
+			
+		}
+		
+	}*/
+
 
 	//creiamo due variabili dove inserire il balore binario dei cinque byte
 	let byte1 = parseInt(data[0], 10).toString(2).padStart(8, '0');
-	let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');
-	let byte3 = parseInt(data[2], 10).toString(2).padStart(8, '0');
-	let byte4 = parseInt(data[3], 10).toString(2).padStart(8, '0');
-	let byte5 = parseInt(data[4], 10).toString(2).padStart(8, '0');
+		let byte2 = parseInt(data[1], 10).toString(2).padStart(8, '0');
+		let byte3 = parseInt(data[2], 10).toString(2).padStart(8, '0');
+		let byte4 = parseInt(data[3], 10).toString(2).padStart(8, '0');
+		let byte5 = parseInt(data[4], 10).toString(2).padStart(8, '0');
 	let arrayBin =  [byte1, byte2, byte3, byte4, byte5];
+	let pacchetti = [];
+	
+	
+	pacchetto.forEach(pack => {
+		pacchetti.push(pack);
+		console.log(pacchetti);
+	});
+	
 	//console.log("arraybin", arrayBin);
 
 	/*for (let i = 0; i < arrayBin.length; i++) {
@@ -84,7 +115,6 @@ function parseMsg(data) {
 	if (byte2_type === '01' || byte2_type === '10' || byte2_type === '11') {
 		byte2_full = true;
 		console.log('Il secondo byte è pieno!');
-		
 	}
 	//console.log(byte2_type);
 
@@ -165,7 +195,7 @@ function parseMsg(data) {
 		}
 
 		if (byte1_sa === '1') {
-			console.log('attuatore');
+			
 			switch (byte1_id) {
 				case '0001': {
 					console.log('Semaforo 1');
@@ -193,6 +223,8 @@ function parseMsg(data) {
 				}
 			}
 
+			
+				
 			if (byte2_full) {
 				vehicle_received = true;
 				switch(byte2_type) {
@@ -217,6 +249,8 @@ function parseMsg(data) {
 					}
 				}
 			}
+			
+			
 		}
 		
 	}
@@ -226,9 +260,9 @@ function parseMsg(data) {
 		json_climate.data_climate.push(json_weather);
 		json_string = JSON.stringify(json_climate);
 		console.log(json_string);
-		client.rpush([json_climate.sensor, json_string], function (err, reply) {
+		/*client.rpush([json_climate.sensor, json_string], function (err, reply) {
 			//console.log("Queue Length", reply);
-		});
+		});*/
 		fs.writeFileSync("climate.json", json_string);
 	}
 
@@ -238,18 +272,18 @@ function parseMsg(data) {
 		console.log(json_traffic);
 		json_string = JSON.stringify(json_traffic);
 		//json_string = JSON.stringify(json_veichle);
-		client.rpush([json_traffic.sensor, json_string], function (err, reply) {
+		/*client.rpush([json_traffic.sensor, json_string], function (err, reply) {
 			//console.log("Queue Length", reply);
-		});
+		});*/
 		fs.writeFileSync("traffic.json", json_string);
 	}
 	
 	console.log('................');
 	
 
-	client.lrange(json_climate.sensor, 0, 1, function (err, reply) {
+	/*client.lrange(json_climate.sensor, 0, 1, function (err, reply) {
 		//console.log("Queue result", reply);
-	});
+	});*/
 
 	
 }
