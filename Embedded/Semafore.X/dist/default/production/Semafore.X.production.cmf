@@ -11,7 +11,7 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\PC\AppData\Local\Temp\s3ik.o
+$C:\Users\PC\AppData\Local\Temp\sa94.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 10 10 3 2
 config CONFIG 0 2007 2007 1 2
@@ -108,35 +108,35 @@ STRING 1000-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Semafore.X.production.o
-13 cinit CODE >535:C:\Users\PC\AppData\Local\Temp\s3ik.s
-13 cinit CODE >538:C:\Users\PC\AppData\Local\Temp\s3ik.s
-13 cinit CODE >672:C:\Users\PC\AppData\Local\Temp\s3ik.s
-14 cinit CODE >673:C:\Users\PC\AppData\Local\Temp\s3ik.s
-15 cinit CODE >674:C:\Users\PC\AppData\Local\Temp\s3ik.s
-16 cinit CODE >675:C:\Users\PC\AppData\Local\Temp\s3ik.s
-17 cinit CODE >676:C:\Users\PC\AppData\Local\Temp\s3ik.s
-18 cinit CODE >677:C:\Users\PC\AppData\Local\Temp\s3ik.s
-19 cinit CODE >678:C:\Users\PC\AppData\Local\Temp\s3ik.s
-1A cinit CODE >679:C:\Users\PC\AppData\Local\Temp\s3ik.s
-1B cinit CODE >680:C:\Users\PC\AppData\Local\Temp\s3ik.s
-1C cinit CODE >681:C:\Users\PC\AppData\Local\Temp\s3ik.s
-21 cinit CODE >700:C:\Users\PC\AppData\Local\Temp\s3ik.s
-22 cinit CODE >701:C:\Users\PC\AppData\Local\Temp\s3ik.s
-23 cinit CODE >702:C:\Users\PC\AppData\Local\Temp\s3ik.s
-24 cinit CODE >703:C:\Users\PC\AppData\Local\Temp\s3ik.s
-25 cinit CODE >704:C:\Users\PC\AppData\Local\Temp\s3ik.s
-2A cinit CODE >707:C:\Users\PC\AppData\Local\Temp\s3ik.s
-2B cinit CODE >708:C:\Users\PC\AppData\Local\Temp\s3ik.s
-2C cinit CODE >709:C:\Users\PC\AppData\Local\Temp\s3ik.s
-2D cinit CODE >710:C:\Users\PC\AppData\Local\Temp\s3ik.s
-2E cinit CODE >711:C:\Users\PC\AppData\Local\Temp\s3ik.s
-33 cinit CODE >714:C:\Users\PC\AppData\Local\Temp\s3ik.s
-34 cinit CODE >715:C:\Users\PC\AppData\Local\Temp\s3ik.s
-35 cinit CODE >716:C:\Users\PC\AppData\Local\Temp\s3ik.s
-36 cinit CODE >717:C:\Users\PC\AppData\Local\Temp\s3ik.s
-3B cinit CODE >723:C:\Users\PC\AppData\Local\Temp\s3ik.s
-3B cinit CODE >725:C:\Users\PC\AppData\Local\Temp\s3ik.s
-3C cinit CODE >726:C:\Users\PC\AppData\Local\Temp\s3ik.s
+13 cinit CODE >535:C:\Users\PC\AppData\Local\Temp\sa94.s
+13 cinit CODE >538:C:\Users\PC\AppData\Local\Temp\sa94.s
+13 cinit CODE >672:C:\Users\PC\AppData\Local\Temp\sa94.s
+14 cinit CODE >673:C:\Users\PC\AppData\Local\Temp\sa94.s
+15 cinit CODE >674:C:\Users\PC\AppData\Local\Temp\sa94.s
+16 cinit CODE >675:C:\Users\PC\AppData\Local\Temp\sa94.s
+17 cinit CODE >676:C:\Users\PC\AppData\Local\Temp\sa94.s
+18 cinit CODE >677:C:\Users\PC\AppData\Local\Temp\sa94.s
+19 cinit CODE >678:C:\Users\PC\AppData\Local\Temp\sa94.s
+1A cinit CODE >679:C:\Users\PC\AppData\Local\Temp\sa94.s
+1B cinit CODE >680:C:\Users\PC\AppData\Local\Temp\sa94.s
+1C cinit CODE >681:C:\Users\PC\AppData\Local\Temp\sa94.s
+21 cinit CODE >700:C:\Users\PC\AppData\Local\Temp\sa94.s
+22 cinit CODE >701:C:\Users\PC\AppData\Local\Temp\sa94.s
+23 cinit CODE >702:C:\Users\PC\AppData\Local\Temp\sa94.s
+24 cinit CODE >703:C:\Users\PC\AppData\Local\Temp\sa94.s
+25 cinit CODE >704:C:\Users\PC\AppData\Local\Temp\sa94.s
+2A cinit CODE >707:C:\Users\PC\AppData\Local\Temp\sa94.s
+2B cinit CODE >708:C:\Users\PC\AppData\Local\Temp\sa94.s
+2C cinit CODE >709:C:\Users\PC\AppData\Local\Temp\sa94.s
+2D cinit CODE >710:C:\Users\PC\AppData\Local\Temp\sa94.s
+2E cinit CODE >711:C:\Users\PC\AppData\Local\Temp\sa94.s
+33 cinit CODE >714:C:\Users\PC\AppData\Local\Temp\sa94.s
+34 cinit CODE >715:C:\Users\PC\AppData\Local\Temp\sa94.s
+35 cinit CODE >716:C:\Users\PC\AppData\Local\Temp\sa94.s
+36 cinit CODE >717:C:\Users\PC\AppData\Local\Temp\sa94.s
+3B cinit CODE >723:C:\Users\PC\AppData\Local\Temp\sa94.s
+3B cinit CODE >725:C:\Users\PC\AppData\Local\Temp\sa94.s
+3C cinit CODE >726:C:\Users\PC\AppData\Local\Temp\sa94.s
 4 intentry CODE >438:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 C18 text23 CODE >386:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 C18 text23 CODE >388:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
@@ -509,33 +509,33 @@ EE maintext CODE >178:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.
 4B5 maintext CODE >327:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 4B5 maintext CODE >328:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 4BD maintext CODE >330:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C10 clrtext CODE >687:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C10 clrtext CODE >688:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C11 clrtext CODE >689:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C11 clrtext CODE >690:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C12 clrtext CODE >691:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C13 clrtext CODE >692:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C14 clrtext CODE >693:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C15 clrtext CODE >694:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C16 clrtext CODE >695:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C17 clrtext CODE >696:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C4F inittext CODE >646:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C4F inittext CODE >647:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C50 inittext CODE >648:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C51 inittext CODE >649:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C52 inittext CODE >650:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C53 inittext CODE >657:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C53 inittext CODE >658:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C58 inittext CODE >659:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C59 inittext CODE >660:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5A inittext CODE >661:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5B inittext CODE >662:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5C inittext CODE >663:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5D inittext CODE >664:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5E inittext CODE >665:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C5F inittext CODE >666:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C60 inittext CODE >667:C:\Users\PC\AppData\Local\Temp\s3ik.s
-C61 inittext CODE >668:C:\Users\PC\AppData\Local\Temp\s3ik.s
+C10 clrtext CODE >687:C:\Users\PC\AppData\Local\Temp\sa94.s
+C10 clrtext CODE >688:C:\Users\PC\AppData\Local\Temp\sa94.s
+C11 clrtext CODE >689:C:\Users\PC\AppData\Local\Temp\sa94.s
+C11 clrtext CODE >690:C:\Users\PC\AppData\Local\Temp\sa94.s
+C12 clrtext CODE >691:C:\Users\PC\AppData\Local\Temp\sa94.s
+C13 clrtext CODE >692:C:\Users\PC\AppData\Local\Temp\sa94.s
+C14 clrtext CODE >693:C:\Users\PC\AppData\Local\Temp\sa94.s
+C15 clrtext CODE >694:C:\Users\PC\AppData\Local\Temp\sa94.s
+C16 clrtext CODE >695:C:\Users\PC\AppData\Local\Temp\sa94.s
+C17 clrtext CODE >696:C:\Users\PC\AppData\Local\Temp\sa94.s
+C4F inittext CODE >646:C:\Users\PC\AppData\Local\Temp\sa94.s
+C4F inittext CODE >647:C:\Users\PC\AppData\Local\Temp\sa94.s
+C50 inittext CODE >648:C:\Users\PC\AppData\Local\Temp\sa94.s
+C51 inittext CODE >649:C:\Users\PC\AppData\Local\Temp\sa94.s
+C52 inittext CODE >650:C:\Users\PC\AppData\Local\Temp\sa94.s
+C53 inittext CODE >657:C:\Users\PC\AppData\Local\Temp\sa94.s
+C53 inittext CODE >658:C:\Users\PC\AppData\Local\Temp\sa94.s
+C58 inittext CODE >659:C:\Users\PC\AppData\Local\Temp\sa94.s
+C59 inittext CODE >660:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5A inittext CODE >661:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5B inittext CODE >662:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5C inittext CODE >663:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5D inittext CODE >664:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5E inittext CODE >665:C:\Users\PC\AppData\Local\Temp\sa94.s
+C5F inittext CODE >666:C:\Users\PC\AppData\Local\Temp\sa94.s
+C60 inittext CODE >667:C:\Users\PC\AppData\Local\Temp\sa94.s
+C61 inittext CODE >668:C:\Users\PC\AppData\Local\Temp\sa94.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -577,14 +577,14 @@ BuildByte@valore 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.pro
 _RCIF 65 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TXIF 64 0 ABS 0 - dist/default/production\Semafore.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s3ik.o
+___sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\sa94.o
 _disp 51 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 _main 7E 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
 UpdateTimes@i 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 UpdateTimes@l 35 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 map@x 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-start 20 0 CODE 0 init C:\Users\PC\AppData\Local\Temp\s3ik.o
+start 20 0 CODE 0 init C:\Users\PC\AppData\Local\Temp\sa94.o
 __size_of___aldiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awmod 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
@@ -602,12 +602,12 @@ SetDefaultTimers@_semafori 2A 0 BANK0 1 cstackBANK0 dist/default/production\Sema
 __size_of_ADC_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_ChangeTrafficLight 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _centinaia 63 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s3ik.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\sa94.o
 _motorcycle 5E 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 ___bmul@multiplicand 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 _init_ADC 1878 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
@@ -656,8 +656,8 @@ _INTCON B 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_SetReceivedTimes 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _OPTION_REG 81 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __end_of_ADC_Read 1968 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s3ik.o
-___stacklo 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s3ik.o
+___stackhi 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\sa94.o
+___stacklo 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\sa94.o
 _dataFromGatewayIndex 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 SetReceivedTimes@index 38 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __end_of_SetDisplay 18EE 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
@@ -679,7 +679,7 @@ main@pressione 1D8 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.prod
 _TMR0IF 5A 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR1IF 60 0 ABS 0 - dist/default/production\Semafore.X.production.o
 GetTime@tmp 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s3ik.o
+___int_sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\sa94.o
 _UpdateTimes 1DAE 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
@@ -753,7 +753,7 @@ __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 Conteggio@_car 73 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
 __stringtab 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\PC\AppData\Local\Temp\s3ik.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\PC\AppData\Local\Temp\sa94.o
 SetDisplay@d1 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d2 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d3 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
