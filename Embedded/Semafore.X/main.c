@@ -78,14 +78,12 @@ Byte di parità per trovare l'errore
 //* end <--
 
 //*Inizializzazione delle luci -->
-#define Red1 PORTCbits.RC0     //Rosso primo semaforo
-#define Green1 PORTCbits.RC1   //verde primo semaforo
-#define Yellow1 PORTCbits.RC2  //usat0 per il giallo del primo semaforo
-#define Yellow_1 PORTCbits.RC3 //usato per il giallo del primo semaforo
-#define Red2 PORTBbits.RB0     //Rosso secondo semaforo
-#define Green2 PORTBbits.RB1   //verde secondo semaforo
-#define Yellow2 PORTBbits.RB6  //usato per il giallo del secondo semaforo
-#define Yellow_2 PORTBbits.RB7 //usato per il giallo del secondo semaforo
+#define Red1 PORTCbits.RC0    //Rosso primo semaforo
+#define Green1 PORTCbits.RC1  //verde primo semaforo
+#define Yellow1 PORTCbits.RC2 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+#define Red2 PORTBbits.RB0    //Rosso secondo semaforo
+#define Green2 PORTBbits.RB1  //verde secondo semaforo
+#define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
 //* end <--
 
 typedef struct
@@ -469,20 +467,17 @@ void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il camb
         case 0: //Accende luce rossa
             Green1 = 0;
             Yellow1 = 0;
-            Yellow_1 = 0;
             Red1 = 1;
             break;
         case 1: //Accende luce verde
             Red1 = 0;
             Yellow1 = 0;
-            Yellow_1 = 0;
             Green1 = 1;
             break;
         case 2: //Accende luce gialla
             Red1 = 0;
             Green1 = 0;
             Yellow1 = 1;
-            Yellow_1 = 1;
             break;
         }
         break;
@@ -492,20 +487,17 @@ void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il camb
         case 0: //Accende luce rossa
             Green2 = 0;
             Yellow2 = 0;
-            Yellow_2 = 0;
             Red2 = 1;
             break;
         case 1: //Accende luce verde
             Red2 = 0;
             Yellow2 = 0;
-            Yellow_2 = 0;
             Green2 = 1;
             break;
         case 2: //Accende luce gialla
             Red2 = 0;
             Green2 = 0;
             Yellow2 = 1;
-            Yellow_2 = 1;
             break;
         }
         break;
