@@ -459,6 +459,59 @@ void conteggioVeicoli()
     }
 }
 
+void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il cambio delle luci per la rappresentazione sui led rgb
+{
+    switch (index)
+    {
+    case 0: //Parte del primo semaforo (ID di esso)
+        switch (lux)
+        {
+        case 0: //Accende luce rossa
+            Green1 = 0;
+            Yellow1 = 0;
+            Yellow_1 = 0;
+            Red1 = 1;
+            break;
+        case 1: //Accende luce verde
+            Red1 = 0;
+            Yellow1 = 0;
+            Yellow_1 = 0;
+            Green1 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red1 = 0;
+            Green1 = 0;
+            Yellow1 = 1;
+            Yellow_1 = 1;
+            break;
+        }
+        break;
+    case 1: //Parte del secondo semaforo (ID di esso)
+        switch (lux)
+        {
+        case 0: //Accende luce rossa
+            Green2 = 0;
+            Yellow2 = 0;
+            Yellow_2 = 0;
+            Red2 = 1;
+            break;
+        case 1: //Accende luce verde
+            Red2 = 0;
+            Yellow2 = 0;
+            Yellow_2 = 0;
+            Green2 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red2 = 0;
+            Green2 = 0;
+            Yellow2 = 1;
+            Yellow_2 = 1;
+            break;
+        }
+        break;
+    }
+}
+
 void __interrupt() ISR()
 {
     //RICEVE DATI DA SERIALE
