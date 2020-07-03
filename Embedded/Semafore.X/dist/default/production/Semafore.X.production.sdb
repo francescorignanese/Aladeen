@@ -15,15 +15,13 @@
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
 "3 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _UpdateTimes UpdateTimes `(v  1 e 1 0 ]
-"15
-[v _ChangeTrafficLight ChangeTrafficLight `(v  1 e 1 0 ]
-"29
+"18
 [v _GetTime GetTime `(i  1 e 2 0 ]
-"49
+"38
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
-"73
+"62
 [v _SetReceivedTimes SetReceivedTimes `(v  1 e 1 0 ]
-"87
+"78
 [v _Conteggio Conteggio `(v  1 e 1 0 ]
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -51,26 +49,28 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"130 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"117 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"338
+"330
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
-"347
+"339
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
-"357
+"349
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
-"369
+"361
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
-"386
+"378
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
-"394
+"387
 [v _sendByte sendByte `(v  1 e 1 0 ]
-"406
+"399
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
-"415
+"408
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
-"438
+"431
 [v _ISR ISR `II(v  1 e 1 0 ]
+"2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Constants.h
+[v _display display `DC[11]uc  1 e 11 0 ]
 "59 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
 [s S245 . 1 `uc 1 RA0 1 0 :1:0 
@@ -226,40 +226,38 @@
 [s S29 . 1 `uc 1 Bit 1 0 :1:0 
 `uc 1 Timeout 1 0 :1:1 
 ]
-"93 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"88 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _readGatewayDone readGatewayDone `S29  1 e 1 0 ]
 [s S32 . 1 `uc 1 Bit 1 0 :1:0 
 ]
-"95
+"90
 [v _readGateway readGateway `S32  1 e 1 0 ]
 [v _secondPassed secondPassed `S32  1 e 1 0 ]
 [v _cycled cycled `S32  1 e 1 0 ]
-"97
-[v _display display `DC[11]uc  1 e 11 0 ]
-"98
+"91
 [v _unita unita `uc  1 e 1 0 ]
 [v _decine decine `uc  1 e 1 0 ]
 [v _centinaia centinaia `uc  1 e 1 0 ]
-"99
+"92
 [v _disp disp `uc  1 e 1 0 ]
-"100
+"93
 [v _count count `ui  1 e 2 0 ]
-"101
+"94
 [v _count_lux count_lux `uc  1 e 1 0 ]
-"104
+"97
 [v _motorcycle motorcycle `[4]uc  1 e 4 0 ]
-"105
+"98
 [v _car car `[4]uc  1 e 4 0 ]
-"106
+"99
 [v _truck truck `[4]uc  1 e 4 0 ]
-"107
+"100
 [v _RoadsSensors RoadsSensors `[4]uc  1 e 4 0 ]
-"108
+"101
 [v _dataFromGatewayIndex dataFromGatewayIndex `uc  1 e 1 0 ]
-"109
+"102
 [v _dataFromGateway dataFromGateway `[15]uc  1 e 15 0 ]
 [s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
-"114
+"103
 [v _s0 s0 `S22  1 e 14 0 ]
 [v _s1 s1 `S22  1 e 14 0 ]
 [v _s2 s2 `S22  1 e 14 0 ]
@@ -268,58 +266,58 @@
 [v _s5 s5 `S22  1 e 14 0 ]
 [v _s6 s6 `S22  1 e 14 0 ]
 [v _s7 s7 `S22  1 e 14 0 ]
-"115
+"104
 [v _Semafori Semafori `[8]*.39S22  1 e 16 0 ]
-"116
+"105
 [v _timerReadFromGateway timerReadFromGateway `uc  1 e 1 0 ]
 "117
-[v _id_semaforo id_semaforo `uc  1 e 1 0 ]
-"130
 [v _main main `(v  1 e 1 0 ]
 {
-"217
-[v main@i_469 i `uc  1 a 1 6 ]
-"201
-[v main@i_467 i `uc  1 a 1 5 ]
-"194
-[v main@i_466 i `i  1 a 2 8 ]
-"167
-[v main@i i `i  1 a 2 10 ]
-"145
-[v main@time time `i  1 a 2 3 ]
-"146
+"265
 [v main@lux_select lux_select `uc  1 a 1 7 ]
-"150
+"203
+[v main@i_462 i `uc  1 a 1 6 ]
+"187
+[v main@i_460 i `uc  1 a 1 5 ]
+"180
+[v main@i_459 i `i  1 a 2 8 ]
+"153
+[v main@i i `i  1 a 2 11 ]
+"256
+[v main@i_464 i `uc  1 a 1 10 ]
+"132
+[v main@time time `i  1 a 2 3 ]
+"136
 [v main@pressione pressione `uc  1 a 1 2 ]
-"149
+"135
 [v main@umidita umidita `uc  1 a 1 1 ]
-"148
+"134
 [v main@temp temp `uc  1 a 1 0 ]
-"335
+"327
 } 0
-"394
+"387
 [v _sendByte sendByte `(v  1 e 1 0 ]
 {
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
-"399
+"392
 [v sendByte@i i `uc  1 a 1 31 ]
-"396
+"389
 [v sendByte@txByte txByte `*.4uc  1 a 1 30 ]
-"394
+"387
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
 [v sendByte@byte1 byte1 `uc  1 p 1 24 ]
 [v sendByte@valore valore `uc  1 p 1 25 ]
-"397
+"390
 [v sendByte@byte0 byte0 `uc  1 a 1 29 ]
-"403
+"396
 } 0
-"369
+"361
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 4 ]
-"375
+"367
 } 0
 "2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
@@ -367,10 +365,10 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 6 ]
 "53
 } 0
-"338 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"330 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
 {
-"344
+"336
 } 0
 "3 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _UpdateTimes UpdateTimes `(v  1 e 1 0 ]
@@ -378,21 +376,21 @@
 [s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
 [v UpdateTimes@_semafori _semafori `*.4*.39S22  1 a 1 wreg ]
 "8
-[v UpdateTimes@i i `uc  1 a 1 22 ]
+[v UpdateTimes@i i `uc  1 a 1 21 ]
 "6
-[v UpdateTimes@l l `uc  1 a 1 21 ]
+[v UpdateTimes@l l `uc  1 a 1 22 ]
 "3
 [v UpdateTimes@_semafori _semafori `*.4*.39S22  1 a 1 wreg ]
 "6
 "3
 [v UpdateTimes@_semafori _semafori `*.4*.39S22  1 a 1 20 ]
-"13
+"14
 } 0
-"357 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"349 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
 [v UART_Init@baudrate baudrate `i  1 p 2 19 ]
-"367
+"359
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -407,25 +405,27 @@
 [v ___aldiv@dividend dividend `l  1 p 4 8 ]
 "41
 } 0
-"73 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+"62 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _SetReceivedTimes SetReceivedTimes `(v  1 e 1 0 ]
 {
 [v SetReceivedTimes@_dataFromGateway _dataFromGateway `*.4uc  1 a 1 wreg ]
-"77
-[v SetReceivedTimes@index index `uc  1 a 1 24 ]
-"79
-[v SetReceivedTimes@colorId colorId `uc  1 a 1 22 ]
-"78
-[v SetReceivedTimes@semaforoId semaforoId `uc  1 a 1 21 ]
-"75
-[v SetReceivedTimes@i i `uc  1 a 1 25 ]
-"73
+"66
+[v SetReceivedTimes@index index `uc  1 a 1 26 ]
+"67
+[v SetReceivedTimes@semaforoId semaforoId `uc  1 a 1 23 ]
+"69
+[v SetReceivedTimes@luxId luxId `uc  1 a 1 22 ]
+"68
+[v SetReceivedTimes@colorId colorId `uc  1 a 1 21 ]
+"64
+[v SetReceivedTimes@i i `uc  1 a 1 24 ]
+"62
 [v SetReceivedTimes@_dataFromGateway _dataFromGateway `*.4uc  1 a 1 wreg ]
 [s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
 [v SetReceivedTimes@_semafori _semafori `*.4*.39S22  1 p 1 12 ]
-"75
-[v SetReceivedTimes@_dataFromGateway _dataFromGateway `*.4uc  1 a 1 23 ]
-"83
+"64
+[v SetReceivedTimes@_dataFromGateway _dataFromGateway `*.4uc  1 a 1 25 ]
+"74
 } 0
 "4 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
 [v ___bmul __bmul `(uc  1 e 1 0 ]
@@ -440,24 +440,24 @@
 [v ___bmul@multiplier multiplier `uc  1 a 1 7 ]
 "51
 } 0
-"29 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+"18 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _GetTime GetTime `(i  1 e 2 0 ]
 {
 [v GetTime@index index `uc  1 a 1 wreg ]
-"31
+"20
 [v GetTime@tmp tmp `i  1 a 2 10 ]
 [s S27 . 1 `uc 1 Val 1 0 :7:0 
 ]
-"35
+"24
 [v GetTime@shortInt shortInt `S27  1 a 1 9 ]
-"29
+"18
 [v GetTime@index index `uc  1 a 1 wreg ]
 [v GetTime@_dataFromGateway _dataFromGateway `*.4uc  1 p 1 4 ]
-"37
+"26
 [v GetTime@index index `uc  1 a 1 8 ]
-"45
+"34
 } 0
-"406 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"399 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
 {
 [v SetDisplay@d1 d1 `uc  1 a 1 wreg ]
@@ -465,24 +465,24 @@
 [v SetDisplay@d2 d2 `uc  1 p 1 4 ]
 [v SetDisplay@d3 d3 `uc  1 p 1 5 ]
 [v SetDisplay@value value `uc  1 p 1 6 ]
-"408
+"401
 [v SetDisplay@d1 d1 `uc  1 a 1 7 ]
-"412
+"405
 } 0
-"49 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+"38 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _SetDefaultTimers SetDefaultTimers `(v  1 e 1 0 ]
 {
-"53
+"42
 [v SetDefaultTimers@i i `uc  1 a 1 19 ]
-"51
+"40
 [v SetDefaultTimers@l l `uc  1 a 1 18 ]
-"49
+"38
 [v SetDefaultTimers@rosso rosso `i  1 p 2 4 ]
 [v SetDefaultTimers@verde verde `i  1 p 2 6 ]
 [v SetDefaultTimers@giallo giallo `i  1 p 2 8 ]
 [s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
 [v SetDefaultTimers@_semafori _semafori `*.4*.39S22  1 p 1 10 ]
-"69
+"58
 } 0
 "29 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
 [v _GetDigits GetDigits `(v  1 e 1 0 ]
@@ -494,6 +494,17 @@
 [v GetDigits@Time Time `i  1 p 2 22 ]
 [v GetDigits@centinaia centinaia `*.4uc  1 a 1 27 ]
 "39
+} 0
+"5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+[v ___awmod __awmod `(i  1 e 2 0 ]
+{
+"10
+[v ___awmod@sign sign `uc  1 a 1 10 ]
+[v ___awmod@counter counter `uc  1 a 1 9 ]
+"5
+[v ___awmod@divisor divisor `i  1 p 2 4 ]
+[v ___awmod@dividend dividend `i  1 p 2 6 ]
+"34
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
 [v ___awdiv __awdiv `(i  1 e 2 0 ]
@@ -508,49 +519,28 @@
 [v ___awdiv@dividend dividend `i  1 p 2 13 ]
 "41
 } 0
-"15 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-[v _ChangeTrafficLight ChangeTrafficLight `(v  1 e 1 0 ]
-{
-[s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
-[v ChangeTrafficLight@_semafori _semafori `*.4*.39S22  1 a 1 wreg ]
-[v ChangeTrafficLight@_semafori _semafori `*.4*.39S22  1 a 1 wreg ]
-[v ChangeTrafficLight@_n_semafori _n_semafori `*.4uc  1 p 1 11 ]
-[v ChangeTrafficLight@_semafori _semafori `*.4*.39S22  1 a 1 18 ]
-"25
-} 0
-"5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-[v ___awmod __awmod `(i  1 e 2 0 ]
-{
-"10
-[v ___awmod@sign sign `uc  1 a 1 10 ]
-[v ___awmod@counter counter `uc  1 a 1 9 ]
-"5
-[v ___awmod@divisor divisor `i  1 p 2 4 ]
-[v ___awmod@dividend dividend `i  1 p 2 6 ]
-"34
-} 0
-"347 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"339 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
 {
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
-"349
+"341
 [v ADC_Read@canale canale `uc  1 a 1 7 ]
-"355
+"347
 } 0
-"438
+"431
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"480
+"473
 } 0
-"415
+"408
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
 {
-"422
+"415
 [v conteggioVeicoli@i i `uc  1 a 1 13 ]
-"434
+"427
 } 0
-"87 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+"78 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
 [v _Conteggio Conteggio `(v  1 e 1 0 ]
 {
 [v Conteggio@_count _count `ui  1 p 2 0 ]
@@ -558,10 +548,10 @@
 [v Conteggio@_car _car `*.4uc  1 p 1 3 ]
 [v Conteggio@_truck _truck `*.4uc  1 p 1 4 ]
 [v Conteggio@index index `uc  1 p 1 5 ]
-"101
+"92
 } 0
-"386 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+"378 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
 {
-"392
+"384
 } 0

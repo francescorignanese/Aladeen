@@ -3,25 +3,14 @@
 void UpdateTimes(_Semafori _semafori)
 {
     //for su tutti i semafori per aggiornare eventuali modifiche ai timers
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
         for(unsigned char i = 0; i < 3; i++)
         {   
             (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
         }
+        (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
     }
-}
-
-void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-{
-    //incrementando n_semafori quando il tempo ï¿½ 0; assicura che vengano saltati i semafori che non vengoo inizializzati dal raspberry, quindi inesistenti nell'incrocio
-    //si usa il do while così da incrementare almeno una volta
-    do
-    {
-        *_n_semafori = ((*_n_semafori) + 1);
-    }while( (*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori<10);
-
-    *_n_semafori=(*_n_semafori)%10;
 }
 
 
@@ -48,7 +37,7 @@ int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 //setta i timer dei semafori
 void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
         for (unsigned char i = 0; i < 3; i++)
         {
@@ -77,8 +66,10 @@ void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
                     unsigned char index = i * 5;           
                     unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
                     unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+                    unsigned char luxId = _dataFromGateway[index+1] & 0xFE;
                     
-                    (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway); 
+                    (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+                    (*(_semafori)[semaforoId]).new_lux_select=luxId;
                 }
 }
 

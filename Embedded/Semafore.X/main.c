@@ -81,11 +81,6 @@ Byte di paritÃ  per trovare l'errore
 #define Road3 PORTBbits.RB5
 #define Road4 PORTAbits.RA5
 
-typedef struct
-{
-    unsigned int Bit : 1;
-} Bit;
-
 struct
 {
     unsigned int Bit : 1;
@@ -93,8 +88,6 @@ struct
 } readGatewayDone;
 
 Bit readGateway, secondPassed, cycled;
-//Array per la visualizzazione dei numeri sui display
-const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
 unsigned char disp;                     //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
@@ -107,15 +100,9 @@ unsigned char truck[4];                 //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
 ProtocolBytes dataFromGateway;                                                 //array dati da seriale
-/*
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
-Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
- */
 Semaforo s0, s1, s2, s3, s4, s5, s6, s7; //definisco i vari semafori
 Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-unsigned char id_semaforo = 0;
-//Update to_update;
 
 void init_ADC();              //Inizializza l'adc
 int ADC_Read(char canale);    //Lettura da un ingresso analogico
@@ -143,7 +130,6 @@ void main(void)
     //?PIE1 = 0x01;
 
     int time;                     //0 ï¿½ rosso, 1 ï¿½ verde, 2 ï¿½ giallo
-    unsigned char lux_select = 0; //selezione luce per il semaforo
     disp = 0;                     //variabile per definire quale display deve accendersi, inizializzo a 0
     unsigned char temp = 0;       //Variabile per salvare la temperatura sul pin RA0
     unsigned char umidita = 0;    //Variabile per salvare l'umidita sul pin RA1
@@ -267,33 +253,39 @@ void main(void)
         {
             time++;                                                         //incrementa il timer per il calcolo del countdown
             
-            do                                                              //Per ogni semaforo calcolerà il countdown per le luci in base alla luce
+            unsigned char i=0;
+            while(i<n_semafori)                                             //Per ogni semaforo calcolerà il countdown per le luci in base alla luce
             {
-                ChangeTrafficLight(Semafori, &id_semaforo);                 //incrementa l'id del semaforo
-                lux_select=(*Semafori[id_semaforo]).lux_select;
-                
-                if ((*Semafori[id_semaforo]).times[lux_select] - time < 0)  //se il timer ha raggiunto il tempo della luce, quindi il countdown è terminato...
+                if( (*Semafori[i]).times[0]==0 )                            //se per l'i-esimo semaforo è stato impostato un tempo 0 allora non è utilizzato e viene saltato
                 {
-                    lux_select++;                                           //...si incrementa il contatore delle luci...
-                    time=1;                                                 //...si resetta il timer
-                
-                    if (lux_select >= 3)                                    //Se il contatore delle luci è arrivato a 3, ovvero è finito il giallo...
+                    i++;
+                }
+                else
+                {
+                    unsigned char lux_select=(*Semafori[i]).lux_select;
+                    if ((*Semafori[i]).times[lux_select] - time < 0)  //se il timer ha raggiunto il tempo della luce, quindi il countdown è terminato...
                     {
-                        lux_select=0;                                       //...resetta il contatore delle luci, tornando al verde...
-                        
-                        if(id_semaforo==0)                                  //...e se il ciclo terminato è quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
+                        lux_select++;                                           //...si incrementa il contatore delle luci...
+                        time=1;                                                 //...si resetta il timer  
+                        if (lux_select >= 3)                                    //Se il contatore delle luci è arrivato a 3, ovvero è finito il giallo...
                         {
-                            //AGGIORNAMENTO TEMPI LUCI
-                            UpdateTimes(Semafori);                  //...e aggiorna i tempi delle luci...   
+                            lux_select=0;                                       //...resetta il contatore delle luci, tornando al verde...
+                            if(i==n_semafori-1)                                 //...e se il ciclo terminato è quello dell'ultimo semaforo tutto l'incrocio ha terminato un ciclo...
+                            {
+                                //AGGIORNAMENTO TEMPI LUCI
+                                UpdateTimes(Semafori);                  //...e aggiorna i tempi delle luci...   
+                            }
                         }
                     }
+                
+                    (*Semafori[i]).lux_select=lux_select;             //aggiorna il valore di lòux_select nel caso sia cambiato
+                    GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unità del countdown  
+                    
+                    i++;
                 }
-                
-                (*Semafori[id_semaforo]).lux_select=lux_select;             //aggiorna il valore di lòux_select nel caso sia cambiato
-                GetDigits(&centinaia, &decine, &unita, (*Semafori[id_semaforo]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unità del countdown
-                
-            }while(id_semaforo>0);
+            }
         }
+        
 
         //MOSTRA TIMER SU DISPLAY
         switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
@@ -390,6 +382,7 @@ char UART_Read()
     RCIF = 0;
     return RCREG;
 }
+
 
 void sendByte(char byte0, char byte1, char valore)
 {

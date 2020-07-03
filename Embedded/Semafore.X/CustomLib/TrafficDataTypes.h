@@ -1,3 +1,5 @@
+#include "Constants.h"
+
 typedef struct
 {
     int times[3];
@@ -6,13 +8,10 @@ typedef struct
     unsigned char new_lux_select;
 } Semaforo;
 
-/*
 typedef struct
 {
-    int new_times[3];
-    unsigned char id;
-} Update;
-*/
+    unsigned int Bit : 1;
+} Bit;
 
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[16];
+typedef Semaforo *_Semafori[8];
