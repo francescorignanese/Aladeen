@@ -241,7 +241,7 @@ void main(void)
             //se il readgatewaydone non � stato richiamato dal timeout inizia la modifica dei dati
             else
             {
-                //bitParita(dataFromGateway); //controllo correttezza dati
+                bitParita(dataFromGateway); //controllo correttezza dati
                 SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
