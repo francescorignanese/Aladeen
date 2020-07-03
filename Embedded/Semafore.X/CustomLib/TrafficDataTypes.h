@@ -6,6 +6,11 @@ typedef struct
     unsigned char new_lux_select;
 } Semaforo;
 
+typedef struct
+{
+    unsigned char Bit :1;
+} Bit;
+
 /*
 typedef struct
 {

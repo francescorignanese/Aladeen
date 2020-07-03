@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "test.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-# 47 "main.c"
+# 1 "test.c" 2
+# 47 "test.c"
 #pragma config FOSC = HS
 #pragma config WDTE = OFF
 #pragma config PWRTE = ON
@@ -1731,7 +1731,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 56 "main.c" 2
+# 56 "test.c" 2
 
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 1 3
 
@@ -1824,7 +1824,7 @@ extern char * ltoa(char * buf, long val, int base);
 extern char * ultoa(char * buf, unsigned long val, int base);
 
 extern char * ftoa(float f, int * status);
-# 57 "main.c" 2
+# 57 "test.c" 2
 
 # 1 "./CustomLib/Conversions.h" 1
 int map(int x, int in_min, int in_max, int out_min, int out_max)
@@ -1866,7 +1866,7 @@ void GetDigits(unsigned char *centinaia, unsigned char *decine, unsigned char *u
     *decine = (Time % 100) / 10;
     *unita = (Time % 100) % 10;
 }
-# 58 "main.c" 2
+# 58 "test.c" 2
 
 # 1 "./CustomLib/BitsFlow.h" 1
 char bitChange(char dato, char n)
@@ -1921,7 +1921,7 @@ void bitParita(char *rx)
         rx[errorRow] = bitChange(rx[errorRow], errorColumn);
     }
 }
-# 59 "main.c" 2
+# 59 "test.c" 2
 
 # 1 "./CustomLib/Serial.h" 1
 
@@ -1974,10 +1974,19 @@ char *BuildByte(char byte0, char byte1, char valore)
 
     return txByte;
 }
-# 60 "main.c" 2
+# 60 "test.c" 2
 
 # 1 "./CustomLib/TrafficLight.h" 1
 # 1 "./CustomLib/TrafficDataTypes.h" 1
+# 1 "./CustomLib/Constants.h" 1
+
+const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+
+
+const unsigned char n_semafori=8;
+# 1 "./CustomLib/TrafficDataTypes.h" 2
+
+
 typedef struct
 {
     int times[3];
@@ -1988,36 +1997,25 @@ typedef struct
 
 typedef struct
 {
-    unsigned char Bit :1;
+    unsigned int Bit : 1;
 } Bit;
-# 22 "./CustomLib/TrafficDataTypes.h"
+
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[16];
+typedef Semaforo *_Semafori[8];
 # 1 "./CustomLib/TrafficLight.h" 2
 
 
 void UpdateTimes(_Semafori _semafori)
 {
 
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
         for(unsigned char i = 0; i < 3; i++)
         {
             (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
         }
+        (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
     }
-}
-
-void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-{
-
-
-    do
-    {
-        *_n_semafori = ((*_n_semafori) + 1);
-    }while( (*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori<10);
-
-    *_n_semafori=(*_n_semafori)%10;
 }
 
 
@@ -2044,7 +2042,7 @@ int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 
 void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
         for (unsigned char i = 0; i < 3; i++)
         {
@@ -2073,8 +2071,10 @@ void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
                     unsigned char index = i * 5;
                     unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
                     unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+                    unsigned char luxId = _dataFromGateway[index+1] & 0xFE;
 
                     (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+                    (*(_semafori)[semaforoId]).new_lux_select=luxId;
                 }
 }
 
@@ -2095,16 +2095,8 @@ void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char 
             _truck[index]=_truck[index]+1;
         }
 }
-# 61 "main.c" 2
-
-# 1 "./CustomLib/Constants.h" 1
-
-const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-
-
-const unsigned char n_semafori=8;
-# 62 "main.c" 2
-# 90 "main.c"
+# 61 "test.c" 2
+# 84 "test.c"
 struct
 {
     unsigned int Bit : 1;
@@ -2137,7 +2129,6 @@ void sendByte(char byte0, char byte1, char valore);
 void conteggioVeicoli();
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
-void luciSemaforo(unsigned char index, unsigned char lux);
 
 void main(void)
 {
@@ -2279,7 +2270,7 @@ void main(void)
             time++;
 
             unsigned char i=0;
-            while(i<2)
+            while(i<1)
             {
                 if( (*Semafori[i]).times[0]==0 )
                 {
@@ -2308,7 +2299,6 @@ void main(void)
                     (*Semafori[i]).lux_select=lux_select;
 
 
-                    luciSemaforo(i, lux_select);
                     i++;
                 }
             }
@@ -2318,6 +2308,12 @@ void main(void)
 
 
         GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time);
+        switch((*Semafori[0]).lux_select)
+        {
+            case 0: PORTBbits.RB5=1; PORTBbits.RB7=0; PORTBbits.RB6=0; break;
+            case 1: PORTBbits.RB5=0; PORTBbits.RB7=0; PORTBbits.RB6=1; break;
+
+        }
 
 
         switch (disp)
@@ -2502,59 +2498,5 @@ void __attribute__((picinterrupt(("")))) ISR()
 
         TMR1H = 60;
         TMR1L = 176;
-    }
-}
-
-
-void luciSemaforo(unsigned char index, unsigned char lux)
-{
-    switch (index)
-    {
-    case 0:
-        switch (lux)
-        {
-        case 0:
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC3 = 0;
-            PORTCbits.RC0 = 1;
-            break;
-        case 1:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC3 = 0;
-            PORTCbits.RC1 = 1;
-            break;
-        case 2:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
-            PORTCbits.RC3 = 1;
-            break;
-        }
-        break;
-    case 1:
-        switch (lux)
-        {
-        case 0:
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB0 = 1;
-            break;
-        case 1:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB1 = 1;
-            break;
-        case 2:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            PORTBbits.RB7 = 1;
-            break;
-        }
-        break;
     }
 }
