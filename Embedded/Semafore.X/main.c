@@ -78,10 +78,14 @@ Byte di parità per trovare l'errore
 //* end <--
 
 //*Inizializzazione delle luci -->
-#define Lux_Sem1 PORTBbits.RB0  //ledRGB per il primo incrocio
-#define Lux_Sem_1 PORTBbits.RB1 //ledRGB per il primo incrocio
-#define Lux_Sem2 PORTBbits.RB6  //ledRGB per il secondo incrocio
-#define Lux_Sem_2 PORTBbits.RB7 //ledRGB per il secondo incrocio
+#define Red1 PORTCbits.RC0     //Rosso primo semaforo
+#define Green1 PORTCbits.RC1   //verde primo semaforo
+#define Yellow1 PORTCbits.RC2  //usat0 per il giallo del primo semaforo
+#define Yellow_1 PORTCbits.RC3 //usato per il giallo del primo semaforo
+#define Red2 PORTBbits.RB0     //Rosso secondo semaforo
+#define Green2 PORTBbits.RB1   //verde secondo semaforo
+#define Yellow2 PORTBbits.RB6  //usato per il giallo del secondo semaforo
+#define Yellow_2 PORTBbits.RB7 //usato per il giallo del secondo semaforo
 //* end <--
 
 typedef struct
