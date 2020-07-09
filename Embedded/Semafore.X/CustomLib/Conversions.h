@@ -28,6 +28,11 @@ void intToString(int valore, char *str) //funzione per convertire un intero in u
 
 void GetDigits(unsigned char *centinaia, unsigned char *decine, unsigned char *unita, int Time)
 {
+    while(Time/1000>0)
+    {
+        Time=Time/10;
+    }
+    
     *centinaia = Time / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
     *decine = (Time % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
     *unita = (Time % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)

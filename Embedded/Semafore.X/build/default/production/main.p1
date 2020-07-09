@@ -1,0 +1,2717 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"2 ./CustomLib/TrafficDataTypes.h
+[; ;./CustomLib/TrafficDataTypes.h: 2: {
+[s S149 `i -> 3 `i `i -> 3 `i `uc 1 `uc 1 ]
+[n S149 . times new_times lux_select new_lux_select ]
+"33 ./CustomLib/TrafficLight.h
+[; ;./CustomLib/TrafficLight.h: 33:     {
+[s S163 :7 `uc 1 ]
+[n S163 . Val ]
+"91 main.c
+[; ;main.c: 91: {
+[s S184 :1 `uc 1 :1 `uc 1 ]
+[n S184 . Bit Timeout ]
+"10 ./CustomLib/TrafficDataTypes.h
+[; ;./CustomLib/TrafficDataTypes.h: 10: {
+[s S150 :1 `uc 1 ]
+[n S150 . Bit ]
+[p mainexit ]
+"1375 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1375: extern volatile unsigned char TRISB __attribute__((address(0x086)));
+[v _TRISB `Vuc ~T0 @X0 0 e@134 ]
+"1437
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1437: extern volatile unsigned char TRISC __attribute__((address(0x087)));
+[v _TRISC `Vuc ~T0 @X0 0 e@135 ]
+"1499
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1499: extern volatile unsigned char TRISD __attribute__((address(0x088)));
+[v _TRISD `Vuc ~T0 @X0 0 e@136 ]
+"1561
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1561: extern volatile unsigned char TRISE __attribute__((address(0x089)));
+[v _TRISE `Vuc ~T0 @X0 0 e@137 ]
+"454
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 454: extern volatile unsigned char INTCON __attribute__((address(0x00B)));
+[v _INTCON `Vuc ~T0 @X0 0 e@11 ]
+"1255
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1255: extern volatile unsigned char OPTION_REG __attribute__((address(0x081)));
+[v _OPTION_REG `Vuc ~T0 @X0 0 e@129 ]
+"59
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 59: extern volatile unsigned char TMR0 __attribute__((address(0x001)));
+[v _TMR0 `Vuc ~T0 @X0 0 e@1 ]
+"655
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 655: extern volatile unsigned char T1CON __attribute__((address(0x010)));
+[v _T1CON `Vuc ~T0 @X0 0 e@16 ]
+"648
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 648: extern volatile unsigned char TMR1H __attribute__((address(0x00F)));
+[v _TMR1H `Vuc ~T0 @X0 0 e@15 ]
+"641
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 641: extern volatile unsigned char TMR1L __attribute__((address(0x00E)));
+[v _TMR1L `Vuc ~T0 @X0 0 e@14 ]
+"113 main.c
+[; ;main.c: 113: void init_ADC();
+[v _init_ADC `(v ~T0 @X0 0 e? ]
+"115
+[; ;main.c: 115: void UART_Init(int baudrate);
+[v _UART_Init `(v ~T0 @X0 0 ef1`i ]
+"120
+[; ;main.c: 120: void sendByte(char byte0, char byte1, char valore);
+[v _sendByte `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"114
+[; ;main.c: 114: int ADC_Read(char canale);
+[v _ADC_Read `(i ~T0 @X0 0 ef1`uc ]
+"122
+[; ;main.c: 122: void luciSemaforo(unsigned char index, unsigned char lux);
+[v _luciSemaforo `(v ~T0 @X0 0 ef2`uc`uc ]
+"121
+[; ;main.c: 121: void SetDisplay(char d1, char d2, char d3, char value);
+[v _SetDisplay `(v ~T0 @X0 0 ef4`uc`uc`uc`uc ]
+"1325 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1325: extern volatile unsigned char TRISA __attribute__((address(0x085)));
+[v _TRISA `Vuc ~T0 @X0 0 e@133 ]
+"1159
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1159: extern volatile unsigned char ADCON0 __attribute__((address(0x01F)));
+[v _ADCON0 `Vuc ~T0 @X0 0 e@31 ]
+"2229
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2229: extern volatile unsigned char ADCON1 __attribute__((address(0x09F)));
+[v _ADCON1 `Vuc ~T0 @X0 0 e@159 ]
+[v F842 `(v ~T0 @X0 1 tf1`ul ]
+"92 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic.h
+[v __delay `JF842 ~T0 @X0 0 e ]
+[p i __delay ]
+"2578 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2578: extern volatile __bit GO_nDONE __attribute__((address(0xFA)));
+[v _GO_nDONE `Vb ~T0 @X0 0 e@250 ]
+"2222
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2222: extern volatile unsigned char ADRESL __attribute__((address(0x09E)));
+[v _ADRESL `Vuc ~T0 @X0 0 e@158 ]
+"1152
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1152: extern volatile unsigned char ADRESH __attribute__((address(0x01E)));
+[v _ADRESH `Vuc ~T0 @X0 0 e@30 ]
+"1443
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1443:     struct {
+[s S58 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S58 . TRISC0 TRISC1 TRISC2 TRISC3 TRISC4 TRISC5 TRISC6 TRISC7 ]
+"1442
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1442: typedef union {
+[u S57 `S58 1 ]
+[n S57 . . ]
+"1454
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1454: extern volatile TRISCbits_t TRISCbits __attribute__((address(0x087)));
+[v _TRISCbits `VS57 ~T0 @X0 0 e@135 ]
+"2005
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2005:     struct {
+[s S81 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S81 . TX9D TRMT BRGH . SYNC TXEN TX9 CSRC ]
+"2015
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2015:     struct {
+[s S82 :1 `uc 1 :5 `uc 1 :1 `uc 1 ]
+[n S82 . TXD8 . nTX8 ]
+"2020
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2020:     struct {
+[s S83 :6 `uc 1 :1 `uc 1 ]
+[n S83 . . TX8_9 ]
+"2004
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2004: typedef union {
+[u S80 `S81 1 `S82 1 `S83 1 ]
+[n S80 . . . . ]
+"2025
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2025: extern volatile TXSTAbits_t TXSTAbits __attribute__((address(0x098)));
+[v _TXSTAbits `VS80 ~T0 @X0 0 e@152 ]
+"970
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 970:     struct {
+[s S38 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S38 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
+"980
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 980:     struct {
+[s S39 :1 `uc 1 :5 `uc 1 :1 `uc 1 ]
+[n S39 . RCD8 . RC9 ]
+"985
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 985:     struct {
+[s S40 :6 `uc 1 :1 `uc 1 ]
+[n S40 . . nRC8 ]
+"989
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 989:     struct {
+[s S41 :6 `uc 1 :1 `uc 1 ]
+[n S41 . . RC8_9 ]
+"969
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 969: typedef union {
+[u S37 `S38 1 `S39 1 `S40 1 `S41 1 ]
+[n S37 . . . . . ]
+"994
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 994: extern volatile RCSTAbits_t RCSTAbits __attribute__((address(0x018)));
+[v _RCSTAbits `VS37 ~T0 @X0 0 e@24 ]
+"2080
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2080: extern volatile unsigned char SPBRG __attribute__((address(0x099)));
+[v _SPBRG `Vuc ~T0 @X0 0 e@153 ]
+"460
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 460:     struct {
+[s S18 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S18 . RBIF INTF TMR0IF RBIE INTE TMR0IE PEIE GIE ]
+"470
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 470:     struct {
+[s S19 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
+[n S19 . . T0IF . T0IE ]
+"459
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 459: typedef union {
+[u S17 `S18 1 `S19 1 ]
+[n S17 . . . ]
+"477
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 477: extern volatile INTCONbits_t INTCONbits __attribute__((address(0x00B)));
+[v _INTCONbits `VS17 ~T0 @X0 0 e@11 ]
+"1624
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1624:     struct {
+[s S64 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S64 . TMR1IE TMR2IE CCP1IE SSPIE TXIE RCIE ADIE PSPIE ]
+"1623
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1623: typedef union {
+[u S63 `S64 1 ]
+[n S63 . . ]
+"1635
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1635: extern volatile PIE1bits_t PIE1bits __attribute__((address(0x08C)));
+[v _PIE1bits `VS63 ~T0 @X0 0 e@140 ]
+"3037
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 3037: extern volatile __bit TXIF __attribute__((address(0x64)));
+[v _TXIF `Vb ~T0 @X0 0 e@100 ]
+"1059
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1059: extern volatile unsigned char TXREG __attribute__((address(0x019)));
+[v _TXREG `Vuc ~T0 @X0 0 e@25 ]
+"2743
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2743: extern volatile __bit RCIF __attribute__((address(0x65)));
+[v _RCIF `Vb ~T0 @X0 0 e@101 ]
+"1066
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1066: extern volatile unsigned char RCREG __attribute__((address(0x01A)));
+[v _RCREG `Vuc ~T0 @X0 0 e@26 ]
+"172
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 172:     struct {
+[s S6 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S6 . RA0 RA1 RA2 RA3 RA4 RA5 ]
+"171
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 171: typedef union {
+[u S5 `S6 1 ]
+[n S5 . . ]
+"181
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 181: extern volatile PORTAbits_t PORTAbits __attribute__((address(0x005)));
+[v _PORTAbits `VS5 ~T0 @X0 0 e@5 ]
+"340
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 340: extern volatile unsigned char PORTD __attribute__((address(0x008)));
+[v _PORTD `Vuc ~T0 @X0 0 e@8 ]
+"222
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 222:     struct {
+[s S8 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S8 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
+"221
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 221: typedef union {
+[u S7 `S8 1 ]
+[n S7 . . ]
+"233
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 233: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x006)));
+[v _PORTBbits `VS7 ~T0 @X0 0 e@6 ]
+[t ~ __interrupt . k ]
+[t T1 __interrupt ]
+"2881
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2881: extern volatile __bit TMR0IF __attribute__((address(0x5A)));
+[v _TMR0IF `Vb ~T0 @X0 0 e@90 ]
+"2890
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2890: extern volatile __bit TMR1IF __attribute__((address(0x60)));
+[v _TMR1IF `Vb ~T0 @X0 0 e@96 ]
+"284
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 284:     struct {
+[s S10 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S10 . RC0 RC1 RC2 RC3 RC4 RC5 RC6 RC7 ]
+"283
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 283: typedef union {
+[u S9 `S10 1 ]
+[n S9 . . ]
+"295
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 295: extern volatile PORTCbits_t PORTCbits __attribute__((address(0x007)));
+[v _PORTCbits `VS9 ~T0 @X0 0 e@7 ]
+"47 main.c
+[p x FOSC = HS ]
+"48
+[p x WDTE = OFF ]
+"49
+[p x PWRTE = ON ]
+"50
+[p x BOREN = ON ]
+"51
+[p x LVP = ON ]
+"52
+[p x CPD = OFF ]
+"53
+[p x WRT = OFF ]
+"54
+[p x CP = OFF ]
+"54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 54: __asm("INDF equ 00h");
+[; <" INDF equ 00h ;# ">
+"61
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 61: __asm("TMR0 equ 01h");
+[; <" TMR0 equ 01h ;# ">
+"68
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 68: __asm("PCL equ 02h");
+[; <" PCL equ 02h ;# ">
+"75
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 75: __asm("STATUS equ 03h");
+[; <" STATUS equ 03h ;# ">
+"161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 161: __asm("FSR equ 04h");
+[; <" FSR equ 04h ;# ">
+"168
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 168: __asm("PORTA equ 05h");
+[; <" PORTA equ 05h ;# ">
+"218
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 218: __asm("PORTB equ 06h");
+[; <" PORTB equ 06h ;# ">
+"280
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 280: __asm("PORTC equ 07h");
+[; <" PORTC equ 07h ;# ">
+"342
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 342: __asm("PORTD equ 08h");
+[; <" PORTD equ 08h ;# ">
+"404
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 404: __asm("PORTE equ 09h");
+[; <" PORTE equ 09h ;# ">
+"436
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 436: __asm("PCLATH equ 0Ah");
+[; <" PCLATH equ 0Ah ;# ">
+"456
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 456: __asm("INTCON equ 0Bh");
+[; <" INTCON equ 0Bh ;# ">
+"534
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 534: __asm("PIR1 equ 0Ch");
+[; <" PIR1 equ 0Ch ;# ">
+"596
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 596: __asm("PIR2 equ 0Dh");
+[; <" PIR2 equ 0Dh ;# ">
+"636
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 636: __asm("TMR1 equ 0Eh");
+[; <" TMR1 equ 0Eh ;# ">
+"643
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 643: __asm("TMR1L equ 0Eh");
+[; <" TMR1L equ 0Eh ;# ">
+"650
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 650: __asm("TMR1H equ 0Fh");
+[; <" TMR1H equ 0Fh ;# ">
+"657
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 657: __asm("T1CON equ 010h");
+[; <" T1CON equ 010h ;# ">
+"732
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 732: __asm("TMR2 equ 011h");
+[; <" TMR2 equ 011h ;# ">
+"739
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 739: __asm("T2CON equ 012h");
+[; <" T2CON equ 012h ;# ">
+"810
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 810: __asm("SSPBUF equ 013h");
+[; <" SSPBUF equ 013h ;# ">
+"817
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 817: __asm("SSPCON equ 014h");
+[; <" SSPCON equ 014h ;# ">
+"887
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 887: __asm("CCPR1 equ 015h");
+[; <" CCPR1 equ 015h ;# ">
+"894
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 894: __asm("CCPR1L equ 015h");
+[; <" CCPR1L equ 015h ;# ">
+"901
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 901: __asm("CCPR1H equ 016h");
+[; <" CCPR1H equ 016h ;# ">
+"908
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 908: __asm("CCP1CON equ 017h");
+[; <" CCP1CON equ 017h ;# ">
+"966
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 966: __asm("RCSTA equ 018h");
+[; <" RCSTA equ 018h ;# ">
+"1061
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1061: __asm("TXREG equ 019h");
+[; <" TXREG equ 019h ;# ">
+"1068
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1068: __asm("RCREG equ 01Ah");
+[; <" RCREG equ 01Ah ;# ">
+"1075
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1075: __asm("CCPR2 equ 01Bh");
+[; <" CCPR2 equ 01Bh ;# ">
+"1082
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1082: __asm("CCPR2L equ 01Bh");
+[; <" CCPR2L equ 01Bh ;# ">
+"1089
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1089: __asm("CCPR2H equ 01Ch");
+[; <" CCPR2H equ 01Ch ;# ">
+"1096
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1096: __asm("CCP2CON equ 01Dh");
+[; <" CCP2CON equ 01Dh ;# ">
+"1154
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1154: __asm("ADRESH equ 01Eh");
+[; <" ADRESH equ 01Eh ;# ">
+"1161
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1161: __asm("ADCON0 equ 01Fh");
+[; <" ADCON0 equ 01Fh ;# ">
+"1257
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1257: __asm("OPTION_REG equ 081h");
+[; <" OPTION_REG equ 081h ;# ">
+"1327
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1327: __asm("TRISA equ 085h");
+[; <" TRISA equ 085h ;# ">
+"1377
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1377: __asm("TRISB equ 086h");
+[; <" TRISB equ 086h ;# ">
+"1439
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1439: __asm("TRISC equ 087h");
+[; <" TRISC equ 087h ;# ">
+"1501
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1501: __asm("TRISD equ 088h");
+[; <" TRISD equ 088h ;# ">
+"1563
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1563: __asm("TRISE equ 089h");
+[; <" TRISE equ 089h ;# ">
+"1620
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1620: __asm("PIE1 equ 08Ch");
+[; <" PIE1 equ 08Ch ;# ">
+"1682
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1682: __asm("PIE2 equ 08Dh");
+[; <" PIE2 equ 08Dh ;# ">
+"1722
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1722: __asm("PCON equ 08Eh");
+[; <" PCON equ 08Eh ;# ">
+"1756
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1756: __asm("SSPCON2 equ 091h");
+[; <" SSPCON2 equ 091h ;# ">
+"1818
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1818: __asm("PR2 equ 092h");
+[; <" PR2 equ 092h ;# ">
+"1825
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1825: __asm("SSPADD equ 093h");
+[; <" SSPADD equ 093h ;# ">
+"1832
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 1832: __asm("SSPSTAT equ 094h");
+[; <" SSPSTAT equ 094h ;# ">
+"2001
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2001: __asm("TXSTA equ 098h");
+[; <" TXSTA equ 098h ;# ">
+"2082
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2082: __asm("SPBRG equ 099h");
+[; <" SPBRG equ 099h ;# ">
+"2089
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2089: __asm("CMCON equ 09Ch");
+[; <" CMCON equ 09Ch ;# ">
+"2159
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2159: __asm("CVRCON equ 09Dh");
+[; <" CVRCON equ 09Dh ;# ">
+"2224
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2224: __asm("ADRESL equ 09Eh");
+[; <" ADRESL equ 09Eh ;# ">
+"2231
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2231: __asm("ADCON1 equ 09Fh");
+[; <" ADCON1 equ 09Fh ;# ">
+"2290
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2290: __asm("EEDATA equ 010Ch");
+[; <" EEDATA equ 010Ch ;# ">
+"2297
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2297: __asm("EEADR equ 010Dh");
+[; <" EEADR equ 010Dh ;# ">
+"2304
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2304: __asm("EEDATH equ 010Eh");
+[; <" EEDATH equ 010Eh ;# ">
+"2311
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2311: __asm("EEADRH equ 010Fh");
+[; <" EEADRH equ 010Fh ;# ">
+"2318
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2318: __asm("EECON1 equ 018Ch");
+[; <" EECON1 equ 018Ch ;# ">
+"2363
+[; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 2363: __asm("EECON2 equ 018Dh");
+[; <" EECON2 equ 018Dh ;# ">
+"1 ./CustomLib/Conversions.h
+[; ;./CustomLib/Conversions.h: 1: int map(int x, int in_min, int in_max, int out_min, int out_max)
+[v _map `(i ~T0 @X0 1 ef5`i`i`i`i`i ]
+"2
+[; ;./CustomLib/Conversions.h: 2: {
+{
+[e :U _map ]
+"1
+[; ;./CustomLib/Conversions.h: 1: int map(int x, int in_min, int in_max, int out_min, int out_max)
+[v _x `i ~T0 @X0 1 r1 ]
+[v _in_min `i ~T0 @X0 1 r2 ]
+[v _in_max `i ~T0 @X0 1 r3 ]
+[v _out_min `i ~T0 @X0 1 r4 ]
+[v _out_max `i ~T0 @X0 1 r5 ]
+"2
+[; ;./CustomLib/Conversions.h: 2: {
+[f ]
+"3
+[; ;./CustomLib/Conversions.h: 3:     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+[e ) + / * - _x _in_min - _out_max _out_min - _in_max _in_min _out_min ]
+[e $UE 99  ]
+"4
+[; ;./CustomLib/Conversions.h: 4: }
+[e :UE 99 ]
+}
+"6
+[; ;./CustomLib/Conversions.h: 6: double pow(double b, double e)
+[v _pow `(d ~T0 @X0 1 ef2`d`d ]
+"7
+[; ;./CustomLib/Conversions.h: 7: {
+{
+[e :U _pow ]
+"6
+[; ;./CustomLib/Conversions.h: 6: double pow(double b, double e)
+[v _b `d ~T0 @X0 1 r1 ]
+[v _e `d ~T0 @X0 1 r2 ]
+"7
+[; ;./CustomLib/Conversions.h: 7: {
+[f ]
+"8
+[; ;./CustomLib/Conversions.h: 8:     int i;
+[v _i `i ~T0 @X0 1 a ]
+"9
+[; ;./CustomLib/Conversions.h: 9:     double number = 1;
+[v _number `d ~T0 @X0 1 a ]
+[e = _number -> -> 1 `i `d ]
+"10
+[; ;./CustomLib/Conversions.h: 10:     for (i = 0; i < e; i++)
+{
+[e = _i -> 0 `i ]
+[e $U 104  ]
+[e :U 101 ]
+"11
+[; ;./CustomLib/Conversions.h: 11:     {
+{
+"12
+[; ;./CustomLib/Conversions.h: 12:         number *= b;
+[e =* _number _b ]
+"13
+[; ;./CustomLib/Conversions.h: 13:     }
+}
+[e ++ _i -> 1 `i ]
+[e :U 104 ]
+[e $ < -> _i `d _e 101  ]
+[e :U 102 ]
+}
+"14
+[; ;./CustomLib/Conversions.h: 14:     return (number);
+[e ) _number ]
+[e $UE 100  ]
+"15
+[; ;./CustomLib/Conversions.h: 15: }
+[e :UE 100 ]
+}
+"17
+[; ;./CustomLib/Conversions.h: 17: void intToString(int valore, char *str)
+[v _intToString `(v ~T0 @X0 1 ef2`i`*uc ]
+"18
+[; ;./CustomLib/Conversions.h: 18: {
+{
+[e :U _intToString ]
+"17
+[; ;./CustomLib/Conversions.h: 17: void intToString(int valore, char *str)
+[v _valore `i ~T0 @X0 1 r1 ]
+[v _str `*uc ~T0 @X0 1 r2 ]
+"18
+[; ;./CustomLib/Conversions.h: 18: {
+[f ]
+"19
+[; ;./CustomLib/Conversions.h: 19:     int i;
+[v _i `i ~T0 @X0 1 a ]
+"20
+[; ;./CustomLib/Conversions.h: 20:     int num = 0;
+[v _num `i ~T0 @X0 1 a ]
+[e = _num -> 0 `i ]
+"21
+[; ;./CustomLib/Conversions.h: 21:     for (i = 0; i < 3; i++)
+{
+[e = _i -> 0 `i ]
+[e $ < _i -> 3 `i 106  ]
+[e $U 107  ]
+[e :U 106 ]
+"22
+[; ;./CustomLib/Conversions.h: 22:     {
+{
+"23
+[; ;./CustomLib/Conversions.h: 23:         str[2 - i] = '0' + ((valore % (char)pow(10, 1 + i)) / (char)pow(10, i));
+[e = *U + _str * -> - -> 2 `i _i `x -> -> # *U _str `i `x -> + -> 48 `ui -> / % _valore -> -> ( _pow (2 , -> -> 10 `i `d -> + -> 1 `i _i `d `uc `i -> -> ( _pow (2 , -> -> 10 `i `d -> _i `d `uc `i `ui `uc ]
+"24
+[; ;./CustomLib/Conversions.h: 24:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 3 `i 106  ]
+[e :U 107 ]
+}
+"25
+[; ;./CustomLib/Conversions.h: 25:     str[3] = '\0';
+[e = *U + _str * -> -> 3 `i `x -> -> # *U _str `i `x -> -> 0 `ui `uc ]
+"26
+[; ;./CustomLib/Conversions.h: 26: }
+[e :UE 105 ]
+}
+"29
+[; ;./CustomLib/Conversions.h: 29: void GetDigits(unsigned char *centinaia, unsigned char *decine, unsigned char *unita, int Time)
+[v _GetDigits `(v ~T0 @X0 1 ef4`*uc`*uc`*uc`i ]
+"30
+[; ;./CustomLib/Conversions.h: 30: {
+{
+[e :U _GetDigits ]
+"29
+[; ;./CustomLib/Conversions.h: 29: void GetDigits(unsigned char *centinaia, unsigned char *decine, unsigned char *unita, int Time)
+[v _centinaia `*uc ~T0 @X0 1 r1 ]
+[v _decine `*uc ~T0 @X0 1 r2 ]
+[v _unita `*uc ~T0 @X0 1 r3 ]
+[v _Time `i ~T0 @X0 1 r4 ]
+"30
+[; ;./CustomLib/Conversions.h: 30: {
+[f ]
+"31
+[; ;./CustomLib/Conversions.h: 31:     while(Time/1000>0)
+[e $U 110  ]
+[e :U 111 ]
+"32
+[; ;./CustomLib/Conversions.h: 32:     {
+{
+"33
+[; ;./CustomLib/Conversions.h: 33:         Time=Time/10;
+[e = _Time / _Time -> 10 `i ]
+"34
+[; ;./CustomLib/Conversions.h: 34:     }
+}
+[e :U 110 ]
+"31
+[; ;./CustomLib/Conversions.h: 31:     while(Time/1000>0)
+[e $ > / _Time -> 1000 `i -> 0 `i 111  ]
+[e :U 112 ]
+"36
+[; ;./CustomLib/Conversions.h: 36:     *centinaia = Time / 100;
+[e = *U _centinaia -> / _Time -> 100 `i `uc ]
+"37
+[; ;./CustomLib/Conversions.h: 37:     *decine = (Time % 100) / 10;
+[e = *U _decine -> / % _Time -> 100 `i -> 10 `i `uc ]
+"38
+[; ;./CustomLib/Conversions.h: 38:     *unita = (Time % 100) % 10;
+[e = *U _unita -> % % _Time -> 100 `i -> 10 `i `uc ]
+"39
+[; ;./CustomLib/Conversions.h: 39: }
+[e :UE 109 ]
+}
+"1 ./CustomLib/BitsFlow.h
+[; ;./CustomLib/BitsFlow.h: 1: char bitChange(char dato, char n)
+[v _bitChange `(uc ~T0 @X0 1 ef2`uc`uc ]
+"2
+[; ;./CustomLib/BitsFlow.h: 2: {
+{
+[e :U _bitChange ]
+"1
+[; ;./CustomLib/BitsFlow.h: 1: char bitChange(char dato, char n)
+[v _dato `uc ~T0 @X0 1 r1 ]
+[v _n `uc ~T0 @X0 1 r2 ]
+"2
+[; ;./CustomLib/BitsFlow.h: 2: {
+[f ]
+"3
+[; ;./CustomLib/BitsFlow.h: 3:     if (dato & (1 << (n)))
+[e $ ! != & -> _dato `i << -> 1 `i -> _n `i -> 0 `i 114  ]
+"4
+[; ;./CustomLib/BitsFlow.h: 4:     {
+{
+"5
+[; ;./CustomLib/BitsFlow.h: 5:         return dato |= (1 << (n));
+[e ) =| _dato -> << -> 1 `i -> _n `i `uc ]
+[e $UE 113  ]
+"6
+[; ;./CustomLib/BitsFlow.h: 6:     }
+}
+[e $U 115  ]
+"7
+[; ;./CustomLib/BitsFlow.h: 7:     else
+[e :U 114 ]
+"8
+[; ;./CustomLib/BitsFlow.h: 8:     {
+{
+"9
+[; ;./CustomLib/BitsFlow.h: 9:         return dato &= ~(1 << (n));
+[e ) =& _dato -> ~ << -> 1 `i -> _n `i `uc ]
+[e $UE 113  ]
+"10
+[; ;./CustomLib/BitsFlow.h: 10:     }
+}
+[e :U 115 ]
+"11
+[; ;./CustomLib/BitsFlow.h: 11: }
+[e :UE 113 ]
+}
+"14
+[; ;./CustomLib/BitsFlow.h: 14: void bitParita(char *rx)
+[v _bitParita `(v ~T0 @X0 1 ef1`*uc ]
+"15
+[; ;./CustomLib/BitsFlow.h: 15: {
+{
+[e :U _bitParita ]
+"14
+[; ;./CustomLib/BitsFlow.h: 14: void bitParita(char *rx)
+[v _rx `*uc ~T0 @X0 1 r1 ]
+"15
+[; ;./CustomLib/BitsFlow.h: 15: {
+[f ]
+"16
+[; ;./CustomLib/BitsFlow.h: 16:     char error = 0;
+[v _error `uc ~T0 @X0 1 a ]
+[e = _error -> -> 0 `i `uc ]
+"17
+[; ;./CustomLib/BitsFlow.h: 17:     char sommaRow = 0;
+[v _sommaRow `uc ~T0 @X0 1 a ]
+[e = _sommaRow -> -> 0 `i `uc ]
+"18
+[; ;./CustomLib/BitsFlow.h: 18:     char errorRow = 0;
+[v _errorRow `uc ~T0 @X0 1 a ]
+[e = _errorRow -> -> 0 `i `uc ]
+"19
+[; ;./CustomLib/BitsFlow.h: 19:     char sommaColumn = 0;
+[v _sommaColumn `uc ~T0 @X0 1 a ]
+[e = _sommaColumn -> -> 0 `i `uc ]
+"20
+[; ;./CustomLib/BitsFlow.h: 20:     char errorColumn = 0;
+[v _errorColumn `uc ~T0 @X0 1 a ]
+[e = _errorColumn -> -> 0 `i `uc ]
+"21
+[; ;./CustomLib/BitsFlow.h: 21:     for (int i = 0; i < 5; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 5 `i 117  ]
+[e $U 118  ]
+[e :U 117 ]
+"22
+[; ;./CustomLib/BitsFlow.h: 22:     {
+{
+"23
+[; ;./CustomLib/BitsFlow.h: 23:         for (int y = 0; y < 8; y++)
+{
+[v _y `i ~T0 @X0 1 a ]
+[e = _y -> 0 `i ]
+[e $ < _y -> 8 `i 120  ]
+[e $U 121  ]
+[e :U 120 ]
+"24
+[; ;./CustomLib/BitsFlow.h: 24:         {
+{
+"25
+[; ;./CustomLib/BitsFlow.h: 25:             sommaRow += (rx[i] >> y) & 1;
+[e =+ _sommaRow -> & >> -> *U + _rx * -> _i `x -> -> # *U _rx `i `x `i _y -> 1 `i `uc ]
+"26
+[; ;./CustomLib/BitsFlow.h: 26:         }
+}
+[e ++ _y -> 1 `i ]
+[e $ < _y -> 8 `i 120  ]
+[e :U 121 ]
+}
+"27
+[; ;./CustomLib/BitsFlow.h: 27:         if (sommaRow % 2 == 1)
+[e $ ! == % -> _sommaRow `i -> 2 `i -> 1 `i 123  ]
+"28
+[; ;./CustomLib/BitsFlow.h: 28:         {
+{
+"29
+[; ;./CustomLib/BitsFlow.h: 29:             error = 1;
+[e = _error -> -> 1 `i `uc ]
+"30
+[; ;./CustomLib/BitsFlow.h: 30:             errorRow = i;
+[e = _errorRow -> _i `uc ]
+"31
+[; ;./CustomLib/BitsFlow.h: 31:         }
+}
+[e :U 123 ]
+"32
+[; ;./CustomLib/BitsFlow.h: 32:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 5 `i 117  ]
+[e :U 118 ]
+}
+"33
+[; ;./CustomLib/BitsFlow.h: 33:     for (int i = 0; i < 8; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 124  ]
+[e $U 125  ]
+[e :U 124 ]
+"34
+[; ;./CustomLib/BitsFlow.h: 34:     {
+{
+"35
+[; ;./CustomLib/BitsFlow.h: 35:         for (int y = 0; y < 4; y++)
+{
+[v _y `i ~T0 @X0 1 a ]
+[e = _y -> 0 `i ]
+[e $ < _y -> 4 `i 127  ]
+[e $U 128  ]
+[e :U 127 ]
+"37
+[; ;./CustomLib/BitsFlow.h: 37:         {
+{
+"38
+[; ;./CustomLib/BitsFlow.h: 38:             sommaColumn += (rx[y] >> i) & 1;
+[e =+ _sommaColumn -> & >> -> *U + _rx * -> _y `x -> -> # *U _rx `i `x `i _i -> 1 `i `uc ]
+"39
+[; ;./CustomLib/BitsFlow.h: 39:         }
+}
+[e ++ _y -> 1 `i ]
+[e $ < _y -> 4 `i 127  ]
+[e :U 128 ]
+}
+"40
+[; ;./CustomLib/BitsFlow.h: 40:         if (sommaColumn % 2 == 1)
+[e $ ! == % -> _sommaColumn `i -> 2 `i -> 1 `i 130  ]
+"41
+[; ;./CustomLib/BitsFlow.h: 41:         {
+{
+"42
+[; ;./CustomLib/BitsFlow.h: 42:             error = 1;
+[e = _error -> -> 1 `i `uc ]
+"43
+[; ;./CustomLib/BitsFlow.h: 43:             errorColumn = i;
+[e = _errorColumn -> _i `uc ]
+"44
+[; ;./CustomLib/BitsFlow.h: 44:         }
+}
+[e :U 130 ]
+"45
+[; ;./CustomLib/BitsFlow.h: 45:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 8 `i 124  ]
+[e :U 125 ]
+}
+"46
+[; ;./CustomLib/BitsFlow.h: 46:     if (error != 0)
+[e $ ! != -> _error `i -> 0 `i 131  ]
+"47
+[; ;./CustomLib/BitsFlow.h: 47:     {
+{
+"50
+[; ;./CustomLib/BitsFlow.h: 50:         rx[errorRow] = bitChange(rx[errorRow], errorColumn);
+[e = *U + _rx * -> _errorRow `ux -> -> # *U _rx `ui `ux ( _bitChange (2 , *U + _rx * -> _errorRow `ux -> -> # *U _rx `ui `ux _errorColumn ]
+"51
+[; ;./CustomLib/BitsFlow.h: 51:     }
+}
+[e :U 131 ]
+"52
+[; ;./CustomLib/BitsFlow.h: 52: }
+[e :UE 116 ]
+}
+"2 ./CustomLib/Serial.h
+[; ;./CustomLib/Serial.h: 2: char *BuildByte(char byte0, char byte1, char valore)
+[v _BuildByte `(*uc ~T0 @X0 1 ef3`uc`uc`uc ]
+"3
+[; ;./CustomLib/Serial.h: 3: {
+{
+[e :U _BuildByte ]
+"2
+[; ;./CustomLib/Serial.h: 2: char *BuildByte(char byte0, char byte1, char valore)
+[v _byte0 `uc ~T0 @X0 1 r1 ]
+[v _byte1 `uc ~T0 @X0 1 r2 ]
+[v _valore `uc ~T0 @X0 1 r3 ]
+"3
+[; ;./CustomLib/Serial.h: 3: {
+[f ]
+"4
+[; ;./CustomLib/Serial.h: 4:     char txByte[5];
+[v _txByte `uc ~T0 @X0 -> 5 `i a ]
+"6
+[; ;./CustomLib/Serial.h: 6:     txByte[0] = byte0 & 0x7F;
+[e = *U + &U _txByte * -> -> -> 0 `i `ui `ux -> -> # *U &U _txByte `ui `ux -> & -> _byte0 `i -> 127 `i `uc ]
+"7
+[; ;./CustomLib/Serial.h: 7:     txByte[1] = byte1 & 0x7F;
+[e = *U + &U _txByte * -> -> -> 1 `i `ui `ux -> -> # *U &U _txByte `ui `ux -> & -> _byte1 `i -> 127 `i `uc ]
+"8
+[; ;./CustomLib/Serial.h: 8:     txByte[2] = valore & 0x7F;
+[e = *U + &U _txByte * -> -> -> 2 `i `ui `ux -> -> # *U &U _txByte `ui `ux -> & -> _valore `i -> 127 `i `uc ]
+"9
+[; ;./CustomLib/Serial.h: 9:     txByte[3] = (valore >> 7) & 0x7F;
+[e = *U + &U _txByte * -> -> -> 3 `i `ui `ux -> -> # *U &U _txByte `ui `ux -> & >> -> _valore `i -> 7 `i -> 127 `i `uc ]
+"10
+[; ;./CustomLib/Serial.h: 10:     char sommaRow = 0;
+[v _sommaRow `uc ~T0 @X0 1 a ]
+[e = _sommaRow -> -> 0 `i `uc ]
+"11
+[; ;./CustomLib/Serial.h: 11:     char sommaColumn = 0;
+[v _sommaColumn `uc ~T0 @X0 1 a ]
+[e = _sommaColumn -> -> 0 `i `uc ]
+"13
+[; ;./CustomLib/Serial.h: 13:     for (int i = 0; i < 4; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 4 `i 133  ]
+[e $U 134  ]
+[e :U 133 ]
+"14
+[; ;./CustomLib/Serial.h: 14:     {
+{
+"15
+[; ;./CustomLib/Serial.h: 15:         for (int y = 0; y < 8; y++)
+{
+[v _y `i ~T0 @X0 1 a ]
+[e = _y -> 0 `i ]
+[e $ < _y -> 8 `i 136  ]
+[e $U 137  ]
+[e :U 136 ]
+"16
+[; ;./CustomLib/Serial.h: 16:         {
+{
+"17
+[; ;./CustomLib/Serial.h: 17:             sommaRow += (txByte[i] >> y) & 1;
+[e =+ _sommaRow -> & >> -> *U + &U _txByte * -> -> _i `ui `ux -> -> # *U &U _txByte `ui `ux `i _y -> 1 `i `uc ]
+"18
+[; ;./CustomLib/Serial.h: 18:         }
+}
+[e ++ _y -> 1 `i ]
+[e $ < _y -> 8 `i 136  ]
+[e :U 137 ]
+}
+"19
+[; ;./CustomLib/Serial.h: 19:         if (sommaRow % 2 == 1)
+[e $ ! == % -> _sommaRow `i -> 2 `i -> 1 `i 139  ]
+"20
+[; ;./CustomLib/Serial.h: 20:         {
+{
+"21
+[; ;./CustomLib/Serial.h: 21:             txByte[i] += 0x01 << 7;
+[e =+ *U + &U _txByte * -> -> _i `ui `ux -> -> # *U &U _txByte `ui `ux -> << -> 1 `i -> 7 `i `uc ]
+"22
+[; ;./CustomLib/Serial.h: 22:             sommaRow = 0;
+[e = _sommaRow -> -> 0 `i `uc ]
+"23
+[; ;./CustomLib/Serial.h: 23:         }
+}
+[e $U 140  ]
+"24
+[; ;./CustomLib/Serial.h: 24:         else
+[e :U 139 ]
+"25
+[; ;./CustomLib/Serial.h: 25:         {
+{
+"26
+[; ;./CustomLib/Serial.h: 26:             sommaRow = 0;
+[e = _sommaRow -> -> 0 `i `uc ]
+"27
+[; ;./CustomLib/Serial.h: 27:         }
+}
+[e :U 140 ]
+"28
+[; ;./CustomLib/Serial.h: 28:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 4 `i 133  ]
+[e :U 134 ]
+}
+"31
+[; ;./CustomLib/Serial.h: 31:     for (int i = 0; i < 8; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 8 `i 141  ]
+[e $U 142  ]
+[e :U 141 ]
+"32
+[; ;./CustomLib/Serial.h: 32:     {
+{
+"33
+[; ;./CustomLib/Serial.h: 33:         for (int y = 0; y < 4; y++)
+{
+[v _y `i ~T0 @X0 1 a ]
+[e = _y -> 0 `i ]
+[e $ < _y -> 4 `i 144  ]
+[e $U 145  ]
+[e :U 144 ]
+"35
+[; ;./CustomLib/Serial.h: 35:         {
+{
+"36
+[; ;./CustomLib/Serial.h: 36:             sommaColumn += (txByte[y] >> i) & 1;
+[e =+ _sommaColumn -> & >> -> *U + &U _txByte * -> -> _y `ui `ux -> -> # *U &U _txByte `ui `ux `i _i -> 1 `i `uc ]
+"37
+[; ;./CustomLib/Serial.h: 37:         }
+}
+[e ++ _y -> 1 `i ]
+[e $ < _y -> 4 `i 144  ]
+[e :U 145 ]
+}
+"38
+[; ;./CustomLib/Serial.h: 38:         if (sommaColumn % 2 == 1)
+[e $ ! == % -> _sommaColumn `i -> 2 `i -> 1 `i 147  ]
+"39
+[; ;./CustomLib/Serial.h: 39:         {
+{
+"40
+[; ;./CustomLib/Serial.h: 40:             txByte[4] += 0x01 << i;
+[e =+ *U + &U _txByte * -> -> -> 4 `i `ui `ux -> -> # *U &U _txByte `ui `ux -> << -> 1 `i _i `uc ]
+"41
+[; ;./CustomLib/Serial.h: 41:             sommaColumn = 0;
+[e = _sommaColumn -> -> 0 `i `uc ]
+"42
+[; ;./CustomLib/Serial.h: 42:         }
+}
+[e $U 148  ]
+"43
+[; ;./CustomLib/Serial.h: 43:         else
+[e :U 147 ]
+"44
+[; ;./CustomLib/Serial.h: 44:         {
+{
+"45
+[; ;./CustomLib/Serial.h: 45:             sommaColumn = 0;
+[e = _sommaColumn -> -> 0 `i `uc ]
+"46
+[; ;./CustomLib/Serial.h: 46:         }
+}
+[e :U 148 ]
+"47
+[; ;./CustomLib/Serial.h: 47:     }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 8 `i 141  ]
+[e :U 142 ]
+}
+"49
+[; ;./CustomLib/Serial.h: 49:     return txByte;
+[e ) &U _txByte ]
+[e $UE 132  ]
+"50
+[; ;./CustomLib/Serial.h: 50: }
+[e :UE 132 ]
+}
+"3 ./CustomLib/TrafficLight.h
+[; ;./CustomLib/TrafficLight.h: 3: void UpdateTimes(_Semafori _semafori)
+[v _UpdateTimes `(v ~T0 @X0 1 ef1`**S149 ]
+"4
+[; ;./CustomLib/TrafficLight.h: 4: {
+{
+[e :U _UpdateTimes ]
+"3
+[; ;./CustomLib/TrafficLight.h: 3: void UpdateTimes(_Semafori _semafori)
+[v __semafori `**S149 ~T0 @X0 1 r1 ]
+"4
+[; ;./CustomLib/TrafficLight.h: 4: {
+[f ]
+"6
+[; ;./CustomLib/TrafficLight.h: 6:     for (unsigned char l = 0; l < 16; l++)
+{
+[v _l `uc ~T0 @X0 1 a ]
+[e = _l -> -> 0 `i `uc ]
+[e $ < -> _l `i -> 16 `i 152  ]
+[e $U 153  ]
+[e :U 152 ]
+"7
+[; ;./CustomLib/TrafficLight.h: 7:     {
+{
+"8
+[; ;./CustomLib/TrafficLight.h: 8:         for(unsigned char i = 0; i < 3; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 3 `i 155  ]
+[e $U 156  ]
+[e :U 155 ]
+"9
+[; ;./CustomLib/TrafficLight.h: 9:         {
+{
+"10
+[; ;./CustomLib/TrafficLight.h: 10:             (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux ]
+"11
+[; ;./CustomLib/TrafficLight.h: 11:         }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 3 `i 155  ]
+[e :U 156 ]
+}
+"12
+[; ;./CustomLib/TrafficLight.h: 12:     }
+}
+[e ++ _l -> -> 1 `i `uc ]
+[e $ < -> _l `i -> 16 `i 152  ]
+[e :U 153 ]
+}
+"13
+[; ;./CustomLib/TrafficLight.h: 13: }
+[e :UE 151 ]
+}
+"15
+[; ;./CustomLib/TrafficLight.h: 15: void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
+[v _ChangeTrafficLight `(v ~T0 @X0 1 ef2`**S149`*uc ]
+"16
+[; ;./CustomLib/TrafficLight.h: 16: {
+{
+[e :U _ChangeTrafficLight ]
+"15
+[; ;./CustomLib/TrafficLight.h: 15: void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
+[v __semafori `**S149 ~T0 @X0 1 r1 ]
+[v __n_semafori `*uc ~T0 @X0 1 r2 ]
+"16
+[; ;./CustomLib/TrafficLight.h: 16: {
+[f ]
+"19
+[; ;./CustomLib/TrafficLight.h: 19:     do
+[e :U 161 ]
+"20
+[; ;./CustomLib/TrafficLight.h: 20:     {
+{
+"21
+[; ;./CustomLib/TrafficLight.h: 21:         *_n_semafori = ((*_n_semafori) + 1);
+[e = *U __n_semafori -> + -> *U __n_semafori `i -> 1 `i `uc ]
+"22
+[; ;./CustomLib/TrafficLight.h: 22:     }while( (*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori<10);
+}
+[e $ && == *U + &U . *U *U + __semafori * -> *U __n_semafori `ux -> -> # *U __semafori `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + __semafori * -> *U __n_semafori `ux -> -> # *U __semafori `ui `ux 0 `ui `ux -> 0 `i < -> *U __n_semafori `i -> 10 `i 161  ]
+[e :U 160 ]
+"24
+[; ;./CustomLib/TrafficLight.h: 24:     *_n_semafori=(*_n_semafori)%10;
+[e = *U __n_semafori -> % -> *U __n_semafori `i -> 10 `i `uc ]
+"25
+[; ;./CustomLib/TrafficLight.h: 25: }
+[e :UE 158 ]
+}
+"29
+[; ;./CustomLib/TrafficLight.h: 29: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+[v _GetTime `(i ~T0 @X0 1 ef2`uc`*uc ]
+"30
+[; ;./CustomLib/TrafficLight.h: 30: {
+{
+[e :U _GetTime ]
+"29
+[; ;./CustomLib/TrafficLight.h: 29: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+[v _index `uc ~T0 @X0 1 r1 ]
+[v __dataFromGateway `*uc ~T0 @X0 1 r2 ]
+"30
+[; ;./CustomLib/TrafficLight.h: 30: {
+[f ]
+"31
+[; ;./CustomLib/TrafficLight.h: 31:     int tmp;
+[v _tmp `i ~T0 @X0 1 a ]
+"35
+[; ;./CustomLib/TrafficLight.h: 35:     } shortInt;
+[v _shortInt `S163 ~T0 @X0 1 a ]
+"37
+[; ;./CustomLib/TrafficLight.h: 37:     shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
+[e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 3 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
+"38
+[; ;./CustomLib/TrafficLight.h: 38:     tmp = shortInt.Val;
+[e = _tmp -> . _shortInt 0 `i ]
+"39
+[; ;./CustomLib/TrafficLight.h: 39:     tmp = (tmp << 7) & 0x80;
+[e = _tmp & << _tmp -> 7 `i -> 128 `i ]
+"41
+[; ;./CustomLib/TrafficLight.h: 41:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
+[e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 2 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
+"42
+[; ;./CustomLib/TrafficLight.h: 42:     tmp = tmp | shortInt.Val;
+[e = _tmp | _tmp -> . _shortInt 0 `i ]
+"44
+[; ;./CustomLib/TrafficLight.h: 44:     return tmp;
+[e ) _tmp ]
+[e $UE 162  ]
+"45
+[; ;./CustomLib/TrafficLight.h: 45: }
+[e :UE 162 ]
+}
+"49
+[; ;./CustomLib/TrafficLight.h: 49: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+[v _SetDefaultTimers `(v ~T0 @X0 1 ef4`i`i`i`**S149 ]
+"50
+[; ;./CustomLib/TrafficLight.h: 50: {
+{
+[e :U _SetDefaultTimers ]
+"49
+[; ;./CustomLib/TrafficLight.h: 49: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+[v _rosso `i ~T0 @X0 1 r1 ]
+[v _verde `i ~T0 @X0 1 r2 ]
+[v _giallo `i ~T0 @X0 1 r3 ]
+[v __semafori `**S149 ~T0 @X0 1 r4 ]
+"50
+[; ;./CustomLib/TrafficLight.h: 50: {
+[f ]
+"51
+[; ;./CustomLib/TrafficLight.h: 51:     for (unsigned char l = 0; l < 16; l++)
+{
+[v _l `uc ~T0 @X0 1 a ]
+[e = _l -> -> 0 `i `uc ]
+[e $ < -> _l `i -> 16 `i 165  ]
+[e $U 166  ]
+[e :U 165 ]
+"52
+[; ;./CustomLib/TrafficLight.h: 52:     {
+{
+"53
+[; ;./CustomLib/TrafficLight.h: 53:         for (unsigned char i = 0; i < 3; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 3 `i 168  ]
+[e $U 169  ]
+[e :U 168 ]
+"54
+[; ;./CustomLib/TrafficLight.h: 54:         {
+{
+"55
+[; ;./CustomLib/TrafficLight.h: 55:             switch (i)
+[e $U 172  ]
+"56
+[; ;./CustomLib/TrafficLight.h: 56:             {
+{
+"57
+[; ;./CustomLib/TrafficLight.h: 57:             case 0:
+[e :U 173 ]
+"58
+[; ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).times[i] = rosso;
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _rosso ]
+"59
+[; ;./CustomLib/TrafficLight.h: 59:                 break;
+[e $U 171  ]
+"60
+[; ;./CustomLib/TrafficLight.h: 60:             case 1:
+[e :U 174 ]
+"61
+[; ;./CustomLib/TrafficLight.h: 61:                 (*(_semafori)[l]).times[i] = verde;
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _verde ]
+"62
+[; ;./CustomLib/TrafficLight.h: 62:                 break;
+[e $U 171  ]
+"63
+[; ;./CustomLib/TrafficLight.h: 63:             case 2:
+[e :U 175 ]
+"64
+[; ;./CustomLib/TrafficLight.h: 64:                 (*(_semafori)[l]).times[i] = giallo;
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _giallo ]
+"65
+[; ;./CustomLib/TrafficLight.h: 65:                 break;
+[e $U 171  ]
+"66
+[; ;./CustomLib/TrafficLight.h: 66:             }
+}
+[e $U 171  ]
+[e :U 172 ]
+[e [\ -> _i `i , $ -> 0 `i 173
+ , $ -> 1 `i 174
+ , $ -> 2 `i 175
+ 171 ]
+[e :U 171 ]
+"67
+[; ;./CustomLib/TrafficLight.h: 67:         }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 3 `i 168  ]
+[e :U 169 ]
+}
+"68
+[; ;./CustomLib/TrafficLight.h: 68:     }
+}
+[e ++ _l -> -> 1 `i `uc ]
+[e $ < -> _l `i -> 16 `i 165  ]
+[e :U 166 ]
+}
+"69
+[; ;./CustomLib/TrafficLight.h: 69: }
+[e :UE 164 ]
+}
+"73
+[; ;./CustomLib/TrafficLight.h: 73: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+[v _SetReceivedTimes `(v ~T0 @X0 1 ef2`*uc`**S149 ]
+"74
+[; ;./CustomLib/TrafficLight.h: 74: {
+{
+[e :U _SetReceivedTimes ]
+"73
+[; ;./CustomLib/TrafficLight.h: 73: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+[v __dataFromGateway `*uc ~T0 @X0 1 r1 ]
+[v __semafori `**S149 ~T0 @X0 1 r2 ]
+"74
+[; ;./CustomLib/TrafficLight.h: 74: {
+[f ]
+"75
+[; ;./CustomLib/TrafficLight.h: 75:                 for (unsigned char i = 0; i < 3; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 3 `i 177  ]
+[e $U 178  ]
+[e :U 177 ]
+"76
+[; ;./CustomLib/TrafficLight.h: 76:                 {
+{
+"77
+[; ;./CustomLib/TrafficLight.h: 77:                     unsigned char index = i * 5;
+[v _index `uc ~T0 @X0 1 a ]
+[e = _index -> * -> _i `i -> 5 `i `uc ]
+"78
+[; ;./CustomLib/TrafficLight.h: 78:                     unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+[v _semaforoId `uc ~T0 @X0 1 a ]
+[e = _semaforoId -> & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 1 `i -> 15 `i `uc ]
+"79
+[; ;./CustomLib/TrafficLight.h: 79:                     unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+[v _colorId `uc ~T0 @X0 1 a ]
+[e = _colorId -> - & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 5 `i -> 3 `i -> 1 `i `uc ]
+"81
+[; ;./CustomLib/TrafficLight.h: 81:                     (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+[e = *U + &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 * -> _colorId `ux -> -> # *U &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 `ui `ux ( _GetTime (2 , _index __dataFromGateway ]
+"82
+[; ;./CustomLib/TrafficLight.h: 82:                 }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 3 `i 177  ]
+[e :U 178 ]
+}
+"83
+[; ;./CustomLib/TrafficLight.h: 83: }
+[e :UE 176 ]
+}
+"87
+[; ;./CustomLib/TrafficLight.h: 87: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+[v _Conteggio `(v ~T0 @X0 1 ef5`ui`*uc`*uc`*uc`uc ]
+"88
+[; ;./CustomLib/TrafficLight.h: 88: {
+{
+[e :U _Conteggio ]
+"87
+[; ;./CustomLib/TrafficLight.h: 87: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+[v __count `ui ~T0 @X0 1 r1 ]
+[v __motorcycle `*uc ~T0 @X0 1 r2 ]
+[v __car `*uc ~T0 @X0 1 r3 ]
+[v __truck `*uc ~T0 @X0 1 r4 ]
+[v _index `uc ~T0 @X0 1 r5 ]
+"88
+[; ;./CustomLib/TrafficLight.h: 88: {
+[f ]
+"89
+[; ;./CustomLib/TrafficLight.h: 89:         if (_count >= 500)
+[e $ ! >= __count -> -> 500 `i `ui 181  ]
+"90
+[; ;./CustomLib/TrafficLight.h: 90:         {
+{
+"91
+[; ;./CustomLib/TrafficLight.h: 91:             _motorcycle[index]=_motorcycle[index]+1;
+[e = *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux -> + -> *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux `i -> 1 `i `uc ]
+"92
+[; ;./CustomLib/TrafficLight.h: 92:         }
+}
+[e :U 181 ]
+"93
+[; ;./CustomLib/TrafficLight.h: 93:         if (_count >= 1500)
+[e $ ! >= __count -> -> 1500 `i `ui 182  ]
+"94
+[; ;./CustomLib/TrafficLight.h: 94:         {
+{
+"95
+[; ;./CustomLib/TrafficLight.h: 95:             _car[index]=_car[index]+1;
+[e = *U + __car * -> _index `ux -> -> # *U __car `ui `ux -> + -> *U + __car * -> _index `ux -> -> # *U __car `ui `ux `i -> 1 `i `uc ]
+"96
+[; ;./CustomLib/TrafficLight.h: 96:         }
+}
+[e :U 182 ]
+"97
+[; ;./CustomLib/TrafficLight.h: 97:         if (_count >= 3000)
+[e $ ! >= __count -> -> 3000 `i `ui 183  ]
+"98
+[; ;./CustomLib/TrafficLight.h: 98:         {
+{
+"99
+[; ;./CustomLib/TrafficLight.h: 99:             _truck[index]=_truck[index]+1;
+[e = *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux -> + -> *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux `i -> 1 `i `uc ]
+"100
+[; ;./CustomLib/TrafficLight.h: 100:         }
+}
+[e :U 183 ]
+"101
+[; ;./CustomLib/TrafficLight.h: 101: }
+[e :UE 180 ]
+}
+"2 ./CustomLib/Constants.h
+[; ;./CustomLib/Constants.h: 2: const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+[v _display `Cuc ~T0 @X0 -> 11 `i e ]
+[i _display
+:U ..
+-> -> 63 `i `uc
+-> -> 6 `i `uc
+-> -> 91 `i `uc
+-> -> 79 `i `uc
+-> -> 102 `i `uc
+-> -> 109 `i `uc
+-> -> 125 `i `uc
+-> -> 7 `i `uc
+-> -> 127 `i `uc
+-> -> 111 `i `uc
+..
+]
+"5
+[; ;./CustomLib/Constants.h: 5: const unsigned char n_semafori=8;
+[v _n_semafori `Cuc ~T0 @X0 1 e ]
+[i _n_semafori
+-> -> 8 `i `uc
+]
+"94 main.c
+[; ;main.c: 94: } readGatewayDone;
+[v _readGatewayDone `S184 ~T0 @X0 1 e ]
+"96
+[; ;main.c: 96: Bit readGateway, secondPassed, cycled;
+[v _readGateway `S150 ~T0 @X0 1 e ]
+[v _secondPassed `S150 ~T0 @X0 1 e ]
+[v _cycled `S150 ~T0 @X0 1 e ]
+"97
+[; ;main.c: 97: unsigned char unita, decine, centinaia;
+[v _unita `uc ~T0 @X0 1 e ]
+[v _decine `uc ~T0 @X0 1 e ]
+[v _centinaia `uc ~T0 @X0 1 e ]
+"98
+[; ;main.c: 98: unsigned char disp;
+[v _disp `uc ~T0 @X0 1 e ]
+"99
+[; ;main.c: 99: unsigned int count = 0;
+[v _count `ui ~T0 @X0 1 e ]
+[i _count
+-> -> 0 `i `ui
+]
+"100
+[; ;main.c: 100: unsigned char count_lux = 0;
+[v _count_lux `uc ~T0 @X0 1 e ]
+[i _count_lux
+-> -> 0 `i `uc
+]
+"101
+[; ;main.c: 101: unsigned char comando = 0;
+[v _comando `uc ~T0 @X0 1 e ]
+[i _comando
+-> -> 0 `i `uc
+]
+"102
+[; ;main.c: 102: unsigned char time = 0;
+[v _time `uc ~T0 @X0 1 e ]
+[i _time
+-> -> 0 `i `uc
+]
+"103
+[; ;main.c: 103: unsigned char motorcycle[4];
+[v _motorcycle `uc ~T0 @X0 -> 4 `i e ]
+"104
+[; ;main.c: 104: unsigned char car[4];
+[v _car `uc ~T0 @X0 -> 4 `i e ]
+"105
+[; ;main.c: 105: unsigned char truck[4];
+[v _truck `uc ~T0 @X0 -> 4 `i e ]
+"106
+[; ;main.c: 106: char RoadsSensors[4];
+[v _RoadsSensors `uc ~T0 @X0 -> 4 `i e ]
+"107
+[; ;main.c: 107: unsigned char dataFromGatewayIndex = 0;
+[v _dataFromGatewayIndex `uc ~T0 @X0 1 e ]
+[i _dataFromGatewayIndex
+-> -> 0 `i `uc
+]
+"108
+[; ;main.c: 108: ProtocolBytes dataFromGateway;
+[v _dataFromGateway `uc ~T0 @X0 -> 15 `i e ]
+"109
+[; ;main.c: 109: Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
+[v _s0 `S149 ~T0 @X0 1 e ]
+[v _s1 `S149 ~T0 @X0 1 e ]
+[v _s2 `S149 ~T0 @X0 1 e ]
+[v _s3 `S149 ~T0 @X0 1 e ]
+[v _s4 `S149 ~T0 @X0 1 e ]
+[v _s5 `S149 ~T0 @X0 1 e ]
+[v _s6 `S149 ~T0 @X0 1 e ]
+[v _s7 `S149 ~T0 @X0 1 e ]
+"110
+[; ;main.c: 110: Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+[v _Semafori `*S149 ~T0 @X0 -> 8 `i e ]
+[i _Semafori
+:U ..
+&U _s0
+&U _s1
+&U _s2
+&U _s3
+&U _s4
+&U _s5
+&U _s6
+&U _s7
+..
+]
+"111
+[; ;main.c: 111: unsigned char timerReadFromGateway;
+[v _timerReadFromGateway `uc ~T0 @X0 1 e ]
+[v $root$_main `(v ~T0 @X0 0 e ]
+"124
+[; ;main.c: 124: void main(void)
+[v _main `(v ~T0 @X0 1 ef ]
+"125
+[; ;main.c: 125: {
+{
+[e :U _main ]
+[f ]
+"126
+[; ;main.c: 126:     TRISB = 0x1F;
+[e = _TRISB -> -> 31 `i `uc ]
+"127
+[; ;main.c: 127:     TRISC = 0x80;
+[e = _TRISC -> -> 128 `i `uc ]
+"128
+[; ;main.c: 128:     TRISD = 0x00;
+[e = _TRISD -> -> 0 `i `uc ]
+"129
+[; ;main.c: 129:     TRISE = 0x01;
+[e = _TRISE -> -> 1 `i `uc ]
+"130
+[; ;main.c: 130:     INTCON = 0xE0;
+[e = _INTCON -> -> 224 `i `uc ]
+"131
+[; ;main.c: 131:     OPTION_REG = 0x04;
+[e = _OPTION_REG -> -> 4 `i `uc ]
+"132
+[; ;main.c: 132:     TMR0 = 6;
+[e = _TMR0 -> -> 6 `i `uc ]
+"133
+[; ;main.c: 133:     T1CON = 0x31;
+[e = _T1CON -> -> 49 `i `uc ]
+"135
+[; ;main.c: 135:     TMR1H = 60;
+[e = _TMR1H -> -> 60 `i `uc ]
+"136
+[; ;main.c: 136:     TMR1L = 176;
+[e = _TMR1L -> -> 176 `i `uc ]
+"139
+[; ;main.c: 139:     int time;
+[v _time `i ~T0 @X0 1 a ]
+"140
+[; ;main.c: 140:     disp = 0;
+[e = _disp -> -> 0 `i `uc ]
+"141
+[; ;main.c: 141:     unsigned char temp = 0;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp -> -> 0 `i `uc ]
+"142
+[; ;main.c: 142:     unsigned char umidita = 0;
+[v _umidita `uc ~T0 @X0 1 a ]
+[e = _umidita -> -> 0 `i `uc ]
+"143
+[; ;main.c: 143:     unsigned char pressione = 0;
+[v _pressione `uc ~T0 @X0 1 a ]
+[e = _pressione -> -> 0 `i `uc ]
+"145
+[; ;main.c: 145:     init_ADC();
+[e ( _init_ADC ..  ]
+"146
+[; ;main.c: 146:     UART_Init(9600);
+[e ( _UART_Init (1 -> 9600 `i ]
+"147
+[; ;main.c: 147:     SetDefaultTimers(2,4,6, Semafori);
+[e ( _SetDefaultTimers (4 , , , -> 2 `i -> 4 `i -> 6 `i &U _Semafori ]
+"149
+[; ;main.c: 149:     while (1)
+[e :U 187 ]
+"150
+[; ;main.c: 150:     {
+{
+"152
+[; ;main.c: 152:         if (readGateway.Bit)
+[e $ ! != -> . _readGateway 0 `i -> 0 `i 189  ]
+"153
+[; ;main.c: 153:         {
+{
+"154
+[; ;main.c: 154:             switch ((dataFromGateway[0] & 0x7F))
+[e $U 191  ]
+"155
+[; ;main.c: 155:             {
+{
+"156
+[; ;main.c: 156:             case 0x08:
+[e :U 192 ]
+"157
+[; ;main.c: 157:                 readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"158
+[; ;main.c: 158:                 readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"160
+[; ;main.c: 160:                 for (int i = 0; i < 4; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 4 `i 193  ]
+[e $U 194  ]
+[e :U 193 ]
+"161
+[; ;main.c: 161:                 {
+{
+"162
+[; ;main.c: 162:                     switch (i)
+[e $U 197  ]
+"163
+[; ;main.c: 163:                     {
+{
+"164
+[; ;main.c: 164:                     case 0:
+[e :U 198 ]
+"165
+[; ;main.c: 165:                         sendByte(0x03, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
+"166
+[; ;main.c: 166:                         sendByte(0x03, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+"167
+[; ;main.c: 167:                         sendByte(0x03, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+"168
+[; ;main.c: 168:                         break;
+[e $U 196  ]
+"169
+[; ;main.c: 169:                     case 1:
+[e :U 199 ]
+"170
+[; ;main.c: 170:                         sendByte(0x05, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
+"171
+[; ;main.c: 171:                         sendByte(0x05, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+"172
+[; ;main.c: 172:                         sendByte(0x05, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+"173
+[; ;main.c: 173:                         break;
+[e $U 196  ]
+"174
+[; ;main.c: 174:                     case 2:
+[e :U 200 ]
+"175
+[; ;main.c: 175:                         sendByte(0x07, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
+"176
+[; ;main.c: 176:                         sendByte(0x07, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+"177
+[; ;main.c: 177:                         sendByte(0x07, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+"178
+[; ;main.c: 178:                         break;
+[e $U 196  ]
+"179
+[; ;main.c: 179:                     case 3:
+[e :U 201 ]
+"180
+[; ;main.c: 180:                         sendByte(0x09, 0x01, motorcycle[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
+"181
+[; ;main.c: 181:                         sendByte(0x09, 0x02, car[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 2 `i `uc -> *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux `uc ]
+"182
+[; ;main.c: 182:                         sendByte(0x09, 0x03, truck[i]);
+[e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux `uc ]
+"183
+[; ;main.c: 183:                         break;
+[e $U 196  ]
+"184
+[; ;main.c: 184:                     }
+}
+[e $U 196  ]
+[e :U 197 ]
+[e [\ _i , $ -> 0 `i 198
+ , $ -> 1 `i 199
+ , $ -> 2 `i 200
+ , $ -> 3 `i 201
+ 196 ]
+[e :U 196 ]
+"185
+[; ;main.c: 185:                 }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 4 `i 193  ]
+[e :U 194 ]
+}
+"187
+[; ;main.c: 187:                 for (int i = 0; i < 4; i++)
+{
+[v _i `i ~T0 @X0 1 a ]
+[e = _i -> 0 `i ]
+[e $ < _i -> 4 `i 202  ]
+[e $U 203  ]
+[e :U 202 ]
+"188
+[; ;main.c: 188:                 {
+{
+"189
+[; ;main.c: 189:                     motorcycle[i] = 0;
+[e = *U + &U _motorcycle * -> -> _i `ui `ux -> -> # *U &U _motorcycle `ui `ux -> -> 0 `i `uc ]
+"190
+[; ;main.c: 190:                     car[i] = 0;
+[e = *U + &U _car * -> -> _i `ui `ux -> -> # *U &U _car `ui `ux -> -> 0 `i `uc ]
+"191
+[; ;main.c: 191:                     truck[i] = 0;
+[e = *U + &U _truck * -> -> _i `ui `ux -> -> # *U &U _truck `ui `ux -> -> 0 `i `uc ]
+"192
+[; ;main.c: 192:                 }
+}
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 4 `i 202  ]
+[e :U 203 ]
+}
+"194
+[; ;main.c: 194:                 for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 205  ]
+[e $U 206  ]
+[e :U 205 ]
+"195
+[; ;main.c: 195:                 {
+{
+"196
+[; ;main.c: 196:                     dataFromGateway[i] = 0;
+[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
+"197
+[; ;main.c: 197:                 }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 205  ]
+[e :U 206 ]
+}
+"198
+[; ;main.c: 198:                 break;
+[e $U 190  ]
+"199
+[; ;main.c: 199:             case 0x0A:
+[e :U 208 ]
+"200
+[; ;main.c: 200:                 readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"201
+[; ;main.c: 201:                 readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"203
+[; ;main.c: 203:                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
+[e = _temp -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 0 `i `uc -> 2 `i -> 0 `i -> 255 `i -U -> 20 `i -> 60 `i `uc `uc ]
+"204
+[; ;main.c: 204:                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
+[e = _umidita -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 1 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+"205
+[; ;main.c: 205:                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
+[e = _pressione -> -> ( _map (4 , , , , >> ( _ADC_Read (1 -> -> 5 `i `uc -> 2 `i -> 0 `i -> 255 `i -> 0 `i -> 100 `i `uc `uc ]
+"206
+[; ;main.c: 206:                 sendByte(0x02, 0x00, temp);
+[e ( _sendByte (3 , , -> -> 2 `i `uc -> -> 0 `i `uc -> _temp `uc ]
+"207
+[; ;main.c: 207:                 sendByte(0x04, 0x00, umidita);
+[e ( _sendByte (3 , , -> -> 4 `i `uc -> -> 0 `i `uc -> _umidita `uc ]
+"208
+[; ;main.c: 208:                 sendByte(0x06, 0x00, pressione);
+[e ( _sendByte (3 , , -> -> 6 `i `uc -> -> 0 `i `uc -> _pressione `uc ]
+"210
+[; ;main.c: 210:                 for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 209  ]
+[e $U 210  ]
+[e :U 209 ]
+"211
+[; ;main.c: 211:                 {
+{
+"212
+[; ;main.c: 212:                     dataFromGateway[i] = 0;
+[e = *U + &U _dataFromGateway * -> _i `ux -> -> # *U &U _dataFromGateway `ui `ux -> -> 0 `i `uc ]
+"213
+[; ;main.c: 213:                 }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 209  ]
+[e :U 210 ]
+}
+"214
+[; ;main.c: 214:                 break;
+[e $U 190  ]
+"216
+[; ;main.c: 216:             default:
+[e :U 212 ]
+"217
+[; ;main.c: 217:                 if (timerReadFromGateway >= 4)
+[e $ ! >= -> _timerReadFromGateway `i -> 4 `i 213  ]
+"218
+[; ;main.c: 218:                 {
+{
+"219
+[; ;main.c: 219:                     readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"220
+[; ;main.c: 220:                     readGatewayDone.Timeout = 1;
+[e = . _readGatewayDone 1 -> -> 1 `i `uc ]
+"221
+[; ;main.c: 221:                     readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"222
+[; ;main.c: 222:                 }
+}
+[e :U 213 ]
+"224
+[; ;main.c: 224:                 if (dataFromGatewayIndex >= 15)
+[e $ ! >= -> _dataFromGatewayIndex `i -> 15 `i 214  ]
+"225
+[; ;main.c: 225:                 {
+{
+"226
+[; ;main.c: 226:                     readGatewayDone.Bit = 1;
+[e = . _readGatewayDone 0 -> -> 1 `i `uc ]
+"227
+[; ;main.c: 227:                     readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
+"228
+[; ;main.c: 228:                     readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"229
+[; ;main.c: 229:                 }
+}
+[e :U 214 ]
+"230
+[; ;main.c: 230:                 break;
+[e $U 190  ]
+"231
+[; ;main.c: 231:             }
+}
+[e $U 190  ]
+[e :U 191 ]
+[e [\ & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i , $ -> 8 `i 192
+ , $ -> 10 `i 208
+ 212 ]
+[e :U 190 ]
+"232
+[; ;main.c: 232:         }
+}
+[e :U 189 ]
+"235
+[; ;main.c: 235:         if (readGatewayDone.Bit)
+[e $ ! != -> . _readGatewayDone 0 `i -> 0 `i 215  ]
+"236
+[; ;main.c: 236:         {
+{
+"238
+[; ;main.c: 238:             readGateway.Bit = 0;
+[e = . _readGateway 0 -> -> 0 `i `uc ]
+"239
+[; ;main.c: 239:             dataFromGatewayIndex = 0;
+[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
+"240
+[; ;main.c: 240:             readGatewayDone.Bit = 0;
+[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
+"241
+[; ;main.c: 241:             timerReadFromGateway = 0;
+[e = _timerReadFromGateway -> -> 0 `i `uc ]
+"244
+[; ;main.c: 244:             if (readGatewayDone.Timeout)
+[e $ ! != -> . _readGatewayDone 1 `i -> 0 `i 216  ]
+"245
+[; ;main.c: 245:             {
+{
+"246
+[; ;main.c: 246:                 readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
+"247
+[; ;main.c: 247:             }
+}
+[e $U 217  ]
+"249
+[; ;main.c: 249:             else
+[e :U 216 ]
+"250
+[; ;main.c: 250:             {
+{
+"252
+[; ;main.c: 252:                 SetReceivedTimes(dataFromGateway, Semafori);
+[e ( _SetReceivedTimes (2 , &U _dataFromGateway &U _Semafori ]
+"253
+[; ;main.c: 253:             }
+}
+[e :U 217 ]
+"254
+[; ;main.c: 254:         }
+}
+[e :U 215 ]
+"259
+[; ;main.c: 259:         if (secondPassed.Bit && cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 218  ]
+"260
+[; ;main.c: 260:         {
+{
+"261
+[; ;main.c: 261:             time++;
+[e ++ _time -> 1 `i ]
+"263
+[; ;main.c: 263:             unsigned char i=0;
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+"264
+[; ;main.c: 264:             while(i<2)
+[e $U 219  ]
+[e :U 220 ]
+"265
+[; ;main.c: 265:             {
+{
+"266
+[; ;main.c: 266:                 if( (*Semafori[i]).times[0]==0 )
+[e $ ! == *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux -> 0 `i 222  ]
+"267
+[; ;main.c: 267:                 {
+{
+"268
+[; ;main.c: 268:                     i++;
+[e ++ _i -> -> 1 `i `uc ]
+"269
+[; ;main.c: 269:                 }
+}
+[e $U 223  ]
+"270
+[; ;main.c: 270:                 else
+[e :U 222 ]
+"271
+[; ;main.c: 271:                 {
+{
+"272
+[; ;main.c: 272:                     unsigned char lux_select=(*Semafori[i]).lux_select;
+[v _lux_select `uc ~T0 @X0 1 a ]
+[e = _lux_select . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 2 ]
+"273
+[; ;main.c: 273:                     if ((*Semafori[i]).times[lux_select] - time < 0)
+[e $ ! < - *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _time -> 0 `i 224  ]
+"274
+[; ;main.c: 274:                     {
+{
+"275
+[; ;main.c: 275:                         lux_select++;
+[e ++ _lux_select -> -> 1 `i `uc ]
+"276
+[; ;main.c: 276:                         time=1;
+[e = _time -> 1 `i ]
+"277
+[; ;main.c: 277:                         if (lux_select >= 3)
+[e $ ! >= -> _lux_select `i -> 3 `i 225  ]
+"278
+[; ;main.c: 278:                         {
+{
+"279
+[; ;main.c: 279:                             lux_select=0;
+[e = _lux_select -> -> 0 `i `uc ]
+"280
+[; ;main.c: 280:                             if(i==n_semafori-1)
+[e $ ! == -> _i `i - -> _n_semafori `i -> 1 `i 226  ]
+"281
+[; ;main.c: 281:                             {
+{
+"283
+[; ;main.c: 283:                                 UpdateTimes(Semafori);
+[e ( _UpdateTimes (1 &U _Semafori ]
+"284
+[; ;main.c: 284:                             }
+}
+[e :U 226 ]
+"285
+[; ;main.c: 285:                         }
+}
+[e :U 225 ]
+"287
+[; ;main.c: 287:                         (*Semafori[i]).lux_select=lux_select;
+[e = . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 2 _lux_select ]
+"288
+[; ;main.c: 288:                     }
+}
+[e :U 224 ]
+"290
+[; ;main.c: 290:                     (*Semafori[i]).lux_select=lux_select;
+[e = . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 2 _lux_select ]
+"293
+[; ;main.c: 293:                     luciSemaforo(i, lux_select);
+[e ( _luciSemaforo (2 , _i _lux_select ]
+"294
+[; ;main.c: 294:                     i++;
+[e ++ _i -> -> 1 `i `uc ]
+"295
+[; ;main.c: 295:                 }
+}
+[e :U 223 ]
+"296
+[; ;main.c: 296:             }
+}
+[e :U 219 ]
+"264
+[; ;main.c: 264:             while(i<2)
+[e $ < -> _i `i -> 2 `i 220  ]
+[e :U 221 ]
+"297
+[; ;main.c: 297:         }
+}
+[e :U 218 ]
+"302
+[; ;main.c: 302:         GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time);
+[e ( _GetDigits (4 , , , &U _centinaia &U _decine &U _unita - *U + &U . *U *U + &U _Semafori * -> -> -> 0 `i `ui `ux -> -> # *U &U _Semafori `ui `ux 0 * -> . *U *U + &U _Semafori * -> -> -> 0 `i `ui `ux -> -> # *U &U _Semafori `ui `ux 2 `ux -> -> # *U &U . *U *U + &U _Semafori * -> -> -> 0 `i `ui `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux _time ]
+"305
+[; ;main.c: 305:         switch (disp)
+[e $U 228  ]
+"306
+[; ;main.c: 306:         {
+{
+"307
+[; ;main.c: 307:         case 0:
+[e :U 229 ]
+"308
+[; ;main.c: 308:             if (centinaia > 0)
+[e $ ! > -> _centinaia `i -> 0 `i 230  ]
+"309
+[; ;main.c: 309:             {
+{
+"311
+[; ;main.c: 311:             }
+}
+[e :U 230 ]
+"312
+[; ;main.c: 312:             SetDisplay(1, 0, 0, display[(*Semafori[0]).lux_select]);
+[e ( _SetDisplay (4 , , , -> -> 1 `i `uc -> -> 0 `i `uc -> -> 0 `i `uc *U + &U _display * -> . *U *U + &U _Semafori * -> -> -> 0 `i `ui `ux -> -> # *U &U _Semafori `ui `ux 2 `ux -> -> # *U &U _display `ui `ux ]
+"313
+[; ;main.c: 313:             break;
+[e $U 227  ]
+"314
+[; ;main.c: 314:         case 1:
+[e :U 231 ]
+"315
+[; ;main.c: 315:             if (decine > 0 || centinaia > 0)
+[e $ ! || > -> _decine `i -> 0 `i > -> _centinaia `i -> 0 `i 232  ]
+"316
+[; ;main.c: 316:             {
+{
+"317
+[; ;main.c: 317:                 SetDisplay(0, 1, 0, display[decine]);
+[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 1 `i `uc -> -> 0 `i `uc *U + &U _display * -> _decine `ux -> -> # *U &U _display `ui `ux ]
+"318
+[; ;main.c: 318:             }
+}
+[e :U 232 ]
+"319
+[; ;main.c: 319:             break;
+[e $U 227  ]
+"320
+[; ;main.c: 320:         case 2:
+[e :U 233 ]
+"321
+[; ;main.c: 321:             SetDisplay(0, 0, 1, display[unita]);
+[e ( _SetDisplay (4 , , , -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc *U + &U _display * -> _unita `ux -> -> # *U &U _display `ui `ux ]
+"322
+[; ;main.c: 322:             break;
+[e $U 227  ]
+"323
+[; ;main.c: 323:         }
+}
+[e $U 227  ]
+[e :U 228 ]
+[e [\ -> _disp `i , $ -> 0 `i 229
+ , $ -> 1 `i 231
+ , $ -> 2 `i 233
+ 227 ]
+[e :U 227 ]
+"324
+[; ;main.c: 324:         disp = (disp + 1) % 3;
+[e = _disp -> % + -> _disp `i -> 1 `i -> 3 `i `uc ]
+"330
+[; ;main.c: 330:         if (secondPassed.Bit && cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 234  ]
+"331
+[; ;main.c: 331:         {
+{
+"332
+[; ;main.c: 332:             secondPassed.Bit = 0;
+[e = . _secondPassed 0 -> -> 0 `i `uc ]
+"333
+[; ;main.c: 333:             cycled.Bit = 0;
+[e = . _cycled 0 -> -> 0 `i `uc ]
+"334
+[; ;main.c: 334:         }
+}
+[e :U 234 ]
+"335
+[; ;main.c: 335:         if (secondPassed.Bit && !cycled.Bit)
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i ! != -> . _cycled 0 `i -> 0 `i 235  ]
+"336
+[; ;main.c: 336:         {
+{
+"337
+[; ;main.c: 337:             cycled.Bit = 1;
+[e = . _cycled 0 -> -> 1 `i `uc ]
+"338
+[; ;main.c: 338:         }
+}
+[e :U 235 ]
+"339
+[; ;main.c: 339:     }
+}
+[e :U 186 ]
+[e $U 187  ]
+[e :U 188 ]
+"341
+[; ;main.c: 341:     return;
+[e $UE 185  ]
+"342
+[; ;main.c: 342: }
+[e :UE 185 ]
+}
+"345
+[; ;main.c: 345: void init_ADC()
+[v _init_ADC `(v ~T0 @X0 1 ef ]
+"346
+[; ;main.c: 346: {
+{
+[e :U _init_ADC ]
+[f ]
+"347
+[; ;main.c: 347:     TRISA = 0xE3;
+[e = _TRISA -> -> 227 `i `uc ]
+"348
+[; ;main.c: 348:     ADCON0 = 0x00;
+[e = _ADCON0 -> -> 0 `i `uc ]
+"349
+[; ;main.c: 349:     ADCON1 = 0x80;
+[e = _ADCON1 -> -> 128 `i `uc ]
+"350
+[; ;main.c: 350:     _delay((unsigned long)((10)*(32000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+"351
+[; ;main.c: 351: }
+[e :UE 236 ]
+}
+"354
+[; ;main.c: 354: int ADC_Read(char canale)
+[v _ADC_Read `(i ~T0 @X0 1 ef1`uc ]
+"355
+[; ;main.c: 355: {
+{
+[e :U _ADC_Read ]
+"354
+[; ;main.c: 354: int ADC_Read(char canale)
+[v _canale `uc ~T0 @X0 1 r1 ]
+"355
+[; ;main.c: 355: {
+[f ]
+"356
+[; ;main.c: 356:     ADCON0 = (1 << 0) | (canale << 3);
+[e = _ADCON0 -> | << -> 1 `i -> 0 `i << -> _canale `i -> 3 `i `uc ]
+"357
+[; ;main.c: 357:     _delay((unsigned long)((2)*(32000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
+"358
+[; ;main.c: 358:     GO_nDONE = 1;
+[e = _GO_nDONE -> -> 1 `i `b ]
+"359
+[; ;main.c: 359:     while (GO_nDONE)
+[e $U 238  ]
+[e :U 239 ]
+"360
+[; ;main.c: 360:         ;
+[e :U 238 ]
+"359
+[; ;main.c: 359:     while (GO_nDONE)
+[e $ _GO_nDONE 239  ]
+[e :U 240 ]
+"361
+[; ;main.c: 361:     return ADRESL + (ADRESH << 8);
+[e ) + -> _ADRESL `i << -> _ADRESH `i -> 8 `i ]
+[e $UE 237  ]
+"362
+[; ;main.c: 362: }
+[e :UE 237 ]
+}
+"364
+[; ;main.c: 364: void UART_Init(int baudrate)
+[v _UART_Init `(v ~T0 @X0 1 ef1`i ]
+"365
+[; ;main.c: 365: {
+{
+[e :U _UART_Init ]
+"364
+[; ;main.c: 364: void UART_Init(int baudrate)
+[v _baudrate `i ~T0 @X0 1 r1 ]
+"365
+[; ;main.c: 365: {
+[f ]
+"366
+[; ;main.c: 366:     TRISCbits.TRISC6 = 0;
+[e = . . _TRISCbits 0 6 -> -> 0 `i `uc ]
+"367
+[; ;main.c: 367:     TXSTAbits.TXEN = 1;
+[e = . . _TXSTAbits 0 5 -> -> 1 `i `uc ]
+"368
+[; ;main.c: 368:     RCSTAbits.SPEN = 1;
+[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
+"369
+[; ;main.c: 369:     RCSTAbits.CREN = 1;
+[e = . . _RCSTAbits 0 4 -> -> 1 `i `uc ]
+"370
+[; ;main.c: 370:     SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
+[e = _SPBRG -> - / -> 32000000 `l -> * -> 64 `ul -> -> _baudrate `l `ul `l -> -> 1 `i `l `uc ]
+"371
+[; ;main.c: 371:     INTCONbits.GIE = 1;
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+"372
+[; ;main.c: 372:     INTCONbits.PEIE = 1;
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+"373
+[; ;main.c: 373:     PIE1bits.RCIE = 1;
+[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
+"374
+[; ;main.c: 374: }
+[e :UE 241 ]
+}
+"376
+[; ;main.c: 376: void UART_TxChar(char ch)
+[v _UART_TxChar `(v ~T0 @X0 1 ef1`uc ]
+"377
+[; ;main.c: 377: {
+{
+[e :U _UART_TxChar ]
+"376
+[; ;main.c: 376: void UART_TxChar(char ch)
+[v _ch `uc ~T0 @X0 1 r1 ]
+"377
+[; ;main.c: 377: {
+[f ]
+"378
+[; ;main.c: 378:     while (!TXIF)
+[e $U 243  ]
+[e :U 244 ]
+"379
+[; ;main.c: 379:         ;
+[e :U 243 ]
+"378
+[; ;main.c: 378:     while (!TXIF)
+[e $ ! _TXIF 244  ]
+[e :U 245 ]
+"380
+[; ;main.c: 380:     TXIF = 0;
+[e = _TXIF -> -> 0 `i `b ]
+"381
+[; ;main.c: 381:     TXREG = ch;
+[e = _TXREG -> _ch `uc ]
+"382
+[; ;main.c: 382: }
+[e :UE 242 ]
+}
+"384
+[; ;main.c: 384: void UART_Write_Text(char *text)
+[v _UART_Write_Text `(v ~T0 @X0 1 ef1`*uc ]
+"385
+[; ;main.c: 385: {
+{
+[e :U _UART_Write_Text ]
+"384
+[; ;main.c: 384: void UART_Write_Text(char *text)
+[v _text `*uc ~T0 @X0 1 r1 ]
+"385
+[; ;main.c: 385: {
+[f ]
+"386
+[; ;main.c: 386:     unsigned char i;
+[v _i `uc ~T0 @X0 1 a ]
+"387
+[; ;main.c: 387:     for (i = 0; text[i] != '\0'; i++)
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 250  ]
+[e :U 247 ]
+"388
+[; ;main.c: 388:     {
+{
+"389
+[; ;main.c: 389:         UART_TxChar(text[i]);
+[e ( _UART_TxChar (1 *U + _text * -> _i `ux -> -> # *U _text `ui `ux ]
+"390
+[; ;main.c: 390:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 250 ]
+[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 247  ]
+[e :U 248 ]
+}
+"391
+[; ;main.c: 391: }
+[e :UE 246 ]
+}
+"393
+[; ;main.c: 393: char UART_Read()
+[v _UART_Read `(uc ~T0 @X0 1 ef ]
+"394
+[; ;main.c: 394: {
+{
+[e :U _UART_Read ]
+[f ]
+"395
+[; ;main.c: 395:     while (!RCIF)
+[e $U 252  ]
+[e :U 253 ]
+"396
+[; ;main.c: 396:         ;
+[e :U 252 ]
+"395
+[; ;main.c: 395:     while (!RCIF)
+[e $ ! _RCIF 253  ]
+[e :U 254 ]
+"397
+[; ;main.c: 397:     RCIF = 0;
+[e = _RCIF -> -> 0 `i `b ]
+"398
+[; ;main.c: 398:     return RCREG;
+[e ) -> _RCREG `uc ]
+[e $UE 251  ]
+"399
+[; ;main.c: 399: }
+[e :UE 251 ]
+}
+"402
+[; ;main.c: 402: void sendByte(char byte0, char byte1, char valore)
+[v _sendByte `(v ~T0 @X0 1 ef3`uc`uc`uc ]
+"403
+[; ;main.c: 403: {
+{
+[e :U _sendByte ]
+"402
+[; ;main.c: 402: void sendByte(char byte0, char byte1, char valore)
+[v _byte0 `uc ~T0 @X0 1 r1 ]
+[v _byte1 `uc ~T0 @X0 1 r2 ]
+[v _valore `uc ~T0 @X0 1 r3 ]
+"403
+[; ;main.c: 403: {
+[f ]
+"404
+[; ;main.c: 404:     char *txByte;
+[v _txByte `*uc ~T0 @X0 1 a ]
+"405
+[; ;main.c: 405:     txByte = BuildByte(byte0, byte1, valore);
+[e = _txByte ( _BuildByte (3 , , _byte0 _byte1 _valore ]
+"407
+[; ;main.c: 407:     for (unsigned char i = 0; i < 5; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 5 `i 256  ]
+[e $U 257  ]
+[e :U 256 ]
+"408
+[; ;main.c: 408:     {
+{
+"409
+[; ;main.c: 409:         UART_TxChar(*(txByte++));
+[e ( _UART_TxChar (1 *U ++ _txByte * -> -> 1 `i `x -> -> # *U _txByte `i `x ]
+"410
+[; ;main.c: 410:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 5 `i 256  ]
+[e :U 257 ]
+}
+"411
+[; ;main.c: 411: }
+[e :UE 255 ]
+}
+"414
+[; ;main.c: 414: void SetDisplay(char d1, char d2, char d3, char value)
+[v _SetDisplay `(v ~T0 @X0 1 ef4`uc`uc`uc`uc ]
+"415
+[; ;main.c: 415: {
+{
+[e :U _SetDisplay ]
+"414
+[; ;main.c: 414: void SetDisplay(char d1, char d2, char d3, char value)
+[v _d1 `uc ~T0 @X0 1 r1 ]
+[v _d2 `uc ~T0 @X0 1 r2 ]
+[v _d3 `uc ~T0 @X0 1 r3 ]
+[v _value `uc ~T0 @X0 1 r4 ]
+"415
+[; ;main.c: 415: {
+[f ]
+"416
+[; ;main.c: 416:     PORTAbits.RA2 = d1;
+[e = . . _PORTAbits 0 2 -> _d1 `uc ]
+"417
+[; ;main.c: 417:     PORTAbits.RA3 = d2;
+[e = . . _PORTAbits 0 3 -> _d2 `uc ]
+"418
+[; ;main.c: 418:     PORTAbits.RA4 = d3;
+[e = . . _PORTAbits 0 4 -> _d3 `uc ]
+"419
+[; ;main.c: 419:     PORTD = value;
+[e = _PORTD -> _value `uc ]
+"420
+[; ;main.c: 420: }
+[e :UE 259 ]
+}
+"423
+[; ;main.c: 423: void conteggioVeicoli()
+[v _conteggioVeicoli `(v ~T0 @X0 1 ef ]
+"424
+[; ;main.c: 424: {
+{
+[e :U _conteggioVeicoli ]
+[f ]
+"425
+[; ;main.c: 425:     RoadsSensors[0]=PORTBbits.RB3;
+[e = *U + &U _RoadsSensors * -> -> -> 0 `i `ui `ux -> -> # *U &U _RoadsSensors `ui `ux -> . . _PORTBbits 0 3 `uc ]
+"426
+[; ;main.c: 426:     RoadsSensors[1]=PORTBbits.RB4;
+[e = *U + &U _RoadsSensors * -> -> -> 1 `i `ui `ux -> -> # *U &U _RoadsSensors `ui `ux -> . . _PORTBbits 0 4 `uc ]
+"427
+[; ;main.c: 427:     RoadsSensors[2]=PORTBbits.RB1;
+[e = *U + &U _RoadsSensors * -> -> -> 2 `i `ui `ux -> -> # *U &U _RoadsSensors `ui `ux -> . . _PORTBbits 0 1 `uc ]
+"428
+[; ;main.c: 428:     RoadsSensors[3]=PORTAbits.RA5;
+[e = *U + &U _RoadsSensors * -> -> -> 3 `i `ui `ux -> -> # *U &U _RoadsSensors `ui `ux -> . . _PORTAbits 0 5 `uc ]
+"430
+[; ;main.c: 430:     for(unsigned char i=0; i<4; i++)
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `i -> 4 `i 261  ]
+[e $U 262  ]
+[e :U 261 ]
+"431
+[; ;main.c: 431:     {
+{
+"432
+[; ;main.c: 432:         if (!RoadsSensors[i])
+[e $ ! ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 264  ]
+"433
+[; ;main.c: 433:         {
+{
+"434
+[; ;main.c: 434:             count++;
+[e ++ _count -> -> 1 `i `ui ]
+"435
+[; ;main.c: 435:         }
+}
+[e $U 265  ]
+"436
+[; ;main.c: 436:         else if (RoadsSensors[i])
+[e :U 264 ]
+[e $ ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 266  ]
+"437
+[; ;main.c: 437:         {
+{
+"438
+[; ;main.c: 438:             Conteggio(count, motorcycle, car, truck, i);
+[e ( _Conteggio (4 , , , , _count &U _motorcycle &U _car &U _truck _i ]
+"439
+[; ;main.c: 439:             count = 0;
+[e = _count -> -> 0 `i `ui ]
+"440
+[; ;main.c: 440:         }
+}
+[e :U 266 ]
+[e :U 265 ]
+"441
+[; ;main.c: 441:     }
+}
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `i -> 4 `i 261  ]
+[e :U 262 ]
+}
+"442
+[; ;main.c: 442: }
+[e :UE 260 ]
+}
+[v $root$_ISR `(v ~T0 @X0 0 e ]
+"446
+[; ;main.c: 446: void __attribute__((picinterrupt(("")))) ISR()
+[v _ISR `(v ~T1 @X0 1 ef ]
+"447
+[; ;main.c: 447: {
+{
+[e :U _ISR ]
+[f ]
+"449
+[; ;main.c: 449:     if (RCIF && readGateway.Bit == 0)
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 268  ]
+"450
+[; ;main.c: 450:     {
+{
+"451
+[; ;main.c: 451:         readGateway.Bit = 1;
+[e = . _readGateway 0 -> -> 1 `i `uc ]
+"452
+[; ;main.c: 452:         readGatewayDone.Bit = 0;
+[e = . _readGatewayDone 0 -> -> 0 `i `uc ]
+"453
+[; ;main.c: 453:         readGatewayDone.Timeout = 0;
+[e = . _readGatewayDone 1 -> -> 0 `i `uc ]
+"454
+[; ;main.c: 454:         dataFromGatewayIndex = 0;
+[e = _dataFromGatewayIndex -> -> 0 `i `uc ]
+"455
+[; ;main.c: 455:         timerReadFromGateway = 0;
+[e = _timerReadFromGateway -> -> 0 `i `uc ]
+"456
+[; ;main.c: 456:     }
+}
+[e :U 268 ]
+"457
+[; ;main.c: 457:     if (RCIF && readGateway.Bit == 1)
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 269  ]
+"458
+[; ;main.c: 458:     {
+{
+"459
+[; ;main.c: 459:         dataFromGateway[dataFromGatewayIndex] = UART_Read();
+[e = *U + &U _dataFromGateway * -> _dataFromGatewayIndex `ux -> -> # *U &U _dataFromGateway `ui `ux -> ( _UART_Read ..  `uc ]
+"460
+[; ;main.c: 460:         dataFromGatewayIndex++;
+[e ++ _dataFromGatewayIndex -> -> 1 `i `uc ]
+"461
+[; ;main.c: 461:         timerReadFromGateway = 0;
+[e = _timerReadFromGateway -> -> 0 `i `uc ]
+"462
+[; ;main.c: 462:     }
+}
+[e :U 269 ]
+"466
+[; ;main.c: 466:     if (TMR0IF)
+[e $ ! _TMR0IF 270  ]
+"467
+[; ;main.c: 467:     {
+{
+"468
+[; ;main.c: 468:         TMR0IF = 0;
+[e = _TMR0IF -> -> 0 `i `b ]
+"469
+[; ;main.c: 469:         conteggioVeicoli();
+[e ( _conteggioVeicoli ..  ]
+"470
+[; ;main.c: 470:         TMR0 = 6;
+[e = _TMR0 -> -> 6 `i `uc ]
+"471
+[; ;main.c: 471:     }
+}
+[e :U 270 ]
+"473
+[; ;main.c: 473:     if (TMR1IF)
+[e $ ! _TMR1IF 271  ]
+"474
+[; ;main.c: 474:     {
+{
+"475
+[; ;main.c: 475:         TMR1IF = 0;
+[e = _TMR1IF -> -> 0 `i `b ]
+"476
+[; ;main.c: 476:         count_lux++;
+[e ++ _count_lux -> -> 1 `i `uc ]
+"478
+[; ;main.c: 478:         if (count_lux >= 20)
+[e $ ! >= -> _count_lux `i -> 20 `i 272  ]
+"479
+[; ;main.c: 479:         {
+{
+"480
+[; ;main.c: 480:             secondPassed.Bit = 1;
+[e = . _secondPassed 0 -> -> 1 `i `uc ]
+"481
+[; ;main.c: 481:             count_lux = 0;
+[e = _count_lux -> -> 0 `i `uc ]
+"482
+[; ;main.c: 482:             timerReadFromGateway++;
+[e ++ _timerReadFromGateway -> -> 1 `i `uc ]
+"483
+[; ;main.c: 483:         }
+}
+[e :U 272 ]
+"485
+[; ;main.c: 485:         TMR1H = 60;
+[e = _TMR1H -> -> 60 `i `uc ]
+"486
+[; ;main.c: 486:         TMR1L = 176;
+[e = _TMR1L -> -> 176 `i `uc ]
+"487
+[; ;main.c: 487:     }
+}
+[e :U 271 ]
+"488
+[; ;main.c: 488: }
+[e :UE 267 ]
+}
+"491
+[; ;main.c: 491: void luciSemaforo(unsigned char index, unsigned char lux)
+[v _luciSemaforo `(v ~T0 @X0 1 ef2`uc`uc ]
+"492
+[; ;main.c: 492: {
+{
+[e :U _luciSemaforo ]
+"491
+[; ;main.c: 491: void luciSemaforo(unsigned char index, unsigned char lux)
+[v _index `uc ~T0 @X0 1 r1 ]
+[v _lux `uc ~T0 @X0 1 r2 ]
+"492
+[; ;main.c: 492: {
+[f ]
+"493
+[; ;main.c: 493:     switch (index)
+[e $U 275  ]
+"494
+[; ;main.c: 494:     {
+{
+"495
+[; ;main.c: 495:     case 0:
+[e :U 276 ]
+"496
+[; ;main.c: 496:         switch (lux)
+[e $U 278  ]
+"497
+[; ;main.c: 497:         {
+{
+"498
+[; ;main.c: 498:         case 0:
+[e :U 279 ]
+"499
+[; ;main.c: 499:             PORTCbits.RC1 = 0;
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+"500
+[; ;main.c: 500:             PORTCbits.RC2 = 0;
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+"501
+[; ;main.c: 501:             PORTCbits.RC3 = 0;
+[e = . . _PORTCbits 0 3 -> -> 0 `i `uc ]
+"502
+[; ;main.c: 502:             PORTCbits.RC0 = 1;
+[e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
+"503
+[; ;main.c: 503:             break;
+[e $U 277  ]
+"504
+[; ;main.c: 504:         case 1:
+[e :U 280 ]
+"505
+[; ;main.c: 505:             PORTCbits.RC0 = 0;
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+"506
+[; ;main.c: 506:             PORTCbits.RC2 = 0;
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+"507
+[; ;main.c: 507:             PORTCbits.RC3 = 0;
+[e = . . _PORTCbits 0 3 -> -> 0 `i `uc ]
+"508
+[; ;main.c: 508:             PORTCbits.RC1 = 1;
+[e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
+"509
+[; ;main.c: 509:             break;
+[e $U 277  ]
+"510
+[; ;main.c: 510:         case 2:
+[e :U 281 ]
+"511
+[; ;main.c: 511:             PORTCbits.RC0 = 0;
+[e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
+"512
+[; ;main.c: 512:             PORTCbits.RC1 = 0;
+[e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
+"513
+[; ;main.c: 513:             PORTCbits.RC2 = 1;
+[e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
+"514
+[; ;main.c: 514:             PORTCbits.RC3 = 1;
+[e = . . _PORTCbits 0 3 -> -> 1 `i `uc ]
+"515
+[; ;main.c: 515:             break;
+[e $U 277  ]
+"516
+[; ;main.c: 516:         }
+}
+[e $U 277  ]
+[e :U 278 ]
+[e [\ -> _lux `i , $ -> 0 `i 279
+ , $ -> 1 `i 280
+ , $ -> 2 `i 281
+ 277 ]
+[e :U 277 ]
+"517
+[; ;main.c: 517:         break;
+[e $U 274  ]
+"518
+[; ;main.c: 518:     case 1:
+[e :U 282 ]
+"519
+[; ;main.c: 519:         switch (lux)
+[e $U 284  ]
+"520
+[; ;main.c: 520:         {
+{
+"521
+[; ;main.c: 521:         case 0:
+[e :U 285 ]
+"522
+[; ;main.c: 522:             PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"523
+[; ;main.c: 523:             PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+"524
+[; ;main.c: 524:             PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"525
+[; ;main.c: 525:             PORTBbits.RB0 = 1;
+[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
+"526
+[; ;main.c: 526:             break;
+[e $U 283  ]
+"527
+[; ;main.c: 527:         case 1:
+[e :U 286 ]
+"528
+[; ;main.c: 528:             PORTBbits.RB0 = 0;
+[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+"529
+[; ;main.c: 529:             PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+"530
+[; ;main.c: 530:             PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+"531
+[; ;main.c: 531:             PORTBbits.RB1 = 1;
+[e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
+"532
+[; ;main.c: 532:             break;
+[e $U 283  ]
+"533
+[; ;main.c: 533:         case 2:
+[e :U 287 ]
+"534
+[; ;main.c: 534:             PORTBbits.RB0 = 0;
+[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+"535
+[; ;main.c: 535:             PORTBbits.RB1 = 0;
+[e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
+"536
+[; ;main.c: 536:             PORTBbits.RB6 = 1;
+[e = . . _PORTBbits 0 6 -> -> 1 `i `uc ]
+"537
+[; ;main.c: 537:             PORTBbits.RB7 = 1;
+[e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
+"538
+[; ;main.c: 538:             break;
+[e $U 283  ]
+"539
+[; ;main.c: 539:         }
+}
+[e $U 283  ]
+[e :U 284 ]
+[e [\ -> _lux `i , $ -> 0 `i 285
+ , $ -> 1 `i 286
+ , $ -> 2 `i 287
+ 283 ]
+[e :U 283 ]
+"540
+[; ;main.c: 540:         break;
+[e $U 274  ]
+"541
+[; ;main.c: 541:     }
+}
+[e $U 274  ]
+[e :U 275 ]
+[e [\ -> _index `i , $ -> 0 `i 276
+ , $ -> 1 `i 282
+ 274 ]
+[e :U 274 ]
+"542
+[; ;main.c: 542: }
+[e :UE 273 ]
+}

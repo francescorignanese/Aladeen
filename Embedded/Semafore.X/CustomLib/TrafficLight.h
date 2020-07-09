@@ -1,16 +1,13 @@
 #include "TrafficDataTypes.h"
 
-void UpdateTimes(_Semafori _semafori, Update *_to_update)
+void UpdateTimes(_Semafori _semafori)
 {
     //for su tutti i semafori per aggiornare eventuali modifiche ai timers
     for (unsigned char l = 0; l < 16; l++)
     {
-        if( l == (*_to_update).id )
-        {
-            for(unsigned char i = 0; i < 3; i++)
-            {   
-               (*(_semafori)[l]).times[i] = (*_to_update).new_times[i];
-            }
+        for(unsigned char i = 0; i < 3; i++)
+        {   
+            (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
         }
     }
 }
@@ -71,6 +68,19 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
     }
 }
 
+
+
+void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+{
+                for (unsigned char i = 0; i < 3; i++)
+                {
+                    unsigned char index = i * 5;           
+                    unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+                    unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+                    
+                    (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway); 
+                }
+}
 
 
 //CONTEGGIO VEICOLI

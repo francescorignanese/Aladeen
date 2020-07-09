@@ -59,6 +59,7 @@ Byte di parità per trovare l'errore
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
 #include "CustomLib/TrafficLight.h"
+#include "CustomLib/Constants.h"
 
 #define _XTAL_FREQ 32000000
 
@@ -86,11 +87,6 @@ Byte di parità per trovare l'errore
 #define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
 //* end <--
 
-typedef struct
-{
-    unsigned int Bit : 1;
-} Bit;
-
 struct
 {
     unsigned int Bit : 1;
@@ -98,24 +94,21 @@ struct
 } readGatewayDone;
 
 Bit readGateway, secondPassed, cycled;
-//Array per la visualizzazione dei numeri sui display
-const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-unsigned char unita, decine, centinaia;                                        //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char old_disp, disp;                                                  //varibile per fare lo switch in loop tra i dislpay
-unsigned int count = 0;                                                        //variabile per il conteggio del tempo di pressione del tasto
-unsigned char count_lux = 0;                                                   //conteggio per il tempo delle luci
-unsigned char comando = 0;                                                     //Prende il dato dalla seriale
-unsigned char time = 0;                                                        //variabile per contare i secondi
-unsigned char motorcycle[4];                                                   //variabile per contare i motocicli
-unsigned char car[4];                                                          //variabile per contare le macchine
-unsigned char truck[4];                                                        //variabile per contare i camion
-unsigned char dataFromGatewayIndex = 0;                                        //indice array dati da seriale
-ProtocolBytes dataFromGateway;                                                 //array dati da seriale
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15; //definisco i vari semafori
-Semaforo *Semafori[16] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7, &s8, &s9, &s10, &s11, &s12, &s13, &s14, &s15};
+unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
+unsigned char disp;                     //varibile per fare lo switch in loop tra i dislpay
+unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
+unsigned char count_lux = 0;            //conteggio per il tempo delle luci
+unsigned char comando = 0;              //Prende il dato dalla seriale
+unsigned char time = 0;                 //variabile per contare i secondi
+unsigned char motorcycle[4];            //variabile per contare i motocicli
+unsigned char car[4];                   //variabile per contare le macchine
+unsigned char truck[4];                 //variabile per contare i camion
+char RoadsSensors[4];
+unsigned char dataFromGatewayIndex = 0;  //indice array dati da seriale
+ProtocolBytes dataFromGateway;           //array dati da seriale
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7; //definisco i vari semafori
+Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-unsigned char id_semaforo = 0;
-Update to_update;
 
 void init_ADC();                                    //Inizializza l'adc
 int ADC_Read(char canale);                          //Lettura da un ingresso analogico
@@ -126,6 +119,7 @@ void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati 
 void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
+void luciSemaforo(unsigned char index, unsigned char lux);
 
 void main(void)
 {
@@ -142,12 +136,11 @@ void main(void)
     TMR1L = 176; // preset for timer1 LSB register
     //?PIE1 = 0x01;
 
-    int time;                     //0 � rosso, 1 � verde, 2 � giallo
-    unsigned char lux_select = 0; //selezione luce per il semaforo
-    disp = 0;                     //variabile per definire quale display deve accendersi, inizializzo a 0
-    unsigned char temp = 0;       //Variabile per salvare la temperatura sul pin RA0
-    unsigned char umidita = 0;    //Variabile per salvare l'umidita sul pin RA1
-    unsigned char pressione = 0;  //Variabile per salvare la pressione sul pin RE0
+    int time;                    //0 � rosso, 1 � verde, 2 � giallo
+    disp = 0;                    //variabile per definire quale display deve accendersi, inizializzo a 0
+    unsigned char temp = 0;      //Variabile per salvare la temperatura sul pin RA0
+    unsigned char umidita = 0;   //Variabile per salvare l'umidita sul pin RA1
+    unsigned char pressione = 0; //Variabile per salvare la pressione sul pin RE0
 
     init_ADC();                          //Inizializzazione adc
     UART_Init(9600);                     //Inizializzazione seriale a 9600 b
@@ -166,12 +159,32 @@ void main(void)
 
                 for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
-                    sendByte((0x01 << (i + 1)) | 0x01, 0x01, motorcycle[i]);
-                    sendByte((0x01 << (i + 1)) | 0x01, 0x10, car[i]);
-                    sendByte((0x01 << (i + 1)) | 0x01, 0x11, truck[i]);
+                    switch (i)
+                    {
+                    case 0:
+                        sendByte(0x03, 0x01, motorcycle[i]);
+                        sendByte(0x03, 0x02, car[i]);
+                        sendByte(0x03, 0x03, truck[i]);
+                        break;
+                    case 1:
+                        sendByte(0x05, 0x01, motorcycle[i]);
+                        sendByte(0x05, 0x02, car[i]);
+                        sendByte(0x05, 0x03, truck[i]);
+                        break;
+                    case 2:
+                        sendByte(0x07, 0x01, motorcycle[i]);
+                        sendByte(0x07, 0x02, car[i]);
+                        sendByte(0x07, 0x03, truck[i]);
+                        break;
+                    case 3:
+                        sendByte(0x09, 0x01, motorcycle[i]);
+                        sendByte(0x09, 0x02, car[i]);
+                        sendByte(0x09, 0x03, truck[i]);
+                        break;
+                    }
                 }
 
-                for (int i = 0; i < 4; i++) //Reseto le variabili
+                for (int i = 0; i < 4; i++) //Resetto le variabili
                 {
                     motorcycle[i] = 0;
                     car[i] = 0;
@@ -236,33 +249,7 @@ void main(void)
             else
             {
                 //bitParita(dataFromGateway); //controllo correttezza dati
-
-                for (unsigned char i = 0; i < 3; i++)
-                {
-                    unsigned char tmp;
-                    unsigned char index = i * 5;
-                    //tmp=index;
-                    //(*(Semafori[((index >> 1) & 0x0F)])).new_times[(((index >> 5) & 0x03) - 1)] = GetTime(index, dataFromGateway);
-                    //Spiegazione riga precedente:
-                    /*
-                    unsigned char semaforoId = (index >> 1) & 0x0F;
-                    unsigned char colorId = ((index >> 5) & 0x03) - 1;
-                    */
-                    tmp = index;
-                    unsigned char semaforoId = (tmp >> 1) & 0x0F;
-                    tmp = index;
-                    unsigned char colorId = ((tmp >> 5) & 0x03) - 1;
-
-                    if (semaforoId != id_semaforo)
-                    {
-                        (*Semafori[semaforoId]).times[colorId] = GetTime(index, dataFromGateway);
-                    }
-                    else
-                    {
-                        to_update.id = semaforoId;
-                        to_update.new_times[colorId] = GetTime(index, dataFromGateway);
-                    }
-                }
+                SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
 
@@ -270,31 +257,53 @@ void main(void)
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit && cycled.Bit)
         {
-            time++;
+            time++; //incrementa il timer per il calcolo del countdown
 
-            if ((*Semafori[id_semaforo]).times[lux_select] - time < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
+            unsigned char i = 0;
+            while (i < 2) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
             {
-                lux_select++; //...si incrementa il contatore delle luci...
-                time = 1;     //...si resetta il timer
-
-                if (lux_select >= 3) //se il contatore delle luci � arrivato a 3, ovvero � finito il giallo...
+                if ((*Semafori[i]).times[0] == 0) //se per l'i-esimo semaforo � stato impostato un tempo 0 allora non � utilizzato e viene saltato
                 {
-                    lux_select = 0; //...resetta il contatore delle luci, tornando al verde...
+                    i++;
+                }
+                else
+                {
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
+                    if ((*Semafori[i]).times[lux_select] - time < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
+                    {
+                        lux_select++;        //...si incrementa il contatore delle luci...
+                        time = 1;            //...si resetta il timer
+                        if (lux_select >= 3) //Se il contatore delle luci � arrivato a 3, ovvero � finito il giallo...
+                        {
+                            lux_select = 0;          //...resetta il contatore delle luci, tornando al verde...
+                            if (i == n_semafori - 1) //...e se il ciclo terminato � quello dell'ultimo semaforo tutto l'incrocio ha terminato un ciclo...
+                            {
+                                //AGGIORNAMENTO TEMPI LUCI
+                                UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
+                            }
+                        }
 
-                    //AGGIORNAMENTO TEMPI LUCI E CAMBIO SEMAFORO
-                    UpdateTimes(Semafori, &to_update);          //...aggiorna i tempi delle luci...
-                    ChangeTrafficLight(Semafori, &id_semaforo); //...incrementa l'id del semaforo
+                        (*Semafori[i]).lux_select = lux_select;
+                    }
+
+                    (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
+                    //GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unit� del countdown
+
+                    luciSemaforo(i, lux_select);
+                    i++;
                 }
             }
-
-            GetDigits(&centinaia, &decine, &unita, (*Semafori[id_semaforo]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unit� del countdown
         }
 
         //MOSTRA TIMER SU DISPLAY
-        if (disp != old_disp) //Lo esegue solo quando "disp" cambia (cio� ad ogni ciclo while))
+        //SOLO DEBUG -->
+        GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time); //SOLO DEBUG, MOSTRA SOLO TIMER SEMAFORO 0
+        //--> FINE SOLO DEBUG
+
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
-            old_disp = disp;
-            switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+        case 0:                //==> desplay delle centinaia, porta RA2
+            if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
             {
             case 0:                //==> desplay delle centinaia, porta RA2
                 if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
@@ -316,6 +325,10 @@ void main(void)
                 //SetDisplay(0, 0, 1, display[id_semaforo]);
                 break;
             }
+            break;
+        case 2:                                  //==> desplay delle unit�, porta RA4
+            SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            break;
         }
         disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
@@ -415,45 +428,22 @@ void SetDisplay(char d1, char d2, char d3, char value)
 
 void conteggioVeicoli()
 {
-    //Controllo per la strada 1
-    if (!Road1) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+    RoadsSensors[0] = Road1;
+    RoadsSensors[1] = Road2;
+    RoadsSensors[2] = Road3;
+    RoadsSensors[3] = Road4;
+
+    for (unsigned char i = 0; i < 4; i++)
     {
-        count++;
-    }
-    else if (Road1) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        Conteggio(count, motorcycle, car, truck, 0);
-        count = 0;
-    }
-    //Controllo per la strada 2
-    if (!Road2) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (Road2) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        Conteggio(count, motorcycle, car, truck, 1);
-        count = 0;
-    }
-    //Controllo per la strada 3
-    if (!Road3) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (Road3) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        Conteggio(count, motorcycle, car, truck, 2);
-        count = 0;
-    }
-    //Controllo per la strada 4
-    if (!Road4) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-    {
-        count++;
-    }
-    else if (Road4) //al rilascio controlla e incrementa il mezzo che è passato
-    {
-        Conteggio(count, motorcycle, car, truck, 3);
-        count = 0;
+        if (!RoadsSensors[i]) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
+        {
+            count++;
+        }
+        else if (RoadsSensors[i]) //al rilascio controlla e incrementa il mezzo che è passato
+        {
+            Conteggio(count, motorcycle, car, truck, i);
+            count = 0;
+        }
     }
 }
 
