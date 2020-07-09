@@ -120,6 +120,7 @@ void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
 void luciSemaforo(unsigned char index, unsigned char lux);
+void ShowDigitsOnDisplay();
 
 void main(void)
 {
@@ -287,50 +288,13 @@ void main(void)
                     }
 
                     (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
-                    //GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unit� del countdown
-
+                    GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unit� del countdown
+                    ShowDigitsOnDisplay();
                     luciSemaforo(i, lux_select);
                     i++;
                 }
             }
         }
-
-        //MOSTRA TIMER SU DISPLAY
-        //SOLO DEBUG -->
-        GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time); //SOLO DEBUG, MOSTRA SOLO TIMER SEMAFORO 0
-        //--> FINE SOLO DEBUG
-
-        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
-        {
-        case 0:                //==> desplay delle centinaia, porta RA2
-            if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
-            {
-            case 0:                //==> desplay delle centinaia, porta RA2
-                if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
-                {
-                    SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                //SetDisplay(1, 0, 0, display[(*Semafori[id_semaforo]).times[lux_select]]);
-                SetDisplay(1, 0, 0, display[id_semaforo]);
-                break;
-            case 1:                              //==> desplay delle dedcine, porta RA3
-                if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-                {
-                    SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                //SetDisplay(0, 1, 0, display[lux_select]);
-                break;
-            case 2:                                  //==> desplay delle unit�, porta RA4
-                SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                //SetDisplay(0, 0, 1, display[id_semaforo]);
-                break;
-            }
-            break;
-        case 2:                                  //==> desplay delle unit�, porta RA4
-            SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-            break;
-        }
-        disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
         //reset variabili
         //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
@@ -493,6 +457,34 @@ void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il camb
         break;
     }
 }
+
+
+void ShowDigitsOnDisplay()
+{
+    //MOSTRA TIMER SU DISPLAY
+    switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+    {
+        case 0:                //==> desplay delle centinaia, porta RA2
+            if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
+            {
+                SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            }
+            //SetDisplay(1, 0, 0, display[(*Semafori[id_semaforo]).times[lux_select]]);
+            SetDisplay(1, 0, 0, display[n_semafori]);
+            break;
+        case 1:                              //==> desplay delle dedcine, porta RA3
+            if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+            {
+                SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            }
+            break;
+        case 2:                                  //==> desplay delle unit�, porta RA4
+            SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            break;
+    }
+    disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
+}
+
 
 void __interrupt() ISR()
 {

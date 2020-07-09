@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\sources\\c90\\pic\\__eeprom.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,18 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-# 47 "main.c"
-#pragma config FOSC = HS
-#pragma config WDTE = OFF
-#pragma config PWRTE = ON
-#pragma config BOREN = ON
-#pragma config LVP = ON
-#pragma config CPD = OFF
-#pragma config WRT = OFF
-#pragma config CP = OFF
-
-
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1731,819 +1720,176 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 56 "main.c" 2
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 1 3
+# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\sources\\c90\\pic\\__eeprom.c" 2
 
 
 
 
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\__size_t.h" 1 3
-
-
-
-typedef unsigned size_t;
-# 5 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 2 3
-
-# 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\__null.h" 1 3
-# 6 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 2 3
-
-typedef unsigned short wchar_t;
-
-
-
-
-
-
-
-typedef struct {
- int rem;
- int quot;
-} div_t;
-typedef struct {
- unsigned rem;
- unsigned quot;
-} udiv_t;
-typedef struct {
- long quot;
- long rem;
-} ldiv_t;
-typedef struct {
- unsigned long quot;
- unsigned long rem;
-} uldiv_t;
-# 65 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 3
-extern double atof(const char *);
-extern double strtod(const char *, const char **);
-extern int atoi(const char *);
-extern unsigned xtoi(const char *);
-extern long atol(const char *);
-
-
-
-extern long strtol(const char *, char **, int);
-
-extern int rand(void);
-extern void srand(unsigned int);
-extern void * calloc(size_t, size_t);
-extern div_t div(int numer, int denom);
-extern udiv_t udiv(unsigned numer, unsigned denom);
-extern ldiv_t ldiv(long numer, long denom);
-extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
-
-
-
-extern unsigned long _lrotl(unsigned long value, unsigned int shift);
-extern unsigned long _lrotr(unsigned long value, unsigned int shift);
-extern unsigned int _rotl(unsigned int value, unsigned int shift);
-extern unsigned int _rotr(unsigned int value, unsigned int shift);
-
-
-
-
-extern void * malloc(size_t);
-extern void free(void *);
-extern void * realloc(void *, size_t);
-# 104 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\c90\\stdlib.h" 3
-extern int atexit(void (*)(void));
-extern char * getenv(const char *);
-extern char ** environ;
-extern int system(char *);
-extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
-extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
-extern int abs(int);
-extern long labs(long);
-
-extern char * itoa(char * buf, int val, int base);
-extern char * utoa(char * buf, unsigned val, int base);
-
-
-
-
-extern char * ltoa(char * buf, long val, int base);
-extern char * ultoa(char * buf, unsigned long val, int base);
-
-extern char * ftoa(float f, int * status);
-# 57 "main.c" 2
-
-# 1 "./CustomLib/Conversions.h" 1
-int map(int x, int in_min, int in_max, int out_min, int out_max)
+void
+__eecpymem(volatile unsigned char *to, __eeprom unsigned char * from, unsigned char size)
 {
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+ volatile unsigned char *cp = to;
+
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)from;
+ while(size--) {
+  while (EECON1bits.WR) continue;
+
+  EECON1 &= 0x7F;
+
+  EECON1bits.RD = 1;
+  *cp++ = EEDATA;
+  ++EEADR;
+ }
+# 36 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-double pow(double b, double e)
+void
+__memcpyee(__eeprom unsigned char * to, const unsigned char *from, unsigned char size)
 {
-    int i;
-    double number = 1;
-    for (i = 0; i < e; i++)
-    {
-        number *= b;
-    }
-    return (number);
+ const unsigned char *ptr =from;
+
+ while (EECON1bits.WR) continue;
+ EEADR = (unsigned char)to - 1U;
+
+ EECON1 &= 0x7F;
+
+ while(size--) {
+  while (EECON1bits.WR) {
+   continue;
+  }
+  EEDATA = *ptr++;
+  ++EEADR;
+  STATUSbits.CARRY = 0;
+  if (INTCONbits.GIE) {
+   STATUSbits.CARRY = 1;
+  }
+  INTCONbits.GIE = 0;
+  EECON1bits.WREN = 1;
+  EECON2 = 0x55;
+  EECON2 = 0xAA;
+  EECON1bits.WR = 1;
+  EECON1bits.WREN = 0;
+  if (STATUSbits.CARRY) {
+   INTCONbits.GIE = 1;
+  }
+ }
+# 101 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\sources\\c90\\pic\\__eeprom.c"
 }
 
-void intToString(int valore, char *str)
+unsigned char
+__eetoc(__eeprom void *addr)
 {
-    int i;
-    int num = 0;
-    for (i = 0; i < 3; i++)
-    {
-        str[2 - i] = '0' + ((valore % (char)pow(10, 1 + i)) / (char)pow(10, i));
-    }
-    str[3] = '\0';
+ unsigned char data;
+ __eecpymem((unsigned char *) &data,addr,1);
+ return data;
 }
 
-
-void GetDigits(unsigned char *centinaia, unsigned char *decine, unsigned char *unita, int Time)
+unsigned int
+__eetoi(__eeprom void *addr)
 {
-    while(Time/1000>0)
-    {
-        Time=Time/10;
-    }
-
-    *centinaia = Time / 100;
-    *decine = (Time % 100) / 10;
-    *unita = (Time % 100) % 10;
-}
-# 58 "main.c" 2
-
-# 1 "./CustomLib/BitsFlow.h" 1
-char bitChange(char dato, char n)
-{
-    if (dato & (1 << (n)))
-    {
-        return dato |= (1 << (n));
-    }
-    else
-    {
-        return dato &= ~(1 << (n));
-    }
+ unsigned int data;
+ __eecpymem((unsigned char *) &data,addr,2);
+ return data;
 }
 
-
-void bitParita(char *rx)
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__eetom(__eeprom void *addr)
 {
-    char error = 0;
-    char sommaRow = 0;
-    char errorRow = 0;
-    char sommaColumn = 0;
-    char errorColumn = 0;
-    for (int i = 0; i < 5; i++)
-    {
-        for (int y = 0; y < 8; y++)
-        {
-            sommaRow += (rx[i] >> y) & 1;
-        }
-        if (sommaRow % 2 == 1)
-        {
-            error = 1;
-            errorRow = i;
-        }
-    }
-    for (int i = 0; i < 8; i++)
-    {
-        for (int y = 0; y < 4; y++)
-
-        {
-            sommaColumn += (rx[y] >> i) & 1;
-        }
-        if (sommaColumn % 2 == 1)
-        {
-            error = 1;
-            errorColumn = i;
-        }
-    }
-    if (error != 0)
-    {
-
-
-        rx[errorRow] = bitChange(rx[errorRow], errorColumn);
-    }
+ __uint24 data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
 }
-# 59 "main.c" 2
+#pragma warning pop
 
-# 1 "./CustomLib/Serial.h" 1
-
-char *BuildByte(char byte0, char byte1, char valore)
+unsigned long
+__eetol(__eeprom void *addr)
 {
-    char txByte[5];
-
-    txByte[0] = byte0 & 0x7F;
-    txByte[1] = byte1 & 0x7F;
-    txByte[2] = valore & 0x7F;
-    txByte[3] = (valore >> 7) & 0x7F;
-    char sommaRow = 0;
-    char sommaColumn = 0;
-
-    for (int i = 0; i < 4; i++)
-    {
-        for (int y = 0; y < 8; y++)
-        {
-            sommaRow += (txByte[i] >> y) & 1;
-        }
-        if (sommaRow % 2 == 1)
-        {
-            txByte[i] += 0x01 << 7;
-            sommaRow = 0;
-        }
-        else
-        {
-            sommaRow = 0;
-        }
-    }
-
-
-    for (int i = 0; i < 8; i++)
-    {
-        for (int y = 0; y < 4; y++)
-
-        {
-            sommaColumn += (txByte[y] >> i) & 1;
-        }
-        if (sommaColumn % 2 == 1)
-        {
-            txByte[4] += 0x01 << i;
-            sommaColumn = 0;
-        }
-        else
-        {
-            sommaColumn = 0;
-        }
-    }
-
-    return txByte;
-}
-# 60 "main.c" 2
-
-# 1 "./CustomLib/TrafficLight.h" 1
-# 1 "./CustomLib/TrafficDataTypes.h" 1
-typedef struct
-{
-    int times[3];
-    int new_times[3];
-    unsigned char lux_select;
-    unsigned char new_lux_select;
-} Semaforo;
-
-typedef struct
-{
-    unsigned char Bit :1;
-} Bit;
-# 22 "./CustomLib/TrafficDataTypes.h"
-typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[16];
-# 1 "./CustomLib/TrafficLight.h" 2
-
-
-void UpdateTimes(_Semafori _semafori)
-{
-
-    for (unsigned char l = 0; l < 16; l++)
-    {
-        for(unsigned char i = 0; i < 3; i++)
-        {
-            (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
-        }
-    }
+ unsigned long data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
-void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__eetoo(__eeprom void *addr)
 {
+ unsigned long long data;
+ __eecpymem((unsigned char *) &data,addr,8);
+ return data;
+}
+#pragma warning pop
 
-
-    do
-    {
-        *_n_semafori = ((*_n_semafori) + 1);
-    }while( (*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori<10);
-
-    *_n_semafori=(*_n_semafori)%10;
+unsigned char
+__ctoee(__eeprom void *addr, unsigned char data)
+{
+ __memcpyee(addr,(unsigned char *) &data,1);
+ return data;
 }
 
-
-
-int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+unsigned int
+__itoee(__eeprom void *addr, unsigned int data)
 {
-    int tmp;
-    struct
-    {
-        unsigned int Val : 7;
-    } shortInt;
-
-    shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
-    tmp = shortInt.Val;
-    tmp = (tmp << 7) & 0x80;
-
-    shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
-    tmp = tmp | shortInt.Val;
-
-    return tmp;
+ __memcpyee(addr,(unsigned char *) &data,2);
+ return data;
 }
 
-
-
-void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+#pragma warning push
+#pragma warning disable 2040
+__uint24
+__mtoee(__eeprom void *addr, __uint24 data)
 {
-    for (unsigned char l = 0; l < 16; l++)
-    {
-        for (unsigned char i = 0; i < 3; i++)
-        {
-            switch (i)
-            {
-            case 0:
-                (*(_semafori)[l]).times[i] = rosso;
-                break;
-            case 1:
-                (*(_semafori)[l]).times[i] = verde;
-                break;
-            case 2:
-                (*(_semafori)[l]).times[i] = giallo;
-                break;
-            }
-        }
-    }
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
+}
+#pragma warning pop
+
+unsigned long
+__ltoee(__eeprom void *addr, unsigned long data)
+{
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }
 
-
-
-void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+#pragma warning push
+#pragma warning disable 1516
+unsigned long long
+__otoee(__eeprom void *addr, unsigned long long data)
 {
-                for (unsigned char i = 0; i < 3; i++)
-                {
-                    unsigned char index = i * 5;
-                    unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
-                    unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+ __memcpyee(addr,(unsigned char *) &data,8);
+ return data;
+}
+#pragma warning pop
 
-                    (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
-                }
+float
+__eetoft(__eeprom void *addr)
+{
+ float data;
+ __eecpymem((unsigned char *) &data,addr,3);
+ return data;
 }
 
-
-
-void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+double
+__eetofl(__eeprom void *addr)
 {
-        if (_count >= 500)
-        {
-            _motorcycle[index]=_motorcycle[index]+1;
-        }
-        if (_count >= 1500)
-        {
-            _car[index]=_car[index]+1;
-        }
-        if (_count >= 3000)
-        {
-            _truck[index]=_truck[index]+1;
-        }
-}
-# 61 "main.c" 2
-
-# 1 "./CustomLib/Constants.h" 1
-
-const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-
-
-const unsigned char n_semafori=8;
-# 62 "main.c" 2
-# 90 "main.c"
-struct
-{
-    unsigned int Bit : 1;
-    unsigned int Timeout : 1;
-} readGatewayDone;
-
-Bit readGateway, secondPassed, cycled;
-unsigned char unita, decine, centinaia;
-unsigned char disp;
-unsigned int count = 0;
-unsigned char count_lux = 0;
-unsigned char comando = 0;
-unsigned char time = 0;
-unsigned char motorcycle[4];
-unsigned char car[4];
-unsigned char truck[4];
-char RoadsSensors[4];
-unsigned char dataFromGatewayIndex = 0;
-ProtocolBytes dataFromGateway;
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
-Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
-unsigned char timerReadFromGateway;
-
-void init_ADC();
-int ADC_Read(char canale);
-void UART_Init(int baudrate);
-void UART_TxChar(char ch);
-char UART_Read();
-void sendByte(char byte0, char byte1, char valore);
-void conteggioVeicoli();
-void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
-void luciSemaforo(unsigned char index, unsigned char lux);
-void ShowDigitsOnDisplay();
-
-void main(void)
-{
-    TRISB = 0x00;
-    TRISC = 0x80;
-    TRISD = 0x00;
-    TRISE = 0x01;
-    INTCON = 0xE0;
-    OPTION_REG = 0x04;
-    TMR0 = 6;
-    T1CON = 0x31;
-
-    TMR1H = 60;
-    TMR1L = 176;
-
-
-    int time;
-    disp = 0;
-    unsigned char temp = 0;
-    unsigned char umidita = 0;
-    unsigned char pressione = 0;
-
-    init_ADC();
-    UART_Init(9600);
-    SetDefaultTimers(1, 1, 1, Semafori);
-
-    while (1)
-    {
-
-        if (readGateway.Bit)
-        {
-            switch ((dataFromGateway[0] & 0x7F))
-            {
-            case 0x08:
-                readGatewayDone.Bit = 1;
-                readGateway.Bit = 0;
-
-                for (int i = 0; i < 4; i++)
-                {
-                    switch (i)
-                    {
-                    case 0:
-                        sendByte(0x03, 0x01, motorcycle[i]);
-                        sendByte(0x03, 0x02, car[i]);
-                        sendByte(0x03, 0x03, truck[i]);
-                        break;
-                    case 1:
-                        sendByte(0x05, 0x01, motorcycle[i]);
-                        sendByte(0x05, 0x02, car[i]);
-                        sendByte(0x05, 0x03, truck[i]);
-                        break;
-                    case 2:
-                        sendByte(0x07, 0x01, motorcycle[i]);
-                        sendByte(0x07, 0x02, car[i]);
-                        sendByte(0x07, 0x03, truck[i]);
-                        break;
-                    case 3:
-                        sendByte(0x09, 0x01, motorcycle[i]);
-                        sendByte(0x09, 0x02, car[i]);
-                        sendByte(0x09, 0x03, truck[i]);
-                        break;
-                    }
-                }
-
-                for (int i = 0; i < 4; i++)
-                {
-                    motorcycle[i] = 0;
-                    car[i] = 0;
-                    truck[i] = 0;
-                }
-
-                for (unsigned char i = 0; i < 5; i++)
-                {
-                    dataFromGateway[i] = 0;
-                }
-                break;
-            case 0x0A:
-                readGatewayDone.Bit = 1;
-                readGateway.Bit = 0;
-
-                temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
-                umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-                pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-                sendByte(0x02, 0x00, temp);
-                sendByte(0x04, 0x00, umidita);
-                sendByte(0x06, 0x00, pressione);
-
-                for (unsigned char i = 0; i < 5; i++)
-                {
-                    dataFromGateway[i] = 0;
-                }
-                break;
-
-            default:
-                if (timerReadFromGateway >= 4)
-                {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 1;
-                    readGateway.Bit = 0;
-                }
-
-                if (dataFromGatewayIndex >= 15)
-                {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 0;
-                    readGateway.Bit = 0;
-                }
-                break;
-            }
-        }
-
-
-        if (readGatewayDone.Bit)
-        {
-
-            readGateway.Bit = 0;
-            dataFromGatewayIndex = 0;
-            readGatewayDone.Bit = 0;
-            timerReadFromGateway = 0;
-
-
-            if (readGatewayDone.Timeout)
-            {
-                readGatewayDone.Timeout = 0;
-            }
-
-            else
-            {
-
-                SetReceivedTimes(dataFromGateway, Semafori);
-            }
-        }
-
-
-
-        if (secondPassed.Bit && cycled.Bit)
-        {
-            time++;
-
-            unsigned char i = 0;
-            while (i < 2)
-            {
-                if ((*Semafori[i]).times[0] == 0)
-                {
-                    i++;
-                }
-                else
-                {
-                    unsigned char lux_select = (*Semafori[i]).lux_select;
-                    if ((*Semafori[i]).times[lux_select] - time < 0)
-                    {
-                        lux_select++;
-                        time = 1;
-                        if (lux_select >= 3)
-                        {
-                            lux_select = 0;
-                            if (i == n_semafori - 1)
-                            {
-
-                                UpdateTimes(Semafori);
-                            }
-                        }
-
-                        (*Semafori[i]).lux_select = lux_select;
-                    }
-
-                    (*Semafori[i]).lux_select = lux_select;
-                    GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time);
-                    ShowDigitsOnDisplay();
-                    luciSemaforo(i, lux_select);
-                    i++;
-                }
-            }
-        }
-
-
-
-
-
-        if (secondPassed.Bit && cycled.Bit)
-        {
-            secondPassed.Bit = 0;
-            cycled.Bit = 0;
-        }
-        if (secondPassed.Bit && !cycled.Bit)
-        {
-            cycled.Bit = 1;
-        }
-    }
-
-    return;
+ double data;
+ __eecpymem((unsigned char *) &data,addr,4);
+ return data;
 }
 
-
-void init_ADC()
+float
+__fttoee(__eeprom void *addr, float data)
 {
-    TRISA = 0xE3;
-    ADCON0 = 0x00;
-    ADCON1 = 0x80;
-    _delay((unsigned long)((10)*(32000000/4000000.0)));
+ __memcpyee(addr,(unsigned char *) &data,3);
+ return data;
 }
 
-
-int ADC_Read(char canale)
+double
+__fltoee(__eeprom void *addr, double data)
 {
-    ADCON0 = (1 << 0) | (canale << 3);
-    _delay((unsigned long)((2)*(32000000/4000000.0)));
-    GO_nDONE = 1;
-    while (GO_nDONE)
-        ;
-    return ADRESL + (ADRESH << 8);
-}
-
-void UART_Init(int baudrate)
-{
-    TRISCbits.TRISC6 = 0;
-    TXSTAbits.TXEN = 1;
-    RCSTAbits.SPEN = 1;
-    RCSTAbits.CREN = 1;
-    SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
-}
-
-void UART_TxChar(char ch)
-{
-    while (!TXIF)
-        ;
-    TXIF = 0;
-    TXREG = ch;
-}
-
-void UART_Write_Text(char *text)
-{
-    unsigned char i;
-    for (i = 0; text[i] != '\0'; i++)
-    {
-        UART_TxChar(text[i]);
-    }
-}
-
-char UART_Read()
-{
-    while (!RCIF)
-        ;
-    RCIF = 0;
-    return RCREG;
-}
-
-void sendByte(char byte0, char byte1, char valore)
-{
-    char *txByte;
-    txByte = BuildByte(byte0, byte1, valore);
-
-    for (unsigned char i = 0; i < 5; i++)
-    {
-        UART_TxChar(*(txByte++));
-    }
-}
-
-void SetDisplay(char d1, char d2, char d3, char value)
-{
-    PORTAbits.RA2 = d1;
-    PORTAbits.RA3 = d2;
-    PORTAbits.RA4 = d3;
-    PORTD = value;
-}
-
-void conteggioVeicoli()
-{
-    RoadsSensors[0] = PORTBbits.RB3;
-    RoadsSensors[1] = PORTBbits.RB4;
-    RoadsSensors[2] = PORTBbits.RB5;
-    RoadsSensors[3] = PORTAbits.RA5;
-
-    for (unsigned char i = 0; i < 4; i++)
-    {
-        if (!RoadsSensors[i])
-        {
-            count++;
-        }
-        else if (RoadsSensors[i])
-        {
-            Conteggio(count, motorcycle, car, truck, i);
-            count = 0;
-        }
-    }
-}
-
-void luciSemaforo(unsigned char index, unsigned char lux)
-{
-    switch (index)
-    {
-    case 0:
-        switch (lux)
-        {
-        case 0:
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC0 = 1;
-            break;
-        case 1:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC1 = 1;
-            break;
-        case 2:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
-            break;
-        }
-        break;
-    case 1:
-        switch (lux)
-        {
-        case 0:
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB0 = 1;
-            break;
-        case 1:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB1 = 1;
-            break;
-        case 2:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            break;
-        }
-        break;
-    }
-}
-
-
-void ShowDigitsOnDisplay()
-{
-
-    switch (disp)
-    {
-        case 0:
-            if (centinaia > 0)
-            {
-                SetDisplay(1, 0, 0, display[centinaia]);
-            }
-
-            SetDisplay(1, 0, 0, display[n_semafori]);
-            break;
-        case 1:
-            if (decine > 0 || centinaia > 0)
-            {
-                SetDisplay(0, 1, 0, display[decine]);
-            }
-            break;
-        case 2:
-            SetDisplay(0, 0, 1, display[unita]);
-            break;
-    }
-    disp = (disp + 1) % 3;
-}
-
-
-void __attribute__((picinterrupt(("")))) ISR()
-{
-
-    if (RCIF && readGateway.Bit == 0)
-    {
-        readGateway.Bit = 1;
-        readGatewayDone.Bit = 0;
-        readGatewayDone.Timeout = 0;
-        dataFromGatewayIndex = 0;
-        timerReadFromGateway = 0;
-    }
-    if (RCIF && readGateway.Bit == 1)
-    {
-        dataFromGateway[dataFromGatewayIndex] = UART_Read();
-        dataFromGatewayIndex++;
-        timerReadFromGateway = 0;
-    }
-
-
-
-    if (TMR0IF)
-    {
-        TMR0IF = 0;
-        conteggioVeicoli();
-        TMR0 = 6;
-    }
-
-    if (TMR1IF)
-    {
-        TMR1IF = 0;
-        count_lux++;
-
-        if (count_lux >= 20)
-        {
-            secondPassed.Bit = 1;
-            count_lux = 0;
-            timerReadFromGateway++;
-        }
-
-        TMR1H = 60;
-        TMR1L = 176;
-    }
+ __memcpyee(addr,(unsigned char *) &data,4);
+ return data;
 }
