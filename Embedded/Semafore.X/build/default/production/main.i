@@ -2046,6 +2046,11 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
     for (unsigned char l = 0; l < 16; l++)
     {
+        if(l<2)
+        {
+            (*(_semafori)[l]).lux_select=l;
+        }
+
         for (unsigned char i = 0; i < 3; i++)
         {
             switch (i)
@@ -2102,7 +2107,7 @@ void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char 
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 
-const unsigned char n_semafori=8;
+const unsigned char n_semafori=2;
 # 62 "main.c" 2
 # 90 "main.c"
 struct
@@ -2142,7 +2147,7 @@ void ShowDigitsOnDisplay();
 
 void main(void)
 {
-    TRISB = 0x00;
+    TRISB = 0x38;
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x01;
@@ -2279,38 +2284,36 @@ void main(void)
             time++;
 
             unsigned char i = 0;
-            while (i < 2)
+            while (i < n_semafori)
             {
-                if ((*Semafori[i]).times[0] == 0)
-                {
-                    i++;
-                }
-                else
+                if ((*Semafori[i]).times[0] != 0)
                 {
                     unsigned char lux_select = (*Semafori[i]).lux_select;
                     if ((*Semafori[i]).times[lux_select] - time < 0)
                     {
                         lux_select++;
                         time = 1;
+
                         if (lux_select >= 3)
                         {
                             lux_select = 0;
+
                             if (i == n_semafori - 1)
                             {
-
                                 UpdateTimes(Semafori);
                             }
                         }
-
-                        (*Semafori[i]).lux_select = lux_select;
                     }
 
-                    (*Semafori[i]).lux_select = lux_select;
                     GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time);
                     ShowDigitsOnDisplay();
                     luciSemaforo(i, lux_select);
+
+                    (*Semafori[i]).lux_select = lux_select;
                     i++;
                 }
+
+                i++;
             }
         }
 
@@ -2347,8 +2350,7 @@ int ADC_Read(char canale)
     ADCON0 = (1 << 0) | (canale << 3);
     _delay((unsigned long)((2)*(32000000/4000000.0)));
     GO_nDONE = 1;
-    while (GO_nDONE)
-        ;
+    while (GO_nDONE);
     return ADRESL + (ADRESH << 8);
 }
 
@@ -2366,8 +2368,7 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF)
-        ;
+    while (!TXIF);
     TXIF = 0;
     TXREG = ch;
 }
@@ -2383,8 +2384,7 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF)
-        ;
+    while (!RCIF);
     RCIF = 0;
     return RCREG;
 }
@@ -2438,36 +2438,37 @@ void luciSemaforo(unsigned char index, unsigned char lux)
         {
         case 0:
             PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
+            PORTCbits.RC3 = 0;
             PORTCbits.RC0 = 1;
             break;
         case 1:
             PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
+            PORTCbits.RC3 = 0;
             PORTCbits.RC1 = 1;
             break;
         case 2:
             PORTCbits.RC0 = 0;
             PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
+            PORTCbits.RC3 = 1;
             break;
         }
         break;
+
     case 1:
         switch (lux)
         {
         case 0:
             PORTBbits.RB1 = 0;
             PORTBbits.RB6 = 0;
-            PORTBbits.RB0 = 1;
+            PORTBbits.RB7 = 1;
             break;
         case 1:
-            PORTBbits.RB0 = 0;
+            PORTBbits.RB7 = 0;
             PORTBbits.RB6 = 0;
             PORTBbits.RB1 = 1;
             break;
         case 2:
-            PORTBbits.RB0 = 0;
+            PORTBbits.RB7 = 0;
             PORTBbits.RB1 = 0;
             PORTBbits.RB6 = 1;
             break;

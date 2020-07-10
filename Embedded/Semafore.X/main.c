@@ -81,8 +81,8 @@ Byte di parità per trovare l'errore
 //*Inizializzazione delle luci -->
 #define Red1 PORTCbits.RC0    //Rosso primo semaforo
 #define Green1 PORTCbits.RC1  //verde primo semaforo
-#define Yellow1 PORTCbits.RC2 //giallo primo semaforo (da mettere sia su pin1 che pin2)
-#define Red2 PORTBbits.RB0    //Rosso secondo semaforo
+#define Yellow1 PORTCbits.RC3 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+#define Red2 PORTBbits.RB7    //Rosso secondo semaforo
 #define Green2 PORTBbits.RB1  //verde secondo semaforo
 #define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
 //* end <--
@@ -124,7 +124,7 @@ void ShowDigitsOnDisplay();
 
 void main(void)
 {
-    TRISB = 0x00; //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x38; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
     TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
@@ -261,38 +261,36 @@ void main(void)
             time++; //incrementa il timer per il calcolo del countdown
 
             unsigned char i = 0;
-            while (i < 2) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
+            while (i < n_semafori) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
             {
-                if ((*Semafori[i]).times[0] == 0) //se per l'i-esimo semaforo � stato impostato un tempo 0 allora non � utilizzato e viene saltato
-                {
-                    i++;
-                }
-                else
+                if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
                 {
                     unsigned char lux_select = (*Semafori[i]).lux_select;
                     if ((*Semafori[i]).times[lux_select] - time < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
                     {
                         lux_select++;        //...si incrementa il contatore delle luci...
                         time = 1;            //...si resetta il timer
+                        
                         if (lux_select >= 3) //Se il contatore delle luci � arrivato a 3, ovvero � finito il giallo...
                         {
-                            lux_select = 0;          //...resetta il contatore delle luci, tornando al verde...
+                            lux_select = 0;          //...resetta il contatore delle luci, tornando al rosso...
+                            
                             if (i == n_semafori - 1) //...e se il ciclo terminato � quello dell'ultimo semaforo tutto l'incrocio ha terminato un ciclo...
                             {
-                                //AGGIORNAMENTO TEMPI LUCI
                                 UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
                             }
                         }
-
-                        (*Semafori[i]).lux_select = lux_select;
                     }
 
-                    (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
                     GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unit� del countdown
                     ShowDigitsOnDisplay();
                     luciSemaforo(i, lux_select);
+                    
+                    (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
                     i++;
                 }
+                
+                i++;
             }
         }
 
@@ -329,8 +327,7 @@ int ADC_Read(char canale)
     ADCON0 = (1 << ADON) | (canale << CHS0);
     __delay_us(2); //attendo 1.6 uS
     GO_nDONE = 1;  // avvio la conversione ADGO GO
-    while (GO_nDONE)
-        ;                          //attendo la fine della conversione
+    while (GO_nDONE);              //attendo la fine della conversione
     return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
 }
 
@@ -348,8 +345,7 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF)
-        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    while (!TXIF);     //se TXIF ? a 0 la trasmissione ? ancora in corso
     TXIF = 0; //lo resetto
     TXREG = ch;
 }
@@ -365,8 +361,7 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF)
-        ;
+    while (!RCIF);
     RCIF = 0;
     return RCREG;
 }
@@ -435,6 +430,7 @@ void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il camb
             break;
         }
         break;
+        
     case 1: //Parte del secondo semaforo (ID di esso)
         switch (lux)
         {
