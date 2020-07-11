@@ -50,6 +50,11 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
     for (unsigned char l = 0; l < 16; l++)
     {
+        if(l<2)
+        {
+            (*(_semafori)[l]).lux_select=l;
+        }
+
         for (unsigned char i = 0; i < 3; i++)
         {
             switch (i)
