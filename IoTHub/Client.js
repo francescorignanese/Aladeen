@@ -31,7 +31,7 @@ client.open(function (err) {
       "sensor": "traffic",
       "id_cross": 1,
       "date": new Date().toISOString().slice(0,10),
-      "time": new Date().toISOString().slice(11,19),
+      "time": '18:18:18',//new Date().toISOString().slice(11,19)
       "data_carriers": [
         {
           "id_road": 1,
