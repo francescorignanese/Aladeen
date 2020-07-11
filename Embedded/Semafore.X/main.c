@@ -59,7 +59,7 @@ Byte di parità per trovare l'errore
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
 #include "CustomLib/TrafficLight.h"
-#include "CustomLib/Constants.h"
+//#include "CustomLib/Constants.h"
 
 #define _XTAL_FREQ 32000000
 
@@ -95,20 +95,22 @@ struct
 
 Bit readGateway, secondPassed, cycled;
 unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char disp;                     //varibile per fare lo switch in loop tra i dislpay
+unsigned char disp=0;                     //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;            //conteggio per il tempo delle luci
-unsigned char comando = 0;              //Prende il dato dalla seriale
-int time[8] = {0,0,0,0,0,0,0,0};        //variabile per contare i secondi
+int time[4] = {0,0,0,0};        //variabile per contare i secondi
 unsigned char motorcycle[4];            //variabile per contare i motocicli
 unsigned char car[4];                   //variabile per contare le macchine
 unsigned char truck[4];                 //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;  //indice array dati da seriale
 ProtocolBytes dataFromGateway;           //array dati da seriale
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7; //definisco i vari semafori
-Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+Semaforo s0, s1, s2, s3; //definisco i vari semafori
+Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+unsigned char temp = 0;      //Variabile per salvare la temperatura sul pin RA0
+unsigned char umidita = 0;   //Variabile per salvare l'umidita sul pin RA1
+unsigned char pressione = 0; //Variabile per salvare la pressione sul pin RE0
 
 void init_ADC();                                    //Inizializza l'adc
 int ADC_Read(char canale);                          //Lettura da un ingresso analogico
@@ -137,14 +139,9 @@ void main(void)
     TMR1L = 176; // preset for timer1 LSB register
     //?PIE1 = 0x01;
 
-    disp = 0;                    //variabile per definire quale display deve accendersi, inizializzo a 0
-    unsigned char temp = 0;      //Variabile per salvare la temperatura sul pin RA0
-    unsigned char umidita = 0;   //Variabile per salvare l'umidita sul pin RA1
-    unsigned char pressione = 0; //Variabile per salvare la pressione sul pin RE0
-
     init_ADC();                          //Inizializzazione adc
     UART_Init(9600);                     //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(1, 2, 3, Semafori); //Inizializzazione tempi luci semaforo
+    SetDefaultTimers(6,4,2, Semafori); //Inizializzazione tempi luci semaforo
 
     Red1 = 0;    //azzero le luci
     Red2 = 0;    //azzero le luci
@@ -265,11 +262,11 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             unsigned char i = 0;
-            while (i < 2) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
+            while (i < n_semafori) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
             {
-                time[i]++; //incrementa il timer per il calcolo del countdown
                 if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
                 {
+                    time[i]++; //incrementa il timer per il calcolo del countdown
                     unsigned char lux_select = (*Semafori[i]).lux_select;
                     
                     if ((*Semafori[i]).times[lux_select] - time[i] < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
@@ -281,23 +278,27 @@ void main(void)
                         {
                             lux_select = 0;          //...resetta il contatore delle luci, tornando al rosso...
                             
-                            if (i == 2 - 1) //...e se il ciclo terminato � quello dell'ultimo semaforo tutto l'incrocio ha terminato un ciclo...
+                            if (i == 0) //...e se il ciclo terminato � quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
                             {
-                                //UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
+                                UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
                             }
                         }
                     }
 
+                    if(lux_select!=(*Semafori[i]).lux_select)
+                    {
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
+                    }
                     //GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unit� del countdown
-                    ShowDigitsOnDisplay();
-                    luciSemaforo(i, lux_select);
-                    (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
+                    //ShowDigitsOnDisplay();
                 }
                 
                 i++;
             }
             
             GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]); //ottiene le cifre delle centinaia, decine e unit� del countdown
+            ShowDigitsOnDisplay();
         }
 
         //reset variabili

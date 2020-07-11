@@ -1992,18 +1992,34 @@ typedef struct
 } Bit;
 # 22 "./CustomLib/TrafficDataTypes.h"
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[16];
+typedef Semaforo *_Semafori[2];
 # 1 "./CustomLib/TrafficLight.h" 2
+
+# 1 "./CustomLib/Constants.h" 1
+
+const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+
+
+const unsigned char n_semafori=2;
+# 2 "./CustomLib/TrafficLight.h" 2
 
 
 void UpdateTimes(_Semafori _semafori)
 {
 
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
         for(unsigned char i = 0; i < 3; i++)
         {
-            (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
+            if( (*(_semafori)[l]).times[i] != (*(_semafori)[l]).new_times[i] )
+            {
+                (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
+            }
+        }
+
+        if( (*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select )
+        {
+            (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
         }
     }
 }
@@ -2044,71 +2060,66 @@ int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 
 void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
-    for (unsigned char l = 0; l < 16; l++)
+    for (unsigned char l = 0; l < n_semafori; l++)
     {
-        if(l<2)
-        {
-            (*(_semafori)[l]).lux_select=l;
-        }
-
         for (unsigned char i = 0; i < 3; i++)
         {
             switch (i)
             {
             case 0:
                 (*(_semafori)[l]).times[i] = rosso;
+                (*(_semafori)[l]).new_times[i] = rosso;
                 break;
             case 1:
                 (*(_semafori)[l]).times[i] = verde;
+                (*(_semafori)[l]).new_times[i] = verde;
                 break;
             case 2:
                 (*(_semafori)[l]).times[i] = giallo;
+                (*(_semafori)[l]).new_times[i] = giallo;
                 break;
             }
         }
     }
+
+    (*(_semafori)[0]).lux_select = 0;
+    (*(_semafori)[0]).new_lux_select = 0;
+    (*(_semafori)[1]).lux_select = 1;
+    (*(_semafori)[1]).new_lux_select = 1;
 }
 
 
 
 void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 {
-                for (unsigned char i = 0; i < 3; i++)
-                {
-                    unsigned char index = i * 5;
-                    unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
-                    unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+    for (unsigned char i = 0; i < 3; i++)
+    {
+        unsigned char index = i * 5;
+        unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+        unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
 
-                    (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
-                }
+        (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+    }
 }
 
 
 
 void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 {
-        if (_count >= 500)
-        {
-            _motorcycle[index]=_motorcycle[index]+1;
-        }
-        if (_count >= 1500)
-        {
-            _car[index]=_car[index]+1;
-        }
-        if (_count >= 3000)
-        {
-            _truck[index]=_truck[index]+1;
-        }
+    if (_count >= 500)
+    {
+        _motorcycle[index]=_motorcycle[index]+1;
+    }
+    if (_count >= 1500)
+    {
+        _car[index]=_car[index]+1;
+    }
+    if (_count >= 3000)
+    {
+        _truck[index]=_truck[index]+1;
+    }
 }
 # 61 "main.c" 2
-
-# 1 "./CustomLib/Constants.h" 1
-
-const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
-
-
-const unsigned char n_semafori=2;
-# 62 "main.c" 2
 # 90 "main.c"
 struct
 {
@@ -2118,20 +2129,22 @@ struct
 
 Bit readGateway, secondPassed, cycled;
 unsigned char unita, decine, centinaia;
-unsigned char disp;
+unsigned char disp=0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
-unsigned char comando = 0;
-int time[8] = {0,0,0,0,0,0,0,0};
+int time[4] = {0,0,0,0};
 unsigned char motorcycle[4];
 unsigned char car[4];
 unsigned char truck[4];
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;
 ProtocolBytes dataFromGateway;
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
-Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+Semaforo s0, s1, s2, s3;
+Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
 unsigned char timerReadFromGateway;
+unsigned char temp = 0;
+unsigned char umidita = 0;
+unsigned char pressione = 0;
 
 void init_ADC();
 int ADC_Read(char canale);
@@ -2160,14 +2173,9 @@ void main(void)
     TMR1L = 176;
 
 
-    disp = 0;
-    unsigned char temp = 0;
-    unsigned char umidita = 0;
-    unsigned char pressione = 0;
-
     init_ADC();
     UART_Init(9600);
-    SetDefaultTimers(1, 2, 3, Semafori);
+    SetDefaultTimers(6,4,2, Semafori);
 
     PORTCbits.RC0 = 0;
     PORTBbits.RB7 = 0;
@@ -2288,11 +2296,11 @@ void main(void)
         if (secondPassed.Bit && cycled.Bit)
         {
             unsigned char i = 0;
-            while (i < 2)
+            while (i < n_semafori)
             {
-                time[i]++;
                 if ((*Semafori[i]).times[0] != 0)
                 {
+                    time[i]++;
                     unsigned char lux_select = (*Semafori[i]).lux_select;
 
                     if ((*Semafori[i]).times[lux_select] - time[i] < 0)
@@ -2304,23 +2312,27 @@ void main(void)
                         {
                             lux_select = 0;
 
-                            if (i == 2 - 1)
+                            if (i == 0)
                             {
-
+                                UpdateTimes(Semafori);
                             }
                         }
                     }
 
+                    if(lux_select!=(*Semafori[i]).lux_select)
+                    {
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select;
+                    }
 
-                    ShowDigitsOnDisplay();
-                    luciSemaforo(i, lux_select);
-                    (*Semafori[i]).lux_select = lux_select;
+
                 }
 
                 i++;
             }
 
             GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]);
+            ShowDigitsOnDisplay();
         }
 
 

@@ -20,4 +20,4 @@ typedef struct
 */
 
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[16];
+typedef Semaforo *_Semafori[2];
