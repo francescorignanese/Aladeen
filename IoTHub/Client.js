@@ -120,7 +120,7 @@ client.open(function (err) {
 
     //console.log('Sending message: ' + message.getData());
     
-    client.sendEvent(message, function (err) {
+    client.sendEvent(message1, function (err) {
       if (err) {
         console.error('Could not send: ' + err.toString());
         process.exit(-1);

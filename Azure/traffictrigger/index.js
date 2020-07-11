@@ -5,6 +5,7 @@ module.exports = async function(context, obj) {
 
     // config database
 
+
     
     //context.log(obj.data_carriers);
     var carriers=obj.data_carriers;
