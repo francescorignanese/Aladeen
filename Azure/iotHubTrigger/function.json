@@ -12,7 +12,7 @@
     {
       "type": "signalR",
       "name": "signalRMessages",
-      "hubName": "smartcross",
+      "hubName": "senHub",
       "connectionStringSetting": "signalRConnectionString",
       "direction": "out"
     }

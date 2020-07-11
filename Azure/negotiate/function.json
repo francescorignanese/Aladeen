@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get"
+        "post"
       ]
     },
     {
@@ -17,7 +17,7 @@
     {
       "type" : "signalRConnectionInfo",
       "name" : "connectionInfo",
-      "hubName" : "smartcross",
+      "hubName" : "senHub",
       "direction" : "in" 
     }
   ]
