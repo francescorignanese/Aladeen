@@ -81,8 +81,8 @@ Byte di parità per trovare l'errore
 //*Inizializzazione delle luci -->
 #define Red1 PORTCbits.RC0    //Rosso primo semaforo
 #define Green1 PORTCbits.RC1  //verde primo semaforo
-#define Yellow1 PORTCbits.RC2 //giallo primo semaforo (da mettere sia su pin1 che pin2)
-#define Red2 PORTBbits.RB0    //Rosso secondo semaforo
+#define Yellow1 PORTCbits.RC3 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+#define Red2 PORTBbits.RB7    //Rosso secondo semaforo
 #define Green2 PORTBbits.RB1  //verde secondo semaforo
 #define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
 //* end <--
@@ -123,7 +123,7 @@ void luciSemaforo(unsigned char index, unsigned char lux);
 
 void main(void)
 {
-    TRISB = 0x00; //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x38; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
     TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
@@ -145,6 +145,13 @@ void main(void)
     init_ADC();                          //Inizializzazione adc
     UART_Init(9600);                     //Inizializzazione seriale a 9600 b
     SetDefaultTimers(1, 1, 1, Semafori); //Inizializzazione tempi luci semaforo
+
+    red1 = 0;    //azzero le luci
+    red2 = 0;    //azzero le luci
+    Yellow1 = 0; //azzero le luci
+    Yellow2 = 0; //azzero le luci
+    Green1 = 0;  //azzero le luci
+    Green2 = 0;  //azzero le luci
 
     while (1)
     {

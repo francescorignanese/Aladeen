@@ -2141,7 +2141,7 @@ void luciSemaforo(unsigned char index, unsigned char lux);
 
 void main(void)
 {
-    TRISB = 0x1F;
+    TRISB = 0x38;
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x01;
@@ -2162,7 +2162,14 @@ void main(void)
 
     init_ADC();
     UART_Init(9600);
-    SetDefaultTimers(2,4,6, Semafori);
+    SetDefaultTimers(1, 1, 1, Semafori);
+
+    red1 = 0;
+    red2 = 0;
+    PORTCbits.RC3 = 0;
+    PORTBbits.RB6 = 0;
+    PORTCbits.RC1 = 0;
+    PORTBbits.RB1 = 0;
 
     while (1)
     {
@@ -2273,39 +2280,38 @@ void main(void)
 
 
 
-
         if (secondPassed.Bit && cycled.Bit)
         {
             time++;
 
-            unsigned char i=0;
-            while(i<2)
+            unsigned char i = 0;
+            while (i < 2)
             {
-                if( (*Semafori[i]).times[0]==0 )
+                if ((*Semafori[i]).times[0] == 0)
                 {
                     i++;
                 }
                 else
                 {
-                    unsigned char lux_select=(*Semafori[i]).lux_select;
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
                     if ((*Semafori[i]).times[lux_select] - time < 0)
                     {
                         lux_select++;
-                        time=1;
+                        time = 1;
                         if (lux_select >= 3)
                         {
-                            lux_select=0;
-                            if(i==n_semafori-1)
+                            lux_select = 0;
+                            if (i == n_semafori - 1)
                             {
 
                                 UpdateTimes(Semafori);
                             }
                         }
 
-                        (*Semafori[i]).lux_select=lux_select;
+                        (*Semafori[i]).lux_select = lux_select;
                     }
 
-                    (*Semafori[i]).lux_select=lux_select;
+                    (*Semafori[i]).lux_select = lux_select;
 
 
                     luciSemaforo(i, lux_select);
@@ -2313,7 +2319,6 @@ void main(void)
                 }
             }
         }
-
 
 
 
@@ -2325,14 +2330,25 @@ void main(void)
         case 0:
             if (centinaia > 0)
             {
+            case 0:
+                if (centinaia > 0)
+                {
+                    SetDisplay(1, 0, 0, display[centinaia]);
+                }
 
-            }
-            SetDisplay(1, 0, 0, display[(*Semafori[0]).lux_select]);
-            break;
-        case 1:
-            if (decine > 0 || centinaia > 0)
-            {
-                SetDisplay(0, 1, 0, display[decine]);
+                SetDisplay(1, 0, 0, display[id_semaforo]);
+                break;
+            case 1:
+                if (decine > 0 || centinaia > 0)
+                {
+                    SetDisplay(0, 1, 0, display[decine]);
+                }
+
+                break;
+            case 2:
+                SetDisplay(0, 0, 1, display[unita]);
+
+                break;
             }
             break;
         case 2:
@@ -2416,7 +2432,6 @@ char UART_Read()
     return RCREG;
 }
 
-
 void sendByte(char byte0, char byte1, char valore)
 {
     char *txByte;
@@ -2428,7 +2443,6 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
-
 void SetDisplay(char d1, char d2, char d3, char value)
 {
     PORTAbits.RA2 = d1;
@@ -2437,15 +2451,14 @@ void SetDisplay(char d1, char d2, char d3, char value)
     PORTD = value;
 }
 
-
 void conteggioVeicoli()
 {
-    RoadsSensors[0]=PORTBbits.RB3;
-    RoadsSensors[1]=PORTBbits.RB4;
-    RoadsSensors[2]=PORTBbits.RB1;
-    RoadsSensors[3]=PORTAbits.RA5;
+    RoadsSensors[0] = PORTBbits.RB3;
+    RoadsSensors[1] = PORTBbits.RB4;
+    RoadsSensors[2] = PORTBbits.RB5;
+    RoadsSensors[3] = PORTAbits.RA5;
 
-    for(unsigned char i=0; i<4; i++)
+    for (unsigned char i = 0; i < 4; i++)
     {
         if (!RoadsSensors[i])
         {
@@ -2459,7 +2472,52 @@ void conteggioVeicoli()
     }
 }
 
-
+void luciSemaforo(unsigned char index, unsigned char lux)
+{
+    switch (index)
+    {
+    case 0:
+        switch (lux)
+        {
+        case 0:
+            PORTCbits.RC1 = 0;
+            PORTCbits.RC3 = 0;
+            PORTCbits.RC0 = 1;
+            break;
+        case 1:
+            PORTCbits.RC0 = 0;
+            PORTCbits.RC3 = 0;
+            PORTCbits.RC1 = 1;
+            break;
+        case 2:
+            PORTCbits.RC0 = 0;
+            PORTCbits.RC1 = 0;
+            PORTCbits.RC3 = 1;
+            break;
+        }
+        break;
+    case 1:
+        switch (lux)
+        {
+        case 0:
+            PORTBbits.RB1 = 0;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB7 = 1;
+            break;
+        case 1:
+            PORTBbits.RB7 = 0;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB1 = 1;
+            break;
+        case 2:
+            PORTBbits.RB7 = 0;
+            PORTBbits.RB1 = 0;
+            PORTBbits.RB6 = 1;
+            break;
+        }
+        break;
+    }
+}
 
 void __attribute__((picinterrupt(("")))) ISR()
 {
@@ -2502,59 +2560,5 @@ void __attribute__((picinterrupt(("")))) ISR()
 
         TMR1H = 60;
         TMR1L = 176;
-    }
-}
-
-
-void luciSemaforo(unsigned char index, unsigned char lux)
-{
-    switch (index)
-    {
-    case 0:
-        switch (lux)
-        {
-        case 0:
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC3 = 0;
-            PORTCbits.RC0 = 1;
-            break;
-        case 1:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC3 = 0;
-            PORTCbits.RC1 = 1;
-            break;
-        case 2:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
-            PORTCbits.RC3 = 1;
-            break;
-        }
-        break;
-    case 1:
-        switch (lux)
-        {
-        case 0:
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB0 = 1;
-            break;
-        case 1:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB1 = 1;
-            break;
-        case 2:
-            PORTBbits.RB0 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            PORTBbits.RB7 = 1;
-            break;
-        }
-        break;
     }
 }
