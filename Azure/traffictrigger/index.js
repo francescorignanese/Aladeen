@@ -6,7 +6,7 @@ module.exports = async function(context, obj) {
     // config database
 
     
-    context.log(obj.data_carriers);
+    //context.log(obj.data_carriers);
     var carriers=obj.data_carriers;
     let query = "INSERT INTO [dbo].[Veicoli] ([Strada_id],[Tipologia_veicolo],[Conteggio],[Data],[Ora]) VALUES";
     for( let i=0; i<carriers.length;i++){

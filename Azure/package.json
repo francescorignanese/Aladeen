@@ -7,6 +7,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
+    "azure-iothub": "^1.12.4",
     "mssql": "^6.2.0"
   },
   "devDependencies": {}
