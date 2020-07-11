@@ -46,7 +46,7 @@ int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 
 
 //setta i timer dei semafori
-void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+void SetDefaultTimers(int rosso, int verde, int giallo, int rosso2, int verde2, int giallo2, _Semafori _semafori)
 {
     for (unsigned char l = 0; l < 16; l++)
     {

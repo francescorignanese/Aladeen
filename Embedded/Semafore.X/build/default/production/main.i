@@ -2122,7 +2122,7 @@ unsigned char disp;
 unsigned int count = 0;
 unsigned char count_lux = 0;
 unsigned char comando = 0;
-unsigned char time = 0;
+int time[8] = {0,0,0,0,0,0,0,0};
 unsigned char motorcycle[4];
 unsigned char car[4];
 unsigned char truck[4];
@@ -2160,7 +2160,6 @@ void main(void)
     TMR1L = 176;
 
 
-    int time;
     disp = 0;
     unsigned char temp = 0;
     unsigned char umidita = 0;
@@ -2168,17 +2167,14 @@ void main(void)
 
     init_ADC();
     UART_Init(9600);
-    SetDefaultTimers(1, 1, 1, Semafori);
-<<<<<<< HEAD
+    SetDefaultTimers(1, 2, 3, Semafori);
 
-    red1 = 0;
-    red2 = 0;
+    PORTCbits.RC0 = 0;
+    PORTBbits.RB7 = 0;
     PORTCbits.RC3 = 0;
     PORTBbits.RB6 = 0;
     PORTCbits.RC1 = 0;
     PORTBbits.RB1 = 0;
-=======
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
 
     while (1)
     {
@@ -2291,108 +2287,40 @@ void main(void)
 
         if (secondPassed.Bit && cycled.Bit)
         {
-            time++;
-
             unsigned char i = 0;
-<<<<<<< HEAD
             while (i < 2)
             {
-                if ((*Semafori[i]).times[0] == 0)
-                {
-                    i++;
-                }
-                else
-=======
-            while (i < n_semafori)
-            {
+                time[i]++;
                 if ((*Semafori[i]).times[0] != 0)
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
                 {
                     unsigned char lux_select = (*Semafori[i]).lux_select;
-                    if ((*Semafori[i]).times[lux_select] - time < 0)
+
+                    if ((*Semafori[i]).times[lux_select] - time[i] < 0)
                     {
                         lux_select++;
-                        time = 1;
-<<<<<<< HEAD
-                        if (lux_select >= 3)
-                        {
-                            lux_select = 0;
-                            if (i == n_semafori - 1)
-                            {
-=======
+                        time[i] = 1;
 
                         if (lux_select >= 3)
                         {
                             lux_select = 0;
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
 
-                            if (i == n_semafori - 1)
+                            if (i == 2 - 1)
                             {
-                                UpdateTimes(Semafori);
+
                             }
                         }
-<<<<<<< HEAD
-
-                        (*Semafori[i]).lux_select = lux_select;
                     }
 
-                    (*Semafori[i]).lux_select = lux_select;
 
-
-=======
-                    }
-
-                    GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time);
                     ShowDigitsOnDisplay();
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
                     luciSemaforo(i, lux_select);
-
                     (*Semafori[i]).lux_select = lux_select;
-                    i++;
                 }
-<<<<<<< HEAD
-            }
-        }
-
-
-
-        GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time);
-
-
-        switch (disp)
-        {
-        case 0:
-            if (centinaia > 0)
-            {
-            case 0:
-                if (centinaia > 0)
-                {
-                    SetDisplay(1, 0, 0, display[centinaia]);
-                }
-
-                SetDisplay(1, 0, 0, display[id_semaforo]);
-                break;
-            case 1:
-                if (decine > 0 || centinaia > 0)
-                {
-                    SetDisplay(0, 1, 0, display[decine]);
-                }
-
-                break;
-            case 2:
-                SetDisplay(0, 0, 1, display[unita]);
-
-                break;
-            }
-            break;
-        case 2:
-            SetDisplay(0, 0, 1, display[unita]);
-            break;
-=======
 
                 i++;
             }
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
+
+            GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]);
         }
 
 
@@ -2428,7 +2356,8 @@ int ADC_Read(char canale)
     ADCON0 = (1 << 0) | (canale << 3);
     _delay((unsigned long)((2)*(32000000/4000000.0)));
     GO_nDONE = 1;
-    while (GO_nDONE);
+    while (GO_nDONE)
+        ;
     return ADRESL + (ADRESH << 8);
 }
 
@@ -2446,7 +2375,8 @@ void UART_Init(int baudrate)
 
 void UART_TxChar(char ch)
 {
-    while (!TXIF);
+    while (!TXIF)
+        ;
     TXIF = 0;
     TXREG = ch;
 }
@@ -2462,7 +2392,8 @@ void UART_Write_Text(char *text)
 
 char UART_Read()
 {
-    while (!RCIF);
+    while (!RCIF)
+        ;
     RCIF = 0;
     return RCREG;
 }
@@ -2531,10 +2462,7 @@ void luciSemaforo(unsigned char index, unsigned char lux)
             break;
         }
         break;
-<<<<<<< HEAD
-=======
 
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
     case 1:
         switch (lux)
         {
@@ -2557,37 +2485,29 @@ void luciSemaforo(unsigned char index, unsigned char lux)
         break;
     }
 }
-<<<<<<< HEAD
-=======
-
 
 void ShowDigitsOnDisplay()
 {
-
     switch (disp)
     {
-        case 0:
-            if (centinaia > 0)
-            {
-                SetDisplay(1, 0, 0, display[centinaia]);
-            }
-
-            SetDisplay(1, 0, 0, display[n_semafori]);
-            break;
-        case 1:
-            if (decine > 0 || centinaia > 0)
-            {
-                SetDisplay(0, 1, 0, display[decine]);
-            }
-            break;
-        case 2:
-            SetDisplay(0, 0, 1, display[unita]);
-            break;
+    case 0:
+        if (centinaia > 0)
+        {
+            SetDisplay(1, 0, 0, display[centinaia]);
+        }
+        break;
+    case 1:
+        if (decine > 0 || centinaia > 0)
+        {
+            SetDisplay(0, 1, 0, display[decine]);
+        }
+        break;
+    case 2:
+        SetDisplay(0, 0, 1, display[unita]);
+        break;
     }
     disp = (disp + 1) % 3;
 }
-
->>>>>>> 095124245ff0da07db1484b1b95bd3dee8965890
 
 void __attribute__((picinterrupt(("")))) ISR()
 {

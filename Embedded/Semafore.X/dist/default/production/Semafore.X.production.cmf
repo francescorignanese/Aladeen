@@ -11,76 +11,72 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\PC\AppData\Local\Temp\s8k0.o
+$C:\Users\PC\AppData\Local\Temp\s4p0.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 10 10 3 2
 config CONFIG 0 2007 2007 1 2
 $dist/default/production\Semafore.X.production.o
 cinit CODE 0 13 13 2C 2
-text1 CODE 0 7CE 7CE 31 2
-text2 CODE 0 BA8 BA8 B 2
-text3 CODE 0 489 489 C8 2
-text4 CODE 0 C62 C62 35 2
-text5 CODE 0 C3B C3B 27 2
-text6 CODE 0 D63 D63 53 2
-text7 CODE 0 BC3 BC3 13 2
-text8 CODE 0 E69 E69 5B 2
-text9 CODE 0 C97 C97 3A 2
-text10 CODE 0 605 605 9D 2
-text11 CODE 0 73E 73E 90 2
-text12 CODE 0 BE9 BE9 15 2
-text13 CODE 0 F92 F92 6E 2
-text14 CODE 0 BFE BFE 17 2
-text15 CODE 0 CD1 CD1 46 2
-text16 CODE 0 551 551 B4 2
-text17 CODE 0 6A2 6A2 9C 2
-text18 CODE 0 E0E E0E 5B 2
-text19 CODE 0 F29 F29 69 2
-text20 CODE 0 C15 C15 26 2
-text21 CODE 0 DB6 DB6 58 2
-text22 CODE 0 EC4 EC4 65 2
-text23 CODE 0 D17 D17 4C 2
-text24 CODE 0 B9F B9F 9 2
-maintext CODE 0 3F 3F 44A 2
+text1 CODE 0 C8C C8C 31 2
+text2 CODE 0 BF9 BF9 B 2
+text3 CODE 0 49F 49F C8 2
+text4 CODE 0 CBD CBD 35 2
+text5 CODE 0 7D0 7D0 27 2
+text6 CODE 0 DBE DBE 53 2
+text7 CODE 0 C14 C14 13 2
+text8 CODE 0 CF2 CF2 3A 2
+text9 CODE 0 61B 61B 9D 2
+text10 CODE 0 754 754 7C 2
+text11 CODE 0 C3A C3A 15 2
+text12 CODE 0 F92 F92 6E 2
+text13 CODE 0 C4F C4F 17 2
+text14 CODE 0 D2C D2C 46 2
+text15 CODE 0 567 567 B4 2
+text16 CODE 0 6B8 6B8 9C 2
+text17 CODE 0 E69 E69 5B 2
+text18 CODE 0 F29 F29 69 2
+text19 CODE 0 C66 C66 26 2
+text20 CODE 0 E11 E11 58 2
+text21 CODE 0 EC4 EC4 65 2
+text22 CODE 0 D72 D72 4C 2
+text23 CODE 0 7F7 7F7 9 2
+maintext CODE 0 3F 3F 460 2
 cstackCOMMON COMMON 1 70 70 E 1
-cstackBANK0 BANK0 1 20 20 2A 1
-cstackBANK3 BANK3 1 1D6 1D6 D 1
-inittext CODE 0 BD6 BD6 13 2
+cstackBANK0 BANK0 1 20 20 2D 1
+cstackBANK3 BANK3 1 1E4 1E4 B 1
+inittext CODE 0 C27 C27 13 2
 intentry CODE 0 4 4 C 2
-bssBANK0 BANK0 1 4A 4A 1B 1
-bssBANK1 BANK1 1 A0 A0 3D 1
-bssBANK3 BANK3 1 190 190 46 1
-idataBANK1 CODE 0 BB3 BB3 10 2
+bssBANK0 BANK0 1 4D 4D 1A 1
+bssBANK1 BANK1 1 A0 A0 3F 1
+bssBANK3 BANK3 1 190 190 54 1
+idataBANK1 CODE 0 C04 C04 10 2
 strings STRING 0 800 800 12 2
-dataBANK1 BANK1 1 DD DD 10 1
-clrtext CODE 0 B97 B97 8 2
+dataBANK1 BANK1 1 DF DF 10 1
+clrtext CODE 0 BF1 BF1 8 2
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM 65-6F 1
-RAM ED-EF 1
+RAM 67-6F 1
+RAM EF-EF 1
 RAM 110-16F 1
-RAM 1E3-1EF 1
-BANK0 65-6F 1
-BANK1 ED-EF 1
+RAM 1EF-1EF 1
+BANK0 67-6F 1
+BANK1 EF-EF 1
 BANK2 110-16F 1
-BANK3 1E3-1EF 1
+BANK3 1EF-1EF 1
 CONST 3-3 2
-CONST 7FF-7FF 2
-CONST 812-B96 2
+CONST 812-BF0 2
 CONST 1000-1FFF 2
 ENTRY 3-3 2
-ENTRY 7FF-7FF 2
-ENTRY 812-B96 2
+ENTRY 812-BF0 2
 ENTRY 1000-1FFF 2
 IDLOC 2000-2003 2
 STACK 110-16F 1
 CODE 3-3 2
-CODE 7FF-7FF 2
-CODE 812-B96 2
+CODE 812-BF0 2
 CODE 1000-1FFF 2
 SFR0 0-1F 1
 SFR1 80-9F 1
@@ -88,12 +84,10 @@ SFR2 100-10F 1
 SFR3 180-18F 1
 EEDATA 2100-21FF 2
 STRCODE 3-3 2
-STRCODE 7FF-7FF 2
-STRCODE 812-B96 2
+STRCODE 812-BF0 2
 STRCODE 1000-1FFF 2
 STRING 3-3 2
-STRING 7FF-7FF 2
-STRING 812-B96 2
+STRING 812-BF0 2
 STRING 1000-1FFF 2
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
@@ -109,342 +103,335 @@ STRING 1000-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Semafore.X.production.o
-13 cinit CODE >543:C:\Users\PC\AppData\Local\Temp\s8k0.s
-13 cinit CODE >546:C:\Users\PC\AppData\Local\Temp\s8k0.s
-13 cinit CODE >677:C:\Users\PC\AppData\Local\Temp\s8k0.s
-14 cinit CODE >678:C:\Users\PC\AppData\Local\Temp\s8k0.s
-15 cinit CODE >679:C:\Users\PC\AppData\Local\Temp\s8k0.s
-16 cinit CODE >680:C:\Users\PC\AppData\Local\Temp\s8k0.s
-17 cinit CODE >681:C:\Users\PC\AppData\Local\Temp\s8k0.s
-18 cinit CODE >682:C:\Users\PC\AppData\Local\Temp\s8k0.s
-19 cinit CODE >683:C:\Users\PC\AppData\Local\Temp\s8k0.s
-1A cinit CODE >684:C:\Users\PC\AppData\Local\Temp\s8k0.s
-1B cinit CODE >685:C:\Users\PC\AppData\Local\Temp\s8k0.s
-1C cinit CODE >686:C:\Users\PC\AppData\Local\Temp\s8k0.s
-21 cinit CODE >705:C:\Users\PC\AppData\Local\Temp\s8k0.s
-22 cinit CODE >706:C:\Users\PC\AppData\Local\Temp\s8k0.s
-23 cinit CODE >707:C:\Users\PC\AppData\Local\Temp\s8k0.s
-24 cinit CODE >708:C:\Users\PC\AppData\Local\Temp\s8k0.s
-25 cinit CODE >709:C:\Users\PC\AppData\Local\Temp\s8k0.s
-2A cinit CODE >712:C:\Users\PC\AppData\Local\Temp\s8k0.s
-2B cinit CODE >713:C:\Users\PC\AppData\Local\Temp\s8k0.s
-2C cinit CODE >714:C:\Users\PC\AppData\Local\Temp\s8k0.s
-2D cinit CODE >715:C:\Users\PC\AppData\Local\Temp\s8k0.s
-2E cinit CODE >716:C:\Users\PC\AppData\Local\Temp\s8k0.s
-33 cinit CODE >719:C:\Users\PC\AppData\Local\Temp\s8k0.s
-34 cinit CODE >720:C:\Users\PC\AppData\Local\Temp\s8k0.s
-35 cinit CODE >721:C:\Users\PC\AppData\Local\Temp\s8k0.s
-36 cinit CODE >722:C:\Users\PC\AppData\Local\Temp\s8k0.s
-3B cinit CODE >728:C:\Users\PC\AppData\Local\Temp\s8k0.s
-3B cinit CODE >730:C:\Users\PC\AppData\Local\Temp\s8k0.s
-3C cinit CODE >731:C:\Users\PC\AppData\Local\Temp\s8k0.s
-4 intentry CODE >485:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-B9F text24 CODE >362:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-B9F text24 CODE >364:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BA5 text24 CODE >365:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BA6 text24 CODE >366:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BA7 text24 CODE >367:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D17 text23 CODE >92:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D17 text23 CODE >94:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D20 text23 CODE >96:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D30 text23 CODE >98:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D39 text23 CODE >100:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D49 text23 CODE >102:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D52 text23 CODE >104:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D62 text23 CODE >106:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-EC4 text22 CODE >388:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EC4 text22 CODE >390:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-ECC text22 CODE >391:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-ED4 text22 CODE >392:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EDC text22 CODE >393:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EE4 text22 CODE >395:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EE5 text22 CODE >397:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EEE text22 CODE >399:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EF6 text22 CODE >400:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EF7 text22 CODE >401:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-EFF text22 CODE >403:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-F1A text22 CODE >404:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-F1E text22 CODE >406:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-F28 text22 CODE >407:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DB6 text21 CODE >485:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DB6 text21 CODE >488:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DBE text21 CODE >490:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DBF text21 CODE >491:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DC0 text21 CODE >492:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DC1 text21 CODE >493:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DC2 text21 CODE >494:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DC3 text21 CODE >496:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DCB text21 CODE >498:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DD9 text21 CODE >499:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DDD text21 CODE >500:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DDE text21 CODE >505:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DE2 text21 CODE >507:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DE3 text21 CODE >508:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DE8 text21 CODE >509:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DEC text21 CODE >512:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DF0 text21 CODE >514:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DF1 text21 CODE >515:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DF5 text21 CODE >517:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DFB text21 CODE >519:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DFC text21 CODE >520:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DFD text21 CODE >521:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-E01 text21 CODE >524:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-E03 text21 CODE >525:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-E05 text21 CODE >527:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C15 text20 CODE >325:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C18 text20 CODE >327:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C24 text20 CODE >328:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C2B text20 CODE >329:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C2E text20 CODE >330:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C32 text20 CODE >331:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C3A text20 CODE >332:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-F29 text19 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F29 text19 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F2C text19 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F30 text19 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F35 text19 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F37 text19 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F3B text19 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F40 text19 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F44 text19 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F46 text19 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F4C text19 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F4E text19 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F4F text19 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F56 text19 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F5A text19 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F5E text19 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F65 text19 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F6F text19 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F75 text19 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F76 text19 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F7D text19 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F83 text19 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F88 text19 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F8D text19 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-F91 text19 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
-E0E text18 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E0E text18 CODE >12:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E11 text18 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E15 text18 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E1A text18 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E1C text18 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E20 text18 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E25 text18 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E2B text18 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E2D text18 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E2E text18 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E35 text18 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E39 text18 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E3D text18 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E47 text18 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E4D text18 CODE >28:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E54 text18 CODE >29:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E5A text18 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E5F text18 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E64 text18 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-E68 text18 CODE >34:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
-6A2 text17 CODE >29:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-6A5 text17 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-6A6 text17 CODE >33:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-6BB text17 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-6D7 text17 CODE >36:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-6EF text17 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-714 text17 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-73D text17 CODE >39:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-551 text16 CODE >49:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-551 text16 CODE >51:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-554 text16 CODE >53:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-55A text16 CODE >55:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-578 text16 CODE >58:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-57A text16 CODE >63:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-59A text16 CODE >64:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-59B text16 CODE >66:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5BB text16 CODE >67:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5BC text16 CODE >69:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5DC text16 CODE >70:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5DD text16 CODE >71:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5F0 text16 CODE >72:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-5FA text16 CODE >73:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-604 text16 CODE >74:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-CD1 text15 CODE >29:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-CD4 text15 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-CE3 text15 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-CEB text15 CODE >39:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-CFC text15 CODE >41:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D0A text15 CODE >42:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D12 text15 CODE >44:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-D16 text15 CODE >45:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-BFE text14 CODE >4:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C01 text14 CODE >6:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C02 text14 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C06 text14 CODE >44:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C0A text14 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C0C text14 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C0E text14 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C13 text14 CODE >50:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-C14 text14 CODE >51:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
-F92 text13 CODE >78:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-F95 text13 CODE >80:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-F9D text13 CODE >82:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-FAC text13 CODE >83:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-FBA text13 CODE >84:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-FCD text13 CODE >86:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-FFA text13 CODE >87:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-FFF text13 CODE >88:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-BE9 text12 CODE >380:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BEC text12 CODE >382:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BF1 text12 CODE >383:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BF6 text12 CODE >384:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BFB text12 CODE >385:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BFD text12 CODE >386:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-73E text11 CODE >458:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-73E text11 CODE >461:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-73F text11 CODE >464:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-744 text11 CODE >466:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-757 text11 CODE >5:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Constants.h
-757 text11 CODE >467:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-76B text11 CODE >470:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-76C text11 CODE >472:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-776 text11 CODE >474:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-78B text11 CODE >478:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-79F text11 CODE >479:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7A0 text11 CODE >480:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7B5 text11 CODE >481:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7CD text11 CODE >482:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-605 text10 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-605 text10 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-608 text10 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-60C text10 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-617 text10 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-619 text10 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-619 text10 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-61D text10 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-628 text10 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-62C text10 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-634 text10 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-63C text10 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-63E text10 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-63F text10 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-648 text10 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-64C text10 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-650 text10 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-659 text10 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-66B text10 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-679 text10 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-67A text10 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-683 text10 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-689 text10 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-68E text10 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-699 text10 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-6A1 text10 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
-C97 text9 CODE >334:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C97 text9 CODE >336:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C9A text9 CODE >337:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C9B text9 CODE >338:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C9E text9 CODE >339:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C9F text9 CODE >340:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-CCD text9 CODE >341:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-CCE text9 CODE >342:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-CCF text9 CODE >343:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-CD0 text9 CODE >344:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-E69 text8 CODE >3:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-E6C text8 CODE >6:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-E6D text8 CODE >8:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-E6E text8 CODE >10:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-EAF text8 CODE >11:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-EB9 text8 CODE >12:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-EC3 text8 CODE >13:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
-BC3 text7 CODE >316:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BC3 text7 CODE >318:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BC7 text7 CODE >319:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BCA text7 CODE >320:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BCE text7 CODE >321:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BD5 text7 CODE >322:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D63 text6 CODE >409:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D66 text6 CODE >411:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D67 text6 CODE >416:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D67 text6 CODE >417:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D68 text6 CODE >418:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D69 text6 CODE >419:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6A text6 CODE >420:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6B text6 CODE >421:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6B text6 CODE >422:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6C text6 CODE >423:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6D text6 CODE >424:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6E text6 CODE >425:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6F text6 CODE >426:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6F text6 CODE >427:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D70 text6 CODE >428:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D71 text6 CODE >429:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D72 text6 CODE >430:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D73 text6 CODE >431:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D86 text6 CODE >437:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D86 text6 CODE >438:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D87 text6 CODE >439:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D88 text6 CODE >440:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D89 text6 CODE >441:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8A text6 CODE >442:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8A text6 CODE >443:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8B text6 CODE >444:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8C text6 CODE >445:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8D text6 CODE >446:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8E text6 CODE >447:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8E text6 CODE >448:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D8F text6 CODE >449:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D90 text6 CODE >450:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D91 text6 CODE >451:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D92 text6 CODE >452:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DA5 text6 CODE >454:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-DB5 text6 CODE >455:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-C3B text5 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C3B text5 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C3F text5 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C43 text5 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C49 text5 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C50 text5 CODE >48:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C57 text5 CODE >49:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C5D text5 CODE >52:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C61 text5 CODE >53:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
-C62 text4 CODE >1:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-C62 text4 CODE >3:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-C96 text4 CODE >4:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
-489 text3 CODE >2:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-48C text3 CODE >6:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-491 text3 CODE >7:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-496 text3 CODE >8:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-49B text3 CODE >9:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4A8 text3 CODE >10:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4A9 text3 CODE >11:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4AA text3 CODE >13:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4AC text3 CODE >15:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4B0 text3 CODE >17:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4C4 text3 CODE >18:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4D7 text3 CODE >19:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4DD text3 CODE >21:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4E5 text3 CODE >22:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4E6 text3 CODE >28:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4F9 text3 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-4FD text3 CODE >33:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-501 text3 CODE >36:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-515 text3 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-528 text3 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-52E text3 CODE >40:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-53B text3 CODE >41:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-53C text3 CODE >47:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-54F text3 CODE >49:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-550 text3 CODE >50:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
-BA8 text2 CODE >346:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BAB text2 CODE >348:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BAF text2 CODE >349:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BB0 text2 CODE >350:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BB2 text2 CODE >351:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7CE text1 CODE >369:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7D1 text1 CODE >372:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7E4 text1 CODE >374:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7E5 text1 CODE >376:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7F4 text1 CODE >377:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-7FE text1 CODE >378:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+13 cinit CODE >543:C:\Users\PC\AppData\Local\Temp\s4p0.s
+13 cinit CODE >546:C:\Users\PC\AppData\Local\Temp\s4p0.s
+13 cinit CODE >677:C:\Users\PC\AppData\Local\Temp\s4p0.s
+14 cinit CODE >678:C:\Users\PC\AppData\Local\Temp\s4p0.s
+15 cinit CODE >679:C:\Users\PC\AppData\Local\Temp\s4p0.s
+16 cinit CODE >680:C:\Users\PC\AppData\Local\Temp\s4p0.s
+17 cinit CODE >681:C:\Users\PC\AppData\Local\Temp\s4p0.s
+18 cinit CODE >682:C:\Users\PC\AppData\Local\Temp\s4p0.s
+19 cinit CODE >683:C:\Users\PC\AppData\Local\Temp\s4p0.s
+1A cinit CODE >684:C:\Users\PC\AppData\Local\Temp\s4p0.s
+1B cinit CODE >685:C:\Users\PC\AppData\Local\Temp\s4p0.s
+1C cinit CODE >686:C:\Users\PC\AppData\Local\Temp\s4p0.s
+21 cinit CODE >705:C:\Users\PC\AppData\Local\Temp\s4p0.s
+22 cinit CODE >706:C:\Users\PC\AppData\Local\Temp\s4p0.s
+23 cinit CODE >707:C:\Users\PC\AppData\Local\Temp\s4p0.s
+24 cinit CODE >708:C:\Users\PC\AppData\Local\Temp\s4p0.s
+25 cinit CODE >709:C:\Users\PC\AppData\Local\Temp\s4p0.s
+2A cinit CODE >712:C:\Users\PC\AppData\Local\Temp\s4p0.s
+2B cinit CODE >713:C:\Users\PC\AppData\Local\Temp\s4p0.s
+2C cinit CODE >714:C:\Users\PC\AppData\Local\Temp\s4p0.s
+2D cinit CODE >715:C:\Users\PC\AppData\Local\Temp\s4p0.s
+2E cinit CODE >716:C:\Users\PC\AppData\Local\Temp\s4p0.s
+33 cinit CODE >719:C:\Users\PC\AppData\Local\Temp\s4p0.s
+34 cinit CODE >720:C:\Users\PC\AppData\Local\Temp\s4p0.s
+35 cinit CODE >721:C:\Users\PC\AppData\Local\Temp\s4p0.s
+36 cinit CODE >722:C:\Users\PC\AppData\Local\Temp\s4p0.s
+3B cinit CODE >728:C:\Users\PC\AppData\Local\Temp\s4p0.s
+3B cinit CODE >730:C:\Users\PC\AppData\Local\Temp\s4p0.s
+3C cinit CODE >731:C:\Users\PC\AppData\Local\Temp\s4p0.s
+4 intentry CODE >489:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7F7 text23 CODE >370:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7F7 text23 CODE >372:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7F7 text23 CODE >373:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7FD text23 CODE >374:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7FE text23 CODE >375:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7FF text23 CODE >376:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+D72 text22 CODE >92:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D72 text22 CODE >94:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D7B text22 CODE >96:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D8B text22 CODE >98:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D94 text22 CODE >100:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+DA4 text22 CODE >102:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+DAD text22 CODE >104:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+DBD text22 CODE >106:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+EC4 text21 CODE >397:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EC4 text21 CODE >399:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+ECC text21 CODE >400:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+ED4 text21 CODE >401:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EDC text21 CODE >402:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EE4 text21 CODE >404:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EE5 text21 CODE >406:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EEE text21 CODE >408:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EF6 text21 CODE >409:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EF7 text21 CODE >410:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+EFF text21 CODE >412:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+F1A text21 CODE >413:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+F1E text21 CODE >415:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+F28 text21 CODE >416:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E11 text20 CODE >489:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E11 text20 CODE >492:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E19 text20 CODE >494:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E1A text20 CODE >495:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E1B text20 CODE >496:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E1C text20 CODE >497:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E1D text20 CODE >498:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E1E text20 CODE >500:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E26 text20 CODE >502:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E34 text20 CODE >503:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E38 text20 CODE >504:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E39 text20 CODE >509:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E3D text20 CODE >511:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E3E text20 CODE >512:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E43 text20 CODE >513:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E47 text20 CODE >516:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E4B text20 CODE >518:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E4C text20 CODE >519:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E50 text20 CODE >521:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E56 text20 CODE >523:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E57 text20 CODE >524:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E58 text20 CODE >525:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E5C text20 CODE >528:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E5E text20 CODE >529:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E60 text20 CODE >531:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C66 text19 CODE >331:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C69 text19 CODE >333:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C75 text19 CODE >334:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C7C text19 CODE >335:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C7F text19 CODE >336:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C7F text19 CODE >337:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C83 text19 CODE >338:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C8B text19 CODE >339:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+F29 text18 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F29 text18 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F2C text18 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F30 text18 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F35 text18 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F37 text18 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F3B text18 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F40 text18 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F44 text18 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F46 text18 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F4C text18 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F4E text18 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F4F text18 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F56 text18 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F5A text18 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F5E text18 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F65 text18 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F6F text18 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F75 text18 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F76 text18 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F7D text18 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F83 text18 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F88 text18 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F8D text18 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+F91 text18 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awdiv.c
+E69 text17 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E69 text17 CODE >12:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E6C text17 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E70 text17 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E75 text17 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E77 text17 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E7B text17 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E80 text17 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E86 text17 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E88 text17 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E89 text17 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E90 text17 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E94 text17 CODE >21:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+E98 text17 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EA2 text17 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EA8 text17 CODE >28:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EAF text17 CODE >29:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EB5 text17 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EBA text17 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EBF text17 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+EC3 text17 CODE >34:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\awmod.c
+6B8 text16 CODE >29:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+6BB text16 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+6BC text16 CODE >33:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+6D1 text16 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+6ED text16 CODE >36:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+705 text16 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+72A text16 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+753 text16 CODE >39:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+567 text15 CODE >49:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+567 text15 CODE >51:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+56A text15 CODE >53:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+570 text15 CODE >55:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+58E text15 CODE >58:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+590 text15 CODE >63:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5B0 text15 CODE >64:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5B1 text15 CODE >66:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5D1 text15 CODE >67:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5D2 text15 CODE >69:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5F2 text15 CODE >70:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+5F3 text15 CODE >71:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+606 text15 CODE >72:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+610 text15 CODE >73:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+61A text15 CODE >74:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D2C text14 CODE >29:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D2F text14 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D3E text14 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D46 text14 CODE >39:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D57 text14 CODE >41:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D65 text14 CODE >42:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D6D text14 CODE >44:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+D71 text14 CODE >45:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+C4F text13 CODE >4:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C52 text13 CODE >6:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C53 text13 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C57 text13 CODE >44:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C5B text13 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C5D text13 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C5F text13 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C64 text13 CODE >50:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+C65 text13 CODE >51:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul8.c
+F92 text12 CODE >78:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+F95 text12 CODE >80:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+F9D text12 CODE >82:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+FAC text12 CODE >83:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+FBA text12 CODE >84:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+FCD text12 CODE >86:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+FFA text12 CODE >87:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+FFF text12 CODE >88:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/TrafficLight.h
+C3A text11 CODE >389:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C3D text11 CODE >391:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C42 text11 CODE >392:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C47 text11 CODE >393:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C4C text11 CODE >394:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C4E text11 CODE >395:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+754 text10 CODE >466:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+754 text10 CODE >468:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+755 text10 CODE >471:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+75A text10 CODE >473:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+76E text10 CODE >477:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+778 text10 CODE >479:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+78D text10 CODE >483:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7A1 text10 CODE >484:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7A2 text10 CODE >485:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7B7 text10 CODE >486:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7CF text10 CODE >487:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+61B text9 CODE >5:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+61B text9 CODE >13:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+61E text9 CODE >14:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+622 text9 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+62D text9 CODE >16:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+62F text9 CODE >17:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+62F text9 CODE >18:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+633 text9 CODE >19:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+63E text9 CODE >20:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+642 text9 CODE >22:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+64A text9 CODE >23:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+652 text9 CODE >24:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+654 text9 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+655 text9 CODE >26:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+65E text9 CODE >27:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+662 text9 CODE >25:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+666 text9 CODE >30:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+66F text9 CODE >31:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+681 text9 CODE >32:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+68F text9 CODE >33:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+690 text9 CODE >35:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+699 text9 CODE >36:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+69F text9 CODE >38:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+6A4 text9 CODE >39:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+6AF text9 CODE >40:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+6B7 text9 CODE >41:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
+CF2 text8 CODE >341:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CF2 text8 CODE >343:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CF5 text8 CODE >344:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CF6 text8 CODE >345:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CF9 text8 CODE >346:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CFA text8 CODE >347:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+D28 text8 CODE >348:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+D29 text8 CODE >349:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+D2A text8 CODE >350:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+D2B text8 CODE >351:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C14 text7 CODE >322:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C14 text7 CODE >324:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C18 text7 CODE >325:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C1B text7 CODE >326:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C1F text7 CODE >327:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C26 text7 CODE >328:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DBE text6 CODE >418:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC1 text6 CODE >420:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC2 text6 CODE >425:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC2 text6 CODE >426:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC3 text6 CODE >427:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC4 text6 CODE >428:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC5 text6 CODE >429:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC6 text6 CODE >430:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC6 text6 CODE >431:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC7 text6 CODE >432:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC8 text6 CODE >433:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC9 text6 CODE >434:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCA text6 CODE >435:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCA text6 CODE >436:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCB text6 CODE >437:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCC text6 CODE >438:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCD text6 CODE >439:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DCE text6 CODE >440:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE1 text6 CODE >446:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE1 text6 CODE >447:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE2 text6 CODE >448:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE3 text6 CODE >449:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE4 text6 CODE >450:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE5 text6 CODE >451:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE5 text6 CODE >452:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE6 text6 CODE >453:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE7 text6 CODE >454:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE8 text6 CODE >455:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE9 text6 CODE >456:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DE9 text6 CODE >457:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DEA text6 CODE >458:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DEB text6 CODE >459:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DEC text6 CODE >460:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DED text6 CODE >461:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E00 text6 CODE >463:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+E10 text6 CODE >464:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+7D0 text5 CODE >15:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7D0 text5 CODE >43:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7D4 text5 CODE >45:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7D8 text5 CODE >46:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7DE text5 CODE >47:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7E5 text5 CODE >48:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7EC text5 CODE >49:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7F2 text5 CODE >52:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+7F6 text5 CODE >53:C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\Umul16.c
+CBD text4 CODE >1:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+CBD text4 CODE >3:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+CF1 text4 CODE >4:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Conversions.h
+49F text3 CODE >2:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4A2 text3 CODE >6:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4A7 text3 CODE >7:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4AC text3 CODE >8:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4B1 text3 CODE >9:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4BE text3 CODE >10:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4BF text3 CODE >11:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4C0 text3 CODE >13:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4C2 text3 CODE >15:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4C6 text3 CODE >17:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4DA text3 CODE >18:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4ED text3 CODE >19:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4F3 text3 CODE >21:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4FB text3 CODE >22:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+4FC text3 CODE >28:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+50F text3 CODE >31:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+513 text3 CODE >33:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+517 text3 CODE >36:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+52B text3 CODE >37:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+53E text3 CODE >38:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+544 text3 CODE >40:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+551 text3 CODE >41:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+552 text3 CODE >47:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+565 text3 CODE >49:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+566 text3 CODE >50:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X/CustomLib/Serial.h
+BF9 text2 CODE >353:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+BFC text2 CODE >355:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+BFC text2 CODE >356:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C00 text2 CODE >357:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C01 text2 CODE >358:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C03 text2 CODE >359:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C8C text1 CODE >378:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C8F text1 CODE >381:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CA2 text1 CODE >383:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CA3 text1 CODE >385:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CB2 text1 CODE >386:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+CBC text1 CODE >387:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 3F maintext CODE >125:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 3F maintext CODE >127:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 43 maintext CODE >128:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
@@ -456,128 +443,130 @@ BB2 text2 CODE >351:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 50 maintext CODE >134:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 52 maintext CODE >136:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 54 maintext CODE >137:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-56 maintext CODE >141:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-57 maintext CODE >143:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-5A maintext CODE >144:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-5B maintext CODE >146:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-60 maintext CODE >147:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-6B maintext CODE >148:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-82 maintext CODE >153:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-89 maintext CODE >157:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-89 maintext CODE >158:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+56 maintext CODE >140:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+57 maintext CODE >142:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+5A maintext CODE >143:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+5B maintext CODE >145:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+60 maintext CODE >146:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+6B maintext CODE >147:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+82 maintext CODE >149:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+85 maintext CODE >150:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+86 maintext CODE >151:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+87 maintext CODE >152:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+88 maintext CODE >153:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+89 maintext CODE >154:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 8A maintext CODE >159:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-8B maintext CODE >161:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-90 maintext CODE >166:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-A6 maintext CODE >167:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-BE maintext CODE >168:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D6 maintext CODE >169:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-D7 maintext CODE >171:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-ED maintext CODE >172:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-105 maintext CODE >173:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-11D maintext CODE >174:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-11E maintext CODE >176:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-134 maintext CODE >177:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-14C maintext CODE >178:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-164 maintext CODE >179:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-165 maintext CODE >181:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-17B maintext CODE >182:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-193 maintext CODE >183:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1AB maintext CODE >184:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1AC maintext CODE >185:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1C1 maintext CODE >186:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1D6 maintext CODE >188:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1DA maintext CODE >190:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1E1 maintext CODE >191:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1E5 maintext CODE >192:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1E9 maintext CODE >193:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1FC maintext CODE >195:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-1FF maintext CODE >197:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-204 maintext CODE >198:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-213 maintext CODE >200:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-213 maintext CODE >201:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-214 maintext CODE >202:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-215 maintext CODE >204:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-247 maintext CODE >205:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-278 maintext CODE >206:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2A9 maintext CODE >207:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2BA maintext CODE >208:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2CB maintext CODE >209:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2DC maintext CODE >211:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2E6 maintext CODE >213:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2EB maintext CODE >214:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2F4 maintext CODE >218:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2FA maintext CODE >220:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2FB maintext CODE >221:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2FC maintext CODE >222:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-2FD maintext CODE >225:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-303 maintext CODE >227:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-304 maintext CODE >228:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-305 maintext CODE >229:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-307 maintext CODE >232:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-31C maintext CODE >233:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-31C maintext CODE >236:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+8F maintext CODE >163:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+8F maintext CODE >164:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+90 maintext CODE >165:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+91 maintext CODE >167:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+96 maintext CODE >172:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+AC maintext CODE >173:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+C4 maintext CODE >174:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DC maintext CODE >175:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+DD maintext CODE >177:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+F3 maintext CODE >178:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+10B maintext CODE >179:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+123 maintext CODE >180:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+124 maintext CODE >182:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+13A maintext CODE >183:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+152 maintext CODE >184:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+16A maintext CODE >185:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+16B maintext CODE >187:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+181 maintext CODE >188:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+199 maintext CODE >189:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1B1 maintext CODE >190:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1B2 maintext CODE >191:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1C7 maintext CODE >192:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1DC maintext CODE >194:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1E0 maintext CODE >196:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1E7 maintext CODE >197:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1EB maintext CODE >198:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+1EF maintext CODE >199:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+202 maintext CODE >201:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+205 maintext CODE >203:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+20A maintext CODE >204:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+219 maintext CODE >206:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+219 maintext CODE >207:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+21A maintext CODE >208:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+21B maintext CODE >210:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+24D maintext CODE >211:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+27E maintext CODE >212:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2AF maintext CODE >213:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2C0 maintext CODE >214:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2D1 maintext CODE >215:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2E2 maintext CODE >217:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2EC maintext CODE >219:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2F1 maintext CODE >220:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+2FA maintext CODE >224:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+300 maintext CODE >226:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+301 maintext CODE >227:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+302 maintext CODE >228:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+303 maintext CODE >231:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+309 maintext CODE >233:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+30A maintext CODE >234:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+30B maintext CODE >235:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+30D maintext CODE >238:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 322 maintext CODE >239:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-323 maintext CODE >240:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-324 maintext CODE >241:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-325 maintext CODE >242:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-326 maintext CODE >245:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+322 maintext CODE >242:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+328 maintext CODE >245:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+329 maintext CODE >246:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 32A maintext CODE >247:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
 32B maintext CODE >248:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-32C maintext CODE >253:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-336 maintext CODE >259:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-340 maintext CODE >261:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-348 maintext CODE >263:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-349 maintext CODE >264:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-34A maintext CODE >266:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-367 maintext CODE >268:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-389 maintext CODE >269:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3C1 maintext CODE >271:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3C7 maintext CODE >272:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3CB maintext CODE >274:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3D1 maintext CODE >276:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3D2 maintext CODE >278:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3D7 maintext CODE >280:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-3DD maintext CODE >285:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-423 maintext CODE >286:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-428 maintext CODE >287:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-438 maintext CODE >289:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-45C maintext CODE >290:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-462 maintext CODE >293:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-46A maintext CODE >264:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-470 maintext CODE >295:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-470 maintext CODE >301:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-47A maintext CODE >303:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-47B maintext CODE >304:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-47C maintext CODE >305:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-47C maintext CODE >306:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-484 maintext CODE >308:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
-B97 clrtext CODE >692:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B97 clrtext CODE >693:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B98 clrtext CODE >694:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B98 clrtext CODE >695:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B99 clrtext CODE >696:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B9A clrtext CODE >697:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B9B clrtext CODE >698:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B9C clrtext CODE >699:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B9D clrtext CODE >700:C:\Users\PC\AppData\Local\Temp\s8k0.s
-B9E clrtext CODE >701:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BD6 inittext CODE >651:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BD6 inittext CODE >652:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BD7 inittext CODE >653:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BD8 inittext CODE >654:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BD9 inittext CODE >655:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BDA inittext CODE >662:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BDA inittext CODE >663:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BDF inittext CODE >664:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE0 inittext CODE >665:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE1 inittext CODE >666:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE2 inittext CODE >667:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE3 inittext CODE >668:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE4 inittext CODE >669:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE5 inittext CODE >670:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE6 inittext CODE >671:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE7 inittext CODE >672:C:\Users\PC\AppData\Local\Temp\s8k0.s
-BE8 inittext CODE >673:C:\Users\PC\AppData\Local\Temp\s8k0.s
+32C maintext CODE >251:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+330 maintext CODE >253:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+331 maintext CODE >254:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+332 maintext CODE >259:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+33C maintext CODE >265:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+346 maintext CODE >267:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+349 maintext CODE >268:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+34A maintext CODE >270:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+357 maintext CODE >271:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+375 maintext CODE >273:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+397 maintext CODE >275:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3D5 maintext CODE >277:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3DB maintext CODE >278:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3E8 maintext CODE >280:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3F0 maintext CODE >282:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3F1 maintext CODE >292:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+3F6 maintext CODE >293:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+406 maintext CODE >294:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+42A maintext CODE >297:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+430 maintext CODE >268:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+436 maintext CODE >300:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+486 maintext CODE >307:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+490 maintext CODE >309:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+491 maintext CODE >310:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+492 maintext CODE >311:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+492 maintext CODE >312:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+49A maintext CODE >314:C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semafore.X\main.c
+BF1 clrtext CODE >692:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF1 clrtext CODE >693:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF2 clrtext CODE >694:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF2 clrtext CODE >695:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF3 clrtext CODE >696:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF4 clrtext CODE >697:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF5 clrtext CODE >698:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF6 clrtext CODE >699:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF7 clrtext CODE >700:C:\Users\PC\AppData\Local\Temp\s4p0.s
+BF8 clrtext CODE >701:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C27 inittext CODE >651:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C27 inittext CODE >652:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C28 inittext CODE >653:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C29 inittext CODE >654:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C2A inittext CODE >655:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C2B inittext CODE >662:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C2B inittext CODE >663:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C30 inittext CODE >664:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C31 inittext CODE >665:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C32 inittext CODE >666:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C33 inittext CODE >667:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C34 inittext CODE >668:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C35 inittext CODE >669:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C36 inittext CODE >670:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C37 inittext CODE >671:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C38 inittext CODE >672:C:\Users\PC\AppData\Local\Temp\s4p0.s
+C39 inittext CODE >673:C:\Users\PC\AppData\Local\Temp\s4p0.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -593,49 +582,47 @@ BE8 inittext CODE >673:C:\Users\PC\AppData\Local\Temp\s8k0.s
 ___latbits 2 0 ABS 0 - dist/default/production\Semafore.X.production.o
 ___awdiv@counter 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __LdataBANK1 0 0 ABS 0 dataBANK1 -
-__end_of_SetDefaultTimers C0A 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+__end_of_SetDefaultTimers C36 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
 __Hspace_0 2008 0 ABS 0 - -
-__Hspace_1 1E3 0 ABS 0 - -
+__Hspace_1 1EF 0 ABS 0 - -
 __Hspace_2 0 0 ABS 0 - -
 __Hspace_3 0 0 ABS 0 - -
 __HidataBANK1 0 0 ABS 0 idataBANK1 -
-_UART_TxChar 1750 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+_UART_TxChar 17F2 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
 __size_of_init_ADC 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __end_of_n_semafori 1024 0 STRING 0 strings dist/default/production\Semafore.X.production.o
 __size_of_SetDefaultTimers 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
 BuildByte@txByte 29 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_s0 CF 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
-_s1 C1 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
-_s2 B3 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_s0 D1 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_s1 C3 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_s2 1D6 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 _s3 1C8 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 _s4 1BA 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 _s5 1AC 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 _s6 19E 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 _s7 190 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 ?_map 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-main@i 1E1 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@i 1ED 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
 __Hstrings 0 0 ABS 0 strings -
 BuildByte@valore 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 _RCIF 65 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TXIF 64 0 ABS 0 - dist/default/production\Semafore.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s8k0.o
-_disp 51 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+___sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s4p0.o
+_disp 53 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 _main 7E 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
+_time A0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
 btemp 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
-UpdateTimes@i 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-UpdateTimes@l 35 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 map@x 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-start 20 0 CODE 0 init C:\Users\PC\AppData\Local\Temp\s8k0.o
+start 20 0 CODE 0 init C:\Users\PC\AppData\Local\Temp\s4p0.o
 __size_of___aldiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___awmod 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_main 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-_SetReceivedTimes 1F24 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
-__size_of_UpdateTimes 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
+_SetReceivedTimes 1F24 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
 ?___wmul 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_GetTime 1A2E 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+__end_of_GetTime 1AE4 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
 __LidataBANK1 0 0 ABS 0 idataBANK1 -
 __Hpowerup 0 0 CODE 0 powerup -
 Conteggio@_count 70 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
@@ -643,30 +630,30 @@ Conteggio@_truck 74 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.p
 ___awmod@sign 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDefaultTimers@_semafori 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_ADC_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-_centinaia 62 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s8k0.o
-_motorcycle 5E 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_centinaia 64 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\PC\AppData\Local\Temp\s4p0.o
+_motorcycle 60 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 ___bmul@multiplicand 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_init_ADC 1786 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+_init_ADC 1828 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
 ___aldiv@divisor 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 wtemp0 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
 SetReceivedTimes@_semafori 2C 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __Hfunctab 0 0 ENTRY 0 functab -
-_Semafori DD 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
+_Semafori DF 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
 ___aldiv@sign 2E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_SetDisplay 17D2 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+_SetDisplay 1874 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
 ___awdiv@sign 31 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __Hclrtext 0 0 ABS 0 clrtext -
-__end_of_init_ADC 17AC 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+__end_of_init_ADC 184E 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
 sendByte@txByte 3E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 BuildByte@sommaRow 2E 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 sendByte@valore 39 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_readGateway 54 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_readGateway 56 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 ___wmul@multiplicand 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 _ADCON0 1F 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _ADCON1 9F 0 ABS 0 - dist/default/production\Semafore.X.production.o
@@ -680,48 +667,47 @@ BuildByte@byte1 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.prod
 BuildByte@i_355 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 BuildByte@y_356 32 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 _display 100C 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-__end_of___bmul 182A 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
-__end_of___wmul 18C4 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+__end_of___bmul 18CC 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+__end_of___wmul FEE 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
 __Lmaintext 0 0 ABS 0 maintext -
 sendByte@byte0 3D 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 sendByte@byte1 38 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_ADC_Read 182A 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+_ADC_Read 18CC 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
 ___bmul@multiplier 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_BuildByte AA2 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+__end_of_BuildByte ACE 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
 ___awdiv@divisor 2B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_SetReceivedTimes 2000 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
-__end_of___aldiv D44 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
-__end_of___awdiv 1F24 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
-__end_of___awmod 1CD2 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__end_of_SetReceivedTimes 2000 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__end_of___aldiv D70 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+__end_of___awdiv 1F24 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__end_of___awmod 1D88 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
 __size_of_BuildByte 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _INTCON B 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_SetReceivedTimes 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _OPTION_REG 81 0 ABS 0 - dist/default/production\Semafore.X.production.o
-__end_of_ADC_Read 1876 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s8k0.o
-___stacklo 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s8k0.o
-_dataFromGatewayIndex 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_ADC_Read 1918 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
+___stackhi 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s4p0.o
+___stacklo 0 0 ABS 0 - C:\Users\PC\AppData\Local\Temp\s4p0.o
+_dataFromGatewayIndex 50 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 SetReceivedTimes@index 38 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_SetDisplay 17FC 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__end_of_SetDisplay 189E 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
 BuildByte@sommaColumn 2F 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 BuildByte@i 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 BuildByte@y 30 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_BuildByte 912 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+_BuildByte 93E 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
 Conteggio@index 75 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
 start_initialization 26 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
 _TRISCbits 87 0 ABS 0 - dist/default/production\Semafore.X.production.o
 ___aldiv@quotient 2F 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetReceivedTimes@colorId 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 _GO_nDONE FA 0 ABS 0 - dist/default/production\Semafore.X.production.o
-clear_ram0 172E 0 CODE 0 clrtext dist/default/production\Semafore.X.production.o
+clear_ram0 17E2 0 CODE 0 clrtext dist/default/production\Semafore.X.production.o
 __pcstackBANK0 20 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__pcstackBANK3 1D6 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@pressione 1D8 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+__pcstackBANK3 1E4 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@pressione 1E6 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
 _TMR0IF 5A 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _TMR1IF 60 0 ABS 0 - dist/default/production\Semafore.X.production.o
 GetTime@tmp 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s8k0.o
-_UpdateTimes 1CD2 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+___int_sp 0 0 STACK 2 stack C:\Users\PC\AppData\Local\Temp\s4p0.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 ABS 0 bank2 -
@@ -730,8 +716,8 @@ __Hcinit 7E 0 CODE 0 cinit -
 __Hidloc 0 0 IDLOC 0 idloc -
 __Hstack 0 0 STACK 2 stack -
 __stringbase 100A 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-_count_lux 50 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-__end_of_UART_TxChar 1766 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+_count_lux 52 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_UART_TxChar 1808 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
 __Hmaintext 0 0 ABS 0 maintext -
 __Hcommon 0 0 ABS 0 common -
 __Hconfig 4010 0 CONFIG 0 config -
@@ -744,8 +730,8 @@ __Lidloc 0 0 IDLOC 0 idloc -
 SetDefaultTimers@rosso 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDefaultTimers@verde 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __Lstack 0 0 STACK 2 stack -
-_RoadsSensors A0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
-_GetTime 19A2 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+_RoadsSensors B0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_GetTime 1A58 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
 __Linittext 0 0 ABS 0 inittext -
 _PORTAbits 5 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _PORTBbits 6 0 ABS 0 - dist/default/production\Semafore.X.production.o
@@ -769,37 +755,37 @@ __Lsfr1 0 0 ABS 0 sfr1 -
 __Lsfr2 0 0 ABS 0 sfr2 -
 __Lsfr3 0 0 ABS 0 sfr3 -
 __Ltext 0 0 ABS 0 text -
-___bmul 17FC 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
-___wmul 1876 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+___bmul 189E 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+___wmul FA0 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
 __LcstackBANK0 0 0 ABS 0 cstackBANK0 -
 __LcstackBANK3 0 0 ABS 0 cstackBANK3 -
 __HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
-_ISR 1B6C 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
+_ISR 1C22 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
 __S0 2008 0 ABS 0 - -
-__S1 1E3 0 ABS 0 - -
+__S1 1EF 0 ABS 0 - -
 __S2 0 0 ABS 0 - -
 __S3 0 0 ABS 0 - -
-_car 5A 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-_map 18C4 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+_car 5C 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_map 197A 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
 ?_ADC_Read 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDefaultTimers@i 32 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDefaultTimers@l 33 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 saved_w 7E 0 ABS 0 - dist/default/production\Semafore.X.production.o
-_cycled 52 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-_decine 63 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-_conteggioVeicoli 1D88 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
-__end_of_ISR 1C1C 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
-__end_of_map 192E 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+_cycled 54 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_decine 65 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_conteggioVeicoli 1D88 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
+__end_of_ISR 1CD2 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+__end_of_map 19E4 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
 __size_of_ShowDigitsOnDisplay 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 Conteggio@_car 73 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
 __stringtab 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\PC\AppData\Local\Temp\s8k0.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\PC\AppData\Local\Temp\s4p0.o
 SetDisplay@d1 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d2 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 SetDisplay@d3 25 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__pdataBANK1 DD 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
+__pdataBANK1 DF 0 BANK1 1 dataBANK1 dist/default/production\Semafore.X.production.o
 __size_of___bmul 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of___wmul 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __LbssBANK0 0 0 ABS 0 bssBANK0 -
@@ -812,25 +798,24 @@ ___awmod@counter 29 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.pro
 _RCSTAbits 18 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _PIE1bits 8C 0 ABS 0 - dist/default/production\Semafore.X.production.o
 SetDefaultTimers@giallo 28 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__ptext10 C0A 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
-__ptext11 E7C 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
-__ptext12 17D2 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
-__ptext13 1F24 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
-__ptext14 17FC 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
-__ptext15 19A2 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
-__ptext16 AA2 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
-__ptext17 D44 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
-__ptext18 1C1C 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
-__ptext19 1E52 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
-__ptext20 182A 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
-__ptext21 1B6C 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
-__ptext22 1D88 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
-__ptext23 1A2E 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
-__ptext24 173E 0 CODE 0 text24 dist/default/production\Semafore.X.production.o
+__ptext10 EA8 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
+__ptext11 1874 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
+__ptext12 1F24 0 CODE 0 text12 dist/default/production\Semafore.X.production.o
+__ptext13 189E 0 CODE 0 text13 dist/default/production\Semafore.X.production.o
+__ptext14 1A58 0 CODE 0 text14 dist/default/production\Semafore.X.production.o
+__ptext15 ACE 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
+__ptext16 D70 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+__ptext17 1CD2 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
+__ptext18 1E52 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+__ptext19 18CC 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
+__ptext20 1C22 0 CODE 0 text20 dist/default/production\Semafore.X.production.o
+__ptext21 1D88 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
+__ptext22 1AE4 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
+__ptext23 FEE 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
 __size_of_SetDisplay 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-___aldiv C0A 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
-___awdiv 1E52 0 CODE 0 text19 dist/default/production\Semafore.X.production.o
-___awmod 1C1C 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+___aldiv C36 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+___awdiv 1E52 0 CODE 0 text18 dist/default/production\Semafore.X.production.o
+___awmod 1CD2 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
 __pmaintext 7E 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
 __Lcommon 0 0 ABS 0 common -
 __Lconfig 400E 0 CONFIG 0 config -
@@ -839,30 +824,29 @@ __CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Hinittext 0 0 ABS 0 inittext -
 ___wmul@multiplier 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 ADC_Read@canale 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_ShowDigitsOnDisplay E7C 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
-_dataFromGateway A4 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
+_ShowDigitsOnDisplay EA8 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
+_dataFromGateway B4 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
 conteggioVeicoli@i 7D 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
-main@temp 1D6 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@time 1D9 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@i_488 1DD 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@i_489 1DB 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@i_491 1DC 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-main@i_493 1E0 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@temp 1E4 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@i_503 1EA 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@i_504 1E7 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@i_506 1E8 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@i_508 1EC 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
 map@in_max 38 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 map@in_min 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_UART_TxChar 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __end_of__stringtab 100C 0 STRING 0 strings dist/default/production\Semafore.X.production.o
 Conteggio@_motorcycle 72 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
-main@umidita 1D7 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
-__end_of_GetDigits E7C 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
-__end_of_conteggioVeicoli 1E52 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
+main@umidita 1E5 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+__end_of_GetDigits EA8 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+__end_of_conteggioVeicoli 1E52 0 CODE 0 text21 dist/default/production\Semafore.X.production.o
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -
 __Lspace_2 0 0 ABS 0 - -
 __Lspace_3 0 0 ABS 0 - -
-_sendByte F9C 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+_sendByte 1918 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
 __size_of_GetDigits 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-init_fetch0 17AC 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
+init_fetch0 184E 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
 __HcstackBANK0 0 0 ABS 0 cstackBANK0 -
 __HcstackBANK3 0 0 ABS 0 cstackBANK3 -
 __Lend_init 20 0 CODE 0 end_init -
@@ -871,60 +855,59 @@ SetReceivedTimes@semaforoId 35 0 BANK0 1 cstackBANK0 dist/default/production\Sem
 __LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
 __size_of_conteggioVeicoli 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 end_of_initialization 76 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
-__end_of_sendByte FFE 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+__end_of_sendByte 197A 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
 __Hintentry 20 0 CODE 0 intentry -
 map@out_max 3C 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 map@out_min 3A 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_Conteggio 1AC6 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
+__end_of_Conteggio 1B7C 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
 __Lstrings 0 0 ABS 0 strings -
 ___awdiv@quotient 32 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 ?___aldiv 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 ?___awdiv 2B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 ?___awmod 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_timerReadFromGateway 4C 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_timerReadFromGateway 4F 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 __size_of_Conteggio 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Hreset_vec 6 0 CODE 0 reset_vec -
-_GetDigits D44 0 CODE 0 text17 dist/default/production\Semafore.X.production.o
+_GetDigits D70 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
 __HbssBANK0 0 0 ABS 0 bssBANK0 -
 __HbssBANK1 0 0 ABS 0 bssBANK1 -
 __HbssBANK3 0 0 ABS 0 bssBANK3 -
 ___awmod@dividend 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_readGatewayDone 55 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-__end_of_UART_Init 19A2 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
-__end_of_UART_Read 1750 0 CODE 0 text24 dist/default/production\Semafore.X.production.o
+_readGatewayDone 57 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__end_of_UART_Init 1A58 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+__end_of_UART_Read 1000 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
 SetReceivedTimes@i 39 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 GetDigits@Time 36 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_UART_Init 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_UART_Read 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-__ptext1 F9C 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
-__ptext2 1750 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
-__ptext3 912 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
-__ptext4 18C4 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
-__ptext5 1876 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
-__ptext6 1AC6 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
-__ptext7 1786 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
-__ptext8 1CD2 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
-__ptext9 192E 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
+__ptext1 1918 0 CODE 0 text1 dist/default/production\Semafore.X.production.o
+__ptext2 17F2 0 CODE 0 text2 dist/default/production\Semafore.X.production.o
+__ptext3 93E 0 CODE 0 text3 dist/default/production\Semafore.X.production.o
+__ptext4 197A 0 CODE 0 text4 dist/default/production\Semafore.X.production.o
+__ptext5 FA0 0 CODE 0 text5 dist/default/production\Semafore.X.production.o
+__ptext6 1B7C 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+__ptext7 1828 0 CODE 0 text7 dist/default/production\Semafore.X.production.o
+__ptext8 19E4 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+__ptext9 C36 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
 ___aldiv@dividend 28 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_Conteggio 1A2E 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
+_Conteggio 1AE4 0 CODE 0 text22 dist/default/production\Semafore.X.production.o
 __Lpowerup 0 0 CODE 0 powerup -
 __Leeprom_data 0 0 EEDATA 3 eeprom_data -
-__end_of_UpdateTimes 1D88 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
-_luciSemaforo 1AC6 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+_luciSemaforo 1B7C 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
 __Lreset_vec 0 0 CODE 0 reset_vec -
-_UART_Init 192E 0 CODE 0 text9 dist/default/production\Semafore.X.production.o
-_UART_Read 173E 0 CODE 0 text24 dist/default/production\Semafore.X.production.o
+_UART_Init 19E4 0 CODE 0 text8 dist/default/production\Semafore.X.production.o
+_UART_Read FEE 0 CODE 0 text23 dist/default/production\Semafore.X.production.o
 __CFG_FOSC$HS 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-main@lux_select 1DF 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
+main@lux_select 1E9 0 BANK3 1 cstackBANK3 dist/default/production\Semafore.X.production.o
 luciSemaforo@index 27 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_SetDefaultTimers AA2 0 CODE 0 text16 dist/default/production\Semafore.X.production.o
+_SetDefaultTimers ACE 0 CODE 0 text15 dist/default/production\Semafore.X.production.o
 __end_of__initialization 76 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
 ___awmod@divisor 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __Lfunctab 0 0 ENTRY 0 functab -
-__end_of_ShowDigitsOnDisplay F9C 0 CODE 0 text11 dist/default/production\Semafore.X.production.o
+__end_of_ShowDigitsOnDisplay FA0 0 CODE 0 text10 dist/default/production\Semafore.X.production.o
 GetDigits@centinaia 3B 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __end_of_display 1022 0 STRING 0 strings dist/default/production\Semafore.X.production.o
-__pidataBANK1 1766 0 CODE 0 idataBANK1 dist/default/production\Semafore.X.production.o
+__pidataBANK1 1808 0 CODE 0 idataBANK1 dist/default/production\Semafore.X.production.o
 __Lclrtext 0 0 ABS 0 clrtext -
 GetTime@index 28 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 GetTime@_dataFromGateway 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
@@ -932,15 +915,14 @@ __CFG_PWRTE$ON 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production\Semafore.X.production.o
 _TXSTAbits 98 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Hend_init 26 0 CODE 0 end_init -
-init_ram0 17B4 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
-_secondPassed 53 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+init_ram0 1856 0 CODE 0 inittext dist/default/production\Semafore.X.production.o
+_secondPassed 55 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 ___aldiv@counter 2D 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 UART_TxChar@ch 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_main 912 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
+__end_of_main 93E 0 CODE 0 maintext dist/default/production\Semafore.X.production.o
 luciSemaforo@lux 24 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_GetDigits$1222 39 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
+_GetDigits$1221 39 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_luciSemaforo 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-UpdateTimes@_semafori 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __size_of_GetTime 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _PORTD 8 0 ABS 0 - dist/default/production\Semafore.X.production.o
 _RCREG 1A 0 ABS 0 - dist/default/production\Semafore.X.production.o
@@ -957,25 +939,25 @@ _TXREG 19 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __Hram 0 0 ABS 0 ram -
 __Lram 0 0 ABS 0 ram -
 SetReceivedTimes@_dataFromGateway 37 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-_count 4A 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_count 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 interrupt_function 8 0 CODE 0 intentry dist/default/production\Semafore.X.production.o
 __CFG_CPD$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
-_truck 56 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
-_unita 64 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_truck 58 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+_unita 66 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 __pintentry 8 0 CODE 0 intentry dist/default/production\Semafore.X.production.o
 __size_of_ISR 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __size_of_map 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 __HdataBANK1 0 0 ABS 0 dataBANK1 -
 __initialization 26 0 CODE 0 cinit dist/default/production\Semafore.X.production.o
 ___bmul@product 26 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__pbssBANK0 4A 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
+__pbssBANK0 4D 0 BANK0 1 bssBANK0 dist/default/production\Semafore.X.production.o
 __pbssBANK1 A0 0 BANK1 1 bssBANK1 dist/default/production\Semafore.X.production.o
 __pbssBANK3 190 0 BANK3 1 bssBANK3 dist/default/production\Semafore.X.production.o
 __CFG_WRT$OFF 0 0 ABS 0 - dist/default/production\Semafore.X.production.o
 GetDigits@decine 34 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
 __pstrings 1000 0 STRING 0 strings dist/default/production\Semafore.X.production.o
 ___wmul@product 28 0 BANK0 1 cstackBANK0 dist/default/production\Semafore.X.production.o
-__end_of_luciSemaforo 1B6C 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
+__end_of_luciSemaforo 1C22 0 CODE 0 text6 dist/default/production\Semafore.X.production.o
 # %SPLITSTAB Section
 # This section enumerates all the psect splits performed by the assembler.
 # The beginning of the section is indicated by %SPLITSTAB.
@@ -1001,34 +983,32 @@ __end_of_luciSemaforo 1B6C 0 CODE 0 text6 dist/default/production\Semafore.X.pro
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-text2 0 BA8 1750 B 2
-text4 0 C62 18C4 35 2
-text5 0 C3B 1876 27 2
-text6 0 D63 1AC6 53 2
-text7 0 BC3 1786 13 2
-text8 0 E69 1CD2 5B 2
-text9 0 C97 192E 3A 2
-text12 0 BE9 17D2 15 2
-text13 0 F92 1F24 6E 2
-text14 0 BFE 17FC 17 2
-text15 0 CD1 19A2 46 2
-text18 0 E0E 1C1C 5B 2
-text19 0 F29 1E52 69 2
-text20 0 C15 182A 26 2
-text21 0 DB6 1B6C 58 2
-text22 0 EC4 1D88 65 2
-text23 0 D17 1A2E 4C 2
-text24 0 B9F 173E 9 2
+text1 0 C8C 1918 31 2
+text2 0 BF9 17F2 B 2
+text4 0 CBD 197A 35 2
+text6 0 DBE 1B7C 53 2
+text7 0 C14 1828 13 2
+text8 0 CF2 19E4 3A 2
+text11 0 C3A 1874 15 2
+text12 0 F92 1F24 6E 2
+text13 0 C4F 189E 17 2
+text14 0 D2C 1A58 46 2
+text17 0 E69 1CD2 5B 2
+text18 0 F29 1E52 69 2
+text19 0 C66 18CC 26 2
+text20 0 E11 1C22 58 2
+text21 0 EC4 1D88 65 2
+text22 0 D72 1AE4 4C 2
 cstackCOMMON 1 70 70 E 1
-cstackBANK0 1 20 20 45 1
-inittext 0 BD6 17AC 13 2
-intentry 0 4 8 7FB 2
+cstackBANK0 1 20 20 47 1
+inittext 0 C27 184E 13 2
+intentry 0 4 8 7FC 2
 reset_vec 0 0 0 3 2
-bssBANK1 1 A0 A0 4D 1
-bssBANK3 1 190 190 53 1
-idataBANK1 0 BB3 1766 10 2
+bssBANK1 1 A0 A0 4F 1
+bssBANK3 1 190 190 5F 1
+idataBANK1 0 C04 1808 10 2
 strings 0 800 1000 12 2
-clrtext 0 B97 172E 8 2
+clrtext 0 BF1 17E2 8 2
 config 0 2007 400E 1 2
 # OTES Section
 # This section contains data of all the note-psects.  The beginning of the section
