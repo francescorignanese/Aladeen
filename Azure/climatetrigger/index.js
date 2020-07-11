@@ -5,6 +5,7 @@ module.exports = async function(context, obj) {
 
     // config database
 
+
     var climate=obj.data_climate;
     let query = "INSERT INTO [dbo].[Clima] ([Dispositivo_id],[Temperatura],[Pressione],[Umidita],[Data],[Ora]) VALUES";
     for (let i = 0; i < climate.length; i++) {
