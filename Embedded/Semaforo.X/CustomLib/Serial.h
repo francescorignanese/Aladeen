@@ -26,6 +26,7 @@ char *BuildByte(char byte0, char byte1, char valore)
             sommaRow = 0;
         }
     }
+
     //costruisce la matrice di paritÃ 
     for (int i = 0; i < 8; i++) //Ciclo per controllare tutte le colonne dei byte
     {
