@@ -1997,12 +1997,28 @@ typedef struct
 
 typedef struct
 {
+<<<<<<< HEAD
     unsigned int Bit : 1;
 } Bit;
 
 typedef unsigned char ProtocolBytes[15];
 typedef Semaforo *_Semafori[8];
+=======
+    unsigned char Bit :1;
+} Bit;
+# 22 "./CustomLib/TrafficDataTypes.h"
+typedef unsigned char ProtocolBytes[15];
+typedef Semaforo *_Semafori[2];
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
 # 1 "./CustomLib/TrafficLight.h" 2
+
+# 1 "./CustomLib/Constants.h" 1
+
+const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+
+
+const unsigned char n_semafori=2;
+# 2 "./CustomLib/TrafficLight.h" 2
 
 
 void UpdateTimes(_Semafori _semafori)
@@ -2012,7 +2028,15 @@ void UpdateTimes(_Semafori _semafori)
     {
         for(unsigned char i = 0; i < 3; i++)
         {
-            (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
+            if( (*(_semafori)[l]).times[i] != (*(_semafori)[l]).new_times[i] )
+            {
+                (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
+            }
+        }
+
+        if( (*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select )
+        {
+            (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
         }
         (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
     }
@@ -2050,22 +2074,31 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
             {
             case 0:
                 (*(_semafori)[l]).times[i] = rosso;
+                (*(_semafori)[l]).new_times[i] = rosso;
                 break;
             case 1:
                 (*(_semafori)[l]).times[i] = verde;
+                (*(_semafori)[l]).new_times[i] = verde;
                 break;
             case 2:
                 (*(_semafori)[l]).times[i] = giallo;
+                (*(_semafori)[l]).new_times[i] = giallo;
                 break;
             }
         }
     }
+
+    (*(_semafori)[0]).lux_select = 0;
+    (*(_semafori)[0]).new_lux_select = 0;
+    (*(_semafori)[1]).lux_select = 1;
+    (*(_semafori)[1]).new_lux_select = 1;
 }
 
 
 
 void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 {
+<<<<<<< HEAD
                 for (unsigned char i = 0; i < 3; i++)
                 {
                     unsigned char index = i * 5;
@@ -2076,27 +2109,41 @@ void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
                     (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
                     (*(_semafori)[semaforoId]).new_lux_select=luxId;
                 }
+=======
+    for (unsigned char i = 0; i < 3; i++)
+    {
+        unsigned char index = i * 5;
+        unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+        unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+
+        (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+    }
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
 }
 
 
 
 void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 {
-        if (_count >= 500)
-        {
-            _motorcycle[index]=_motorcycle[index]+1;
-        }
-        if (_count >= 1500)
-        {
-            _car[index]=_car[index]+1;
-        }
-        if (_count >= 3000)
-        {
-            _truck[index]=_truck[index]+1;
-        }
+    if (_count >= 500)
+    {
+        _motorcycle[index]=_motorcycle[index]+1;
+    }
+    if (_count >= 1500)
+    {
+        _car[index]=_car[index]+1;
+    }
+    if (_count >= 3000)
+    {
+        _truck[index]=_truck[index]+1;
+    }
 }
 # 61 "main.c" 2
+<<<<<<< HEAD
 # 84 "main.c"
+=======
+# 90 "main.c"
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
 struct
 {
     unsigned int Bit : 1;
@@ -2105,20 +2152,28 @@ struct
 
 Bit readGateway, secondPassed, cycled;
 unsigned char unita, decine, centinaia;
-unsigned char disp;
+unsigned char disp=0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
-unsigned char comando = 0;
-unsigned char time = 0;
+int time[4] = {0,0,0,0};
 unsigned char motorcycle[4];
 unsigned char car[4];
 unsigned char truck[4];
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;
 ProtocolBytes dataFromGateway;
+<<<<<<< HEAD
 Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
 Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
 unsigned char timerReadFromGateway;
+=======
+Semaforo s0, s1, s2, s3;
+Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
+unsigned char timerReadFromGateway;
+unsigned char temp = 0;
+unsigned char umidita = 0;
+unsigned char pressione = 0;
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
 
 void init_ADC();
 int ADC_Read(char canale);
@@ -2129,10 +2184,12 @@ void sendByte(char byte0, char byte1, char valore);
 void conteggioVeicoli();
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
+void luciSemaforo(unsigned char index, unsigned char lux);
+void ShowDigitsOnDisplay();
 
 void main(void)
 {
-    TRISB = 0x1F;
+    TRISB = 0x38;
     TRISC = 0x80;
     TRISD = 0x00;
     TRISE = 0x01;
@@ -2145,15 +2202,25 @@ void main(void)
     TMR1L = 176;
 
 
+<<<<<<< HEAD
     int time;
     disp = 0;
     unsigned char temp = 0;
     unsigned char umidita = 0;
     unsigned char pressione = 0;
 
+=======
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
     init_ADC();
     UART_Init(9600);
-    SetDefaultTimers(1,1,1, Semafori);
+    SetDefaultTimers(6,4,2, Semafori);
+
+    PORTCbits.RC0 = 0;
+    PORTBbits.RB7 = 0;
+    PORTCbits.RC3 = 0;
+    PORTBbits.RB6 = 0;
+    PORTCbits.RC1 = 0;
+    PORTBbits.RB1 = 0;
 
     while (1)
     {
@@ -2264,9 +2331,9 @@ void main(void)
 
 
 
-
         if (secondPassed.Bit && cycled.Bit)
         {
+<<<<<<< HEAD
             time++;
 
             unsigned char i=0;
@@ -2289,11 +2356,33 @@ void main(void)
                             if(i==n_semafori-1)
                             {
 
+=======
+            unsigned char i = 0;
+            while (i < n_semafori)
+            {
+                if ((*Semafori[i]).times[0] != 0)
+                {
+                    time[i]++;
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
+
+                    if ((*Semafori[i]).times[lux_select] - time[i] < 0)
+                    {
+                        lux_select++;
+                        time[i] = 1;
+
+                        if (lux_select >= 3)
+                        {
+                            lux_select = 0;
+
+                            if (i == 0)
+                            {
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
                                 UpdateTimes(Semafori);
                             }
                         }
                     }
 
+<<<<<<< HEAD
                     (*Semafori[i]).lux_select=lux_select;
                     GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time);
 
@@ -2301,8 +2390,18 @@ void main(void)
                 }
             }
         }
+=======
+                    if(lux_select!=(*Semafori[i]).lux_select)
+                    {
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select;
+                    }
 
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
 
+                }
+
+<<<<<<< HEAD
 
         switch (disp)
         {
@@ -2316,13 +2415,14 @@ void main(void)
             if (decine > 0 || centinaia > 0)
             {
                 SetDisplay(0, 1, 0, display[decine]);
+=======
+                i++;
+>>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
             }
-            break;
-        case 2:
-            SetDisplay(0, 0, 1, display[unita]);
-            break;
+
+            GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]);
+            ShowDigitsOnDisplay();
         }
-        disp = (disp + 1) % 3;
 
 
 
@@ -2411,7 +2511,6 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
-
 void SetDisplay(char d1, char d2, char d3, char value)
 {
     PORTAbits.RA2 = d1;
@@ -2420,15 +2519,14 @@ void SetDisplay(char d1, char d2, char d3, char value)
     PORTD = value;
 }
 
-
 void conteggioVeicoli()
 {
-    RoadsSensors[0]=PORTBbits.RB3;
-    RoadsSensors[1]=PORTBbits.RB4;
-    RoadsSensors[2]=PORTBbits.RB5;
-    RoadsSensors[3]=PORTAbits.RA5;
+    RoadsSensors[0] = PORTBbits.RB3;
+    RoadsSensors[1] = PORTBbits.RB4;
+    RoadsSensors[2] = PORTBbits.RB5;
+    RoadsSensors[3] = PORTAbits.RA5;
 
-    for(unsigned char i=0; i<4; i++)
+    for (unsigned char i = 0; i < 4; i++)
     {
         if (!RoadsSensors[i])
         {
@@ -2442,7 +2540,76 @@ void conteggioVeicoli()
     }
 }
 
+void luciSemaforo(unsigned char index, unsigned char lux)
+{
+    switch (index)
+    {
+    case 0:
+        switch (lux)
+        {
+        case 0:
+            PORTCbits.RC1 = 0;
+            PORTCbits.RC3 = 0;
+            PORTCbits.RC0 = 1;
+            break;
+        case 1:
+            PORTCbits.RC0 = 0;
+            PORTCbits.RC3 = 0;
+            PORTCbits.RC1 = 1;
+            break;
+        case 2:
+            PORTCbits.RC0 = 0;
+            PORTCbits.RC1 = 0;
+            PORTCbits.RC3 = 1;
+            break;
+        }
+        break;
 
+    case 1:
+        switch (lux)
+        {
+        case 0:
+            PORTBbits.RB1 = 0;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB7 = 1;
+            break;
+        case 1:
+            PORTBbits.RB7 = 0;
+            PORTBbits.RB6 = 0;
+            PORTBbits.RB1 = 1;
+            break;
+        case 2:
+            PORTBbits.RB7 = 0;
+            PORTBbits.RB1 = 0;
+            PORTBbits.RB6 = 1;
+            break;
+        }
+        break;
+    }
+}
+
+void ShowDigitsOnDisplay()
+{
+    switch (disp)
+    {
+    case 0:
+        if (centinaia > 0)
+        {
+            SetDisplay(1, 0, 0, display[centinaia]);
+        }
+        break;
+    case 1:
+        if (decine > 0 || centinaia > 0)
+        {
+            SetDisplay(0, 1, 0, display[decine]);
+        }
+        break;
+    case 2:
+        SetDisplay(0, 0, 1, display[unita]);
+        break;
+    }
+    disp = (disp + 1) % 3;
+}
 
 void __attribute__((picinterrupt(("")))) ISR()
 {

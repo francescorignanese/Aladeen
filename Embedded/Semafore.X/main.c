@@ -59,6 +59,7 @@ Byte di paritÃ  per trovare l'errore
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
 #include "CustomLib/TrafficLight.h"
+//#include "CustomLib/Constants.h"
 
 #define _XTAL_FREQ 32000000
 
@@ -69,17 +70,22 @@ Byte di paritÃ  per trovare l'errore
 #define Disp1 PORTAbits.RA2 //display1 7 segmenti
 #define Disp2 PORTAbits.RA3 //display2 7 segmenti
 #define Disp3 PORTAbits.RA4 //display3 7 segmenti
-//*Inizializzazione delle luci -->
-#define Lux_Red PORTBbits.RB5    //luce rossa
-#define Lux_Yellow PORTBbits.RB6 //luce gialla
-#define Lux_Green PORTBbits.RB7  //luce verde
+
+//*Conteggio veicoli -->
+#define Road1 PORTBbits.RB3 //Sensore per il rivelamento dei mezzi su strada 1
+#define Road2 PORTBbits.RB4 //Sensore per il rivelamento dei mezzi su strada 2
+#define Road3 PORTBbits.RB5 //Sensore per il rivelamento dei mezzi su strada 3
+#define Road4 PORTAbits.RA5 //Sensore per il rivelamento dei mezzi su strada 4
 //* end <--
 
-//definizione sensori veicoli
-#define Road1 PORTBbits.RB3
-#define Road2 PORTBbits.RB4
-#define Road3 PORTBbits.RB5
-#define Road4 PORTAbits.RA5
+//*Inizializzazione delle luci -->
+#define Red1 PORTCbits.RC0    //Rosso primo semaforo
+#define Green1 PORTCbits.RC1  //verde primo semaforo
+#define Yellow1 PORTCbits.RC3 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+#define Red2 PORTBbits.RB7    //Rosso secondo semaforo
+#define Green2 PORTBbits.RB1  //verde secondo semaforo
+#define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+//* end <--
 
 struct
 {
@@ -89,34 +95,38 @@ struct
 
 Bit readGateway, secondPassed, cycled;
 unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char disp;                     //varibile per fare lo switch in loop tra i dislpay
+unsigned char disp = 0;                 //varibile per fare lo switch in loop tra i dislpay
 unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
 unsigned char count_lux = 0;            //conteggio per il tempo delle luci
-unsigned char comando = 0;              //Prende il dato dalla seriale
-unsigned char time = 0;                 //variabile per contare i secondi
+int time[4] = {0, 0, 0, 0};             //variabile per contare i secondi
 unsigned char motorcycle[4];            //variabile per contare i motocicli
 unsigned char car[4];                   //variabile per contare le macchine
 unsigned char truck[4];                 //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
-ProtocolBytes dataFromGateway;                                                 //array dati da seriale
-Semaforo s0, s1, s2, s3, s4, s5, s6, s7; //definisco i vari semafori
-Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+ProtocolBytes dataFromGateway;          //array dati da seriale
+Semaforo s0, s1, s2, s3;                //definisco i vari semafori
+Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
+unsigned char temp = 0;             //Variabile per salvare la temperatura sul pin RA0
+unsigned char umidita = 0;          //Variabile per salvare l'umidita sul pin RA1
+unsigned char pressione = 0;        //Variabile per salvare la pressione sul pin RE0
 
-void init_ADC();              //Inizializza l'adc
-int ADC_Read(char canale);    //Lettura da un ingresso analogico
-void UART_Init(int baudrate); //Inizializzazione della seriale con uno specifico baudrate
-void UART_TxChar(char ch);    //Scrittura di un carattere sulla seriale
-char UART_Read();             //Lettura dalla seriale
-void sendByte(char byte0, char byte1, char valore);      //Funzione per inviare dati in cui vengono aggiunti i bit di paritÃ 
-void conteggioVeicoli();                                 //Conteggio mezzi
+void init_ADC();                                    //Inizializza l'adc
+int ADC_Read(char canale);                          //Lettura da un ingresso analogico
+void UART_Init(int baudrate);                       //Inizializzazione della seriale con uno specifico baudrate
+void UART_TxChar(char ch);                          //Scrittura di un carattere sulla seriale
+char UART_Read();                                   //Lettura dalla seriale
+void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di paritÃ 
+void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
 void SetDisplay(char d1, char d2, char d3, char value);
+void luciSemaforo(unsigned char index, unsigned char lux);
+void ShowDigitsOnDisplay();
 
 void main(void)
 {
-    TRISB = 0x1F; //gli utlimi tre bit per le luci, gli altri come ingresso
+    TRISB = 0x38; //gli utlimi tre bit per le luci, gli altri come ingresso
     TRISC = 0x80;
     TRISD = 0x00;      //Porta per i 7 segmenti (Output)
     TRISE = 0x01;      //Utilizzo l'ingresso RE0 per misurare la pressione
@@ -129,15 +139,16 @@ void main(void)
     TMR1L = 176; // preset for timer1 LSB register
     //?PIE1 = 0x01;
 
-    int time;                     //0 ï¿½ rosso, 1 ï¿½ verde, 2 ï¿½ giallo
-    disp = 0;                     //variabile per definire quale display deve accendersi, inizializzo a 0
-    unsigned char temp = 0;       //Variabile per salvare la temperatura sul pin RA0
-    unsigned char umidita = 0;    //Variabile per salvare l'umidita sul pin RA1
-    unsigned char pressione = 0;  //Variabile per salvare la pressione sul pin RE0
-    
-    init_ADC();                //Inizializzazione adc
-    UART_Init(9600);           //Inizializzazione seriale a 9600 b
-    SetDefaultTimers(1,1,1, Semafori); //Inizializzazione tempi luci semaforo
+    init_ADC();                          //Inizializzazione adc
+    UART_Init(9600);                     //Inizializzazione seriale a 9600 b
+    SetDefaultTimers(6, 4, 2, Semafori); //Inizializzazione tempi luci semaforo
+
+    Red1 = 0;    //azzero le luci
+    Red2 = 0;    //azzero le luci
+    Yellow1 = 0; //azzero le luci
+    Yellow2 = 0; //azzero le luci
+    Green1 = 0;  //azzero le luci
+    Green2 = 0;  //azzero le luci
 
     while (1)
     {
@@ -149,7 +160,7 @@ void main(void)
             case 0x08: //Se vi Ã¨ il comando 0x08 nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
-                
+
                 for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
                     switch (i)
@@ -176,14 +187,14 @@ void main(void)
                         break;
                     }
                 }
-                
+
                 for (int i = 0; i < 4; i++) //Resetto le variabili
                 {
                     motorcycle[i] = 0;
                     car[i] = 0;
                     truck[i] = 0;
                 }
-                
+
                 for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto cosÃ¬ da non continuare ad inviare
                 {
                     dataFromGateway[i] = 0;
@@ -192,15 +203,15 @@ void main(void)
             case 0x0A: //Se vi Ã¨ il comando 0x0A nel primo byte allora prendo solo un pachetto di dati
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
-                
+
                 temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
                 umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umiditÃ  e la mappa su quei valori
                 pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
                 sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
                 sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
                 sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
-                
-                for (unsigned char i = 0; i < 5; i++)                      //Resetto i byte che ho ricevuto cosÃ¬ da non continuare ad inviare
+
+                for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto cosÃ¬ da non continuare ad inviare
                 {
                     dataFromGateway[i] = 0;
                 }
@@ -246,67 +257,49 @@ void main(void)
             }
         }
 
-        
         //ACCENSIONE LED IN BASE AL TEMPO
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit && cycled.Bit)
         {
-            time++;                                                         //incrementa il timer per il calcolo del countdown
-            
-            unsigned char i=0;
-            while(i<n_semafori)                                             //Per ogni semaforo calcolerà il countdown per le luci in base alla luce
+            unsigned char i = 0;
+            while (i < n_semafori) //Per ogni semaforo calcolerï¿½ il countdown per le luci in base alla luce
             {
-                if( (*Semafori[i]).times[0]==0 )                            //se per l'i-esimo semaforo è stato impostato un tempo 0 allora non è utilizzato e viene saltato
+                if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo ï¿½ stato impostato un tempo diverso da 0 allora non ï¿½ utilizzato e viene saltato
                 {
-                    i++;
-                }
-                else
-                {
-                    unsigned char lux_select=(*Semafori[i]).lux_select;
-                    if ((*Semafori[i]).times[lux_select] - time < 0)  //se il timer ha raggiunto il tempo della luce, quindi il countdown è terminato...
+                    time[i]++; //incrementa il timer per il calcolo del countdown
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
+
+                    if ((*Semafori[i]).times[lux_select] - time[i] < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown ï¿½ terminato...
                     {
-                        lux_select++;                                           //...si incrementa il contatore delle luci...
-                        time=1;                                                 //...si resetta il timer  
-                        if (lux_select >= 3)                                    //Se il contatore delle luci è arrivato a 3, ovvero è finito il giallo...
+                        lux_select++; //...si incrementa il contatore delle luci...
+                        time[i] = 1;  //...si resetta il timer
+
+                        if (lux_select >= 3) //Se il contatore delle luci ï¿½ arrivato a 3, ovvero ï¿½ finito il giallo...
                         {
-                            lux_select=0;                                       //...resetta il contatore delle luci, tornando al verde...
-                            if(i==n_semafori-1)                                 //...e se il ciclo terminato è quello dell'ultimo semaforo tutto l'incrocio ha terminato un ciclo...
+                            lux_select = 0; //...resetta il contatore delle luci, tornando al rosso...
+
+                            if (i == 0) //...e se il ciclo terminato ï¿½ quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
                             {
-                                //AGGIORNAMENTO TEMPI LUCI
-                                UpdateTimes(Semafori);                  //...e aggiorna i tempi delle luci...   
+                                UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
                             }
                         }
                     }
-                
-                    (*Semafori[i]).lux_select=lux_select;             //aggiorna il valore di lòux_select nel caso sia cambiato
-                    GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time); //ottiene le cifre delle centinaia, decine e unità del countdown  
-                    
-                    i++;
-                }
-            }
-        }
-        
 
-        //MOSTRA TIMER SU DISPLAY
-        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
-        {
-        case 0:                //==> desplay delle centinaia, porta RA2
-            if (centinaia > 0) //mostra la cifra delle centinaia solo se ï¿½ consistente (maggiore di 0)
-            {
-                SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
-            }           
-            break;
-        case 1:                              //==> desplay delle dedcine, porta RA3
-            if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-            {
-                SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+                    if (lux_select != (*Semafori[i]).lux_select)
+                    {
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di lï¿½ux_select nel caso sia cambiato
+                    }
+                    //GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unitï¿½ del countdown
+                    //ShowDigitsOnDisplay();
+                }
+
+                i++;
             }
-            break;
-        case 2:                                  //==> desplay delle unitï¿½, porta RA4
-            SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
-            break;
+
+            GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]); //ottiene le cifre delle centinaia, decine e unitï¿½ del countdown
+            ShowDigitsOnDisplay();
         }
-        disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 
         //reset variabili
         //Se ï¿½ passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
@@ -383,7 +376,6 @@ char UART_Read()
     return RCREG;
 }
 
-
 void sendByte(char byte0, char byte1, char valore)
 {
     char *txByte;
@@ -395,7 +387,6 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
-
 void SetDisplay(char d1, char d2, char d3, char value)
 {
     Disp1 = d1;
@@ -404,15 +395,14 @@ void SetDisplay(char d1, char d2, char d3, char value)
     PORTD = value;
 }
 
-
 void conteggioVeicoli()
 {
-    RoadsSensors[0]=Road1;
-    RoadsSensors[1]=Road2;
-    RoadsSensors[2]=Road3;
-    RoadsSensors[3]=Road4;
-    
-    for(unsigned char i=0; i<4; i++)
+    RoadsSensors[0] = Road1;
+    RoadsSensors[1] = Road2;
+    RoadsSensors[2] = Road3;
+    RoadsSensors[3] = Road4;
+
+    for (unsigned char i = 0; i < 4; i++)
     {
         if (!RoadsSensors[i]) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
         {
@@ -426,7 +416,76 @@ void conteggioVeicoli()
     }
 }
 
+void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il cambio delle luci per la rappresentazione sui led rgb
+{
+    switch (index)
+    {
+    case 0: //Parte del primo semaforo (ID di esso)
+        switch (lux)
+        {
+        case 0: //Accende luce rossa
+            Green1 = 0;
+            Yellow1 = 0;
+            Red1 = 1;
+            break;
+        case 1: //Accende luce verde
+            Red1 = 0;
+            Yellow1 = 0;
+            Green1 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red1 = 0;
+            Green1 = 0;
+            Yellow1 = 1;
+            break;
+        }
+        break;
 
+    case 1: //Parte del secondo semaforo (ID di esso)
+        switch (lux)
+        {
+        case 0: //Accende luce rossa
+            Green2 = 0;
+            Yellow2 = 0;
+            Red2 = 1;
+            break;
+        case 1: //Accende luce verde
+            Red2 = 0;
+            Yellow2 = 0;
+            Green2 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red2 = 0;
+            Green2 = 0;
+            Yellow2 = 1;
+            break;
+        }
+        break;
+    }
+}
+
+void ShowDigitsOnDisplay() //MOSTRA TIMER SU DISPLAY
+{
+    switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+    {
+    case 0:                //==> desplay delle centinaia, porta RA2
+        if (centinaia > 0) //mostra la cifra delle centinaia solo se ï¿½ consistente (maggiore di 0)
+        {
+            SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+        }
+        break;
+    case 1:                              //==> desplay delle dedcine, porta RA3
+        if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+        {
+            SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+        }
+        break;
+    case 2:                                  //==> desplay delle unitï¿½, porta RA4
+        SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che Ã¨ presente nel array "display[*n]"
+        break;
+    }
+    disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
+}
 
 void __interrupt() ISR()
 {
