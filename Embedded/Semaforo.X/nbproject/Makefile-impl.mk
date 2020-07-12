@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=Semafore.X
+PROJECTNAME=Semaforo.X
 
 # Active Configuration
 DEFAULTCONF=default
