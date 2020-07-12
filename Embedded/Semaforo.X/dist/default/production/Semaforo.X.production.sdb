@@ -57,27 +57,27 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "127 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"332
-[v _init_ADC init_ADC `(v  1 e 1 0 ]
 "341
+[v _init_ADC init_ADC `(v  1 e 1 0 ]
+"350
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
-"351
+"360
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
-"363
+"372
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
-"380
+"389
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
-"388
+"397
 [v _sendByte sendByte `(v  1 e 1 0 ]
-"399
+"408
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
-"407
+"416
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
-"428
+"437
 [v _luciSemaforo luciSemaforo `(v  1 e 1 0 ]
-"476
+"485
 [v _ShowDigitsOnDisplay ShowDigitsOnDisplay `(v  1 e 1 0 ]
-"499
+"508
 [v _ISR ISR `II(v  1 e 1 0 ]
 "2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/Constants.h
 [v _display display `DC[11]uc  1 e 11 0 ]
@@ -301,45 +301,49 @@
 "127
 [v _main main `(v  1 e 1 0 ]
 {
+"169
+[v main@randomTruck randomTruck `uc  1 a 1 34 ]
+"168
+[v main@randomCar randomCar `uc  1 a 1 33 ]
 "167
-[v main@random random `uc  1 a 1 34 ]
-"279
-[v main@lux_select lux_select `uc  1 a 1 37 ]
-"223
-[v main@i_490 i `uc  1 a 1 33 ]
-"207
-[v main@i_488 i `uc  1 a 1 32 ]
-"200
-[v main@i_487 i `i  1 a 2 35 ]
+[v main@randomMoto randomMoto `uc  1 a 1 32 ]
+"288
+[v main@lux_select lux_select `uc  1 a 1 39 ]
+"232
+[v main@i_492 i `uc  1 a 1 36 ]
+"216
+[v main@i_490 i `uc  1 a 1 35 ]
+"209
+[v main@i_489 i `i  1 a 2 37 ]
 "164
-[v main@i i `uc  1 a 1 39 ]
-"273
-[v main@i_493 i `uc  1 a 1 38 ]
-"329
+[v main@i i `uc  1 a 1 41 ]
+"282
+[v main@i_495 i `uc  1 a 1 40 ]
+"338
 } 0
-"388
+"397
 [v _sendByte sendByte `(v  1 e 1 0 ]
 {
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
-"393
+"402
 [v sendByte@i i `uc  1 a 1 31 ]
-"390
+"399
 [v sendByte@txByte txByte `*.4uc  1 a 1 30 ]
-"388
+"397
 [v sendByte@byte0 byte0 `uc  1 a 1 wreg ]
 [v sendByte@byte1 byte1 `uc  1 p 1 24 ]
 [v sendByte@valore valore `uc  1 p 1 25 ]
-"391
+"400
 [v sendByte@byte0 byte0 `uc  1 a 1 29 ]
-"397
+"406
 } 0
-"363
+"372
 [v _UART_TxChar UART_TxChar `(v  1 e 1 0 ]
 {
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 wreg ]
 [v UART_TxChar@ch ch `uc  1 a 1 4 ]
-"369
+"378
 } 0
 "2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
@@ -402,19 +406,19 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 6 ]
 "53
 } 0
-"428 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
+"437 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _luciSemaforo luciSemaforo `(v  1 e 1 0 ]
 {
 [v luciSemaforo@index index `uc  1 a 1 wreg ]
 [v luciSemaforo@index index `uc  1 a 1 wreg ]
 [v luciSemaforo@lux lux `uc  1 p 1 4 ]
 [v luciSemaforo@index index `uc  1 a 1 7 ]
-"474
+"483
 } 0
-"332
+"341
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
 {
-"338
+"347
 } 0
 "14 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/BitsFlow.h
 [v _bitParita bitParita `(v  1 e 1 0 ]
@@ -470,11 +474,11 @@
 [v UpdateTimes@_semafori _semafori `*.4*.39S22  1 a 1 23 ]
 "22
 } 0
-"351 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
+"360 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
 [v UART_Init@baudrate baudrate `i  1 p 2 19 ]
-"361
+"370
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\sources\c90\common\aldiv.c
 [v ___aldiv __aldiv `(l  1 e 4 0 ]
@@ -489,12 +493,12 @@
 [v ___aldiv@dividend dividend `l  1 p 4 8 ]
 "41
 } 0
-"476 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
+"485 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _ShowDigitsOnDisplay ShowDigitsOnDisplay `(v  1 e 1 0 ]
 {
-"497
+"506
 } 0
-"399
+"408
 [v _SetDisplay SetDisplay `(v  1 e 1 0 ]
 {
 [v SetDisplay@d1 d1 `uc  1 a 1 wreg ]
@@ -502,9 +506,9 @@
 [v SetDisplay@d2 d2 `uc  1 p 1 4 ]
 [v SetDisplay@d3 d3 `uc  1 p 1 5 ]
 [v SetDisplay@value value `uc  1 p 1 6 ]
-"401
+"410
 [v SetDisplay@d1 d1 `uc  1 a 1 7 ]
-"405
+"414
 } 0
 "86 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _SetReceivedTimes SetReceivedTimes `(v  1 e 1 0 ]
@@ -606,26 +610,26 @@
 [v ___awdiv@dividend dividend `i  1 p 2 13 ]
 "41
 } 0
-"341 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
+"350 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
 {
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
-"343
+"352
 [v ADC_Read@canale canale `uc  1 a 1 7 ]
-"349
+"358
 } 0
-"499
+"508
 [v _ISR ISR `II(v  1 e 1 0 ]
 {
-"541
+"550
 } 0
-"407
+"416
 [v _conteggioVeicoli conteggioVeicoli `(v  1 e 1 0 ]
 {
-"414
+"423
 [v conteggioVeicoli@i i `uc  1 a 1 13 ]
-"426
+"435
 } 0
 "99 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _Conteggio Conteggio `(v  1 e 1 0 ]
@@ -637,8 +641,8 @@
 [v Conteggio@index index `uc  1 p 1 5 ]
 "113
 } 0
-"380 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
+"389 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
 {
-"386
+"395
 } 0

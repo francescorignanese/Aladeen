@@ -2192,13 +2192,22 @@ void main(void)
                 for (unsigned char i = 0; i < 4; i++)
                 {
 
-                    unsigned char random = (char)rand();
-                    if (random < 255)
+                    unsigned char randomMoto = (char)rand();
+                    unsigned char randomCar = (char)rand();
+                    unsigned char randomTruck = (char)rand();
+                    if (randomMoto < 255)
                     {
-                        motorcycle[i] = random;
-                        car[i] = random;
-                        truck[i] = random;
+                        motorcycle[i] = randomMoto;
                     }
+                    if (randomCar < 255)
+                    {
+                        car[i] = randomCar;
+                    }
+                    if (randomTruck < 255)
+                    {
+                        truck[i] = randomTruck;
+                    }
+
 
                     switch (i)
                     {
