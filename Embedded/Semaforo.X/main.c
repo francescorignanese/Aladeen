@@ -161,8 +161,17 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
 
-                for (int i = 0; i < 4; i++) //Invio tutti i valori
+                for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
                 {
+                    //*Parte di debug mezzi con funzione pseudo casuale
+                    unsigned char random = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    if (random < 255)                    //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        motorcycle[i] = random; //Assegna il valore generato
+                        car[i] = random;
+                        truck[i] = random;
+                    }
+                    //* end <--
                     switch (i)
                     {
                     case 0:

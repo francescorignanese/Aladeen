@@ -2189,8 +2189,17 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
 
-                for (int i = 0; i < 4; i++)
+                for (unsigned char i = 0; i < 4; i++)
                 {
+
+                    unsigned char random = (char)rand();
+                    if (random < 255)
+                    {
+                        motorcycle[i] = random;
+                        car[i] = random;
+                        truck[i] = random;
+                    }
+
                     switch (i)
                     {
                     case 0:
