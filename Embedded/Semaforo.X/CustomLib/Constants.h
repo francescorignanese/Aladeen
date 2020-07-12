@@ -2,8 +2,4 @@
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 //numero massimo di semafori utilizzabili con il pic
-<<<<<<< HEAD
-const unsigned char n_semafori=8;
-=======
-const unsigned char n_semafori=2;
->>>>>>> 776c670e5ab1a19894496c77a144d1d906280a1b
+const unsigned char n_semafori = 2;
