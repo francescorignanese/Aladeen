@@ -20,10 +20,9 @@ client.on("ready", (err) => {
 });
 
 let corrupted = false;
-let date = (new Date(new Date().toString().split('GMT')[0]+' UTC').toISOString().split('.')[0]);
 let climate_received = false;
 let vehicle_received = false;
-let hasbeenSent = false;
+
 let trafficSent = false;
 let climateSent = false;
 
@@ -31,7 +30,6 @@ let climateSent = false;
 //-----------------------------------------------------------------------------------------------
 //RICHIESTA DATI TRAFFICO
 var sendDataRequestClimate = function() {
-	
 	let cmd_climate = [0x0A, 0x00, 0x00, 0x00, 0x00];
 	port.write(cmd_climate);
 	console.log('Sent value to Pic:', cmd_climate);
@@ -40,11 +38,9 @@ var sendDataRequestClimate = function() {
 		climateSent = true;
 	}
 	cmd_climate = [0x00, 0x00, 0x00, 0x00, 0x00];
-	
 }
 
 var sendDataRequestTraffic = function() {
-	
 	let cmd_traffic = [0x08, 0x00, 0x00, 0x00, 0x00];
 	port.write(cmd_traffic);
 	console.log('Sent value to Pic:', cmd_traffic);
@@ -53,7 +49,6 @@ var sendDataRequestTraffic = function() {
 		trafficSent = true;
 	}
 	cmd_traffic = [0x00, 0x00, 0x00, 0x00, 0x00];
-	
 }
 
 setInterval(() => {
@@ -62,39 +57,17 @@ setInterval(() => {
 		climateManagement();
 	}
 
-}, 50000);
+}, 55000);
 
 setInterval(() => {
 	sendDataRequestTraffic();
 	if(trafficSent) {
 		trafficManagement();
 	}
-}, 30000);
+}, 35000);
 
-//..............JSON OBJECTS................
 
-//Climate Sensors: temperature, humidity, pressure
-let json_climate = {
-	"description": "Data collection of the atmospheric sensors of the cross",
-	"sensor": "climate",
-	"id_cross": 1,
-	"date": new Date().toISOString().slice(0,10),
-	"time": new Date().toISOString().slice(11,19),
-	"data_climate": []
-};
-
-//Traffic Sensors: for all roads, divided in 3 categories of vehicles: car, motorcycle, trucks
-let json_traffic = {
-	"description": "Data collection of the traffic from all the roads",
-	"sensor": "traffic",
-	"id_cross": 1,
-	"date": new Date(),
-	"time": new Date(),
-	"data_carriers": []
-}
-
-function climateManagement() {
-
+function parseBytes() {
 	var byteReceive = new Promise(function(resolve, reject) { 
 		let arrayBinary = [];
 		const parser = port.pipe(new ByteLength({length: 5}));
@@ -102,24 +75,37 @@ function climateManagement() {
 			let msgSize = data.length;
 			for (let i = 0; i < msgSize; i++) {
 				let valore = parseInt(data[i], 10).toString(2);
-				//aggiungiamo gli 0 omessi perchè non significanti
 				let binary = valore.padStart(8, '0');
 				arrayBinary.push(binary);
-				//console.log(arrayBinary);
 			}
 	
 			let packets = _.chunk(arrayBinary, 5)
 			//console.log(packets);
 			//console.log('----------------------');
-	
+			
 			if(climateSent && packets.length > 2) {
 				resolve(packets);
-			}
-			
+			} else if (trafficSent && packets.length > 11) {
+				resolve(packets);
+			} 
 		});
 	});
+	return byteReceive;
+}
 
-    byteReceive.then(function(returnValue) {
+
+let json_climate;
+function climateManagement() {
+
+	//sensori atmosferici
+	json_climate = {
+		"sensor": "climate",
+		"id_cross": 1,
+		"date": new Date(),
+		"time": new Date(),
+		"data_climate": []
+	};
+    parseBytes().then(function(returnValue) {
         returnValue.forEach(pack => {
 			console.log('pack', pack);
 
@@ -177,48 +163,33 @@ function climateManagement() {
 function pushClimateOnRedis(json_weather) {
 	let json_string;
 	if (climate_received) {
+		//let json_climate = buildJSONClimate();
 		json_climate.data_climate.push(json_weather);
 		json_string = JSON.stringify(json_climate);
 		console.log(json_string);
-		client.rpush([json_climate.sensor, json_string], function (err, reply) {
-			//console.log("Queue Length", reply);
-		});
+		client.rpush([json_climate.sensor, json_string]);
 		fs.writeFileSync("climate.json", json_string);
+		climateSent = false;
 	}
 }
-
+let json_traffic;
 function trafficManagement() {
-	var byteReceive = new Promise(function(resolve, reject) { 
-		let arrayBinary = [];
-		const parser = port.pipe(new ByteLength({length: 5}));
-		parser.on('data', (data) => { 
-			let msgSize = data.length;
-			for (let i = 0; i < msgSize; i++) {
-				let valore = parseInt(data[i], 10).toString(2);
-				//aggiungiamo gli 0 omessi perchè non significanti
-				let binary = valore.padStart(8, '0');
-				arrayBinary.push(binary);
-				//console.log(arrayBinary);
-			}
-	
-			let packets = _.chunk(arrayBinary, 5)
-			//console.log(packets);
-			//console.log('----------------------');
-	
-			if (trafficSent && packets.length > 11) {
-				resolve(packets);
-			} else {
-				console.log('ERROR: Invalid format packets received from PIC');
-			}
-		});
-	});
-	byteReceive.then(function(returnValue) {
+	//JSON UNICO PER DATI TRAFFICO-SEMAFORI-STRADE
+	json_traffic = {
+		"description": "Data collection of the traffic from all the roads",
+		"sensor": "traffic",
+		"id_cross": 1,
+		"date": new Date(),
+		"time": new Date(),
+		"data_carriers": []
+	}
+	parseBytes().then(function(returnValue) {
 		let byte2_full = false;
 		let byte2_type;
 		var decimal;
 		
         returnValue.forEach(pack => {
-			console.log('pack', pack);
+			//console.log('pack', pack);
 
 			//BYTE 1
 			let byte1_id = pack[0].substring(3, 7);   //posiz. 4, 3, 2, 1 bit del byte : ID Sensore / Attuatore
@@ -284,6 +255,7 @@ function trafficManagement() {
 function pushTrafficOnRedis(vehicle, json_carrier) {
 	
 	let isPresent = false;
+	//let json_traffic = buildJSONTraffic();
 	json_traffic.data_carriers.forEach(carrier => {
 		if(carrier.id_road === json_carrier.id_road) {
 			isPresent = true;
@@ -298,7 +270,9 @@ function pushTrafficOnRedis(vehicle, json_carrier) {
 	
 	json_string = JSON.stringify(json_traffic);
 	console.log(json_traffic);
+	client.rpush([json_traffic.sensor, json_string]);
 	fs.writeFileSync("traffic.json", json_string);
+	trafficSent = false;
 }
 
 
