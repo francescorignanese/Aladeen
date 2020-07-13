@@ -8,9 +8,8 @@ typedef struct
 
 typedef struct
 {
-    unsigned char Bit :1;
+    unsigned char Bit : 1;
 } Bit;
-
 
 typedef struct
 {
