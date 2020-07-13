@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "test.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,8 +6,8 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-# 47 "main.c"
+# 1 "test.c" 2
+# 47 "test.c"
 #pragma config FOSC = HS
 #pragma config WDTE = OFF
 #pragma config PWRTE = ON
@@ -1731,7 +1731,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 56 "main.c" 2
+# 56 "test.c" 2
 
 # 1 "./CustomLib/BitsFlow.h" 1
 char bitChange(char dato, char n)
@@ -1786,7 +1786,7 @@ void bitParita(char *rx)
         rx[errorRow] = bitChange(rx[errorRow], errorColumn);
     }
 }
-# 57 "main.c" 2
+# 57 "test.c" 2
 
 # 1 "./CustomLib/Serial.h" 1
 
@@ -1839,7 +1839,7 @@ char *BuildByte(char byte0, char byte1, char valore)
 
     return txByte;
 }
-# 58 "main.c" 2
+# 58 "test.c" 2
 
 # 1 "./CustomLib/TrafficLight.h" 1
 # 1 "./CustomLib/TrafficDataTypes.h" 1
@@ -1893,7 +1893,7 @@ void UpdateTimes(_Semafori _semafori)
 
         if( (*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select )
         {
-
+            (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
         }
     }
 }
@@ -2012,8 +2012,8 @@ int map(int x, int in_min, int in_max, int out_min, int out_max)
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
-# 59 "main.c" 2
-# 98 "main.c"
+# 59 "test.c" 2
+# 98 "test.c"
 struct
 {
     unsigned int Bit : 1;
@@ -2021,18 +2021,18 @@ struct
 } readGatewayDone;
 
 Bit readGateway, secondPassed, cycled;
-unsigned char disp = 0;
+unsigned char disp=0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
-int time[2] = {0, 0};
+int time[4] = {0,0,0,0};
 unsigned char motorcycle[4];
 unsigned char car[4];
 unsigned char truck[4];
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;
 ProtocolBytes dataFromGateway;
-Semaforo s0, s1;
-Semaforo *Semafori[2] = {&s0, &s1};
+Semaforo s0, s1, s2, s3;
+Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
 Digits digits0, digits1;
 Digits *DigitsArr[2] = {&digits0, &digits1};
 unsigned char timerReadFromGateway;
@@ -2069,11 +2069,11 @@ void main(void)
 
     init_ADC();
     UART_Init(9600);
-    SetDefaultTimers(6, 4, 2, Semafori);
+    SetDefaultTimers(6,4,2, Semafori);
 
     PORTCbits.RC0 = 0;
     PORTBbits.RB7 = 0;
-    PORTCbits.RC2 = 0;
+    PORTCbits.RC3 = 0;
     PORTBbits.RB6 = 0;
     PORTCbits.RC1 = 0;
     PORTBbits.RB1 = 0;
@@ -2189,7 +2189,8 @@ void main(void)
 
         if (secondPassed.Bit && cycled.Bit)
         {
-            for (unsigned char i = 0; i < n_semafori; i++)
+            unsigned char i = 0;
+            while (i < n_semafori)
             {
                 if ((*Semafori[i]).times[0] != 0)
                 {
@@ -2212,10 +2213,15 @@ void main(void)
                         }
                     }
 
-                    luciSemaforo(i, lux_select);
-                    (*Semafori[i]).lux_select = lux_select;
+                    if(lux_select!=(*Semafori[i]).lux_select)
+                    {
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select;
+                    }
                     GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]);
                 }
+
+                i++;
             }
         }
 
@@ -2307,6 +2313,7 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
+
 void conteggioVeicoli()
 {
     RoadsSensors[0] = PORTBbits.RB3;
@@ -2337,18 +2344,18 @@ void luciSemaforo(unsigned char index, unsigned char lux)
         {
         case 0:
             PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
+            PORTCbits.RC3 = 0;
             PORTCbits.RC0 = 1;
             break;
         case 1:
             PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
+            PORTCbits.RC3 = 0;
             PORTCbits.RC1 = 1;
             break;
         case 2:
             PORTCbits.RC0 = 0;
             PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
+            PORTCbits.RC3 = 1;
             break;
         }
         break;
@@ -2376,45 +2383,47 @@ void luciSemaforo(unsigned char index, unsigned char lux)
     }
 }
 
+
 void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
 {
-    switch (display_index)
+    switch(display_index)
     {
-    case 0:
-        PORTAbits.RA2 = d1;
-        PORTAbits.RA3 = d2;
-        PORTAbits.RA4 = d3;
-        PORTBbits.RB0 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
-        PORTD = value;
-        break;
-    case 1:
-        PORTAbits.RA5 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
-        PORTBbits.RB0 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
+        case 0:
+            PORTAbits.RA2 = d1;
+            PORTAbits.RA3 = d2;
+            PORTAbits.RA4 = d3;
+            PORTBbits.RB0 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
+            PORTD = value;
+            break;
+        case 1:
+            PORTAbits.RA5 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
+            PORTBbits.RB0 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
 
-        break;
+            break;
     }
 }
 
+
 void ShowDigitsOnDisplay()
 {
-    for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
+    for(unsigned char display_index=0; display_index<n_semafori; display_index++)
     {
         switch (disp)
         {
         case 0:
-            if ((*DigitsArr[display_index]).centinaia > 0)
+            if ( (*DigitsArr[display_index]).centinaia > 0 )
             {
                 SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]);
             }
             break;
         case 1:
-            if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0)
+            if ( (*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0 )
             {
                 SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]);
             }

@@ -8,16 +8,17 @@ typedef struct
 
 typedef struct
 {
-    unsigned char Bit : 1;
+    unsigned char Bit :1;
 } Bit;
 
-/*
+
 typedef struct
 {
-    int new_times[3];
-    unsigned char id;
-} Update;
-*/
+    char centinaia;
+    char decine;
+    char unita;
+} Digits;
 
 typedef unsigned char ProtocolBytes[15];
 typedef Semaforo *_Semafori[2];
+typedef Digits *_Digits[2];
