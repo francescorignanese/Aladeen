@@ -16,7 +16,7 @@ void UpdateTimes(_Semafori _semafori)
 
         if ((*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select)
         {
-            (*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
+            //(*(_semafori)[l]).lux_select = (*(_semafori)[l]).new_lux_select;
         }
     }
 }
@@ -95,6 +95,18 @@ void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
     }
 }
 
+void GetDigits(_Digits _digits, unsigned char index, int Time)
+{
+    while (Time / 1000 > 0)
+    {
+        Time = Time / 10;
+    }
+
+    (*_digits)[index].centinaia = Time / 100;     //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le centinaia)
+    (*_digits)[index].decine = (Time % 100) / 10; //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le decine)
+    (*_digits)[index].unita = (Time % 100) % 10;  //Il tempo totale vine scomposto nelle varie parti per essere poi riportato nei display 7 segmenti (le unita)
+}
+
 //CONTEGGIO VEICOLI
 void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 {
@@ -110,4 +122,9 @@ void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char 
     {
         _truck[index] = _truck[index] + 1;
     }
+}
+
+int map(int x, int in_min, int in_max, int out_min, int out_max) //Mappare nuovamente un numero da un intervallo a un altro
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

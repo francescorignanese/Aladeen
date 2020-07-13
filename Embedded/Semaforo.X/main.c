@@ -54,12 +54,9 @@ Byte di parità per trovare l'errore
 #pragma config CP = OFF   // Flash Program Memory Code Protection bit (Code protection off)
 
 #include <xc.h>
-#include <stdlib.h>
-#include "CustomLib/Conversions.h"
 #include "CustomLib/BitsFlow.h"
 #include "CustomLib/Serial.h"
 #include "CustomLib/TrafficLight.h"
-//#include "CustomLib/Constants.h"
 
 #define _XTAL_FREQ 32000000
 
@@ -67,9 +64,20 @@ Byte di parità per trovare l'errore
 #define CHS0 3
 #define ADFM 7
 
-#define Disp1 PORTAbits.RA2 //display1 7 segmenti
-#define Disp2 PORTAbits.RA3 //display2 7 segmenti
-#define Disp3 PORTAbits.RA4 //display3 7 segmenti
+#define Disp1s0 PORTAbits.RA2 //display1 7 segmenti
+#define Disp2s0 PORTAbits.RA3 //display2 7 segmenti
+#define Disp3s0 PORTAbits.RA4 //display3 7 segmenti
+#define Disp1s1 PORTAbits.RA5 //display1 7 segmenti
+#define Disp2s1 PORTBbits.RB0 //display2 7 segmenti
+#define Disp3s1 PORTBbits.RB0 //display3 7 segmenti
+#define Disp1s2 PORTBbits.RB0 //display1 7 segmenti
+#define Disp2s2 PORTBbits.RB0 //display2 7 segmenti
+#define Disp3s2 PORTBbits.RB0 //display3 7 segmenti
+#define Disp1s3 PORTBbits.RB0 //display1 7 segmenti
+#define Disp2s3 PORTBbits.RB0 //display2 7 segmenti
+#define Disp3s3 PORTBbits.RB0 //display3 7 segmenti
+#define DISP0 PORTD           //registro display semaforo 0
+//#define DISP1 PORTF         //registro display semaforo 1
 
 //*Conteggio veicoli -->
 #define Road1 PORTBbits.RB3 //Sensore per il rivelamento dei mezzi su strada 1
@@ -81,7 +89,7 @@ Byte di parità per trovare l'errore
 //*Inizializzazione delle luci -->
 #define Red1 PORTCbits.RC0    //Rosso primo semaforo
 #define Green1 PORTCbits.RC1  //verde primo semaforo
-#define Yellow1 PORTCbits.RC3 //giallo primo semaforo (da mettere sia su pin1 che pin2)
+#define Yellow1 PORTCbits.RC2 //giallo primo semaforo (da mettere sia su pin1 che pin2)
 #define Red2 PORTBbits.RB7    //Rosso secondo semaforo
 #define Green2 PORTBbits.RB1  //verde secondo semaforo
 #define Yellow2 PORTBbits.RB6 //giallo primo semaforo (da mettere sia su pin1 che pin2)
@@ -94,21 +102,22 @@ struct
 } readGatewayDone;
 
 Bit readGateway, secondPassed, cycled;
-unsigned char unita, decine, centinaia; //varibile per scomporre il numero per il countdown e stamparlo sui display
-unsigned char disp = 0;                 //varibile per fare lo switch in loop tra i dislpay
-unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
-unsigned char count_lux = 0;            //conteggio per il tempo delle luci
-int time[4] = {0, 0, 0, 0};             //variabile per contare i secondi
-unsigned char motorcycle[4];            //variabile per contare i motocicli
-unsigned char car[4];                   //variabile per contare le macchine
-unsigned char truck[4];                 //variabile per contare i camion
+unsigned char disp = 0;      //varibile per fare lo switch in loop tra i dislpay
+unsigned int count = 0;      //variabile per il conteggio del tempo di pressione del tasto
+unsigned char count_lux = 0; //conteggio per il tempo delle luci
+int time[2] = {0, 0};        //variabile per contare i secondi
+unsigned char motorcycle[4]; //variabile per contare i motocicli
+unsigned char car[4];        //variabile per contare le macchine
+unsigned char truck[4];      //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
 ProtocolBytes dataFromGateway;          //array dati da seriale
-Semaforo s0, s1, s2, s3;                //definisco i vari semafori
-Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
+Semaforo s0, s1;                        //definisco i vari semafori
+Semaforo *Semafori[2] = {&s0, &s1};
+Digits digits0, digits1;
+Digits *DigitsArr[2] = {&digits0, &digits1};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-char temp = 0;                      //Variabile per salvare la temperatura sul pin RA0
+unsigned char temp = 0;             //Variabile per salvare la temperatura sul pin RA0
 unsigned char umidita = 0;          //Variabile per salvare l'umidita sul pin RA1
 unsigned char pressione = 0;        //Variabile per salvare la pressione sul pin RE0
 
@@ -120,7 +129,7 @@ char UART_Read();                                   //Lettura dalla seriale
 void sendByte(char byte0, char byte1, char valore); //Funzione per inviare dati in cui vengono aggiunti i bit di parità
 void conteggioVeicoli();                            //Conteggio mezzi
 void sendByte(char byte0, char byte1, char valore);
-void SetDisplay(char d1, char d2, char d3, char value);
+void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value);
 void luciSemaforo(unsigned char index, unsigned char lux);
 void ShowDigitsOnDisplay();
 
@@ -161,26 +170,8 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
 
-                for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
+                for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
-                    //*Parte di debug mezzi con funzione pseudo casuale
-                    unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomCar = (char)rand();   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomTruck = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    if (randomMoto < 255)                     //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        motorcycle[i] = randomMoto; //Assegna il valore generato
-                    }
-                    if (randomCar < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        car[i] = randomCar; //Assegna il valore generato
-                    }
-                    if (randomTruck < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        truck[i] = randomTruck; //Assegna il valore generato
-                    }
-                    //* end <--
-
                     switch (i)
                     {
                     case 0:
@@ -270,7 +261,7 @@ void main(void)
             //se il readgatewaydone non � stato richiamato dal timeout inizia la modifica dei dati
             else
             {
-                bitParita(dataFromGateway); //controllo correttezza dati
+                //bitParita(dataFromGateway); //controllo correttezza dati
                 SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
@@ -279,8 +270,7 @@ void main(void)
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit && cycled.Bit)
         {
-            unsigned char i = 0;
-            while (i < n_semafori) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
+            for (unsigned char i = 0; i < n_semafori; i++) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
             {
                 if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
                 {
@@ -303,21 +293,14 @@ void main(void)
                         }
                     }
 
-                    if (lux_select != (*Semafori[i]).lux_select)
-                    {
-                        luciSemaforo(i, lux_select);
-                        (*Semafori[i]).lux_select = lux_select; //aggiorna il valore di l�ux_select nel caso sia cambiato
-                    }
-                    //GetDigits(&centinaia, &decine, &unita, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unit� del countdown
-                    //ShowDigitsOnDisplay();
+                    luciSemaforo(i, lux_select);
+                    (*Semafori[i]).lux_select = lux_select;                              //aggiorna il valore di l�ux_select nel caso sia cambiato
+                    GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unit� del countdown
                 }
-
-                i++;
             }
-
-            GetDigits(&centinaia, &decine, &unita, (*Semafori[0]).times[(*Semafori[0]).lux_select] - time[0]); //ottiene le cifre delle centinaia, decine e unit� del countdown
-            ShowDigitsOnDisplay();
         }
+
+        ShowDigitsOnDisplay();
 
         //reset variabili
         //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
@@ -405,14 +388,6 @@ void sendByte(char byte0, char byte1, char valore)
     }
 }
 
-void SetDisplay(char d1, char d2, char d3, char value)
-{
-    Disp1 = d1;
-    Disp2 = d2;
-    Disp3 = d3;
-    PORTD = value;
-}
-
 void conteggioVeicoli()
 {
     RoadsSensors[0] = Road1;
@@ -482,25 +457,53 @@ void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il camb
     }
 }
 
+void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
+{
+    switch (display_index)
+    {
+    case 0:
+        Disp1s0 = d1;
+        Disp2s0 = d2;
+        Disp3s0 = d3;
+        Disp1s2 = d1;
+        Disp2s2 = d2;
+        Disp3s2 = d3;
+        DISP0 = value;
+        break;
+    case 1:
+        Disp1s1 = d1;
+        Disp2s1 = d2;
+        Disp3s1 = d3;
+        Disp1s3 = d1;
+        Disp2s3 = d2;
+        Disp3s3 = d3;
+        //DISP1 = value;
+        break;
+    }
+}
+
 void ShowDigitsOnDisplay() //MOSTRA TIMER SU DISPLAY
 {
-    switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
+    for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
     {
-    case 0:                //==> desplay delle centinaia, porta RA2
-        if (centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
-            SetDisplay(1, 0, 0, display[centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+        case 0:                                            //==> desplay delle centinaia, porta RA2
+            if ((*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
+            {
+                SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            }
+            break;
+        case 1:                                                                                      //==> desplay delle dedcine, porta RA3
+            if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+            {
+                SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            }
+            break;
+        case 2:                                                                             //==> desplay delle unit�, porta RA4
+            SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            break;
         }
-        break;
-    case 1:                              //==> desplay delle dedcine, porta RA3
-        if (decine > 0 || centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-        {
-            SetDisplay(0, 1, 0, display[decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-        }
-        break;
-    case 2:                                  //==> desplay delle unit�, porta RA4
-        SetDisplay(0, 0, 1, display[unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-        break;
     }
     disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
 }
