@@ -33,79 +33,120 @@ client.open(function(err) {
     }
     console.log('client opened');
 
-    // Create device Twin
-    client.getTwin(function(err, twin) {
-        if (err) {
-            console.error('error getting twin: ' + err);
-            process.exit(1);
-        }
-        // Output the current properties
-        console.log('twin contents:');
-        //console.log(twin.properties);
-        twin.on('properties.desired', function(delta) {
-            console.log('new desired properties received:');
-            //console.log(JSON.stringify(delta));
-            let json_string = JSON.stringify(twin.properties.desired.timing);
-            clientRedis.rpush(['timings', json_string]);
-            fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired.timing));
-        });
-        
-        //sendTiming(twin.properties.desired.timing);
-  });
+   
 });
 
-//ricevo la temporizzazione per le 24 ore per la coppia di semafori 
-function getDataFromRedis() {
-    var popRedis = new Promise(function(resolve, reject) { 
-        clientRedis.lpop(['timings'], function (err, reply) {
-            //console.log("Popped item", reply);
-            resolve(reply);
+let tookTime = false;
+if(!tookTime) {
+    getTimings();
+}
+function getTimings() {
+ // Create device Twin
+    var receiveTimings = new Promise(function(resolve, reject) { 
+        client.getTwin(function(err, twin) {
+            if (err) {
+                console.error('error getting twin: ' + err);
+                process.exit(1);
+            }
+            // Output the current properties
+            console.log('twin contents:');
+            console.log(twin.properties);
+            twin.on('properties.desired', function(delta) {
+                console.log('new desired properties received:');
+                let json_timings = twin.properties.desired;
+                let json_string = JSON.stringify(twin.properties.desired);
+                clientRedis.rpush(['timings', json_string]);
+                fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired));
+                resolve(json_timings);
+            });
+            
+            //sendTiming(twin.properties.desired.timing);
         });
     });
-    return popRedis;
+    tookTime = true;
+    return receiveTimings;
 }
 
 
+
+
 function parseTimings() {
-    getDataFromRedis().then(function(returnedValue) {
-        console.log('array', returnedValue);
+        let reply = require('./temps.json');
+        //console.log(reply);
+        
+        //let JSON_received = JSON.parse(reply[0]);
+        let arrayTimings = reply.timing;
+        
+        let hour = new Date().toISOString().slice(11, 13);
+        let firstCouple = arrayTimings.shift();
+        let secondCouple = arrayTimings.shift();
+        
+        let couples = [firstCouple, secondCouple];
+
+        couples.forEach(couple => {
+            if(couple.semafores_couples === 0) {
+                //l'id del semaforo sarà 2: 
+                //verde: 01100101
+                //giallo: 01000101
+                //rosso: 00100101
+                let yellowTemp = 5;
+                let redTemp = 5 + couple.value;
+                let greenValue = parseInt(`0x${Number(couple.value).toString(16)}`);
+                let yellowValue = parseInt(`0x${Number(yellowTemp).toString(16)}`);
+                console.log(greenValue, yellowValue);
+                let redValue = redTemp.toString(16);
+                
+                let greenId = 0x65;
+                console.log(greenId);
+                let yellowId = 0x45;
+                let redId = 0x25;
+                let bit_parità = 0x00; //DA CALCOLARE:... 
+
+                let greenPack = [greenId, 0x00, greenValue, 0x00, bit_parità];
+                let yellowPack = [yellowId, 0x00, yellowValue, 0x00, bit_parità];
+                let redPack = [redId, 0x00, redValue, 0x00, bit_parità];
+                //let megaPack = [greenId, 0x00, greenValue, 0x00, bit_parità, yellowId, 0x00, yellowValue, 0x00, bit_parità, redId, 0x00, redValue, 0x00, bit_parità];
+                let megaPack = [0x20,0x00,greenValue,0x00,0x00, 0x40,0x00,0x0A,0x00,0x00, 0x60,0x00,0x0A,0x00,0x00];
+                //primo rosso - 15 sec, verde - 10 sec, giallo -5 sec
+                console.log('prova', megaPack);
+                port.write(megaPack);
+                let megaPack2 = [0x22,0x00,greenValue,0x00,0xA5, 0x42,0x00,0x0A,0x00,0xC5, 0x62,0x00,0x05,0x00,0x65];
+                port.write(megaPack2);
+                console.log('pacchetti inviati');
+            } else if (couple.semafores_couples === 1) {
+                //l'id del semaforo sarà 1 o 3
+            }
+        });
+        
+    
+
+       // console.log(arrayTimings);
         //let firstTime = returnedValue.shift();
         //1 - semaforo 1 a rosso: 00100011
         //2 - vuoto
         // 3 e 4 - 00000000 00001111 15 secondi
         // 5 - 00000000
-        /*let packetGreen = [11100011, 00000000, 00001111, 00000000, 11101100];
+        /*let packetGreen = [01100011, 00000000, 00001111, 00000000, 01101100];
         let packetYellow = [11000011, 00000000, 00000101, 00000000, 11000110];
-        let packetRed = [10100011, 00000000, 00011110, 00000000, 10111111];*/
+        let packetRed = [10100011, 00000000, 00011110, 00000000, 00111111];*/
 
-        let packetGreen = [0xE3, 0x00, 0x0F, 0x00, 0xEC];
+        /*let packetGreen = [0x63, 0x00, 0x0F, 0x00, 0x6C];
         let packetYellow = [0xC3, 0x00, 0x05, 0x00, 0xC6];
-        let packetRed = [0xA3, 0x00, 0x1E, 0x00, 0xBF];
+        let packetRed = [0xA3, 0x00, 0x1E, 0x00, 0x3F];
 
         port.write(packetGreen);
         console.log('mandato pacco verde');
         port.write(packetYellow);
         console.log('mandato pacco giallo');
         port.write(packetRed);
-        console.log('mandato pacco rosso');
+        console.log('mandato pacco rosso');*/
 
-    });
+    
    
 }
 
-parseTimings();
 
-// per tutte le ore vado a prendermi i valori e li parso in HEX 
-
-// li invio al pic
-
-
-function sendTiming(timings) {
-    let data = timings;
-    //console.log(data);
-
-
-    /*let cmd = [0x08, 0x00, 0x00, 0x00, 0x00];
-    port.write(cmd);
-    console.log('Sent value to Pic:', cmd);*/
-}
+setInterval(() => {
+	parseTimings();
+	
+}, 5000);
