@@ -260,82 +260,81 @@ void main(void)
                 }
                 break;
             }
+        }
 
-            //cose da fare terminata la lettura dalla seriale
-            if (readGatewayDone.Bit)
+        //cose da fare terminata la lettura dalla seriale
+        if (readGatewayDone.Bit)
+        {
+            //resetta le variabili per la lettura
+            readGateway.Bit = 0;
+            dataFromGatewayIndex = 0;
+            readGatewayDone.Bit = 0;
+            timerReadFromGateway = 0;
+
+            //se c'� stato un timeout resetta la lettura del timeout
+            if (readGatewayDone.Timeout)
             {
-                //resetta le variabili per la lettura
-                readGateway.Bit = 0;
-                dataFromGatewayIndex = 0;
-                readGatewayDone.Bit = 0;
-                timerReadFromGateway = 0;
-
-                //se c'� stato un timeout resetta la lettura del timeout
-                if (readGatewayDone.Timeout)
-                {
-                    readGatewayDone.Timeout = 0;
-                }
-                //se il readgatewaydone non � stato richiamato dal timeout inizia la modifica dei dati
-                else
-                {
-                    //bitParita(dataFromGateway); //controllo correttezza dati
-                    SetReceivedTimes(dataFromGateway, Semafori);
-                }
+                readGatewayDone.Timeout = 0;
             }
-
-            //ACCENSIONE LED IN BASE AL TEMPO
-            //Cambiamento del timer ed eventuale cambio luci ogni secondo
-            if (secondPassed.Bit && cycled.Bit)
+            //se il readgatewaydone non � stato richiamato dal timeout inizia la modifica dei dati
+            else
             {
-                for (unsigned char i = 0; i < n_semafori; i++) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
-                {
-                    if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
-                    {
-                        time[i]++; //incrementa il timer per il calcolo del countdown
-                        unsigned char lux_select = (*Semafori[i]).lux_select;
-
-                        if ((*Semafori[i]).times[lux_select] - time[i] < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
-                        {
-                            lux_select++; //...si incrementa il contatore delle luci...
-                            time[i] = 1;  //...si resetta il timer
-
-                            if (lux_select >= 3) //Se il contatore delle luci � arrivato a 3, ovvero � finito il giallo...
-                            {
-                                lux_select = 0; //...resetta il contatore delle luci, tornando al rosso...
-
-                                if (i == 0) //...e se il ciclo terminato � quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
-                                {
-                                    UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
-                                }
-                            }
-                        }
-
-                        luciSemaforo(i, lux_select);
-                        (*Semafori[i]).lux_select = lux_select;                              //aggiorna il valore di l�ux_select nel caso sia cambiato
-                        GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unit� del countdown
-                    }
-                }
-            }
-
-            ShowDigitsOnDisplay();
-
-            //reset variabili
-            //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
-            //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
-            //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
-            if (secondPassed.Bit && cycled.Bit)
-            {
-                secondPassed.Bit = 0;
-                cycled.Bit = 0;
-            }
-            if (secondPassed.Bit && !cycled.Bit)
-            {
-                cycled.Bit = 1;
+                //bitParita(dataFromGateway); //controllo correttezza dati
+                SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
 
-        return;
+        //ACCENSIONE LED IN BASE AL TEMPO
+        //Cambiamento del timer ed eventuale cambio luci ogni secondo
+        if (secondPassed.Bit && cycled.Bit)
+        {
+            for (unsigned char i = 0; i < n_semafori; i++) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
+            {
+                if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
+                {
+                    time[i]++; //incrementa il timer per il calcolo del countdown
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
+
+                    if ((*Semafori[i]).times[lux_select] - time[i] < 0) //se il timer ha raggiunto il tempo della luce, quindi il countdown � terminato...
+                    {
+                        lux_select++; //...si incrementa il contatore delle luci...
+                        time[i] = 1;  //...si resetta il timer
+
+                        if (lux_select >= 3) //Se il contatore delle luci � arrivato a 3, ovvero � finito il giallo...
+                        {
+                            lux_select = 0; //...resetta il contatore delle luci, tornando al rosso...
+
+                            if (i == 0) //...e se il ciclo terminato � quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
+                            {
+                                UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
+                            }
+                        }
+                    }
+
+                    luciSemaforo(i, lux_select);
+                    (*Semafori[i]).lux_select = lux_select;                              //aggiorna il valore di l�ux_select nel caso sia cambiato
+                    GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]); //ottiene le cifre delle centinaia, decine e unit� del countdown
+                }
+            }
+        }
+
+        ShowDigitsOnDisplay();
+
+        //reset variabili
+        //Se � passato un secondo viene impostata a 1 la variabile "cycled" e il timer viene resettato solo al ciclo successivo, quando il codice entra in questo if.
+        //in questo modo anche se l'interrupt imposta a 1 secondPassed dopo che il codice ha oltrepassato la parte di codice che attende
+        //il timer, verr� effettuato un ciclo prima di resettare il timer cos� da assicurare che quelle porzioni di codice rilevino secondPassed
+        if (secondPassed.Bit && cycled.Bit)
+        {
+            secondPassed.Bit = 0;
+            cycled.Bit = 0;
+        }
+        if (secondPassed.Bit && !cycled.Bit)
+        {
+            cycled.Bit = 1;
+        }
     }
+    return;
 }
 //inizializzo ADC (potenziometro)
 void init_ADC()

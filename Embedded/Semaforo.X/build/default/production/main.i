@@ -2171,82 +2171,81 @@ void main(void)
                 }
                 break;
             }
+        }
 
 
-            if (readGatewayDone.Bit)
+        if (readGatewayDone.Bit)
+        {
+
+            readGateway.Bit = 0;
+            dataFromGatewayIndex = 0;
+            readGatewayDone.Bit = 0;
+            timerReadFromGateway = 0;
+
+
+            if (readGatewayDone.Timeout)
             {
-
-                readGateway.Bit = 0;
-                dataFromGatewayIndex = 0;
-                readGatewayDone.Bit = 0;
-                timerReadFromGateway = 0;
-
-
-                if (readGatewayDone.Timeout)
-                {
-                    readGatewayDone.Timeout = 0;
-                }
-
-                else
-                {
-
-                    SetReceivedTimes(dataFromGateway, Semafori);
-                }
+                readGatewayDone.Timeout = 0;
             }
 
-
-
-            if (secondPassed.Bit && cycled.Bit)
+            else
             {
-                for (unsigned char i = 0; i < n_semafori; i++)
-                {
-                    if ((*Semafori[i]).times[0] != 0)
-                    {
-                        time[i]++;
-                        unsigned char lux_select = (*Semafori[i]).lux_select;
 
-                        if ((*Semafori[i]).times[lux_select] - time[i] < 0)
-                        {
-                            lux_select++;
-                            time[i] = 1;
-
-                            if (lux_select >= 3)
-                            {
-                                lux_select = 0;
-
-                                if (i == 0)
-                                {
-                                    UpdateTimes(Semafori);
-                                }
-                            }
-                        }
-
-                        luciSemaforo(i, lux_select);
-                        (*Semafori[i]).lux_select = lux_select;
-                        GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]);
-                    }
-                }
-            }
-
-            ShowDigitsOnDisplay();
-
-
-
-
-
-            if (secondPassed.Bit && cycled.Bit)
-            {
-                secondPassed.Bit = 0;
-                cycled.Bit = 0;
-            }
-            if (secondPassed.Bit && !cycled.Bit)
-            {
-                cycled.Bit = 1;
+                SetReceivedTimes(dataFromGateway, Semafori);
             }
         }
 
-        return;
+
+
+        if (secondPassed.Bit && cycled.Bit)
+        {
+            for (unsigned char i = 0; i < n_semafori; i++)
+            {
+                if ((*Semafori[i]).times[0] != 0)
+                {
+                    time[i]++;
+                    unsigned char lux_select = (*Semafori[i]).lux_select;
+
+                    if ((*Semafori[i]).times[lux_select] - time[i] < 0)
+                    {
+                        lux_select++;
+                        time[i] = 1;
+
+                        if (lux_select >= 3)
+                        {
+                            lux_select = 0;
+
+                            if (i == 0)
+                            {
+                                UpdateTimes(Semafori);
+                            }
+                        }
+                    }
+
+                    luciSemaforo(i, lux_select);
+                    (*Semafori[i]).lux_select = lux_select;
+                    GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]);
+                }
+            }
+        }
+
+        ShowDigitsOnDisplay();
+
+
+
+
+
+        if (secondPassed.Bit && cycled.Bit)
+        {
+            secondPassed.Bit = 0;
+            cycled.Bit = 0;
+        }
+        if (secondPassed.Bit && !cycled.Bit)
+        {
+            cycled.Bit = 1;
+        }
     }
+    return;
 }
 
 void init_ADC()
