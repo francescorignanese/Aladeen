@@ -108,7 +108,7 @@ ProtocolBytes dataFromGateway;          //array dati da seriale
 Semaforo s0, s1, s2, s3;                //definisco i vari semafori
 Semaforo *Semafori[4] = {&s0, &s1, &s2, &s3};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-unsigned char temp = 0;             //Variabile per salvare la temperatura sul pin RA0
+char temp = 0;                      //Variabile per salvare la temperatura sul pin RA0
 unsigned char umidita = 0;          //Variabile per salvare l'umidita sul pin RA1
 unsigned char pressione = 0;        //Variabile per salvare la pressione sul pin RE0
 
