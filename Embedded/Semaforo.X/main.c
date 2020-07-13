@@ -336,235 +336,235 @@ void main(void)
 
         return;
     }
+}
+//inizializzo ADC (potenziometro)
+void init_ADC()
+{
+    TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
+    ADCON0 = 0x00;  // setto ADCON0 00000000
+    ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
+    __delay_us(10); //delay condensatore 10us
+}
 
-    //inizializzo ADC (potenziometro)
-    void init_ADC()
+//leggo il valore del potenziometro
+int ADC_Read(char canale)
+{
+    ADCON0 = (1 << ADON) | (canale << CHS0);
+    __delay_us(2); //attendo 1.6 uS
+    GO_nDONE = 1;  // avvio la conversione ADGO GO
+    while (GO_nDONE)
+        ;                          //attendo la fine della conversione
+    return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
+}
+
+void UART_Init(int baudrate)
+{
+    TRISCbits.TRISC6 = 0; //TRISC= 0x80;   //10000000
+    TXSTAbits.TXEN = 1;   //TXSTA= 0x20;   //00100000
+    RCSTAbits.SPEN = 1;   //RCSTA= 0x90;   //10010000
+    RCSTAbits.CREN = 1;   //RCSTA= 0x90;   //10010000
+    SPBRG = (_XTAL_FREQ / (long)(64UL * baudrate)) - 1;
+    INTCONbits.GIE = 1;  //abilito global interrupt
+    INTCONbits.PEIE = 1; //peripherial interrupt
+    PIE1bits.RCIE = 1;   //uart rx interrupt
+}
+
+void UART_TxChar(char ch)
+{
+    while (!TXIF)
+        ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
+    TXIF = 0; //lo resetto
+    TXREG = ch;
+}
+
+void UART_Write_Text(char *text)
+{
+    unsigned char i;
+    for (i = 0; text[i] != '\0'; i++)
     {
-        TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
-        ADCON0 = 0x00;  // setto ADCON0 00000000
-        ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
-        __delay_us(10); //delay condensatore 10us
+        UART_TxChar(text[i]);
     }
+}
 
-    //leggo il valore del potenziometro
-    int ADC_Read(char canale)
+char UART_Read()
+{
+    while (!RCIF)
+        ;
+    RCIF = 0;
+    return RCREG;
+}
+
+void sendByte(char byte0, char byte1, char valore)
+{
+    char *txByte;
+    txByte = BuildByte(byte0, byte1, valore);
+
+    for (unsigned char i = 0; i < 5; i++)
     {
-        ADCON0 = (1 << ADON) | (canale << CHS0);
-        __delay_us(2); //attendo 1.6 uS
-        GO_nDONE = 1;  // avvio la conversione ADGO GO
-        while (GO_nDONE)
-            ;                          //attendo la fine della conversione
-        return ADRESL + (ADRESH << 8); // preparo il dato (valore = ADRESL + (ADREAH << 8)
+        UART_TxChar(*(txByte++)); //Invia un byte per volta
     }
+}
 
-    void UART_Init(int baudrate)
-    {
-        TRISCbits.TRISC6 = 0; //TRISC= 0x80;   //10000000
-        TXSTAbits.TXEN = 1;   //TXSTA= 0x20;   //00100000
-        RCSTAbits.SPEN = 1;   //RCSTA= 0x90;   //10010000
-        RCSTAbits.CREN = 1;   //RCSTA= 0x90;   //10010000
-        SPBRG = (_XTAL_FREQ / (long)(64UL * baudrate)) - 1;
-        INTCONbits.GIE = 1;  //abilito global interrupt
-        INTCONbits.PEIE = 1; //peripherial interrupt
-        PIE1bits.RCIE = 1;   //uart rx interrupt
-    }
+void conteggioVeicoli()
+{
+    RoadsSensors[0] = Road1;
+    RoadsSensors[1] = Road2;
+    RoadsSensors[2] = Road3;
+    RoadsSensors[3] = Road4;
 
-    void UART_TxChar(char ch)
+    for (unsigned char i = 0; i < 4; i++)
     {
-        while (!TXIF)
-            ;     //se TXIF ? a 0 la trasmissione ? ancora in corso
-        TXIF = 0; //lo resetto
-        TXREG = ch;
-    }
-
-    void UART_Write_Text(char *text)
-    {
-        unsigned char i;
-        for (i = 0; text[i] != '\0'; i++)
+        if (!RoadsSensors[i]) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
         {
-            UART_TxChar(text[i]);
+            count++;
+        }
+        else if (RoadsSensors[i]) //al rilascio controlla e incrementa il mezzo che è passato
+        {
+            Conteggio(count, motorcycle, car, truck, i);
+            count = 0;
         }
     }
+}
 
-    char UART_Read()
+void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il cambio delle luci per la rappresentazione sui led rgb
+{
+    switch (index)
     {
-        while (!RCIF)
-            ;
-        RCIF = 0;
-        return RCREG;
-    }
-
-    void sendByte(char byte0, char byte1, char valore)
-    {
-        char *txByte;
-        txByte = BuildByte(byte0, byte1, valore);
-
-        for (unsigned char i = 0; i < 5; i++)
+    case 0: //Parte del primo semaforo (ID di esso)
+        switch (lux)
         {
-            UART_TxChar(*(txByte++)); //Invia un byte per volta
-        }
-    }
-
-    void conteggioVeicoli()
-    {
-        RoadsSensors[0] = Road1;
-        RoadsSensors[1] = Road2;
-        RoadsSensors[2] = Road3;
-        RoadsSensors[3] = Road4;
-
-        for (unsigned char i = 0; i < 4; i++)
-        {
-            if (!RoadsSensors[i]) //controllo pressione del tasto per il verificare se sia un motociclo macchina o un camion
-            {
-                count++;
-            }
-            else if (RoadsSensors[i]) //al rilascio controlla e incrementa il mezzo che è passato
-            {
-                Conteggio(count, motorcycle, car, truck, i);
-                count = 0;
-            }
-        }
-    }
-
-    void luciSemaforo(unsigned char index, unsigned char lux) //Funzione per il cambio delle luci per la rappresentazione sui led rgb
-    {
-        switch (index)
-        {
-        case 0: //Parte del primo semaforo (ID di esso)
-            switch (lux)
-            {
-            case 0: //Accende luce rossa
-                Green1 = 0;
-                Yellow1 = 0;
-                Red1 = 1;
-                break;
-            case 1: //Accende luce verde
-                Red1 = 0;
-                Yellow1 = 0;
-                Green1 = 1;
-                break;
-            case 2: //Accende luce gialla
-                Red1 = 0;
-                Green1 = 0;
-                Yellow1 = 1;
-                break;
-            }
+        case 0: //Accende luce rossa
+            Green1 = 0;
+            Yellow1 = 0;
+            Red1 = 1;
             break;
-
-        case 1: //Parte del secondo semaforo (ID di esso)
-            switch (lux)
-            {
-            case 0: //Accende luce rossa
-                Green2 = 0;
-                Yellow2 = 0;
-                Red2 = 1;
-                break;
-            case 1: //Accende luce verde
-                Red2 = 0;
-                Yellow2 = 0;
-                Green2 = 1;
-                break;
-            case 2: //Accende luce gialla
-                Red2 = 0;
-                Green2 = 0;
-                Yellow2 = 1;
-                break;
-            }
+        case 1: //Accende luce verde
+            Red1 = 0;
+            Yellow1 = 0;
+            Green1 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red1 = 0;
+            Green1 = 0;
+            Yellow1 = 1;
             break;
         }
-    }
+        break;
 
-    void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
-    {
-        switch (display_index)
+    case 1: //Parte del secondo semaforo (ID di esso)
+        switch (lux)
         {
-        case 0:
-            Disp1s0 = d1;
-            Disp2s0 = d2;
-            Disp3s0 = d3;
-            Disp1s2 = d1;
-            Disp2s2 = d2;
-            Disp3s2 = d3;
-            DISP0 = value;
+        case 0: //Accende luce rossa
+            Green2 = 0;
+            Yellow2 = 0;
+            Red2 = 1;
             break;
-        case 1:
-            Disp1s1 = d1;
-            Disp2s1 = d2;
-            Disp3s1 = d3;
-            Disp1s3 = d1;
-            Disp2s3 = d2;
-            Disp3s3 = d3;
-            //DISP1 = value;
+        case 1: //Accende luce verde
+            Red2 = 0;
+            Yellow2 = 0;
+            Green2 = 1;
+            break;
+        case 2: //Accende luce gialla
+            Red2 = 0;
+            Green2 = 0;
+            Yellow2 = 1;
             break;
         }
+        break;
     }
+}
 
-    void ShowDigitsOnDisplay() //MOSTRA TIMER SU DISPLAY
+void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
+{
+    switch (display_index)
     {
-        for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
-        {
-            switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
-            {
-            case 0:                                            //==> desplay delle centinaia, porta RA2
-                if ((*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
-                {
-                    SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                break;
-            case 1:                                                                                      //==> desplay delle dedcine, porta RA3
-                if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
-                {
-                    SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                }
-                break;
-            case 2:                                                                             //==> desplay delle unit�, porta RA4
-                SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
-                break;
-            }
-        }
-        disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
+    case 0:
+        Disp1s0 = d1;
+        Disp2s0 = d2;
+        Disp3s0 = d3;
+        Disp1s2 = d1;
+        Disp2s2 = d2;
+        Disp3s2 = d3;
+        DISP0 = value;
+        break;
+    case 1:
+        Disp1s1 = d1;
+        Disp2s1 = d2;
+        Disp3s1 = d3;
+        Disp1s3 = d1;
+        Disp2s3 = d2;
+        Disp3s3 = d3;
+        //DISP1 = value;
+        break;
     }
+}
 
-    void __interrupt() ISR()
+void ShowDigitsOnDisplay() //MOSTRA TIMER SU DISPLAY
+{
+    for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
     {
-        //RICEVE DATI DA SERIALE
-        if (RCIF && readGateway.Bit == 0)
+        switch (disp) //fa lo scambio tra i display partendo dalle unita per arrivare alle centinaia per poi ricominciare
         {
-            readGateway.Bit = 1;
-            readGatewayDone.Bit = 0;
-            readGatewayDone.Timeout = 0;
-            dataFromGatewayIndex = 0;
-            timerReadFromGateway = 0;
-        }
-        if (RCIF && readGateway.Bit == 1)
-        {
-            dataFromGateway[dataFromGatewayIndex] = UART_Read();
-            dataFromGatewayIndex++;
-            timerReadFromGateway = 0;
-        }
-
-        //TIMERS
-        //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
-        if (TMR0IF) //timer0 "TMR0IF"
-        {
-            TMR0IF = 0; //resetto timer0
-            conteggioVeicoli();
-            TMR0 = 6;
-        }
-        //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
-        if (TMR1IF) //timer1 "TMR1IF", CHIAMATO OGNI: 50ms
-        {
-            TMR1IF = 0; //resetto timer1
-            count_lux++;
-
-            if (count_lux >= 20) //conteggio per arrivare ad un secondo
+        case 0:                                            //==> desplay delle centinaia, porta RA2
+            if ((*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle centinaia solo se � consistente (maggiore di 0)
             {
-                secondPassed.Bit = 1;
-                count_lux = 0;
-                timerReadFromGateway++;
+                SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
             }
-
-            TMR1H = 60;  // preset for timer1 MSB register
-            TMR1L = 176; // preset for timer1 LSB register
+            break;
+        case 1:                                                                                      //==> desplay delle dedcine, porta RA3
+            if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0) //mostra la cifra delle decine e delle centinaia solo se sono consistenti (maggiore di 0), si considerano anche le centinaia per numeri come 102, in cui le decine non sono consistenti ma le centinaia si
+            {
+                SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            }
+            break;
+        case 2:                                                                             //==> desplay delle unit�, porta RA4
+            SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]); //Scrive su "PORTD" i pin che andranno a 1 per far vedere il numero che è presente nel array "display[*n]"
+            break;
         }
     }
+    disp = (disp + 1) % 3; //disp viene incrementato e ha valori tra 0 e 2
+}
+
+void __interrupt() ISR()
+{
+    //RICEVE DATI DA SERIALE
+    if (RCIF && readGateway.Bit == 0)
+    {
+        readGateway.Bit = 1;
+        readGatewayDone.Bit = 0;
+        readGatewayDone.Timeout = 0;
+        dataFromGatewayIndex = 0;
+        timerReadFromGateway = 0;
+    }
+    if (RCIF && readGateway.Bit == 1)
+    {
+        dataFromGateway[dataFromGatewayIndex] = UART_Read();
+        dataFromGatewayIndex++;
+        timerReadFromGateway = 0;
+    }
+
+    //TIMERS
+    //se timer0 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (TMR0IF) //timer0 "TMR0IF"
+    {
+        TMR0IF = 0; //resetto timer0
+        conteggioVeicoli();
+        TMR0 = 6;
+    }
+    //se timer1 finisce di contare attiva l'interrupt ed esegue questo codice
+    if (TMR1IF) //timer1 "TMR1IF", CHIAMATO OGNI: 50ms
+    {
+        TMR1IF = 0; //resetto timer1
+        count_lux++;
+
+        if (count_lux >= 20) //conteggio per arrivare ad un secondo
+        {
+            secondPassed.Bit = 1;
+            count_lux = 0;
+            timerReadFromGateway++;
+        }
+
+        TMR1H = 60;  // preset for timer1 MSB register
+        TMR1L = 176; // preset for timer1 LSB register
+    }
+}
