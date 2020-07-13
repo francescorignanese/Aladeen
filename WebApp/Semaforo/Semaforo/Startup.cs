@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Semaforo.Hubs;
 
+
 namespace Semaforo
 {
     
@@ -23,11 +24,12 @@ namespace Semaforo
             public void ConfigureServices(IServiceCollection services)
             {
                 services.AddRazorPages();
-                services.AddSignalR();
-        }
+                services.AddSignalR().AddAzureSignalR();
 
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
             {
                 if (env.IsDevelopment())
                 {
@@ -36,7 +38,7 @@ namespace Semaforo
                 else
                 {
                     app.UseExceptionHandler("/Error");
-                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                   
                     app.UseHsts();
                 }
 
@@ -50,7 +52,7 @@ namespace Semaforo
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapRazorPages();
-                    endpoints.MapHub<SenHub>("/senHub");
+                    endpoints.MapHub<SenHub>("/smartcross");
                 });
             }
         }

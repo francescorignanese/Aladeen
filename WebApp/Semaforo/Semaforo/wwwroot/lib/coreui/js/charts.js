@@ -12,11 +12,11 @@
 /* eslint-disable no-magic-numbers */
 // random Numbers
 var random = function random() {
-  return Math.round(Math.random() * 100);
+  return Math.round(Math.random() * 250);
 }; // eslint-disable-next-line no-unused-vars
 
-
-var lineChart = new Chart($('#canvas-1'), {
+var ctxL = document.getElementById("canvas-1").getContext('2d');
+var lineChart = new Chart(ctxL, {
   type: 'line',
   data: {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Semaforo
+namespace Semaforo.Pages
 {
     public class IndexModel : PageModel
     {
@@ -9,5 +9,6 @@ namespace Semaforo
         {
             return new RedirectResult("/Startseite");
         }
+
     }
 }

@@ -3,4 +3,6 @@ C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\bin\Debug\netstandard2.0\
 C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\obj\Debug\netstandard2.0\Data.csprojAssemblyReference.cache
 C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\obj\Debug\netstandard2.0\Data.AssemblyInfoInputs.cache
 C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\obj\Debug\netstandard2.0\Data.AssemblyInfo.cs
-C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\bin\Debug\netstandard2.0\Models.dll
+C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\bin\Debug\netstandard2.0\Data.pdb
+C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\obj\Debug\netstandard2.0\Data.dll
+C:\Users\Mach2\Desktop\PW\Aladeen\WebApp\Semaforo\Data\obj\Debug\netstandard2.0\Data.pdb

@@ -12,6 +12,8 @@ namespace Semaforo
 {
     public class Incrocio1Model : PageModel
     {
+       
+        /*
         private readonly IDati _dati;
 
         public IEnumerable<DataSem> GetDati { get; set; }
@@ -33,5 +35,6 @@ namespace Semaforo
 
             return Page();
         }
+        */
     }
 }

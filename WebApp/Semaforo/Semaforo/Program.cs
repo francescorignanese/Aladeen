@@ -7,9 +7,9 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Semaforo;
 
-namespace CoreUI_Free_Bootstrap_Admin
+
+namespace Semaforo
 {
     public class Program
     {
