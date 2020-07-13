@@ -1,5 +1,5 @@
-build/default/production/main.p1:  \
-main.c  \
+build/default/production/test.p1:  \
+test.c  \
 CustomLib/BitsFlow.h  \
 CustomLib/Serial.h  \
 CustomLib/TrafficLight.h  \
