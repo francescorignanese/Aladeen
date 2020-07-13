@@ -310,6 +310,9 @@ void main(void)
                                 
                                 time[0]=1;
                                 time[1]=1;
+                                
+                                (*Semafori[0]).lux_select = 0;
+                                (*Semafori[1]).lux_select = 1;
                             }
                         }
                     }
