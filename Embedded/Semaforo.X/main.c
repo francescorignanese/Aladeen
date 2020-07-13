@@ -307,6 +307,9 @@ void main(void)
                             if (i == 0) //...e se il ciclo terminato � quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
                             {
                                 UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
+                                
+                                time[0]=1;
+                                time[1]=1;
                             }
                         }
                     }

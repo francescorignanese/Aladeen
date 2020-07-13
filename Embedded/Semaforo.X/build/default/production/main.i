@@ -2218,6 +2218,9 @@ void main(void)
                             if (i == 0)
                             {
                                 UpdateTimes(Semafori);
+
+                                time[0]=1;
+                                time[1]=1;
                             }
                         }
                     }
