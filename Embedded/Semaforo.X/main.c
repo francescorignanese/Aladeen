@@ -170,7 +170,7 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
 
-                for (int i = 0; i < 4; i++) //Invio tutti i valori
+                for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
                 {
                     //*Parte di debug mezzi con funzione pseudo casuale
                     unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
