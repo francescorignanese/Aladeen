@@ -1853,9 +1853,8 @@ typedef struct
 
 typedef struct
 {
-    unsigned char Bit :1;
+    unsigned char Bit : 1;
 } Bit;
-
 
 typedef struct
 {
@@ -1874,7 +1873,7 @@ typedef Digits *_Digits[2];
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 
-const unsigned char n_semafori=2;
+const unsigned char n_semafori = 2;
 # 2 "./CustomLib/TrafficLight.h" 2
 
 
@@ -1883,15 +1882,15 @@ void UpdateTimes(_Semafori _semafori)
 
     for (unsigned char l = 0; l < n_semafori; l++)
     {
-        for(unsigned char i = 0; i < 3; i++)
+        for (unsigned char i = 0; i < 3; i++)
         {
-            if( (*(_semafori)[l]).times[i] != (*(_semafori)[l]).new_times[i] )
+            if ((*(_semafori)[l]).times[i] != (*(_semafori)[l]).new_times[i])
             {
                 (*(_semafori)[l]).times[i] = (*(_semafori)[l]).new_times[i];
             }
         }
 
-        if( (*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select )
+        if ((*(_semafori)[l]).lux_select != (*(_semafori)[l]).new_lux_select)
         {
 
         }
@@ -1905,11 +1904,10 @@ void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
     do
     {
         *_n_semafori = ((*_n_semafori) + 1);
-    }while( (*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori<10);
+    } while ((*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori < 10);
 
-    *_n_semafori=(*_n_semafori)%10;
+    *_n_semafori = (*_n_semafori) % 10;
 }
-
 
 
 int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
@@ -1929,7 +1927,6 @@ int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 
     return tmp;
 }
-
 
 
 void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
@@ -1962,8 +1959,6 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
     (*(_semafori)[1]).new_lux_select = 1;
 }
 
-
-
 void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 {
     for (unsigned char i = 0; i < 3; i++)
@@ -1972,16 +1967,15 @@ void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
         unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
         unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
 
-        (*(_semafori)[semaforoId]).new_times[colorId]=GetTime(index, _dataFromGateway);
+        (*(_semafori)[semaforoId]).new_times[colorId] = GetTime(index, _dataFromGateway);
     }
 }
 
-
 void GetDigits(_Digits _digits, unsigned char index, int Time)
 {
-    while(Time/1000>0)
+    while (Time / 1000 > 0)
     {
-        Time=Time/10;
+        Time = Time / 10;
     }
 
     (*_digits)[index].centinaia = Time / 100;
@@ -1990,23 +1984,21 @@ void GetDigits(_Digits _digits, unsigned char index, int Time)
 }
 
 
-
 void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 {
     if (_count >= 500)
     {
-        _motorcycle[index]=_motorcycle[index]+1;
+        _motorcycle[index] = _motorcycle[index] + 1;
     }
     if (_count >= 1500)
     {
-        _car[index]=_car[index]+1;
+        _car[index] = _car[index] + 1;
     }
     if (_count >= 3000)
     {
-        _truck[index]=_truck[index]+1;
+        _truck[index] = _truck[index] + 1;
     }
 }
-
 
 int map(int x, int in_min, int in_max, int out_min, int out_max)
 {
@@ -2036,7 +2028,7 @@ Semaforo *Semafori[2] = {&s0, &s1};
 Digits digits0, digits1;
 Digits *DigitsArr[2] = {&digits0, &digits1};
 unsigned char timerReadFromGateway;
-unsigned char temp = 0;
+char temp = 0;
 unsigned char umidita = 0;
 unsigned char pressione = 0;
 
@@ -2091,382 +2083,401 @@ void main(void)
 
                 for (int i = 0; i < 4; i++)
                 {
-                    switch (i)
+                    for (unsigned char i = 0; i < 4; i++)
                     {
-                    case 0:
-                        sendByte(0x03, 0x01, motorcycle[i]);
-                        sendByte(0x03, 0x02, car[i]);
-                        sendByte(0x03, 0x03, truck[i]);
-                        break;
-                    case 1:
-                        sendByte(0x05, 0x01, motorcycle[i]);
-                        sendByte(0x05, 0x02, car[i]);
-                        sendByte(0x05, 0x03, truck[i]);
-                        break;
-                    case 2:
-                        sendByte(0x07, 0x01, motorcycle[i]);
-                        sendByte(0x07, 0x02, car[i]);
-                        sendByte(0x07, 0x03, truck[i]);
-                        break;
-                    case 3:
-                        sendByte(0x09, 0x01, motorcycle[i]);
-                        sendByte(0x09, 0x02, car[i]);
-                        sendByte(0x09, 0x03, truck[i]);
-                        break;
-                    }
-                }
 
-                for (int i = 0; i < 4; i++)
-                {
-                    motorcycle[i] = 0;
-                    car[i] = 0;
-                    truck[i] = 0;
-                }
-
-                for (unsigned char i = 0; i < 5; i++)
-                {
-                    dataFromGateway[i] = 0;
-                }
-                break;
-            case 0x0A:
-                readGatewayDone.Bit = 1;
-                readGateway.Bit = 0;
-
-                temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
-                umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
-                pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
-                sendByte(0x02, 0x00, temp);
-                sendByte(0x04, 0x00, umidita);
-                sendByte(0x06, 0x00, pressione);
-
-                for (unsigned char i = 0; i < 5; i++)
-                {
-                    dataFromGateway[i] = 0;
-                }
-                break;
-
-            default:
-                if (timerReadFromGateway >= 4)
-                {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 1;
-                    readGateway.Bit = 0;
-                }
-
-                if (dataFromGatewayIndex >= 15)
-                {
-                    readGatewayDone.Bit = 1;
-                    readGatewayDone.Timeout = 0;
-                    readGateway.Bit = 0;
-                }
-                break;
-            }
-        }
-
-
-        if (readGatewayDone.Bit)
-        {
-
-            readGateway.Bit = 0;
-            dataFromGatewayIndex = 0;
-            readGatewayDone.Bit = 0;
-            timerReadFromGateway = 0;
-
-
-            if (readGatewayDone.Timeout)
-            {
-                readGatewayDone.Timeout = 0;
-            }
-
-            else
-            {
-
-                SetReceivedTimes(dataFromGateway, Semafori);
-            }
-        }
-
-
-
-        if (secondPassed.Bit && cycled.Bit)
-        {
-            for (unsigned char i = 0; i < n_semafori; i++)
-            {
-                if ((*Semafori[i]).times[0] != 0)
-                {
-                    time[i]++;
-                    unsigned char lux_select = (*Semafori[i]).lux_select;
-
-                    if ((*Semafori[i]).times[lux_select] - time[i] < 0)
-                    {
-                        lux_select++;
-                        time[i] = 1;
-
-                        if (lux_select >= 3)
+                        unsigned char randomMoto = (char)rand();
+                        unsigned char randomCar = (char)rand();
+                        unsigned char randomTruck = (char)rand();
+                        if (randomMoto < 255)
                         {
-                            lux_select = 0;
+                            motorcycle[i] = randomMoto;
+                        }
+                        if (randomCar < 255)
+                        {
+                            car[i] = randomCar;
+                        }
+                        if (randomTruck < 255)
+                        {
+                            truck[i] = randomTruck;
+                        }
 
-                            if (i == 0)
-                            {
-                                UpdateTimes(Semafori);
-                            }
+                        switch (i)
+                        {
+                        case 0:
+                            sendByte(0x03, 0x01, motorcycle[i]);
+                            sendByte(0x03, 0x02, car[i]);
+                            sendByte(0x03, 0x03, truck[i]);
+                            break;
+                        case 1:
+                            sendByte(0x05, 0x01, motorcycle[i]);
+                            sendByte(0x05, 0x02, car[i]);
+                            sendByte(0x05, 0x03, truck[i]);
+                            break;
+                        case 2:
+                            sendByte(0x07, 0x01, motorcycle[i]);
+                            sendByte(0x07, 0x02, car[i]);
+                            sendByte(0x07, 0x03, truck[i]);
+                            break;
+                        case 3:
+                            sendByte(0x09, 0x01, motorcycle[i]);
+                            sendByte(0x09, 0x02, car[i]);
+                            sendByte(0x09, 0x03, truck[i]);
+                            break;
                         }
                     }
 
-                    luciSemaforo(i, lux_select);
-                    (*Semafori[i]).lux_select = lux_select;
-                    GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        motorcycle[i] = 0;
+                        car[i] = 0;
+                        truck[i] = 0;
+                    }
+
+                    for (unsigned char i = 0; i < 5; i++)
+                    {
+                        dataFromGateway[i] = 0;
+                    }
+                    break;
+                case 0x0A:
+                    readGatewayDone.Bit = 1;
+                    readGateway.Bit = 0;
+
+                    temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);
+                    umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);
+                    pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100);
+                    sendByte(0x02, 0x00, temp);
+                    sendByte(0x04, 0x00, umidita);
+                    sendByte(0x06, 0x00, pressione);
+
+                    for (unsigned char i = 0; i < 5; i++)
+                    {
+                        dataFromGateway[i] = 0;
+                    }
+                    break;
+
+                default:
+                    if (timerReadFromGateway >= 4)
+                    {
+                        readGatewayDone.Bit = 1;
+                        readGatewayDone.Timeout = 1;
+                        readGateway.Bit = 0;
+                    }
+
+                    if (dataFromGatewayIndex >= 15)
+                    {
+                        readGatewayDone.Bit = 1;
+                        readGatewayDone.Timeout = 0;
+                        readGateway.Bit = 0;
+                    }
+                    break;
                 }
             }
-        }
-
-        ShowDigitsOnDisplay();
 
 
-
-
-
-        if (secondPassed.Bit && cycled.Bit)
-        {
-            secondPassed.Bit = 0;
-            cycled.Bit = 0;
-        }
-        if (secondPassed.Bit && !cycled.Bit)
-        {
-            cycled.Bit = 1;
-        }
-    }
-
-    return;
-}
-
-
-void init_ADC()
-{
-    TRISA = 0xE3;
-    ADCON0 = 0x00;
-    ADCON1 = 0x80;
-    _delay((unsigned long)((10)*(32000000/4000000.0)));
-}
-
-
-int ADC_Read(char canale)
-{
-    ADCON0 = (1 << 0) | (canale << 3);
-    _delay((unsigned long)((2)*(32000000/4000000.0)));
-    GO_nDONE = 1;
-    while (GO_nDONE)
-        ;
-    return ADRESL + (ADRESH << 8);
-}
-
-void UART_Init(int baudrate)
-{
-    TRISCbits.TRISC6 = 0;
-    TXSTAbits.TXEN = 1;
-    RCSTAbits.SPEN = 1;
-    RCSTAbits.CREN = 1;
-    SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-    PIE1bits.RCIE = 1;
-}
-
-void UART_TxChar(char ch)
-{
-    while (!TXIF)
-        ;
-    TXIF = 0;
-    TXREG = ch;
-}
-
-void UART_Write_Text(char *text)
-{
-    unsigned char i;
-    for (i = 0; text[i] != '\0'; i++)
-    {
-        UART_TxChar(text[i]);
-    }
-}
-
-char UART_Read()
-{
-    while (!RCIF)
-        ;
-    RCIF = 0;
-    return RCREG;
-}
-
-void sendByte(char byte0, char byte1, char valore)
-{
-    char *txByte;
-    txByte = BuildByte(byte0, byte1, valore);
-
-    for (unsigned char i = 0; i < 5; i++)
-    {
-        UART_TxChar(*(txByte++));
-    }
-}
-
-void conteggioVeicoli()
-{
-    RoadsSensors[0] = PORTBbits.RB3;
-    RoadsSensors[1] = PORTBbits.RB4;
-    RoadsSensors[2] = PORTBbits.RB5;
-    RoadsSensors[3] = PORTAbits.RA5;
-
-    for (unsigned char i = 0; i < 4; i++)
-    {
-        if (!RoadsSensors[i])
-        {
-            count++;
-        }
-        else if (RoadsSensors[i])
-        {
-            Conteggio(count, motorcycle, car, truck, i);
-            count = 0;
-        }
-    }
-}
-
-void luciSemaforo(unsigned char index, unsigned char lux)
-{
-    switch (index)
-    {
-    case 0:
-        switch (lux)
-        {
-        case 0:
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC0 = 1;
-            break;
-        case 1:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC2 = 0;
-            PORTCbits.RC1 = 1;
-            break;
-        case 2:
-            PORTCbits.RC0 = 0;
-            PORTCbits.RC1 = 0;
-            PORTCbits.RC2 = 1;
-            break;
-        }
-        break;
-
-    case 1:
-        switch (lux)
-        {
-        case 0:
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB7 = 1;
-            break;
-        case 1:
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB6 = 0;
-            PORTBbits.RB1 = 1;
-            break;
-        case 2:
-            PORTBbits.RB7 = 0;
-            PORTBbits.RB1 = 0;
-            PORTBbits.RB6 = 1;
-            break;
-        }
-        break;
-    }
-}
-
-void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
-{
-    switch (display_index)
-    {
-    case 0:
-        PORTAbits.RA2 = d1;
-        PORTAbits.RA3 = d2;
-        PORTAbits.RA4 = d3;
-        PORTBbits.RB0 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
-        PORTD = value;
-        break;
-    case 1:
-        PORTAbits.RA5 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
-        PORTBbits.RB0 = d1;
-        PORTBbits.RB0 = d2;
-        PORTBbits.RB0 = d3;
-
-        break;
-    }
-}
-
-void ShowDigitsOnDisplay()
-{
-    for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
-    {
-        switch (disp)
-        {
-        case 0:
-            if ((*DigitsArr[display_index]).centinaia > 0)
+            if (readGatewayDone.Bit)
             {
-                SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]);
+
+                readGateway.Bit = 0;
+                dataFromGatewayIndex = 0;
+                readGatewayDone.Bit = 0;
+                timerReadFromGateway = 0;
+
+
+                if (readGatewayDone.Timeout)
+                {
+                    readGatewayDone.Timeout = 0;
+                }
+
+                else
+                {
+
+                    SetReceivedTimes(dataFromGateway, Semafori);
+                }
+            }
+
+
+
+            if (secondPassed.Bit && cycled.Bit)
+            {
+                for (unsigned char i = 0; i < n_semafori; i++)
+                {
+                    if ((*Semafori[i]).times[0] != 0)
+                    {
+                        time[i]++;
+                        unsigned char lux_select = (*Semafori[i]).lux_select;
+
+                        if ((*Semafori[i]).times[lux_select] - time[i] < 0)
+                        {
+                            lux_select++;
+                            time[i] = 1;
+
+                            if (lux_select >= 3)
+                            {
+                                lux_select = 0;
+
+                                if (i == 0)
+                                {
+                                    UpdateTimes(Semafori);
+                                }
+                            }
+                        }
+
+                        luciSemaforo(i, lux_select);
+                        (*Semafori[i]).lux_select = lux_select;
+                        GetDigits(DigitsArr, i, (*Semafori[i]).times[lux_select] - time[i]);
+                    }
+                }
+            }
+
+            ShowDigitsOnDisplay();
+
+
+
+
+
+            if (secondPassed.Bit && cycled.Bit)
+            {
+                secondPassed.Bit = 0;
+                cycled.Bit = 0;
+            }
+            if (secondPassed.Bit && !cycled.Bit)
+            {
+                cycled.Bit = 1;
+            }
+        }
+
+        return;
+    }
+
+
+    void init_ADC()
+    {
+        TRISA = 0xE3;
+        ADCON0 = 0x00;
+        ADCON1 = 0x80;
+        _delay((unsigned long)((10)*(32000000/4000000.0)));
+    }
+
+
+    int ADC_Read(char canale)
+    {
+        ADCON0 = (1 << 0) | (canale << 3);
+        _delay((unsigned long)((2)*(32000000/4000000.0)));
+        GO_nDONE = 1;
+        while (GO_nDONE)
+            ;
+        return ADRESL + (ADRESH << 8);
+    }
+
+    void UART_Init(int baudrate)
+    {
+        TRISCbits.TRISC6 = 0;
+        TXSTAbits.TXEN = 1;
+        RCSTAbits.SPEN = 1;
+        RCSTAbits.CREN = 1;
+        SPBRG = (32000000 / (long)(64UL * baudrate)) - 1;
+        INTCONbits.GIE = 1;
+        INTCONbits.PEIE = 1;
+        PIE1bits.RCIE = 1;
+    }
+
+    void UART_TxChar(char ch)
+    {
+        while (!TXIF)
+            ;
+        TXIF = 0;
+        TXREG = ch;
+    }
+
+    void UART_Write_Text(char *text)
+    {
+        unsigned char i;
+        for (i = 0; text[i] != '\0'; i++)
+        {
+            UART_TxChar(text[i]);
+        }
+    }
+
+    char UART_Read()
+    {
+        while (!RCIF)
+            ;
+        RCIF = 0;
+        return RCREG;
+    }
+
+    void sendByte(char byte0, char byte1, char valore)
+    {
+        char *txByte;
+        txByte = BuildByte(byte0, byte1, valore);
+
+        for (unsigned char i = 0; i < 5; i++)
+        {
+            UART_TxChar(*(txByte++));
+        }
+    }
+
+    void conteggioVeicoli()
+    {
+        RoadsSensors[0] = PORTBbits.RB3;
+        RoadsSensors[1] = PORTBbits.RB4;
+        RoadsSensors[2] = PORTBbits.RB5;
+        RoadsSensors[3] = PORTAbits.RA5;
+
+        for (unsigned char i = 0; i < 4; i++)
+        {
+            if (!RoadsSensors[i])
+            {
+                count++;
+            }
+            else if (RoadsSensors[i])
+            {
+                Conteggio(count, motorcycle, car, truck, i);
+                count = 0;
+            }
+        }
+    }
+
+    void luciSemaforo(unsigned char index, unsigned char lux)
+    {
+        switch (index)
+        {
+        case 0:
+            switch (lux)
+            {
+            case 0:
+                PORTCbits.RC1 = 0;
+                PORTCbits.RC2 = 0;
+                PORTCbits.RC0 = 1;
+                break;
+            case 1:
+                PORTCbits.RC0 = 0;
+                PORTCbits.RC2 = 0;
+                PORTCbits.RC1 = 1;
+                break;
+            case 2:
+                PORTCbits.RC0 = 0;
+                PORTCbits.RC1 = 0;
+                PORTCbits.RC2 = 1;
+                break;
             }
             break;
+
         case 1:
-            if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0)
+            switch (lux)
             {
-                SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]);
+            case 0:
+                PORTBbits.RB1 = 0;
+                PORTBbits.RB6 = 0;
+                PORTBbits.RB7 = 1;
+                break;
+            case 1:
+                PORTBbits.RB7 = 0;
+                PORTBbits.RB6 = 0;
+                PORTBbits.RB1 = 1;
+                break;
+            case 2:
+                PORTBbits.RB7 = 0;
+                PORTBbits.RB1 = 0;
+                PORTBbits.RB6 = 1;
+                break;
             }
             break;
-        case 2:
-            SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]);
+        }
+    }
+
+    void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
+    {
+        switch (display_index)
+        {
+        case 0:
+            PORTAbits.RA2 = d1;
+            PORTAbits.RA3 = d2;
+            PORTAbits.RA4 = d3;
+            PORTBbits.RB0 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
+            PORTD = value;
+            break;
+        case 1:
+            PORTAbits.RA5 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
+            PORTBbits.RB0 = d1;
+            PORTBbits.RB0 = d2;
+            PORTBbits.RB0 = d3;
+
             break;
         }
     }
-    disp = (disp + 1) % 3;
-}
 
-void __attribute__((picinterrupt(("")))) ISR()
-{
-
-    if (RCIF && readGateway.Bit == 0)
+    void ShowDigitsOnDisplay()
     {
-        readGateway.Bit = 1;
-        readGatewayDone.Bit = 0;
-        readGatewayDone.Timeout = 0;
-        dataFromGatewayIndex = 0;
-        timerReadFromGateway = 0;
-    }
-    if (RCIF && readGateway.Bit == 1)
-    {
-        dataFromGateway[dataFromGatewayIndex] = UART_Read();
-        dataFromGatewayIndex++;
-        timerReadFromGateway = 0;
-    }
-
-
-
-    if (TMR0IF)
-    {
-        TMR0IF = 0;
-        conteggioVeicoli();
-        TMR0 = 6;
-    }
-
-    if (TMR1IF)
-    {
-        TMR1IF = 0;
-        count_lux++;
-
-        if (count_lux >= 20)
+        for (unsigned char display_index = 0; display_index < n_semafori; display_index++)
         {
-            secondPassed.Bit = 1;
-            count_lux = 0;
-            timerReadFromGateway++;
+            switch (disp)
+            {
+            case 0:
+                if ((*DigitsArr[display_index]).centinaia > 0)
+                {
+                    SetDisplay(display_index, 1, 0, 0, display[(*DigitsArr[display_index]).centinaia]);
+                }
+                break;
+            case 1:
+                if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0)
+                {
+                    SetDisplay(display_index, 0, 1, 0, display[(*DigitsArr[display_index]).decine]);
+                }
+                break;
+            case 2:
+                SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]);
+                break;
+            }
+        }
+        disp = (disp + 1) % 3;
+    }
+
+    void __attribute__((picinterrupt(("")))) ISR()
+    {
+
+        if (RCIF && readGateway.Bit == 0)
+        {
+            readGateway.Bit = 1;
+            readGatewayDone.Bit = 0;
+            readGatewayDone.Timeout = 0;
+            dataFromGatewayIndex = 0;
+            timerReadFromGateway = 0;
+        }
+        if (RCIF && readGateway.Bit == 1)
+        {
+            dataFromGateway[dataFromGatewayIndex] = UART_Read();
+            dataFromGatewayIndex++;
+            timerReadFromGateway = 0;
         }
 
-        TMR1H = 60;
-        TMR1L = 176;
+
+
+        if (TMR0IF)
+        {
+            TMR0IF = 0;
+            conteggioVeicoli();
+            TMR0 = 6;
+        }
+
+        if (TMR1IF)
+        {
+            TMR1IF = 0;
+            count_lux++;
+
+            if (count_lux >= 20)
+            {
+                secondPassed.Bit = 1;
+                count_lux = 0;
+                timerReadFromGateway++;
+            }
+
+            TMR1H = 60;
+            TMR1L = 176;
+        }
     }
-}

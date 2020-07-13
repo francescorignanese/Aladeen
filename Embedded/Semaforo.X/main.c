@@ -170,97 +170,95 @@ void main(void)
                 readGatewayDone.Bit = 1;
                 readGateway.Bit = 0;
 
-                for (int i = 0; i < 4; i++) //Invio tutti i valori
+                for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
                 {
-                    for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
+                    //*Parte di debug mezzi con funzione pseudo casuale
+                    unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomCar = (char)rand();   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomTruck = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    if (randomMoto < 255)                     //Controlla che il numero sia più piccolo del massimo che si può inserire
                     {
-                        //*Parte di debug mezzi con funzione pseudo casuale
-                        unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                        unsigned char randomCar = (char)rand();   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                        unsigned char randomTruck = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                        if (randomMoto < 255)                     //Controlla che il numero sia più piccolo del massimo che si può inserire
-                        {
-                            motorcycle[i] = randomMoto; //Assegna il valore generato
-                        }
-                        if (randomCar < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                        {
-                            car[i] = randomCar; //Assegna il valore generato
-                        }
-                        if (randomTruck < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                        {
-                            truck[i] = randomTruck; //Assegna il valore generato
-                        }
-                        //* end <--
-                        switch (i)
-                        {
-                        case 0:
-                            sendByte(0x03, 0x01, motorcycle[i]);
-                            sendByte(0x03, 0x02, car[i]);
-                            sendByte(0x03, 0x03, truck[i]);
-                            break;
-                        case 1:
-                            sendByte(0x05, 0x01, motorcycle[i]);
-                            sendByte(0x05, 0x02, car[i]);
-                            sendByte(0x05, 0x03, truck[i]);
-                            break;
-                        case 2:
-                            sendByte(0x07, 0x01, motorcycle[i]);
-                            sendByte(0x07, 0x02, car[i]);
-                            sendByte(0x07, 0x03, truck[i]);
-                            break;
-                        case 3:
-                            sendByte(0x09, 0x01, motorcycle[i]);
-                            sendByte(0x09, 0x02, car[i]);
-                            sendByte(0x09, 0x03, truck[i]);
-                            break;
-                        }
+                        motorcycle[i] = randomMoto; //Assegna il valore generato
                     }
+                    if (randomCar < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        car[i] = randomCar; //Assegna il valore generato
+                    }
+                    if (randomTruck < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        truck[i] = randomTruck; //Assegna il valore generato
+                    }
+                    //* end <--
 
-                    for (int i = 0; i < 4; i++) //Resetto le variabili
+                    switch (i)
                     {
-                        motorcycle[i] = 0;
-                        car[i] = 0;
-                        truck[i] = 0;
+                    case 0:
+                        sendByte(0x03, 0x01, motorcycle[i]);
+                        sendByte(0x03, 0x02, car[i]);
+                        sendByte(0x03, 0x03, truck[i]);
+                        break;
+                    case 1:
+                        sendByte(0x05, 0x01, motorcycle[i]);
+                        sendByte(0x05, 0x02, car[i]);
+                        sendByte(0x05, 0x03, truck[i]);
+                        break;
+                    case 2:
+                        sendByte(0x07, 0x01, motorcycle[i]);
+                        sendByte(0x07, 0x02, car[i]);
+                        sendByte(0x07, 0x03, truck[i]);
+                        break;
+                    case 3:
+                        sendByte(0x09, 0x01, motorcycle[i]);
+                        sendByte(0x09, 0x02, car[i]);
+                        sendByte(0x09, 0x03, truck[i]);
+                        break;
                     }
-
-                    for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
-                    {
-                        dataFromGateway[i] = 0;
-                    }
-                    break;
-                case 0x0A: //Se vi è il comando 0x0A nel primo byte allora prendo solo un pachetto di dati
-                    readGatewayDone.Bit = 1;
-                    readGateway.Bit = 0;
-
-                    temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
-                    umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
-                    pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
-                    sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
-                    sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
-                    sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
-
-                    for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
-                    {
-                        dataFromGateway[i] = 0;
-                    }
-                    break;
-                    //Se non vi è un comando di invio allora mi aspetto i tempi e quindi 15 byte
-                default:
-                    if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
-                    {
-                        readGatewayDone.Bit = 1;
-                        readGatewayDone.Timeout = 1;
-                        readGateway.Bit = 0;
-                    }
-
-                    if (dataFromGatewayIndex >= 15)
-                    {
-                        readGatewayDone.Bit = 1;
-                        readGatewayDone.Timeout = 0;
-                        readGateway.Bit = 0;
-                    }
-                    break;
                 }
+
+                for (int i = 0; i < 4; i++) //Resetto le variabili
+                {
+                    motorcycle[i] = 0;
+                    car[i] = 0;
+                    truck[i] = 0;
+                }
+
+                for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+                {
+                    dataFromGateway[i] = 0;
+                }
+                break;
+            case 0x0A: //Se vi è il comando 0x0A nel primo byte allora prendo solo un pachetto di dati
+                readGatewayDone.Bit = 1;
+                readGateway.Bit = 0;
+
+                temp = (char)map((ADC_Read(0) >> 2), 0, 255, -20, 60);     //legge la temperatura e la mappa su quei valori
+                umidita = (char)map((ADC_Read(1) >> 2), 0, 255, 0, 100);   //legge l'umidità e la mappa su quei valori
+                pressione = (char)map((ADC_Read(5) >> 2), 0, 255, 0, 100); //legge la pressione e la mappa su quei valori
+                sendByte(0x02, 0x00, temp);                                //Invio dati di temperatura
+                sendByte(0x04, 0x00, umidita);                             //Invio dati di umidita
+                sendByte(0x06, 0x00, pressione);                           //Invio dati di pressione
+
+                for (unsigned char i = 0; i < 5; i++) //Resetto i byte che ho ricevuto così da non continuare ad inviare
+                {
+                    dataFromGateway[i] = 0;
+                }
+                break;
+                //Se non vi è un comando di invio allora mi aspetto i tempi e quindi 15 byte
+            default:
+                if (timerReadFromGateway >= 4) //if scatta dopo un timer di 4s
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 1;
+                    readGateway.Bit = 0;
+                }
+
+                if (dataFromGatewayIndex >= 15)
+                {
+                    readGatewayDone.Bit = 1;
+                    readGatewayDone.Timeout = 0;
+                    readGateway.Bit = 0;
+                }
+                break;
             }
 
             //cose da fare terminata la lettura dalla seriale
