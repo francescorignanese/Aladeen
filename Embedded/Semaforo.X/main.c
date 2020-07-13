@@ -117,7 +117,7 @@ Semaforo *Semafori[2] = {&s0, &s1};
 Digits digits0, digits1;
 Digits *DigitsArr[2] = {&digits0, &digits1};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
-unsigned char temp = 0;             //Variabile per salvare la temperatura sul pin RA0
+char temp = 0;                      //Variabile per salvare la temperatura sul pin RA0
 unsigned char umidita = 0;          //Variabile per salvare l'umidita sul pin RA1
 unsigned char pressione = 0;        //Variabile per salvare la pressione sul pin RE0
 
@@ -172,6 +172,24 @@ void main(void)
 
                 for (int i = 0; i < 4; i++) //Invio tutti i valori
                 {
+                    //*Parte di debug mezzi con funzione pseudo casuale
+                    unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomCar = (char)rand();   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomTruck = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    if (randomMoto < 255)                     //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        motorcycle[i] = randomMoto; //Assegna il valore generato
+                    }
+                    if (randomCar < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        car[i] = randomCar; //Assegna il valore generato
+                    }
+                    if (randomTruck < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
+                    {
+                        truck[i] = randomTruck; //Assegna il valore generato
+                    }
+                    //* end <--
+
                     switch (i)
                     {
                     case 0:
