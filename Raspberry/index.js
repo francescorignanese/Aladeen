@@ -101,8 +101,8 @@ function climateManagement() {
 	json_climate = {
 		"sensor": "climate",
 		"id_cross": 1,
-		"date": new Date(),
-		"time": new Date(),
+		"date": new Date().toISOString().slice(0,10),
+		"time": new Date().toISOString().slice(11,19),
 		"data_climate": []
 	};
     parseBytes().then(function(returnValue) {
@@ -179,8 +179,8 @@ function trafficManagement() {
 		"description": "Data collection of the traffic from all the roads",
 		"sensor": "traffic",
 		"id_cross": 1,
-		"date": new Date(),
-		"time": new Date(),
+		"date": new Date().toISOString().slice(0,10),
+		"time": new Date().toISOString().slice(11,19),
 		"data_carriers": []
 	}
 	parseBytes().then(function(returnValue) {
