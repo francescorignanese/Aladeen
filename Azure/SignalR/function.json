@@ -8,13 +8,6 @@
       "connection": "IotHubConnectionString",
       "cardinality": "many",
       "consumerGroup": "$Default"
-    },
-    {
-      "type": "signalR",
-      "name": "signalRMessages",
-      "hubName": "senHub",
-      "connectionStringSetting": "signalRConnectionString",
-      "direction": "out"
     }
   ]
 }

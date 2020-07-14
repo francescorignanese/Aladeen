@@ -11,6 +11,16 @@ module.exports = async function (context, myTimer) {
     */
    
     //config Db
+const config={
+    user: 'aladeen',
+    password: 'smartcross100%',
+    server: 'semaforo.database.windows.net',
+    database:'semaforodb',
+    options:{
+        encrypt: true
+        }
+};
+
     var registry = iothub.Registry.fromConnectionString("HostName=smartcrosshub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=KBj8eIGdQzh+jjgdDVjMZw9wPrvWNx+IMTAenf7DIQs=");
     
     context.log('JavaScript timer trigger function ran!', timeStamp);  
@@ -18,10 +28,8 @@ module.exports = async function (context, myTimer) {
 
     
     async function doQuery(){
-        var date= new Date();
-        var hour= date.getHours();
-        let selectQuery=`SELECT [Id_incrocio] as id_cross,[Id_semaforo] as semafores_couples,[Valore_tempo] as time
-        FROM Temporizzazione WHERE Fascia_oraria=${hour} GROUP BY Fascia_oraria, Id_semaforo, Id_incrocio , Valore_tempo`
+        let selectQuery=`SELECT [Id_semaforo] as semafores_couples,Fascia_oraria as time_slot,[Valore_tempo] as value
+        FROM Temporizzazione WHERE Id_incrocio=1 GROUP BY Fascia_oraria, Id_semaforo, Id_incrocio , Valore_tempo`
         try{
             let pool=await sql.connect(config);
             var result = await pool.request().query(selectQuery);
@@ -35,7 +43,7 @@ module.exports = async function (context, myTimer) {
         var array= result.recordset; //andrà nella proprietà desired del device Twin --> Id device = "incrocio"+array[i].Id_incrocio
         context.log("SHARED DB: ");
         context.log(array);
-        var idDevice= `incrocio${array[0].id_cross}`
+        var idDevice= `incrocio1`
         //context.log(typeof idDevice);
         
         registry.getTwin(idDevice, async (err, twin) => {
