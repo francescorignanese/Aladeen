@@ -4,25 +4,7 @@ module.exports = async function (context, myTimer) {
     var timeStamp = new Date().toISOString();
 
     // config database
-    const configDest={
-        user: 'its2020',
-        password: 'Projectwork2020',
-        server: 'pwsmartcross.database.windows.net',
-        database:'smartcross',
-        options:{
-            encrypt: true
-            }
-    };
     
-    const configProv={
-        user: 'aladeen',
-        password: 'smartcross100%',
-        server: 'semaforo.database.windows.net',
-        database:'semaforodb',
-        options:{
-            encrypt: true
-            }
-    };
 
 
     if (myTimer.isPastDue)

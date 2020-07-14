@@ -11,17 +11,9 @@ module.exports = async function (context, myTimer) {
     */
    
     //config Db
-const config={
-    user: 'aladeen',
-    password: 'smartcross100%',
-    server: 'semaforo.database.windows.net',
-    database:'semaforodb',
-    options:{
-        encrypt: true
-        }
-};
 
-    var registry = iothub.Registry.fromConnectionString("HostName=smartcrosshub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=KBj8eIGdQzh+jjgdDVjMZw9wPrvWNx+IMTAenf7DIQs=");
+
+    var registry = iothub.Registry.fromConnectionString("");
     
     context.log('JavaScript timer trigger function ran!', timeStamp);  
     await doQuery();

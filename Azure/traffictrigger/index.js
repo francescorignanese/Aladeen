@@ -4,15 +4,7 @@ module.exports = async function(context, obj) {
     context.log('JavaScript ServiceBus queue trigger function processed message', obj);
 
     // config database
-    const config={
-        user: 'aladeen',
-        password: 'smartcross100%',
-        server: 'semaforo.database.windows.net',
-        database:'semaforodb',
-        options:{
-            encrypt: true
-            }
-    };
+    
 
     
     //context.log(obj.data_carriers);
