@@ -173,9 +173,9 @@ void main(void)
                 for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
                 {
                     //*Parte di debug mezzi con funzione pseudo casuale
-                    unsigned char randomMoto = ((char)rand() % 20) + 1;  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomCar = ((char)rand() % 20) + 1;   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomTruck = ((char)rand() % 20) + 1; //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomMoto = (char)rand() % 20 + 1;  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomCar = (char)rand() % 20 + 1;   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomTruck = (char)rand() % 20 + 1; //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
                     //* end <--
 
                     switch (i)

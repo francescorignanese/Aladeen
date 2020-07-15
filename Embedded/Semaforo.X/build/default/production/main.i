@@ -2084,9 +2084,9 @@ void main(void)
                 for (unsigned char i = 0; i < 4; i++)
                 {
 
-                    unsigned char randomMoto = ((char)rand() % 20) + 1;
-                    unsigned char randomCar = ((char)rand() % 20) + 1;
-                    unsigned char randomTruck = ((char)rand() % 20) + 1;
+                    unsigned char randomMoto = (char)rand() % 20 + 1;
+                    unsigned char randomCar = (char)rand() % 20 + 1;
+                    unsigned char randomTruck = (char)rand() % 20 + 1;
 
 
                     switch (i)

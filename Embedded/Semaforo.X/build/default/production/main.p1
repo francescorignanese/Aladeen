@@ -79,7 +79,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h: 233: extern volatile PORTBbits_t PORTBbits __attribute__((address(0x006)));
 [v _PORTBbits `VS7 ~T0 @X0 0 e@6 ]
 "176 main.c
-[; ;main.c: 176:                     unsigned char randomMoto = ((char)rand() % 20) + 1;
+[; ;main.c: 176:                     unsigned char randomMoto = (char)rand() % 20 + 1;
 [v _rand `(i ~T0 @X0 0 e? ]
 "131
 [; ;main.c: 131: void sendByte(char byte0, char byte1, char valore);
@@ -1502,15 +1502,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 174:                 {
 {
 "176
-[; ;main.c: 176:                     unsigned char randomMoto = ((char)rand() % 20) + 1;
+[; ;main.c: 176:                     unsigned char randomMoto = (char)rand() % 20 + 1;
 [v _randomMoto `uc ~T0 @X0 1 a ]
 [e = _randomMoto -> + % -> -> ( _rand ..  `uc `i -> 20 `i -> 1 `i `uc ]
 "177
-[; ;main.c: 177:                     unsigned char randomCar = ((char)rand() % 20) + 1;
+[; ;main.c: 177:                     unsigned char randomCar = (char)rand() % 20 + 1;
 [v _randomCar `uc ~T0 @X0 1 a ]
 [e = _randomCar -> + % -> -> ( _rand ..  `uc `i -> 20 `i -> 1 `i `uc ]
 "178
-[; ;main.c: 178:                     unsigned char randomTruck = ((char)rand() % 20) + 1;
+[; ;main.c: 178:                     unsigned char randomTruck = (char)rand() % 20 + 1;
 [v _randomTruck `uc ~T0 @X0 1 a ]
 [e = _randomTruck -> + % -> -> ( _rand ..  `uc `i -> 20 `i -> 1 `i `uc ]
 "181
