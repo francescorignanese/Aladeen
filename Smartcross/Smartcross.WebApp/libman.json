@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "chart.js@2.9.3",
+      "destination": "wwwroot/lib/chart.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "microsoft-signalr@3.1.0",
+      "destination": "wwwroot/lib/microsoft-signalr/"
+    },
+    {
+      "library": "@microsoft/signalr@3.1.0",
+      "destination": "wwwroot/lib/@microsoft/signalr/"
+    },
+    {
+      "library": "coreui@0.1.5",
+      "destination": "wwwroot/lib/coreui/"
+    }
+  ]
+}
