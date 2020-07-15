@@ -1,3 +1,15 @@
 {
-    "connectionString": "pippo"
+    "Hub": {
+        "connectionString": "HostName=smartcrosshub.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=KBj8eIGdQzh+jjgdDVjMZw9wPrvWNx+IMTAenf7DIQs="
+    },
+    "Clients": [
+        {
+            "id": "incrocio1",
+            "connectionString": "HostName=smartcrosshub.azure-devices.net;DeviceId=incrocio1;SharedAccessKey=ZsWEDXhKVe/pLaf/U4D/WCIolmT/HpCg49QKAc4XXbc="
+        },
+        {
+            "id": "Incrocio2",
+            "connectionString": "stringa due"
+        }
+    ]
 }

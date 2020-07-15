@@ -69,27 +69,3 @@ function sendData(resMex) {
 
     });
 }
-/*
-let json_climate = 
-{
-  "description": "Dati unificati traffico",
-  "sensor": "climate",
-  "id_cross": 1,
-  "date": new Date().toISOString().slice(0,10),
-  "time": new Date().toISOString().slice(11,19),
-  "data_climate": [
-    {
-        "type": "pressure",
-        "value": 10
-    },
-    {
-      "type": "humidity",
-      "value": 70
-    },
-    {
-      "type": "temperature",
-      "value": 24
-    }
-  ]
-}
-*/

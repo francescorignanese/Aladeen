@@ -10,18 +10,6 @@ const port = new SerialPort('/COM3');
 const client = redis.createClient(6379, '192.168.0.99');
 const _ = require('lodash');
 
-//Connection to Redis
-client.on("error", (err) => {
-	console.log("error", err)
-});
-client.on("connect", (err) => {
-	console.log("Redis connected!");
-});
-client.on("ready", (err) => {
-	redisNotReady = false;
-	console.log("Redis ready to accept data!");
-});
-
 let corrupted = false;
 let climate_received = false;
 let vehicle_received = false;
@@ -29,28 +17,45 @@ let vehicle_received = false;
 let trafficSent = false;
 let climateSent = false;
 
+let json_traffic;
+let json_climate;
+
+//Connection to Redis
+client.on("error", (err) => {
+	console.log("error", err)
+});
+client.on("connect", (err) => {
+console.log("Redis connected!");
+});
+client.on("ready", (err) => {
+redisNotReady = false;
+console.log("Redis ready to accept data!");
+});
 
 //-----------------------------------------------------------------------------------------------
-//RICHIESTA DATI TRAFFICO
-var sendDataRequestClimate = function () {
+//Richiesta Dati Clima al Pic
+const sendDataRequestClimate = function() {
 	let cmd_climate = [0x0A, 0x00, 0x00, 0x00, 0x00];
 	port.write(cmd_climate);
 	console.log('Sent value to Pic:', cmd_climate);
-	//hasbeenSent = true;
-	if (cmd_climate[0] === 10) {
+
+	if(cmd_climate[0] === 10) {
 		climateSent = true;
 	}
+	//reset cmd
 	cmd_climate = [0x00, 0x00, 0x00, 0x00, 0x00];
 }
 
-var sendDataRequestTraffic = function () {
+//Richiesta Dati Traffico al Pic
+const sendDataRequestTraffic = function() {
 	let cmd_traffic = [0x08, 0x00, 0x00, 0x00, 0x00];
 	port.write(cmd_traffic);
 	console.log('Sent value to Pic:', cmd_traffic);
-	//hasbeenSent = true;
+
 	if (cmd_traffic[0] === 8) {
 		trafficSent = true;
 	}
+	//reset cmd
 	cmd_traffic = [0x00, 0x00, 0x00, 0x00, 0x00];
 }
 
@@ -81,7 +86,7 @@ function parseBytes() {
 				let binary = valore.padStart(8, '0');
 				arrayBinary.push(binary);
 			}
-
+			
 			let packets = _.chunk(arrayBinary, 5)
 			//console.log(packets);
 			//console.log('----------------------');
@@ -97,10 +102,10 @@ function parseBytes() {
 }
 
 
-let json_climate;
+
 function climateManagement() {
 
-	//sensori atmosferici
+	//JSON sensori atmosferici
 	json_climate = {
 		"sensor": "climate",
 		"id_cross": 1,
@@ -109,21 +114,18 @@ function climateManagement() {
 		"data_climate": []
 	};
 
-	parseBytes().then(function (returnValue) {
-		returnValue.forEach(pack => {
-			console.log('pack: ', pack);
-
-			//controllo errori bit di parità
-			//let controlled_pack = parity.func1(pack);
+    parseBytes().then(function(returnValue) {
+        returnValue.forEach(pack => {
+			console.log('pack', pack);
 
 			//BYTE 1
 			let byte1_id = pack[0].substring(3, 7);   //posiz. 4, 3, 2, 1 bit del byte : ID Sensore / Attuatore
 			let byte1_sa = pack[0].substring(7); //posiz. 0 mi identifica se è un sensore o un attuatore
 			let bit_parità = pack[0].substring(0, 1);
 
-			//BYTE 3 & 4
-			let clean_value3 = pack[2].substring(1, 8);
-			let clean_value4 = pack[3].substring(1, 8);
+			//BYTE 3 & 4 ripuliti dai bit di parità intermedi
+			let clean_value3 = pack[2].substring(1,8);
+			let clean_value4 = pack[3].substring(1,8);
 			let value = clean_value4.concat(clean_value3);
 			var decimal = parseInt(value, 2); //parso il binario in decimale
 			console.log(decimal);
@@ -179,9 +181,10 @@ function pushClimateOnRedis(json_weather) {
 		climateSent = false;
 	}
 }
-let json_traffic;
+
 function trafficManagement() {
-	//JSON UNICO PER DATI TRAFFICO-SEMAFORI-STRADE
+
+	//JSON unico per traffico proveniente da N strade
 	json_traffic = {
 		"description": "Data collection of the traffic from all the roads",
 		"sensor": "traffic",
@@ -190,7 +193,8 @@ function trafficManagement() {
 		"time": new Date().toISOString().slice(11, 19),
 		"data_carriers": []
 	}
-	parseBytes().then(function (returnValue) {
+
+	parseBytes().then(function(returnValue) {
 		let byte2_full = false;
 		let byte2_type;
 		var decimal;
@@ -254,27 +258,32 @@ function trafficManagement() {
 						break;
 					}
 				}
+			} else {
+				console.log('ERROR: Invalid data for traffic request, check if the roads are received!')
 			}
-			let vehicle = vehicleDistribution(byte2_full, byte2_type, decimal);
-			pushTrafficOnRedis(vehicle, json_carrier);
-		});
-
+			let json_vehicles = vehicleDistribution(byte2_full, byte2_type, decimal);
+			pushTrafficOnRedis(json_vehicles, json_carrier);
+		});	
+			
 	});
 }
-
-function pushTrafficOnRedis(vehicle, json_carrier) {
-
+/**
+ * 
+ * @param {object} json_vehicles - json vehicles ritornato dalla funzione vehicleDistribution
+ * @param {object} json_carrier - json che contiene N strade
+ */
+function pushTrafficOnRedis(json_vehicles, json_carrier) {
+	
 	let isPresent = false;
-	//let json_traffic = buildJSONTraffic();
 	json_traffic.data_carriers.forEach(carrier => {
 		if (carrier.id_road === json_carrier.id_road) {
 			isPresent = true;
-			carrier.data_vehicles.push(vehicle);
+			carrier.data_vehicles.push(json_vehicles);
 		}
 	});
 
-	if (!isPresent) {
-		json_carrier.data_vehicles.push(vehicle);
+	if(!isPresent) {
+		json_carrier.data_vehicles.push(json_vehicles);
 		json_traffic.data_carriers.push(json_carrier);
 	}
 
@@ -285,7 +294,14 @@ function pushTrafficOnRedis(vehicle, json_carrier) {
 	trafficSent = false;
 }
 
-
+/**
+ * 
+ * @param {boolean} byte2_full - Controlla se il byte 2 è pieno e quindi se contiene la tipologia dei veicoli.
+ * @param {string} byte2_type - Tipologia di veicoli
+ * @param {string} decimal - Valore numerico ritornato dal pic
+ * 
+ * @return json_vehicle; // che successivamente verrà pushato nel data_vehicles
+ */
 function vehicleDistribution(byte2_full, byte2_type, decimal) {
 
 	let json_vehicle = {
@@ -300,7 +316,6 @@ function vehicleDistribution(byte2_full, byte2_type, decimal) {
 				json_vehicle.type = 'motorcycle';
 				json_vehicle.value = decimal;
 				console.log(json_vehicle.type);
-
 				break;
 			}
 			case '10': {
@@ -317,5 +332,7 @@ function vehicleDistribution(byte2_full, byte2_type, decimal) {
 			}
 		}
 		return json_vehicle;
+	} else {
+		console.log('ERROR: Second byte does not contain vehicles type!');
 	}
 }
