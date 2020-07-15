@@ -18,54 +18,71 @@ redisClient.on("ready", (err) => {
     console.log("Redis ready to accept data!");
 });
 //console.log(clientConfig)
-redisClient.lpop(['climate'], function (err, reply) {
-    console.log("Popped item", reply);
-    sendData(reply);
-});
+
+//Invia richiesta Clima ogni 60 secondi
+setInterval(() => {
+	redisClient.lpop(['climate'], function (err, reply) {
+        console.log("Popped item", reply);
+        sendData(reply);
+    });
+}, 60000);
+
+//Invia richiesta traffico ogni 40 secondi
+setInterval(() => {
+	redisClient.lpop(['traffic'], function (err, reply) {
+        console.log("Popped item", reply);
+        sendData(reply);
+    });
+}, 40000);
+
 
 function sendData(resMex) {
+    if(resMex !== null) {
 
-    var client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
+        var client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
 
-    // open connection
-    client.open(function (err) {
-    if (err) {
-        console.error('Could not connect: ' + err.message);
-    } else {
-        console.log('Client connected');
-        client.on('error', function (err) {
-        console.error(err.message);
-        process.exit(-1);
-    });
-
-
-    //CLIMATE MESSAGE
-    console.log(resMex);
-    console.log('----------------------------------');
-    var message1 = new Message(resMex);
-    console.log('mex', message1);
-
-    message1.contentEncoding = "utf-8";
-    message1.contentType = "application/json";
-
-    // A unique identifier 
-    message1.messageId = uuid.v4();
-
-    //add custom properties
-    message1.properties.add("Status", "Active");
-
-    console.log('Sending message: ' + message1.getData());
-
-    client.sendEvent(message1, function (err) {
+        // open connection
+        client.open(function (err) {
         if (err) {
-        console.error('Could not send: ' + err.toString());
-        process.exit(-1);
+            console.error('Could not connect: ' + err.message);
         } else {
-        console.log('Message sent: ', message1);
-        process.exit(0);
-        }
-    });
-    }
+            console.log('Client connected');
+            client.on('error', function (err) {
+            console.error(err.message);
+            process.exit(-1);
+        });
 
-    });
+
+        //CLIMATE MESSAGE
+        console.log(resMex);
+        console.log('----------------------------------');
+        var message1 = new Message(resMex);
+        console.log('mex', message1);
+
+        message1.contentEncoding = "utf-8";
+        message1.contentType = "application/json";
+
+        // A unique identifier 
+        message1.messageId = uuid.v4();
+
+        //add custom properties
+        message1.properties.add("Status", "Active");
+
+        console.log('Sending message: ' + message1.getData());
+
+        client.sendEvent(message1, function (err) {
+            if (err) {
+            console.error('Could not send: ' + err.toString());
+            process.exit(-1);
+            } else {
+            console.log('Message sent: ', message1);
+            //process.exit(0);
+            }
+        });
+        }
+
+        });
+    } else {
+        console.log('messaggio vuoto');
+    }
 }
