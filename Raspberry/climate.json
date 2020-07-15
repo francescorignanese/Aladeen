@@ -1,1 +1,1 @@
-{"sensor":"climate","id_cross":1,"date":"2020-06-22T14:38:15.309Z","time":"2020-06-22T14:38:15.309Z","data_climate":[{"type":"humidity","value":1}]}
+{"sensor":"climate","id_cross":1,"date":"2020-07-15","time":"15:23:40","data_climate":[{"type":"temperature","value":38},{"type":"humidity","value":24},{"type":"pressure","value":0}]}
