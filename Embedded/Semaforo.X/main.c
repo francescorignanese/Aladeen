@@ -176,6 +176,10 @@ void main(void)
                     unsigned char randomMoto = (char)rand() % 20 + 1;  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
                     unsigned char randomCar = (char)rand() % 20 + 1;   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
                     unsigned char randomTruck = (char)rand() % 20 + 1; //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+
+                    motorcycle[i] = randomMoto; //Assegna il valore generato
+                    car[i] = randomCar;         //Assegna il valore generato
+                    truck[i] = randomTruck;     //Assegna il valore generato
                     //* end <--
 
                     switch (i)

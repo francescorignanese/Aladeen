@@ -2088,6 +2088,10 @@ void main(void)
                     unsigned char randomCar = (char)rand() % 20 + 1;
                     unsigned char randomTruck = (char)rand() % 20 + 1;
 
+                    motorcycle[i] = randomMoto;
+                    car[i] = randomCar;
+                    truck[i] = randomTruck;
+
 
                     switch (i)
                     {
