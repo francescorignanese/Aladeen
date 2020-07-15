@@ -1,8 +1,6 @@
 //require per bit di parità
-var parity = require('./bit_parita');
-
+const parity = require('./bit_parita');
 const fs = require("fs");
-var uuid = require('uuid');
 const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const redis = require('redis');
@@ -59,6 +57,8 @@ const sendDataRequestTraffic = function() {
 	cmd_traffic = [0x00, 0x00, 0x00, 0x00, 0x00];
 }
 
+
+//Invia richiesta di Clima ogni ora
 setInterval(() => {
 	sendDataRequestClimate();
 	if (climateSent) {
@@ -67,6 +67,7 @@ setInterval(() => {
 
 }, 55000);
 
+//Invia richiesta ogni 10 minuti
 setInterval(() => {
 	sendDataRequestTraffic();
 	if (trafficSent) {
@@ -102,7 +103,6 @@ function parseBytes() {
 }
 
 
-
 function climateManagement() {
 
 	//JSON sensori atmosferici
@@ -116,7 +116,10 @@ function climateManagement() {
 
     parseBytes().then(function(returnValue) {
         returnValue.forEach(pack => {
-			console.log('pack', pack);
+			//console.log('pack', pack);
+			
+			//controllo errori bit di parità
+			//let controlled_pack = parity.func1(pack);
 
 			//BYTE 1
 			let byte1_id = pack[0].substring(3, 7);   //posiz. 4, 3, 2, 1 bit del byte : ID Sensore / Attuatore
@@ -200,7 +203,7 @@ function trafficManagement() {
 		var decimal;
 
 		returnValue.forEach(pack => {
-			console.log('pack: ', pack);
+			//console.log('pack: ', pack);
 
 			//controllo errori bit di parità
 			//let controlled_pack = parity.func1(pack);
