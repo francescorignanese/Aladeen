@@ -1,1 +1,81 @@
-{"description":"Data collection of the traffic from all the roads","sensor":"traffic","id_cross":1,"date":"2020-06-22T15:10:49.757Z","time":"2020-06-22T15:10:49.757Z","data_carriers":[{"id_road":4,"id_semaphores":0,"data_vehicles":[{"type":"truck","value":0}]}]}
+{
+    "description": "Data collection of the traffic from all the roads",
+    "sensor": "traffic",
+    "id_cross": 1,
+    "date": "2020-07-13",
+    "time": "19:34:38",
+    "data_carriers": [
+        {
+            "id_road": 1,
+            "id_semaphores": 1,
+            "data_vehicles": [
+                {
+                    "type": "motorcycle",
+                    "value": 198
+                },
+                {
+                    "type": "car",
+                    "value": 126
+                },
+                {
+                    "type": "truck",
+                    "value": 129
+                }
+            ]
+        },
+        {
+            "id_road": 2,
+            "id_semaphores": 0,
+            "data_vehicles": [
+                {
+                    "type": "motorcycle",
+                    "value": 107
+                },
+                {
+                    "type": "car",
+                    "value": 75
+                },
+                {
+                    "type": "truck",
+                    "value": 251
+                }
+            ]
+        },
+        {
+            "id_road": 3,
+            "id_semaphores": 1,
+            "data_vehicles": [
+                {
+                    "type": "motorcycle",
+                    "value": 226
+                },
+                {
+                    "type": "car",
+                    "value": 251
+                },
+                {
+                    "type": "truck",
+                    "value": 84
+                }
+            ]
+        },
+        {
+            "id_road": 4,
+            "id_semaphores": 0,
+            "data_vehicles": [
+                {
+                    "type": "motorcycle",
+                    "value": 246
+                },
+                {
+                    "type": "car",
+                    "value": 189
+                },
+                {
+                    "type": "truck",
+                    "value": 223
+                }
+            ]
+        }
+    ]
+}

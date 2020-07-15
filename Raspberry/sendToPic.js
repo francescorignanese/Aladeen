@@ -6,24 +6,7 @@ var config = require('config');
 var Client = require('azure-iot-device').Client;
 var Protocol = require('azure-iot-device-mqtt').Mqtt;
 var clientConfig = config.get('Clients');
-const clientRedis = redis.createClient(6379, '192.168.0.99');
 var client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
-
-//Connection to Redis
-clientRedis.on("error", (err) => {
-    console.log("error", err)
-});
-clientRedis.on("connect", (err) => {
-    console.log("Redis connected!");
-});
-clientRedis.on("ready", (err) => {
-    
-    console.log("Redis ready to accept data!");
-});
-
-client.on('error', function (err) {
-  console.error(err.message);
-});
 
 // connect to the hub
 client.open(function(err) {
@@ -33,79 +16,113 @@ client.open(function(err) {
     }
     console.log('client opened');
 
-    // Create device Twin
-    client.getTwin(function(err, twin) {
-        if (err) {
-            console.error('error getting twin: ' + err);
-            process.exit(1);
-        }
-        // Output the current properties
-        console.log('twin contents:');
-        //console.log(twin.properties);
-        twin.on('properties.desired', function(delta) {
-            console.log('new desired properties received:');
-            //console.log(JSON.stringify(delta));
-            let json_string = JSON.stringify(twin.properties.desired.timing);
-            clientRedis.rpush(['timings', json_string]);
-            fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired.timing));
-        });
-        
-        //sendTiming(twin.properties.desired.timing);
-  });
+   
 });
 
-//ricevo la temporizzazione per le 24 ore per la coppia di semafori 
-function getDataFromRedis() {
-    var popRedis = new Promise(function(resolve, reject) { 
-        clientRedis.lpop(['timings'], function (err, reply) {
-            //console.log("Popped item", reply);
-            resolve(reply);
+let tookTime = false;
+if(!tookTime) {
+    getTimings();
+}
+function getTimings() {
+ // Create device Twin
+    var receiveTimings = new Promise(function(resolve, reject) { 
+        client.getTwin(function(err, twin) {
+            if (err) {
+                console.error('error getting twin: ' + err);
+                process.exit(1);
+            }
+            // Output the current properties
+            console.log('twin contents:');
+            //console.log(twin.properties);
+            twin.on('properties.desired', function(delta) {
+                console.log('new desired properties received:');
+                let json_timings = twin.properties.desired;
+                let json_string = JSON.stringify(twin.properties.desired);
+                //clientRedis.rpush(['timings', json_string]);
+                fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired));
+                resolve(json_timings);
+            });
+            
+            //sendTiming(twin.properties.desired.timing);
         });
     });
-    return popRedis;
+    tookTime = true;
+    return receiveTimings;
 }
 
+let greenId;
+let yellowId;
+let redId;
+
+let yellowTemp = 5; //temporizzazione predefinita
+let redTemp;
+
+let greenValue, yellowValue, redValue;
+//quarto byte: vuoto
+let emptyValue = 0x00;
+let bit_parità = 0x00;
 
 function parseTimings() {
-    getDataFromRedis().then(function(returnedValue) {
-        console.log('array', returnedValue);
-        //let firstTime = returnedValue.shift();
-        //1 - semaforo 1 a rosso: 00100011
-        //2 - vuoto
-        // 3 e 4 - 00000000 00001111 15 secondi
-        // 5 - 00000000
-        /*let packetGreen = [11100011, 00000000, 00001111, 00000000, 11101100];
-        let packetYellow = [11000011, 00000000, 00000101, 00000000, 11000110];
-        let packetRed = [10100011, 00000000, 00011110, 00000000, 10111111];*/
+        let reply = require('./temps.json');
+        let arrayTimings = reply.timing;
+        //console.log(arrayTimings);
+        let hour = new Date().toISOString().slice(11, 13);
+        let firstCouple = arrayTimings.shift();
+        let secondCouple = arrayTimings.shift();
+        
+        let couples = [firstCouple, secondCouple];
 
-        let packetGreen = [0xE3, 0x00, 0x0F, 0x00, 0xEC];
-        let packetYellow = [0xC3, 0x00, 0x05, 0x00, 0xC6];
-        let packetRed = [0xA3, 0x00, 0x1E, 0x00, 0xBF];
+        couples.forEach(couple => {
+            //Se ricevo la coppia 0 invio ai semafori 1-3
+            if(couple.semafores_couples === 0) {
 
-        port.write(packetGreen);
-        console.log('mandato pacco verde');
-        port.write(packetYellow);
-        console.log('mandato pacco giallo');
-        port.write(packetRed);
-        console.log('mandato pacco rosso');
+                //Id del semaforo valore predefinito:
+                greenId = 0x60;
+                yellowId = 0x40;
+                redId = 0x20;
+                
+                //ROSSO = giallo predefinito + temporizzazione ricevuta
+                redTemp = yellowTemp + parseInt(couple.value);
+                //Valori calcolati Hex
+                greenValue = parseInt(`0x${Number(couple.value).toString(16)}`);
+                yellowValue = parseInt(`0x${Number(yellowTemp).toString(16)}`);
+                redValue = parseInt(`0x${Number(redTemp).toString(16)}`);
+                
+                if(greenValue === 0) {
+                    console.log('semaforo giallo lampeggiante');
+                }
+                //let megaPack = [greenId, 0x00, greenValue, 0x00, bit_parità, yellowId, 0x00, yellowValue, 0x00, bit_parità, redId, 0x00, redValue, 0x00, bit_parità];
+                let firstCouplePack = [greenId,emptyValue,greenValue,emptyValue,bit_parità, yellowId,emptyValue,yellowValue,emptyValue,bit_parità, redId,emptyValue,redValue,emptyValue,bit_parità];
+                //primo rosso - 15 sec, verde - 10 sec, giallo -5 sec
+                console.log('first', firstCouplePack);
+                port.write(firstCouplePack);
+                
+            } else if (couple.semafores_couples === 1) {
+                //Id del semaforo valore predefinito:
+                greenId = 0x62;
+                yellowId = 0x42;
+                redId = 0x22;
 
-    });
+                //ROSSO = giallo predefinito + temporizzazione ricevuta
+                redTemp = yellowTemp + parseInt(couple.value);
+                //Valori calcolati Hex
+                greenValue = parseInt(`0x${Number(couple.value).toString(16)}`);
+                yellowValue = parseInt(`0x${Number(yellowTemp).toString(16)}`);
+                redValue = parseInt(`0x${Number(redTemp).toString(16)}`);
+
+                let secondCouplePack = [greenId,emptyValue,greenValue,emptyValue,bit_parità, yellowId,emptyValue,yellowValue,emptyValue,bit_parità, redId,emptyValue,redValue,emptyValue,bit_parità];
+                console.log('second', secondCouplePack);
+                port.write(secondCouplePack);
+            } else {
+                console.log("ERROR: Invalid data in JSON Received.")
+            }
+        });
    
 }
 
-parseTimings();
-
-// per tutte le ore vado a prendermi i valori e li parso in HEX 
-
-// li invio al pic
-
-
-function sendTiming(timings) {
-    let data = timings;
-    //console.log(data);
-
-
-    /*let cmd = [0x08, 0x00, 0x00, 0x00, 0x00];
-    port.write(cmd);
-    console.log('Sent value to Pic:', cmd);*/
-}
+//L'invio dei dati al pic avviene ogni 60 secondi
+//Nel progetto reale questo avverrà ogni ora
+setInterval(() => {
+	parseTimings();
+	
+}, 60000);
