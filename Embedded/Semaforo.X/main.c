@@ -173,21 +173,13 @@ void main(void)
                 for (unsigned char i = 0; i < 4; i++) //Invio tutti i valori
                 {
                     //*Parte di debug mezzi con funzione pseudo casuale
-                    unsigned char randomMoto = (char)rand();  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomCar = (char)rand();   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    unsigned char randomTruck = (char)rand(); //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
-                    if (randomMoto < 255)                     //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        motorcycle[i] = randomMoto; //Assegna il valore generato
-                    }
-                    if (randomCar < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        car[i] = randomCar; //Assegna il valore generato
-                    }
-                    if (randomTruck < 255) //Controlla che il numero sia più piccolo del massimo che si può inserire
-                    {
-                        truck[i] = randomTruck; //Assegna il valore generato
-                    }
+                    unsigned char randomMoto = (char)rand() % 20 + 1;  //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomCar = (char)rand() % 20 + 1;   //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+                    unsigned char randomTruck = (char)rand() % 20 + 1; //Aggiunta funzione random per mandadare dei valori di veicoli pseudo casuali
+
+                    motorcycle[i] = randomMoto; //Assegna il valore generato
+                    car[i] = randomCar;         //Assegna il valore generato
+                    truck[i] = randomTruck;     //Assegna il valore generato
                     //* end <--
 
                     switch (i)
@@ -307,10 +299,10 @@ void main(void)
                             if (i == 0) //...e se il ciclo terminato � quello del primo semaforo tutto l'incrocio ha terminato un ciclo...
                             {
                                 UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
-                                
-                                time[0]=1;
-                                time[1]=1;
-                                
+
+                                time[0] = 1;
+                                time[1] = 1;
+
                                 (*Semafori[0]).lux_select = 0;
                                 (*Semafori[1]).lux_select = 1;
                             }

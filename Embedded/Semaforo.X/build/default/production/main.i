@@ -2084,21 +2084,13 @@ void main(void)
                 for (unsigned char i = 0; i < 4; i++)
                 {
 
-                    unsigned char randomMoto = (char)rand();
-                    unsigned char randomCar = (char)rand();
-                    unsigned char randomTruck = (char)rand();
-                    if (randomMoto < 255)
-                    {
-                        motorcycle[i] = randomMoto;
-                    }
-                    if (randomCar < 255)
-                    {
-                        car[i] = randomCar;
-                    }
-                    if (randomTruck < 255)
-                    {
-                        truck[i] = randomTruck;
-                    }
+                    unsigned char randomMoto = (char)rand() % 20 + 1;
+                    unsigned char randomCar = (char)rand() % 20 + 1;
+                    unsigned char randomTruck = (char)rand() % 20 + 1;
+
+                    motorcycle[i] = randomMoto;
+                    car[i] = randomCar;
+                    truck[i] = randomTruck;
 
 
                     switch (i)
@@ -2219,8 +2211,8 @@ void main(void)
                             {
                                 UpdateTimes(Semafori);
 
-                                time[0]=1;
-                                time[1]=1;
+                                time[0] = 1;
+                                time[1] = 1;
 
                                 (*Semafori[0]).lux_select = 0;
                                 (*Semafori[1]).lux_select = 1;
