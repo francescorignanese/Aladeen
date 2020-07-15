@@ -4,7 +4,7 @@ const fs = require("fs");
 const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const redis = require('redis');
-const port = new SerialPort('/COM3');
+const port = new SerialPort('/COM7');
 const client = redis.createClient(6379, '192.168.0.99');
 const _ = require('lodash');
 
@@ -56,7 +56,6 @@ const sendDataRequestTraffic = function() {
 	//reset cmd
 	cmd_traffic = [0x00, 0x00, 0x00, 0x00, 0x00];
 }
-
 
 //Invia richiesta di Clima ogni ora
 setInterval(() => {
@@ -169,7 +168,7 @@ function climateManagement() {
 		console.log('................');
 	}, function (err) {
 		console.log(err);
-	});
+	})
 }
 
 function pushClimateOnRedis(json_weather) {
@@ -179,7 +178,10 @@ function pushClimateOnRedis(json_weather) {
 		json_climate.data_climate.push(json_weather);
 		json_string = JSON.stringify(json_climate);
 		console.log(json_string);
-		client.rpush([json_climate.sensor, json_string]);
+		if(json_climate.data_climate.length === 3) {
+			client.rpush([json_climate.sensor, json_string]);
+		}
+		
 		fs.writeFileSync("climate.json", json_string);
 		climateSent = false;
 	}
@@ -265,17 +267,23 @@ function trafficManagement() {
 				console.log('ERROR: Invalid data for traffic request, check if the roads are received!')
 			}
 			let json_vehicles = vehicleDistribution(byte2_full, byte2_type, decimal);
-			pushTrafficOnRedis(json_vehicles, json_carrier);
+			pushJSONTraffic(json_vehicles, json_carrier);
 		});	
-			
-	});
+		
+	})
+	.then(res => {
+		pushOnRedis(json_traffic);
+	})
+	.catch((err) => {
+		console.log(err);
+	});	
 }
 /**
  * 
  * @param {object} json_vehicles - json vehicles ritornato dalla funzione vehicleDistribution
  * @param {object} json_carrier - json che contiene N strade
  */
-function pushTrafficOnRedis(json_vehicles, json_carrier) {
+function pushJSONTraffic(json_vehicles, json_carrier) {
 	
 	let isPresent = false;
 	json_traffic.data_carriers.forEach(carrier => {
@@ -289,12 +297,20 @@ function pushTrafficOnRedis(json_vehicles, json_carrier) {
 		json_carrier.data_vehicles.push(json_vehicles);
 		json_traffic.data_carriers.push(json_carrier);
 	}
-
 	json_string = JSON.stringify(json_traffic);
-	console.log(json_traffic);
-	client.rpush([json_traffic.sensor, json_string]);
 	fs.writeFileSync("traffic.json", json_string);
+	console.log(json_traffic);
 	trafficSent = false;
+	return json_traffic;
+}
+
+/**
+ * This function pushes on Redis once the json traffic is ready
+ * @param {object} json_traffic 
+ */
+function pushOnRedis(json_traffic) {
+	json_string = JSON.stringify(json_traffic);
+	client.rpush([json_traffic.sensor, json_string]);
 }
 
 /**
@@ -316,19 +332,19 @@ function vehicleDistribution(byte2_full, byte2_type, decimal) {
 		vehicle_received = true;
 		switch (byte2_type) {
 			case '01': {
-				json_vehicle.type = 'motorcycle';
+				json_vehicle.type = 'Motociclo';
 				json_vehicle.value = decimal;
 				console.log(json_vehicle.type);
 				break;
 			}
 			case '10': {
-				json_vehicle.type = 'car';
+				json_vehicle.type = 'Automobile';
 				json_vehicle.value = decimal;
 				console.log(json_vehicle.type);
 				break;
 			}
 			case '11': {
-				json_vehicle.type = 'truck';
+				json_vehicle.type = 'Mezzo Pesante';
 				json_vehicle.value = decimal;
 				console.log(json_vehicle.type);
 				break;

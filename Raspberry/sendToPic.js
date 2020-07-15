@@ -2,54 +2,13 @@ const fs = require("fs");
 const SerialPort = require('serialport');
 const port = new SerialPort('/COM7', {databits:8, parity:'none'});
 const redis = require('redis');
-var config = require('config');
-var Client = require('azure-iot-device').Client;
-var Protocol = require('azure-iot-device-mqtt').Mqtt;
-var clientConfig = config.get('Clients');
-var client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
+const config = require('config');
+const Client = require('azure-iot-device').Client;
+const Protocol = require('azure-iot-device-mqtt').Mqtt;
+const clientConfig = config.get('Clients');
+const client = Client.fromConnectionString(clientConfig[0].connectionString, Protocol);
 
-// connect to the hub
-client.open(function(err) {
-    if (err) {
-        console.error('error connecting to hub: ' + err);
-        process.exit(1);
-    }
-    console.log('client opened');
-
-   
-});
-
-let tookTime = false;
-if(!tookTime) {
-    getTimings();
-}
-function getTimings() {
- // Create device Twin
-    var receiveTimings = new Promise(function(resolve, reject) { 
-        client.getTwin(function(err, twin) {
-            if (err) {
-                console.error('error getting twin: ' + err);
-                process.exit(1);
-            }
-            // Output the current properties
-            console.log('twin contents:');
-            //console.log(twin.properties);
-            twin.on('properties.desired', function(delta) {
-                console.log('new desired properties received:');
-                let json_timings = twin.properties.desired;
-                let json_string = JSON.stringify(twin.properties.desired);
-                //clientRedis.rpush(['timings', json_string]);
-                fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired));
-                resolve(json_timings);
-            });
-            
-            //sendTiming(twin.properties.desired.timing);
-        });
-    });
-    tookTime = true;
-    return receiveTimings;
-}
-
+//primo byte
 let greenId;
 let yellowId;
 let redId;
@@ -62,11 +21,49 @@ let greenValue, yellowValue, redValue;
 let emptyValue = 0x00;
 let bit_parità = 0x00;
 
+// connect to the hub
+client.open(function(err) {
+    if (err) {
+        console.error('error connecting to hub: ' + err);
+        process.exit(1);
+    }
+    console.log('client opened');   
+});
+
+let tookTime = false;
+if(!tookTime) {
+    getTimings();
+}
+
+function getTimings() {
+ // Create device Twin
+    var receiveTimings = new Promise(function(resolve, reject) { 
+        client.getTwin(function(err, twin) {
+            if (err) {
+                console.error('error getting twin: ' + err);
+                process.exit(1);
+            }
+            // Output the current properties
+            //console.log('twin contents:');
+            //console.log(twin.properties);
+            twin.on('properties.desired', function(delta) {
+                console.log('new desired properties received:');
+                let json_timings = twin.properties.desired;
+                fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired));
+                resolve(json_timings);
+            });
+            
+            //sendTiming(twin.properties.desired.timing);
+        });
+    });
+    tookTime = true;
+    return receiveTimings;
+}
+
 function parseTimings() {
         let reply = require('./temps.json');
         let arrayTimings = reply.timing;
         //console.log(arrayTimings);
-        let hour = new Date().toISOString().slice(11, 13);
         let firstCouple = arrayTimings.shift();
         let secondCouple = arrayTimings.shift();
         
@@ -77,8 +74,8 @@ function parseTimings() {
             if(couple.semafores_couples === 0) {
 
                 //Id del semaforo valore predefinito:
-                greenId = 0x60;
-                yellowId = 0x40;
+                greenId = 0x40;
+                yellowId = 0x60;
                 redId = 0x20;
                 
                 //ROSSO = giallo predefinito + temporizzazione ricevuta
@@ -117,12 +114,10 @@ function parseTimings() {
                 console.log("ERROR: Invalid data in JSON Received.")
             }
         });
-   
 }
 
-//L'invio dei dati al pic avviene ogni 60 secondi
+//L'invio dei dati al pic avviene ogni 80 secondi
 //Nel progetto reale questo avverrà ogni ora
 setInterval(() => {
 	parseTimings();
-	
-}, 60000);
+}, 80000);
