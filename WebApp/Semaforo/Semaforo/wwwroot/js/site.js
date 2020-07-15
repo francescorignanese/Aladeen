@@ -2,12 +2,12 @@
 
 
 // dati grafico
-/*
-var ctxL = document.getElementById("lineChart").getContext('2d');
+
+var ctxL = document.getElementById("randomChart").getContext('2d');
 var myLineChart = new Chart(ctxL, {
     type: 'line',
     data: {
-        labels: [],
+        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"],
         datasets: [{
             label: "Auto",
             data: [random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250), random(0, 250)],
@@ -47,7 +47,7 @@ var myLineChart = new Chart(ctxL, {
         responsive: true
     }
 });
-*/
+
 
 var ctxL = document.getElementById("lineChart").getContext('2d');
 var myLineChart = new Chart(ctxL, {
@@ -96,6 +96,7 @@ var myLineChart = new Chart(ctxL, {
 
 
 
+
 // funzione random
 
     function random(min, max) {
@@ -104,8 +105,7 @@ var myLineChart = new Chart(ctxL, {
         return Math.floor(Math.random() * (max - min + 1)) + min;  
 }
 
-var somma = document.getElementById("Somma");
-somma = random + random;
+
    function somma() {
     if (typeof Array.prototype.sum !== 'function') {
 
@@ -127,13 +127,11 @@ somma = random + random;
 }
 
 
-var timerId;
-function Aggiornamento() {
-    if (timerId == null) {
-        timerId = setInterval(random, 1000);
-    }
-}
-Aggiornamento();
+
+
+
+
+
 
 
 // Signalr

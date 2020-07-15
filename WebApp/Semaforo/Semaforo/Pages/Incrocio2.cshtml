@@ -1,6 +1,7 @@
 ﻿@page
 @model Semaforo.Incrocio2Model
 @{
+    
     ViewData["Title"] = "Incrocio2";
 }
 
@@ -33,26 +34,21 @@
             <div class="col-sm-5">
                 <h4 class="card-title mb-0">INCROCIO 2</h4>
 
-                <div class="small text-muted">@DateTime.Now</div>
+                <div id="oraAgg" class="small text-muted"></div>
             </div>
             <!-- /.col-->
             <div class="col-sm-7 d-none d-md-block">
                 <button class="btn btn-primary float-right" type="button" value="reload" onClick="document.location.reload(true)">
                     <i class="icon-refresh"></i>
                 </button>
-                <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
-                    <label class="btn btn-outline-secondary">
-                        <input id="option1" type="radio" name="options" autocomplete="off"> Hour
-                    </label>
-
-                </div>
+               
             </div>
 
         </div>
         <!-- /.row-->
         <div class="chart-wrapper" style="height:300px;margin-top:40px;">
-            <ul id="messagesList"></ul>
-            <canvas class="chart-area" id="lineChart" height="300"></canvas>
+            
+            <canvas class="chart-area" id="randomChart" height="300" onload="Aggiornamento()"></canvas>
         </div>
     </div>
     <div class="card-footer">
@@ -90,8 +86,21 @@
     <script src="~/lib/coreui/js/custom-tooltips.min.js"></script>
     <script src="~/lib/coreui/js/main.js"></script>
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/sen.js"></script>
     <script src="~/lib/coreui/js/charts.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/bootstrap.js"></script>
 }
+
+
+
+<!--Aggiornamento automatico ora-->
+<script>
+    
+var myVar = setInterval(myTimer, 1000);
+
+function myTimer() {
+  var d = new Date();
+  document.getElementById("oraAgg").innerHTML = d.toLocaleTimeString();
+}
+
+</script>
