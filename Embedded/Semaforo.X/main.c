@@ -340,7 +340,7 @@ void init_ADC()
     TRISA = 0xE3;   //imposto i pin come ingressi trane RA2 RA3 RA4
     ADCON0 = 0x00;  // setto ADCON0 00000000
     ADCON1 = 0x80;  // SETTO ADCON1 (ADFM) a 1 --> risultato giustificato verso dx 10000000
-    __delay_us(10); //delay condensatore 10us
+    __delay_us(10); //delay condensatore s10us
 }
 
 //leggo il valore del potenziometro

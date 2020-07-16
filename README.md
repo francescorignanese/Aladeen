@@ -11,8 +11,8 @@
 Realizzazione di un prototipo di Smart City con la progettazione di un sistema di incrocio di tipo semaforico con tecnologie IOT che permetta di rilevare diverse tipologie di dato a fine statistico e valutativo grazie alla presenza di un database per la raccolta dei dati.
 
 # Come iniziare
-Scaricare da GitHub tutto il la cartella di progetto Aladeen-master.<br/>
-Installare i seguenti trumenti:
+Scaricare da GitHub tutta la cartella del progetto Aladeen-master.<br/>
+Installare i seguenti strumenti:
 - MPLAB X
 - PicsimLab
 - Node.js
@@ -52,9 +52,10 @@ Tasto destro sopra Potentiometers -> Properties -> settare il potenziometro come
 **Sensore pressione**
 - Primo SLIDER: Pot.1: RE0
 
-Nella finestra principale del PicsimLab caricare il file .hex File -> Load Hex presente nella directory: \Aladeen-master\Embedded\Semaforo.X\dist\default\production.
+Nella finestra principale del PicsimLab caricare il file .hex (File -> Load Hex) presente nella directory \Aladeen-master\Embedded\Semaforo.X\dist\default\production.
 
 ### Gateway
+Avviare il servizio di Redis da macchina virtuale Debian o da altro sistema operativo base Linux o al posto della macchina virtuale anche Docker.<br/>
 Aprire la cartella di progetto con Visual Studio Code (o editor alternativo) e da terminale installare i node_modules utilizzando il comando *npm install*.<br/>
 Nel file index.js configurare la porta per il seriale e immettere l'indirizzo IP della macchina virtuale per la connessione con Redis
 (const port = new SerialPort('/PORTA'); const client = redis.createClient(6379, 'INDIRIZZO IP');).<br/>
