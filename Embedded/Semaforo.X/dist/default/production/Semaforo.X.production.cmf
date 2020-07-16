@@ -53,7 +53,7 @@ idataBANK1 CODE 0 9E0 9E0 14 2
 strings STRING 0 800 800 12 2
 dataBANK1 BANK1 1 DB DB 14 1
 clrtext CODE 0 9A9 9A9 8 2
-$C:\Users\Rigna\AppData\Local\Temp\saos.o
+$C:\Users\Rigna\AppData\Local\Temp\sc44.o
 reset_vec CODE 0 0 0 3 2
 end_init CODE 0 10 10 3 2
 config CONFIG 0 2007 2007 1 2
@@ -110,39 +110,39 @@ STRING 1000-1FFF 2
 # All other numeric values are in decimal.
 %LINETAB
 $dist/default/production\Semaforo.X.production.o
-13 cinit CODE >562:C:\Users\Rigna\AppData\Local\Temp\saos.s
-13 cinit CODE >565:C:\Users\Rigna\AppData\Local\Temp\saos.s
-13 cinit CODE >732:C:\Users\Rigna\AppData\Local\Temp\saos.s
-14 cinit CODE >733:C:\Users\Rigna\AppData\Local\Temp\saos.s
-15 cinit CODE >734:C:\Users\Rigna\AppData\Local\Temp\saos.s
-16 cinit CODE >735:C:\Users\Rigna\AppData\Local\Temp\saos.s
-17 cinit CODE >736:C:\Users\Rigna\AppData\Local\Temp\saos.s
-18 cinit CODE >737:C:\Users\Rigna\AppData\Local\Temp\saos.s
-19 cinit CODE >738:C:\Users\Rigna\AppData\Local\Temp\saos.s
-1A cinit CODE >739:C:\Users\Rigna\AppData\Local\Temp\saos.s
-1B cinit CODE >740:C:\Users\Rigna\AppData\Local\Temp\saos.s
-1C cinit CODE >741:C:\Users\Rigna\AppData\Local\Temp\saos.s
-21 cinit CODE >760:C:\Users\Rigna\AppData\Local\Temp\saos.s
-22 cinit CODE >761:C:\Users\Rigna\AppData\Local\Temp\saos.s
-23 cinit CODE >762:C:\Users\Rigna\AppData\Local\Temp\saos.s
-24 cinit CODE >763:C:\Users\Rigna\AppData\Local\Temp\saos.s
-25 cinit CODE >764:C:\Users\Rigna\AppData\Local\Temp\saos.s
-2A cinit CODE >767:C:\Users\Rigna\AppData\Local\Temp\saos.s
-2B cinit CODE >768:C:\Users\Rigna\AppData\Local\Temp\saos.s
-2C cinit CODE >769:C:\Users\Rigna\AppData\Local\Temp\saos.s
-2D cinit CODE >770:C:\Users\Rigna\AppData\Local\Temp\saos.s
-32 cinit CODE >773:C:\Users\Rigna\AppData\Local\Temp\saos.s
-33 cinit CODE >774:C:\Users\Rigna\AppData\Local\Temp\saos.s
-34 cinit CODE >775:C:\Users\Rigna\AppData\Local\Temp\saos.s
-35 cinit CODE >776:C:\Users\Rigna\AppData\Local\Temp\saos.s
-36 cinit CODE >777:C:\Users\Rigna\AppData\Local\Temp\saos.s
-3B cinit CODE >780:C:\Users\Rigna\AppData\Local\Temp\saos.s
-3C cinit CODE >781:C:\Users\Rigna\AppData\Local\Temp\saos.s
-3D cinit CODE >782:C:\Users\Rigna\AppData\Local\Temp\saos.s
-3E cinit CODE >783:C:\Users\Rigna\AppData\Local\Temp\saos.s
-43 cinit CODE >789:C:\Users\Rigna\AppData\Local\Temp\saos.s
-43 cinit CODE >791:C:\Users\Rigna\AppData\Local\Temp\saos.s
-44 cinit CODE >792:C:\Users\Rigna\AppData\Local\Temp\saos.s
+13 cinit CODE >562:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+13 cinit CODE >565:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+13 cinit CODE >732:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+14 cinit CODE >733:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+15 cinit CODE >734:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+16 cinit CODE >735:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+17 cinit CODE >736:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+18 cinit CODE >737:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+19 cinit CODE >738:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+1A cinit CODE >739:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+1B cinit CODE >740:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+1C cinit CODE >741:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+21 cinit CODE >760:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+22 cinit CODE >761:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+23 cinit CODE >762:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+24 cinit CODE >763:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+25 cinit CODE >764:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+2A cinit CODE >767:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+2B cinit CODE >768:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+2C cinit CODE >769:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+2D cinit CODE >770:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+32 cinit CODE >773:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+33 cinit CODE >774:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+34 cinit CODE >775:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+35 cinit CODE >776:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+36 cinit CODE >777:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+3B cinit CODE >780:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+3C cinit CODE >781:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+3D cinit CODE >782:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+3E cinit CODE >783:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+43 cinit CODE >789:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+43 cinit CODE >791:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+44 cinit CODE >792:C:\Users\Rigna\AppData\Local\Temp\sc44.s
 4 intentry CODE >526:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 9B1 text26 CODE >387:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 9B1 text26 CODE >389:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
@@ -601,33 +601,33 @@ FD maintext CODE >180:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X
 4FA maintext CODE >330:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 4FA maintext CODE >331:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 502 maintext CODE >333:D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
-9A9 clrtext CODE >747:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9A9 clrtext CODE >748:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AA clrtext CODE >749:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AA clrtext CODE >750:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AB clrtext CODE >751:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AC clrtext CODE >752:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AD clrtext CODE >753:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AE clrtext CODE >754:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9AF clrtext CODE >755:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9B0 clrtext CODE >756:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9CD inittext CODE >706:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9CD inittext CODE >707:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9CE inittext CODE >708:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9CF inittext CODE >709:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D0 inittext CODE >710:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D1 inittext CODE >717:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D1 inittext CODE >718:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D6 inittext CODE >719:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D7 inittext CODE >720:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D8 inittext CODE >721:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9D9 inittext CODE >722:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DA inittext CODE >723:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DB inittext CODE >724:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DC inittext CODE >725:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DD inittext CODE >726:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DE inittext CODE >727:C:\Users\Rigna\AppData\Local\Temp\saos.s
-9DF inittext CODE >728:C:\Users\Rigna\AppData\Local\Temp\saos.s
+9A9 clrtext CODE >747:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9A9 clrtext CODE >748:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AA clrtext CODE >749:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AA clrtext CODE >750:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AB clrtext CODE >751:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AC clrtext CODE >752:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AD clrtext CODE >753:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AE clrtext CODE >754:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9AF clrtext CODE >755:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9B0 clrtext CODE >756:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9CD inittext CODE >706:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9CD inittext CODE >707:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9CE inittext CODE >708:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9CF inittext CODE >709:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D0 inittext CODE >710:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D1 inittext CODE >717:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D1 inittext CODE >718:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D6 inittext CODE >719:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D7 inittext CODE >720:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D8 inittext CODE >721:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9D9 inittext CODE >722:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DA inittext CODE >723:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DB inittext CODE >724:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DC inittext CODE >725:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DD inittext CODE >726:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DE inittext CODE >727:C:\Users\Rigna\AppData\Local\Temp\sc44.s
+9DF inittext CODE >728:C:\Users\Rigna\AppData\Local\Temp\sc44.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -671,7 +671,7 @@ BuildByte@valore 25 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.pro
 _RCIF 65 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 _TMR0 1 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 _TXIF 64 0 ABS 0 - dist/default/production\Semaforo.X.production.o
-___sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\saos.o
+___sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\sc44.o
 _disp 60 0 BANK0 1 bssBANK0 dist/default/production\Semaforo.X.production.o
 _main 8E 0 CODE 0 maintext dist/default/production\Semaforo.X.production.o
 _rand 1C8A 0 CODE 0 text4 dist/default/production\Semaforo.X.production.o
@@ -682,7 +682,7 @@ UpdateTimes@i 2F 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.produc
 UpdateTimes@l 30 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 map@x 48 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 main@randomMoto 1E5 0 BANK3 1 cstackBANK3 dist/default/production\Semaforo.X.production.o
-start 20 0 CODE 0 init C:\Users\Rigna\AppData\Local\Temp\saos.o
+start 20 0 CODE 0 init C:\Users\Rigna\AppData\Local\Temp\sc44.o
 __size_of___aldiv 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 __size_of___awdiv 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 __size_of___awmod 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
@@ -701,12 +701,12 @@ Conteggio@_truck 74 0 COMMON 1 cstackCOMMON dist/default/production\Semaforo.X.p
 ___awmod@sign 3E 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 SetDefaultTimers@_semafori 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 __size_of_ADC_Read 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
-intlevel0 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
-intlevel1 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
-intlevel2 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
-intlevel3 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
-intlevel4 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
-intlevel5 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\saos.o
+intlevel0 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
+intlevel1 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
+intlevel2 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
+intlevel3 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
+intlevel4 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
+intlevel5 0 0 ENTRY 0 functab C:\Users\Rigna\AppData\Local\Temp\sc44.o
 _motorcycle BF 0 BANK1 1 bssBANK1 dist/default/production\Semaforo.X.production.o
 ___bmul@multiplicand 24 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 _init_ADC 1374 0 CODE 0 text9 dist/default/production\Semaforo.X.production.o
@@ -765,8 +765,8 @@ _INTCON B 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 __size_of_SetReceivedTimes 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 _OPTION_REG 81 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 __end_of_ADC_Read 1434 0 CODE 0 text22 dist/default/production\Semaforo.X.production.o
-___stackhi 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\saos.o
-___stacklo 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\saos.o
+___stackhi 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\sc44.o
+___stacklo 0 0 ABS 0 - C:\Users\Rigna\AppData\Local\Temp\sc44.o
 _dataFromGatewayIndex 5E 0 BANK0 1 bssBANK0 dist/default/production\Semaforo.X.production.o
 SetReceivedTimes@index 34 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 __end_of_SetDisplay 18C6 0 CODE 0 text14 dist/default/production\Semaforo.X.production.o
@@ -788,7 +788,7 @@ _umidita 5B 0 BANK0 1 bssBANK0 dist/default/production\Semaforo.X.production.o
 _TMR0IF 5A 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 _TMR1IF 60 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 GetTime@tmp 2A 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
-___int_sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\saos.o
+___int_sp 0 0 STACK 2 stack C:\Users\Rigna\AppData\Local\Temp\sc44.o
 _UpdateTimes ED2 0 CODE 0 text10 dist/default/production\Semaforo.X.production.o
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
@@ -866,7 +866,7 @@ __CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\Semaforo.X.production.o
 Conteggio@_car 73 0 COMMON 1 cstackCOMMON dist/default/production\Semaforo.X.production.o
 __Lintentry 8 0 CODE 0 intentry -
 __stringtab 1000 0 STRING 0 strings dist/default/production\Semaforo.X.production.o
-reset_vec 0 0 CODE 0 reset_vec C:\Users\Rigna\AppData\Local\Temp\saos.o
+reset_vec 0 0 CODE 0 reset_vec C:\Users\Rigna\AppData\Local\Temp\sc44.o
 SetDisplay@d1 24 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 SetDisplay@d2 25 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o
 SetDisplay@d3 26 0 BANK0 1 cstackBANK0 dist/default/production\Semaforo.X.production.o

@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.10\pic\dat\en_msgs.txt \
   -cs -h+dist/default/production\Semaforo.X.production.sym \
   --cmf=dist/default/production\Semaforo.X.production.cmf -z -Q16F877A \
-  -oC:\Users\Rigna\AppData\Local\Temp\saos.2 --defsym=__MPLAB_BUILD=1 \
+  -oC:\Users\Rigna\AppData\Local\Temp\sc44.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/Semaforo.X.production.map -E1 -ver=XC8 \
   --acfsm=1493 -ASTACK=013Ah-016Fh -pstack=STACK -ACODE=00h-07FFhx4 \
   -ASTRCODE=00h-01FFFh -ASTRING=00h-0FFhx32 -ACONST=00h-0FFhx32 \
@@ -18,7 +18,7 @@ Linker command line:
   -pfunctab=ENTRY -ACONFIG=02007h-02007h -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
-  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\saos.o \
+  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\sc44.o \
   dist/default/production\Semaforo.X.production.o 
 
 Object code version is 3.11
@@ -28,7 +28,7 @@ Machine type is 16F877A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\Rigna\AppData\Local\Temp\saos.o
+C:\Users\Rigna\AppData\Local\Temp\sc44.o
                 end_init                             10       10        3        8       0
                 reset_vec                             0        0        3        0       0
                 config                             2007     2007        1     400E       0
