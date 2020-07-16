@@ -1869,7 +1869,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 301:                                 UpdateTimes(Semafori);
 [e ( _UpdateTimes (1 &U _Semafori ]
 "303
-[; ;main.c: 303:                                 for(unsigned char l=0; l<n_semafori; l++)
+[; ;main.c: 303:                                 for (unsigned char l = 0; l < n_semafori; l++)
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]

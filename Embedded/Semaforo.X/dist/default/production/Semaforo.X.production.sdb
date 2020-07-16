@@ -3,11 +3,11 @@
 [d edition pro ]
 [d chip 16F877A ]
 [d frameptr 0 ]
-"1 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/BitsFlow.h
+"1 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/BitsFlow.h
 [v _bitChange bitChange `(uc  1 e 1 0 ]
-"2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/Serial.h
+"2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
-"4 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
+"4 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _UpdateTimes UpdateTimes `(v  1 e 1 0 ]
 "25
 [v _GetTime GetTime `(i  1 e 2 0 ]
@@ -43,7 +43,7 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"136 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"136 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _main main `(v  1 e 1 0 ]
 "339
 [v _init_ADC init_ADC `(v  1 e 1 0 ]
@@ -67,7 +67,7 @@
 [v _ShowDigitsOnDisplay ShowDigitsOnDisplay `(v  1 e 1 0 ]
 "526
 [v _ISR ISR `II(v  1 e 1 0 ]
-"2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/Constants.h
+"2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/Constants.h
 [v _display display `DC[11]uc  1 e 11 0 ]
 "59 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic16f877a.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -238,7 +238,7 @@
 [s S33 . 1 `uc 1 Bit 1 0 :1:0 
 `uc 1 Timeout 1 0 :1:1 
 ]
-"102 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"102 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _readGatewayDone readGatewayDone `S33  1 e 1 0 ]
 [s S36 . 1 `uc 1 Bit 1 0 :1:0 
 ]
@@ -347,7 +347,7 @@
 [v UART_TxChar@ch ch `uc  1 a 1 4 ]
 "376
 } 0
-"2 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/Serial.h
+"2 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/Serial.h
 [v _BuildByte BuildByte `(*.4uc  1 e 1 0 ]
 {
 [v BuildByte@byte0 byte0 `uc  1 a 1 wreg ]
@@ -388,7 +388,7 @@
 [v ___lmul@multiplicand multiplicand `ul  1 p 4 8 ]
 "129
 } 0
-"115 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
+"115 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _map map `(i  1 e 2 0 ]
 {
 [v map@x x `i  1 p 2 40 ]
@@ -408,7 +408,7 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 6 ]
 "53
 } 0
-"427 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"427 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _luciSemaforo luciSemaforo `(v  1 e 1 0 ]
 {
 [v luciSemaforo@index index `uc  1 a 1 wreg ]
@@ -422,7 +422,7 @@
 {
 "345
 } 0
-"4 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
+"4 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _UpdateTimes UpdateTimes `(v  1 e 1 0 ]
 {
 [s S22 . 14 `[3]i 1 times 6 0 `[3]i 1 new_times 6 6 `uc 1 lux_select 1 12 `uc 1 new_lux_select 1 13 ]
@@ -438,7 +438,7 @@
 [v UpdateTimes@_semafori _semafori `*.4*.5S22  1 a 1 14 ]
 "22
 } 0
-"358 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"358 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _UART_Init UART_Init `(v  1 e 1 0 ]
 {
 [v UART_Init@baudrate baudrate `i  1 p 2 19 ]
@@ -457,7 +457,7 @@
 [v ___aldiv@dividend dividend `l  1 p 4 8 ]
 "41
 } 0
-"500 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"500 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _ShowDigitsOnDisplay ShowDigitsOnDisplay `(v  1 e 1 0 ]
 {
 "502
@@ -476,7 +476,7 @@
 [v SetDisplay@display_index display_index `uc  1 a 1 10 ]
 "498
 } 0
-"74 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
+"74 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _SetReceivedTimes SetReceivedTimes `(v  1 e 1 0 ]
 {
 [v SetReceivedTimes@_dataFromGateway _dataFromGateway `*.5uc  1 a 1 wreg ]
@@ -576,7 +576,7 @@
 [v ___awdiv@dividend dividend `i  1 p 2 33 ]
 "41
 } 0
-"348 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"348 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _ADC_Read ADC_Read `(i  1 e 2 0 ]
 {
 [v ADC_Read@canale canale `uc  1 a 1 wreg ]
@@ -597,7 +597,7 @@
 [v conteggioVeicoli@i i `uc  1 a 1 13 ]
 "425
 } 0
-"99 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
+"99 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X/CustomLib/TrafficLight.h
 [v _Conteggio Conteggio `(v  1 e 1 0 ]
 {
 [v Conteggio@_count _count `ui  1 p 2 0 ]
@@ -607,7 +607,7 @@
 [v Conteggio@index index `uc  1 p 1 5 ]
 "113
 } 0
-"387 C:\Users\PC\Desktop\roba\Aladeen\Embedded\Semaforo.X\main.c
+"387 D:\ITS\ITS_2_ANNO\Project_Work\Aladeen\Embedded\Semaforo.X\main.c
 [v _UART_Read UART_Read `(uc  1 e 1 0 ]
 {
 "393

@@ -300,12 +300,12 @@ void main(void)
                             {
                                 UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
 
-                                for(unsigned char l=0; l<n_semafori; l++)
+                                for (unsigned char l = 0; l < n_semafori; l++)
                                 {
                                     time[l] = 1;
                                     (*Semafori[l]).lux_select = 0;
                                 }
-                                
+
                                 (*Semafori[1]).lux_select = 1;
                             }
                         }

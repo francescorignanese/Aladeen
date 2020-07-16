@@ -2199,7 +2199,7 @@ void main(void)
                             {
                                 UpdateTimes(Semafori);
 
-                                for(unsigned char l=0; l<n_semafori; l++)
+                                for (unsigned char l = 0; l < n_semafori; l++)
                                 {
                                     time[l] = 1;
                                     (*Semafori[l]).lux_select = 0;
