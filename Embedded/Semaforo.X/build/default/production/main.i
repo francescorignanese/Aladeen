@@ -1864,8 +1864,8 @@ typedef struct
 } Digits;
 
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[2];
-typedef Digits *_Digits[2];
+typedef Semaforo *_Semafori[8];
+typedef Digits *_Digits[8];
 # 1 "./CustomLib/TrafficLight.h" 2
 
 # 1 "./CustomLib/Constants.h" 1
@@ -1873,7 +1873,7 @@ typedef Digits *_Digits[2];
 const char display[11] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
 
 
-const unsigned char n_semafori = 2;
+const unsigned char n_semafori = 8;
 # 2 "./CustomLib/TrafficLight.h" 2
 
 
@@ -1897,17 +1897,6 @@ void UpdateTimes(_Semafori _semafori)
     }
 }
 
-void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-{
-
-
-    do
-    {
-        *_n_semafori = ((*_n_semafori) + 1);
-    } while ((*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori < 10);
-
-    *_n_semafori = (*_n_semafori) % 10;
-}
 
 
 int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
@@ -2023,10 +2012,10 @@ unsigned char truck[4];
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;
 ProtocolBytes dataFromGateway;
-Semaforo s0, s1;
-Semaforo *Semafori[2] = {&s0, &s1};
-Digits digits0, digits1;
-Digits *DigitsArr[2] = {&digits0, &digits1};
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
+Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+Digits digits0, digits1, digits2, digits3, digits4, digits5, digits6, digits7;
+Digits *DigitsArr[8] = {&digits0, &digits1, &digits2, &digits3, &digits4, &digits5, &digits6, &digits7};
 unsigned char timerReadFromGateway;
 char temp = 0;
 unsigned char umidita = 0;
