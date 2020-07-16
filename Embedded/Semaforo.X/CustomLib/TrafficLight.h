@@ -21,17 +21,6 @@ void UpdateTimes(_Semafori _semafori)
     }
 }
 
-void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-{
-    //incrementando n_semafori quando il tempo ï¿½ 0; assicura che vengano saltati i semafori che non vengoo inizializzati dal raspberry, quindi inesistenti nell'incrocio
-    //si usa il do while così da incrementare almeno una volta
-    do
-    {
-        *_n_semafori = ((*_n_semafori) + 1);
-    } while ((*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori < 10);
-
-    *_n_semafori = (*_n_semafori) % 10;
-}
 
 //Compone in un int un numero scomposto in due byte
 int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)

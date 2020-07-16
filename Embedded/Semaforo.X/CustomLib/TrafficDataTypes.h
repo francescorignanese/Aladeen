@@ -19,5 +19,5 @@ typedef struct
 } Digits;
 
 typedef unsigned char ProtocolBytes[15];
-typedef Semaforo *_Semafori[2];
-typedef Digits *_Digits[2];
+typedef Semaforo *_Semafori[8];
+typedef Digits *_Digits[8];

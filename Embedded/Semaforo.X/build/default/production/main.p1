@@ -3,18 +3,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./CustomLib/TrafficDataTypes.h: 2: {
 [s S131 `i -> 3 `i `i -> 3 `i `uc 1 `uc 1 ]
 [n S131 . times new_times lux_select new_lux_select ]
-"41 ./CustomLib/TrafficLight.h
-[; ;./CustomLib/TrafficLight.h: 41:     {
-[s S148 :7 `uc 1 ]
-[n S148 . Val ]
+"30 ./CustomLib/TrafficLight.h
+[; ;./CustomLib/TrafficLight.h: 30:     {
+[s S144 :7 `uc 1 ]
+[n S144 . Val ]
 "15 ./CustomLib/TrafficDataTypes.h
 [; ;./CustomLib/TrafficDataTypes.h: 15: {
 [s S133 `uc 1 `uc 1 `uc 1 ]
 [n S133 . centinaia decine unita ]
 "99 main.c
 [; ;main.c: 99: {
-[s S174 :1 `uc 1 :1 `uc 1 ]
-[n S174 . Bit Timeout ]
+[s S170 :1 `uc 1 :1 `uc 1 ]
+[n S170 . Bit Timeout ]
 "10 ./CustomLib/TrafficDataTypes.h
 [; ;./CustomLib/TrafficDataTypes.h: 10: {
 [s S132 :1 `uc 1 ]
@@ -833,10 +833,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 ..
 ]
 "5
-[; ;./CustomLib/Constants.h: 5: const unsigned char n_semafori = 2;
+[; ;./CustomLib/Constants.h: 5: const unsigned char n_semafori = 8;
 [v _n_semafori `Cuc ~T0 @X0 1 e ]
 [i _n_semafori
--> -> 2 `i `uc
+-> -> 8 `i `uc
 ]
 "4 ./CustomLib/TrafficLight.h
 [; ;./CustomLib/TrafficLight.h: 4: void UpdateTimes(_Semafori _semafori)
@@ -914,389 +914,354 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./CustomLib/TrafficLight.h: 22: }
 [e :UE 134 ]
 }
-"24
-[; ;./CustomLib/TrafficLight.h: 24: void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-[v _ChangeTrafficLight `(v ~T0 @X0 1 ef2`**S131`*uc ]
-"25
-[; ;./CustomLib/TrafficLight.h: 25: {
-{
-[e :U _ChangeTrafficLight ]
-"24
-[; ;./CustomLib/TrafficLight.h: 24: void ChangeTrafficLight(_Semafori _semafori, unsigned char *_n_semafori)
-[v __semafori `**S131 ~T0 @X0 1 r1 ]
-[v __n_semafori `*uc ~T0 @X0 1 r2 ]
-"25
-[; ;./CustomLib/TrafficLight.h: 25: {
-[f ]
-"28
-[; ;./CustomLib/TrafficLight.h: 28:     do
-[e :U 146 ]
-"29
-[; ;./CustomLib/TrafficLight.h: 29:     {
-{
-"30
-[; ;./CustomLib/TrafficLight.h: 30:         *_n_semafori = ((*_n_semafori) + 1);
-[e = *U __n_semafori -> + -> *U __n_semafori `i -> 1 `i `uc ]
-"31
-[; ;./CustomLib/TrafficLight.h: 31:     } while ((*(_semafori)[*_n_semafori]).times[0] == 0 && *_n_semafori < 10);
-}
-[e $ && == *U + &U . *U *U + __semafori * -> *U __n_semafori `ux -> -> # *U __semafori `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + __semafori * -> *U __n_semafori `ux -> -> # *U __semafori `ui `ux 0 `ui `ux -> 0 `i < -> *U __n_semafori `i -> 10 `i 146  ]
-[e :U 145 ]
-"33
-[; ;./CustomLib/TrafficLight.h: 33:     *_n_semafori = (*_n_semafori) % 10;
-[e = *U __n_semafori -> % -> *U __n_semafori `i -> 10 `i `uc ]
-"34
-[; ;./CustomLib/TrafficLight.h: 34: }
-[e :UE 143 ]
-}
-"37
-[; ;./CustomLib/TrafficLight.h: 37: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+"26
+[; ;./CustomLib/TrafficLight.h: 26: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 [v _GetTime `(i ~T0 @X0 1 ef2`uc`*uc ]
-"38
-[; ;./CustomLib/TrafficLight.h: 38: {
+"27
+[; ;./CustomLib/TrafficLight.h: 27: {
 {
 [e :U _GetTime ]
-"37
-[; ;./CustomLib/TrafficLight.h: 37: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+"26
+[; ;./CustomLib/TrafficLight.h: 26: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 [v _index `uc ~T0 @X0 1 r1 ]
 [v __dataFromGateway `*uc ~T0 @X0 1 r2 ]
-"38
-[; ;./CustomLib/TrafficLight.h: 38: {
+"27
+[; ;./CustomLib/TrafficLight.h: 27: {
 [f ]
-"39
-[; ;./CustomLib/TrafficLight.h: 39:     int tmp;
+"28
+[; ;./CustomLib/TrafficLight.h: 28:     int tmp;
 [v _tmp `i ~T0 @X0 1 a ]
-"43
-[; ;./CustomLib/TrafficLight.h: 43:     } shortInt;
-[v _shortInt `S148 ~T0 @X0 1 a ]
-"45
-[; ;./CustomLib/TrafficLight.h: 45:     shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
+"32
+[; ;./CustomLib/TrafficLight.h: 32:     } shortInt;
+[v _shortInt `S144 ~T0 @X0 1 a ]
+"34
+[; ;./CustomLib/TrafficLight.h: 34:     shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
 [e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 3 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
-"46
-[; ;./CustomLib/TrafficLight.h: 46:     tmp = shortInt.Val;
+"35
+[; ;./CustomLib/TrafficLight.h: 35:     tmp = shortInt.Val;
 [e = _tmp -> . _shortInt 0 `i ]
-"47
-[; ;./CustomLib/TrafficLight.h: 47:     tmp = (tmp << 7) & 0x80;
+"36
+[; ;./CustomLib/TrafficLight.h: 36:     tmp = (tmp << 7) & 0x80;
 [e = _tmp & << _tmp -> 7 `i -> 128 `i ]
-"49
-[; ;./CustomLib/TrafficLight.h: 49:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
+"38
+[; ;./CustomLib/TrafficLight.h: 38:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
 [e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 2 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
-"50
-[; ;./CustomLib/TrafficLight.h: 50:     tmp = tmp | shortInt.Val;
+"39
+[; ;./CustomLib/TrafficLight.h: 39:     tmp = tmp | shortInt.Val;
 [e = _tmp | _tmp -> . _shortInt 0 `i ]
-"52
-[; ;./CustomLib/TrafficLight.h: 52:     return tmp;
+"41
+[; ;./CustomLib/TrafficLight.h: 41:     return tmp;
 [e ) _tmp ]
-[e $UE 147  ]
-"53
-[; ;./CustomLib/TrafficLight.h: 53: }
-[e :UE 147 ]
+[e $UE 143  ]
+"42
+[; ;./CustomLib/TrafficLight.h: 42: }
+[e :UE 143 ]
 }
-"56
-[; ;./CustomLib/TrafficLight.h: 56: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+"45
+[; ;./CustomLib/TrafficLight.h: 45: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 [v _SetDefaultTimers `(v ~T0 @X0 1 ef4`i`i`i`**S131 ]
-"57
-[; ;./CustomLib/TrafficLight.h: 57: {
+"46
+[; ;./CustomLib/TrafficLight.h: 46: {
 {
 [e :U _SetDefaultTimers ]
-"56
-[; ;./CustomLib/TrafficLight.h: 56: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+"45
+[; ;./CustomLib/TrafficLight.h: 45: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 [v _rosso `i ~T0 @X0 1 r1 ]
 [v _verde `i ~T0 @X0 1 r2 ]
 [v _giallo `i ~T0 @X0 1 r3 ]
 [v __semafori `**S131 ~T0 @X0 1 r4 ]
-"57
-[; ;./CustomLib/TrafficLight.h: 57: {
+"46
+[; ;./CustomLib/TrafficLight.h: 46: {
 [f ]
-"58
-[; ;./CustomLib/TrafficLight.h: 58:     for (unsigned char l = 0; l < n_semafori; l++)
+"47
+[; ;./CustomLib/TrafficLight.h: 47:     for (unsigned char l = 0; l < n_semafori; l++)
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]
-[e $ < -> _l `i -> _n_semafori `i 150  ]
-[e $U 151  ]
-[e :U 150 ]
-"59
-[; ;./CustomLib/TrafficLight.h: 59:     {
+[e $ < -> _l `i -> _n_semafori `i 146  ]
+[e $U 147  ]
+[e :U 146 ]
+"48
+[; ;./CustomLib/TrafficLight.h: 48:     {
 {
-"60
-[; ;./CustomLib/TrafficLight.h: 60:         for (unsigned char i = 0; i < 3; i++)
+"49
+[; ;./CustomLib/TrafficLight.h: 49:         for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 153  ]
-[e $U 154  ]
-[e :U 153 ]
-"61
-[; ;./CustomLib/TrafficLight.h: 61:         {
+[e $ < -> _i `i -> 3 `i 149  ]
+[e $U 150  ]
+[e :U 149 ]
+"50
+[; ;./CustomLib/TrafficLight.h: 50:         {
 {
-"62
-[; ;./CustomLib/TrafficLight.h: 62:             switch (i)
-[e $U 157  ]
-"63
-[; ;./CustomLib/TrafficLight.h: 63:             {
+"51
+[; ;./CustomLib/TrafficLight.h: 51:             switch (i)
+[e $U 153  ]
+"52
+[; ;./CustomLib/TrafficLight.h: 52:             {
 {
-"64
-[; ;./CustomLib/TrafficLight.h: 64:             case 0:
-[e :U 158 ]
-"65
-[; ;./CustomLib/TrafficLight.h: 65:                 (*(_semafori)[l]).times[i] = rosso;
+"53
+[; ;./CustomLib/TrafficLight.h: 53:             case 0:
+[e :U 154 ]
+"54
+[; ;./CustomLib/TrafficLight.h: 54:                 (*(_semafori)[l]).times[i] = rosso;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _rosso ]
-"66
-[; ;./CustomLib/TrafficLight.h: 66:                 (*(_semafori)[l]).new_times[i] = rosso;
+"55
+[; ;./CustomLib/TrafficLight.h: 55:                 (*(_semafori)[l]).new_times[i] = rosso;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _rosso ]
-"67
-[; ;./CustomLib/TrafficLight.h: 67:                 break;
-[e $U 156  ]
-"68
-[; ;./CustomLib/TrafficLight.h: 68:             case 1:
-[e :U 159 ]
-"69
-[; ;./CustomLib/TrafficLight.h: 69:                 (*(_semafori)[l]).times[i] = verde;
+"56
+[; ;./CustomLib/TrafficLight.h: 56:                 break;
+[e $U 152  ]
+"57
+[; ;./CustomLib/TrafficLight.h: 57:             case 1:
+[e :U 155 ]
+"58
+[; ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).times[i] = verde;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _verde ]
-"70
-[; ;./CustomLib/TrafficLight.h: 70:                 (*(_semafori)[l]).new_times[i] = verde;
+"59
+[; ;./CustomLib/TrafficLight.h: 59:                 (*(_semafori)[l]).new_times[i] = verde;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _verde ]
-"71
-[; ;./CustomLib/TrafficLight.h: 71:                 break;
-[e $U 156  ]
-"72
-[; ;./CustomLib/TrafficLight.h: 72:             case 2:
-[e :U 160 ]
-"73
-[; ;./CustomLib/TrafficLight.h: 73:                 (*(_semafori)[l]).times[i] = giallo;
-[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _giallo ]
-"74
-[; ;./CustomLib/TrafficLight.h: 74:                 (*(_semafori)[l]).new_times[i] = giallo;
-[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _giallo ]
-"75
-[; ;./CustomLib/TrafficLight.h: 75:                 break;
-[e $U 156  ]
-"76
-[; ;./CustomLib/TrafficLight.h: 76:             }
-}
-[e $U 156  ]
-[e :U 157 ]
-[e [\ -> _i `i , $ -> 0 `i 158
- , $ -> 1 `i 159
- , $ -> 2 `i 160
- 156 ]
+"60
+[; ;./CustomLib/TrafficLight.h: 60:                 break;
+[e $U 152  ]
+"61
+[; ;./CustomLib/TrafficLight.h: 61:             case 2:
 [e :U 156 ]
-"77
-[; ;./CustomLib/TrafficLight.h: 77:         }
+"62
+[; ;./CustomLib/TrafficLight.h: 62:                 (*(_semafori)[l]).times[i] = giallo;
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _giallo ]
+"63
+[; ;./CustomLib/TrafficLight.h: 63:                 (*(_semafori)[l]).new_times[i] = giallo;
+[e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _giallo ]
+"64
+[; ;./CustomLib/TrafficLight.h: 64:                 break;
+[e $U 152  ]
+"65
+[; ;./CustomLib/TrafficLight.h: 65:             }
+}
+[e $U 152  ]
+[e :U 153 ]
+[e [\ -> _i `i , $ -> 0 `i 154
+ , $ -> 1 `i 155
+ , $ -> 2 `i 156
+ 152 ]
+[e :U 152 ]
+"66
+[; ;./CustomLib/TrafficLight.h: 66:         }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 153  ]
-[e :U 154 ]
+[e $ < -> _i `i -> 3 `i 149  ]
+[e :U 150 ]
 }
-"78
-[; ;./CustomLib/TrafficLight.h: 78:     }
+"67
+[; ;./CustomLib/TrafficLight.h: 67:     }
 }
 [e ++ _l -> -> 1 `i `uc ]
-[e $ < -> _l `i -> _n_semafori `i 150  ]
-[e :U 151 ]
+[e $ < -> _l `i -> _n_semafori `i 146  ]
+[e :U 147 ]
 }
-"80
-[; ;./CustomLib/TrafficLight.h: 80:     (*(_semafori)[0]).lux_select = 0;
+"69
+[; ;./CustomLib/TrafficLight.h: 69:     (*(_semafori)[0]).lux_select = 0;
 [e = . *U *U + __semafori * -> -> 0 `i `x -> -> # *U __semafori `i `x 2 -> -> 0 `i `uc ]
-"81
-[; ;./CustomLib/TrafficLight.h: 81:     (*(_semafori)[0]).new_lux_select = 0;
+"70
+[; ;./CustomLib/TrafficLight.h: 70:     (*(_semafori)[0]).new_lux_select = 0;
 [e = . *U *U + __semafori * -> -> 0 `i `x -> -> # *U __semafori `i `x 3 -> -> 0 `i `uc ]
-"82
-[; ;./CustomLib/TrafficLight.h: 82:     (*(_semafori)[1]).lux_select = 1;
+"71
+[; ;./CustomLib/TrafficLight.h: 71:     (*(_semafori)[1]).lux_select = 1;
 [e = . *U *U + __semafori * -> -> 1 `i `x -> -> # *U __semafori `i `x 2 -> -> 1 `i `uc ]
-"83
-[; ;./CustomLib/TrafficLight.h: 83:     (*(_semafori)[1]).new_lux_select = 1;
+"72
+[; ;./CustomLib/TrafficLight.h: 72:     (*(_semafori)[1]).new_lux_select = 1;
 [e = . *U *U + __semafori * -> -> 1 `i `x -> -> # *U __semafori `i `x 3 -> -> 1 `i `uc ]
-"84
-[; ;./CustomLib/TrafficLight.h: 84: }
-[e :UE 149 ]
+"73
+[; ;./CustomLib/TrafficLight.h: 73: }
+[e :UE 145 ]
 }
-"86
-[; ;./CustomLib/TrafficLight.h: 86: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+"75
+[; ;./CustomLib/TrafficLight.h: 75: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 [v _SetReceivedTimes `(v ~T0 @X0 1 ef2`*uc`**S131 ]
-"87
-[; ;./CustomLib/TrafficLight.h: 87: {
+"76
+[; ;./CustomLib/TrafficLight.h: 76: {
 {
 [e :U _SetReceivedTimes ]
-"86
-[; ;./CustomLib/TrafficLight.h: 86: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+"75
+[; ;./CustomLib/TrafficLight.h: 75: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 [v __dataFromGateway `*uc ~T0 @X0 1 r1 ]
 [v __semafori `**S131 ~T0 @X0 1 r2 ]
-"87
-[; ;./CustomLib/TrafficLight.h: 87: {
+"76
+[; ;./CustomLib/TrafficLight.h: 76: {
 [f ]
-"88
-[; ;./CustomLib/TrafficLight.h: 88:     for (unsigned char i = 0; i < 3; i++)
+"77
+[; ;./CustomLib/TrafficLight.h: 77:     for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 3 `i 162  ]
-[e $U 163  ]
-[e :U 162 ]
-"89
-[; ;./CustomLib/TrafficLight.h: 89:     {
+[e $ < -> _i `i -> 3 `i 158  ]
+[e $U 159  ]
+[e :U 158 ]
+"78
+[; ;./CustomLib/TrafficLight.h: 78:     {
 {
-"90
-[; ;./CustomLib/TrafficLight.h: 90:         unsigned char index = i * 5;
+"79
+[; ;./CustomLib/TrafficLight.h: 79:         unsigned char index = i * 5;
 [v _index `uc ~T0 @X0 1 a ]
 [e = _index -> * -> _i `i -> 5 `i `uc ]
-"91
-[; ;./CustomLib/TrafficLight.h: 91:         unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+"80
+[; ;./CustomLib/TrafficLight.h: 80:         unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
 [v _semaforoId `uc ~T0 @X0 1 a ]
 [e = _semaforoId -> & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 1 `i -> 15 `i `uc ]
-"92
-[; ;./CustomLib/TrafficLight.h: 92:         unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+"81
+[; ;./CustomLib/TrafficLight.h: 81:         unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
 [v _colorId `uc ~T0 @X0 1 a ]
 [e = _colorId -> - & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 5 `i -> 3 `i -> 1 `i `uc ]
-"94
-[; ;./CustomLib/TrafficLight.h: 94:         (*(_semafori)[semaforoId]).new_times[colorId] = GetTime(index, _dataFromGateway);
+"83
+[; ;./CustomLib/TrafficLight.h: 83:         (*(_semafori)[semaforoId]).new_times[colorId] = GetTime(index, _dataFromGateway);
 [e = *U + &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 * -> _colorId `ux -> -> # *U &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 `ui `ux ( _GetTime (2 , _index __dataFromGateway ]
-"95
-[; ;./CustomLib/TrafficLight.h: 95:     }
+"84
+[; ;./CustomLib/TrafficLight.h: 84:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 3 `i 162  ]
-[e :U 163 ]
+[e $ < -> _i `i -> 3 `i 158  ]
+[e :U 159 ]
 }
-"96
-[; ;./CustomLib/TrafficLight.h: 96: }
-[e :UE 161 ]
+"85
+[; ;./CustomLib/TrafficLight.h: 85: }
+[e :UE 157 ]
 }
-"98
-[; ;./CustomLib/TrafficLight.h: 98: void GetDigits(_Digits _digits, unsigned char index, int Time)
+"87
+[; ;./CustomLib/TrafficLight.h: 87: void GetDigits(_Digits _digits, unsigned char index, int Time)
 [v _GetDigits `(v ~T0 @X0 1 ef3`**S133`uc`i ]
-"99
-[; ;./CustomLib/TrafficLight.h: 99: {
+"88
+[; ;./CustomLib/TrafficLight.h: 88: {
 {
 [e :U _GetDigits ]
-"98
-[; ;./CustomLib/TrafficLight.h: 98: void GetDigits(_Digits _digits, unsigned char index, int Time)
+"87
+[; ;./CustomLib/TrafficLight.h: 87: void GetDigits(_Digits _digits, unsigned char index, int Time)
 [v __digits `**S133 ~T0 @X0 1 r1 ]
 [v _index `uc ~T0 @X0 1 r2 ]
 [v _Time `i ~T0 @X0 1 r3 ]
-"99
-[; ;./CustomLib/TrafficLight.h: 99: {
+"88
+[; ;./CustomLib/TrafficLight.h: 88: {
 [f ]
-"100
-[; ;./CustomLib/TrafficLight.h: 100:     while (Time / 1000 > 0)
-[e $U 166  ]
-[e :U 167 ]
-"101
-[; ;./CustomLib/TrafficLight.h: 101:     {
+"89
+[; ;./CustomLib/TrafficLight.h: 89:     while (Time / 1000 > 0)
+[e $U 162  ]
+[e :U 163 ]
+"90
+[; ;./CustomLib/TrafficLight.h: 90:     {
 {
-"102
-[; ;./CustomLib/TrafficLight.h: 102:         Time = Time / 10;
+"91
+[; ;./CustomLib/TrafficLight.h: 91:         Time = Time / 10;
 [e = _Time / _Time -> 10 `i ]
-"103
-[; ;./CustomLib/TrafficLight.h: 103:     }
+"92
+[; ;./CustomLib/TrafficLight.h: 92:     }
 }
-[e :U 166 ]
-"100
-[; ;./CustomLib/TrafficLight.h: 100:     while (Time / 1000 > 0)
-[e $ > / _Time -> 1000 `i -> 0 `i 167  ]
-[e :U 168 ]
-"105
-[; ;./CustomLib/TrafficLight.h: 105:     (*_digits)[index].centinaia = Time / 100;
+[e :U 162 ]
+"89
+[; ;./CustomLib/TrafficLight.h: 89:     while (Time / 1000 > 0)
+[e $ > / _Time -> 1000 `i -> 0 `i 163  ]
+[e :U 164 ]
+"94
+[; ;./CustomLib/TrafficLight.h: 94:     (*_digits)[index].centinaia = Time / 100;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 0 -> / _Time -> 100 `i `uc ]
-"106
-[; ;./CustomLib/TrafficLight.h: 106:     (*_digits)[index].decine = (Time % 100) / 10;
+"95
+[; ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].decine = (Time % 100) / 10;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 1 -> / % _Time -> 100 `i -> 10 `i `uc ]
-"107
-[; ;./CustomLib/TrafficLight.h: 107:     (*_digits)[index].unita = (Time % 100) % 10;
+"96
+[; ;./CustomLib/TrafficLight.h: 96:     (*_digits)[index].unita = (Time % 100) % 10;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 2 -> % % _Time -> 100 `i -> 10 `i `uc ]
-"108
-[; ;./CustomLib/TrafficLight.h: 108: }
-[e :UE 165 ]
+"97
+[; ;./CustomLib/TrafficLight.h: 97: }
+[e :UE 161 ]
 }
-"111
-[; ;./CustomLib/TrafficLight.h: 111: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+"100
+[; ;./CustomLib/TrafficLight.h: 100: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 [v _Conteggio `(v ~T0 @X0 1 ef5`ui`*uc`*uc`*uc`uc ]
-"112
-[; ;./CustomLib/TrafficLight.h: 112: {
+"101
+[; ;./CustomLib/TrafficLight.h: 101: {
 {
 [e :U _Conteggio ]
-"111
-[; ;./CustomLib/TrafficLight.h: 111: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+"100
+[; ;./CustomLib/TrafficLight.h: 100: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 [v __count `ui ~T0 @X0 1 r1 ]
 [v __motorcycle `*uc ~T0 @X0 1 r2 ]
 [v __car `*uc ~T0 @X0 1 r3 ]
 [v __truck `*uc ~T0 @X0 1 r4 ]
 [v _index `uc ~T0 @X0 1 r5 ]
-"112
-[; ;./CustomLib/TrafficLight.h: 112: {
+"101
+[; ;./CustomLib/TrafficLight.h: 101: {
 [f ]
-"113
-[; ;./CustomLib/TrafficLight.h: 113:     if (_count >= 500)
-[e $ ! >= __count -> -> 500 `i `ui 170  ]
-"114
-[; ;./CustomLib/TrafficLight.h: 114:     {
+"102
+[; ;./CustomLib/TrafficLight.h: 102:     if (_count >= 500)
+[e $ ! >= __count -> -> 500 `i `ui 166  ]
+"103
+[; ;./CustomLib/TrafficLight.h: 103:     {
 {
-"115
-[; ;./CustomLib/TrafficLight.h: 115:         _motorcycle[index] = _motorcycle[index] + 1;
+"104
+[; ;./CustomLib/TrafficLight.h: 104:         _motorcycle[index] = _motorcycle[index] + 1;
 [e = *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux -> + -> *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux `i -> 1 `i `uc ]
-"116
-[; ;./CustomLib/TrafficLight.h: 116:     }
+"105
+[; ;./CustomLib/TrafficLight.h: 105:     }
 }
-[e :U 170 ]
-"117
-[; ;./CustomLib/TrafficLight.h: 117:     if (_count >= 1500)
-[e $ ! >= __count -> -> 1500 `i `ui 171  ]
-"118
-[; ;./CustomLib/TrafficLight.h: 118:     {
+[e :U 166 ]
+"106
+[; ;./CustomLib/TrafficLight.h: 106:     if (_count >= 1500)
+[e $ ! >= __count -> -> 1500 `i `ui 167  ]
+"107
+[; ;./CustomLib/TrafficLight.h: 107:     {
 {
-"119
-[; ;./CustomLib/TrafficLight.h: 119:         _car[index] = _car[index] + 1;
+"108
+[; ;./CustomLib/TrafficLight.h: 108:         _car[index] = _car[index] + 1;
 [e = *U + __car * -> _index `ux -> -> # *U __car `ui `ux -> + -> *U + __car * -> _index `ux -> -> # *U __car `ui `ux `i -> 1 `i `uc ]
-"120
-[; ;./CustomLib/TrafficLight.h: 120:     }
+"109
+[; ;./CustomLib/TrafficLight.h: 109:     }
 }
-[e :U 171 ]
-"121
-[; ;./CustomLib/TrafficLight.h: 121:     if (_count >= 3000)
-[e $ ! >= __count -> -> 3000 `i `ui 172  ]
-"122
-[; ;./CustomLib/TrafficLight.h: 122:     {
+[e :U 167 ]
+"110
+[; ;./CustomLib/TrafficLight.h: 110:     if (_count >= 3000)
+[e $ ! >= __count -> -> 3000 `i `ui 168  ]
+"111
+[; ;./CustomLib/TrafficLight.h: 111:     {
 {
-"123
-[; ;./CustomLib/TrafficLight.h: 123:         _truck[index] = _truck[index] + 1;
+"112
+[; ;./CustomLib/TrafficLight.h: 112:         _truck[index] = _truck[index] + 1;
 [e = *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux -> + -> *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux `i -> 1 `i `uc ]
-"124
-[; ;./CustomLib/TrafficLight.h: 124:     }
+"113
+[; ;./CustomLib/TrafficLight.h: 113:     }
 }
-[e :U 172 ]
-"125
-[; ;./CustomLib/TrafficLight.h: 125: }
-[e :UE 169 ]
+[e :U 168 ]
+"114
+[; ;./CustomLib/TrafficLight.h: 114: }
+[e :UE 165 ]
 }
-"127
-[; ;./CustomLib/TrafficLight.h: 127: int map(int x, int in_min, int in_max, int out_min, int out_max)
+"116
+[; ;./CustomLib/TrafficLight.h: 116: int map(int x, int in_min, int in_max, int out_min, int out_max)
 [v _map `(i ~T0 @X0 1 ef5`i`i`i`i`i ]
-"128
-[; ;./CustomLib/TrafficLight.h: 128: {
+"117
+[; ;./CustomLib/TrafficLight.h: 117: {
 {
 [e :U _map ]
-"127
-[; ;./CustomLib/TrafficLight.h: 127: int map(int x, int in_min, int in_max, int out_min, int out_max)
+"116
+[; ;./CustomLib/TrafficLight.h: 116: int map(int x, int in_min, int in_max, int out_min, int out_max)
 [v _x `i ~T0 @X0 1 r1 ]
 [v _in_min `i ~T0 @X0 1 r2 ]
 [v _in_max `i ~T0 @X0 1 r3 ]
 [v _out_min `i ~T0 @X0 1 r4 ]
 [v _out_max `i ~T0 @X0 1 r5 ]
-"128
-[; ;./CustomLib/TrafficLight.h: 128: {
+"117
+[; ;./CustomLib/TrafficLight.h: 117: {
 [f ]
-"129
-[; ;./CustomLib/TrafficLight.h: 129:     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+"118
+[; ;./CustomLib/TrafficLight.h: 118:     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 [e ) + / * - _x _in_min - _out_max _out_min - _in_max _in_min _out_min ]
-[e $UE 173  ]
-"130
-[; ;./CustomLib/TrafficLight.h: 130: }
-[e :UE 173 ]
+[e $UE 169  ]
+"119
+[; ;./CustomLib/TrafficLight.h: 119: }
+[e :UE 169 ]
 }
 "102 main.c
 [; ;main.c: 102: } readGatewayDone;
-[v _readGatewayDone `S174 ~T0 @X0 1 e ]
+[v _readGatewayDone `S170 ~T0 @X0 1 e ]
 "104
 [; ;main.c: 104: Bit readGateway, secondPassed, cycled;
 [v _readGateway `S132 ~T0 @X0 1 e ]
@@ -1351,29 +1316,53 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 114: ProtocolBytes dataFromGateway;
 [v _dataFromGateway `uc ~T0 @X0 -> 15 `i e ]
 "115
-[; ;main.c: 115: Semaforo s0, s1;
+[; ;main.c: 115: Semaforo s0, s1, s2, s3, s4, s5, s6, s7;
 [v _s0 `S131 ~T0 @X0 1 e ]
 [v _s1 `S131 ~T0 @X0 1 e ]
+[v _s2 `S131 ~T0 @X0 1 e ]
+[v _s3 `S131 ~T0 @X0 1 e ]
+[v _s4 `S131 ~T0 @X0 1 e ]
+[v _s5 `S131 ~T0 @X0 1 e ]
+[v _s6 `S131 ~T0 @X0 1 e ]
+[v _s7 `S131 ~T0 @X0 1 e ]
 "116
-[; ;main.c: 116: Semaforo *Semafori[2] = {&s0, &s1};
-[v _Semafori `*S131 ~T0 @X0 -> 2 `i e ]
+[; ;main.c: 116: Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+[v _Semafori `*S131 ~T0 @X0 -> 8 `i e ]
 [i _Semafori
 :U ..
 &U _s0
 &U _s1
+&U _s2
+&U _s3
+&U _s4
+&U _s5
+&U _s6
+&U _s7
 ..
 ]
 "117
-[; ;main.c: 117: Digits digits0, digits1;
+[; ;main.c: 117: Digits digits0, digits1, digits2, digits3, digits4, digits5, digits6, digits7;
 [v _digits0 `S133 ~T0 @X0 1 e ]
 [v _digits1 `S133 ~T0 @X0 1 e ]
+[v _digits2 `S133 ~T0 @X0 1 e ]
+[v _digits3 `S133 ~T0 @X0 1 e ]
+[v _digits4 `S133 ~T0 @X0 1 e ]
+[v _digits5 `S133 ~T0 @X0 1 e ]
+[v _digits6 `S133 ~T0 @X0 1 e ]
+[v _digits7 `S133 ~T0 @X0 1 e ]
 "118
-[; ;main.c: 118: Digits *DigitsArr[2] = {&digits0, &digits1};
-[v _DigitsArr `*S133 ~T0 @X0 -> 2 `i e ]
+[; ;main.c: 118: Digits *DigitsArr[8] = {&digits0, &digits1, &digits2, &digits3, &digits4, &digits5, &digits6, &digits7};
+[v _DigitsArr `*S133 ~T0 @X0 -> 8 `i e ]
 [i _DigitsArr
 :U ..
 &U _digits0
 &U _digits1
+&U _digits2
+&U _digits3
+&U _digits4
+&U _digits5
+&U _digits6
+&U _digits7
 ..
 ]
 "119
@@ -1465,25 +1454,25 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
 "162
 [; ;main.c: 162:     while (1)
-[e :U 177 ]
+[e :U 173 ]
 "163
 [; ;main.c: 163:     {
 {
 "165
 [; ;main.c: 165:         if (readGateway.Bit)
-[e $ ! != -> . _readGateway 0 `i -> 0 `i 179  ]
+[e $ ! != -> . _readGateway 0 `i -> 0 `i 175  ]
 "166
 [; ;main.c: 166:         {
 {
 "167
 [; ;main.c: 167:             switch ((dataFromGateway[0] & 0x7F))
-[e $U 181  ]
+[e $U 177  ]
 "168
 [; ;main.c: 168:             {
 {
 "169
 [; ;main.c: 169:             case 0x08:
-[e :U 182 ]
+[e :U 178 ]
 "170
 [; ;main.c: 170:                 readGatewayDone.Bit = 1;
 [e = . _readGatewayDone 0 -> -> 1 `i `uc ]
@@ -1495,9 +1484,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 4 `i 183  ]
-[e $U 184  ]
-[e :U 183 ]
+[e $ < -> _i `i -> 4 `i 179  ]
+[e $U 180  ]
+[e :U 179 ]
 "174
 [; ;main.c: 174:                 {
 {
@@ -1524,13 +1513,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = *U + &U _truck * -> _i `ux -> -> # *U &U _truck `ui `ux _randomTruck ]
 "185
 [; ;main.c: 185:                     switch (i)
-[e $U 187  ]
+[e $U 183  ]
 "186
 [; ;main.c: 186:                     {
 {
 "187
 [; ;main.c: 187:                     case 0:
-[e :U 188 ]
+[e :U 184 ]
 "188
 [; ;main.c: 188:                         sendByte(0x03, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> _i `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
@@ -1542,10 +1531,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _sendByte (3 , , -> -> 3 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> _i `ux -> -> # *U &U _truck `ui `ux `uc ]
 "191
 [; ;main.c: 191:                         break;
-[e $U 186  ]
+[e $U 182  ]
 "192
 [; ;main.c: 192:                     case 1:
-[e :U 189 ]
+[e :U 185 ]
 "193
 [; ;main.c: 193:                         sendByte(0x05, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> _i `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
@@ -1557,10 +1546,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _sendByte (3 , , -> -> 5 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> _i `ux -> -> # *U &U _truck `ui `ux `uc ]
 "196
 [; ;main.c: 196:                         break;
-[e $U 186  ]
+[e $U 182  ]
 "197
 [; ;main.c: 197:                     case 2:
-[e :U 190 ]
+[e :U 186 ]
 "198
 [; ;main.c: 198:                         sendByte(0x07, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> _i `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
@@ -1572,10 +1561,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _sendByte (3 , , -> -> 7 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> _i `ux -> -> # *U &U _truck `ui `ux `uc ]
 "201
 [; ;main.c: 201:                         break;
-[e $U 186  ]
+[e $U 182  ]
 "202
 [; ;main.c: 202:                     case 3:
-[e :U 191 ]
+[e :U 187 ]
 "203
 [; ;main.c: 203:                         sendByte(0x09, 0x01, motorcycle[i]);
 [e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 1 `i `uc -> *U + &U _motorcycle * -> _i `ux -> -> # *U &U _motorcycle `ui `ux `uc ]
@@ -1587,33 +1576,33 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _sendByte (3 , , -> -> 9 `i `uc -> -> 3 `i `uc -> *U + &U _truck * -> _i `ux -> -> # *U &U _truck `ui `ux `uc ]
 "206
 [; ;main.c: 206:                         break;
-[e $U 186  ]
+[e $U 182  ]
 "207
 [; ;main.c: 207:                     }
 }
-[e $U 186  ]
-[e :U 187 ]
-[e [\ -> _i `i , $ -> 0 `i 188
- , $ -> 1 `i 189
- , $ -> 2 `i 190
- , $ -> 3 `i 191
- 186 ]
-[e :U 186 ]
+[e $U 182  ]
+[e :U 183 ]
+[e [\ -> _i `i , $ -> 0 `i 184
+ , $ -> 1 `i 185
+ , $ -> 2 `i 186
+ , $ -> 3 `i 187
+ 182 ]
+[e :U 182 ]
 "208
 [; ;main.c: 208:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 4 `i 183  ]
-[e :U 184 ]
+[e $ < -> _i `i -> 4 `i 179  ]
+[e :U 180 ]
 }
 "210
 [; ;main.c: 210:                 for (int i = 0; i < 4; i++)
 {
 [v _i `i ~T0 @X0 1 a ]
 [e = _i -> 0 `i ]
-[e $ < _i -> 4 `i 192  ]
-[e $U 193  ]
-[e :U 192 ]
+[e $ < _i -> 4 `i 188  ]
+[e $U 189  ]
+[e :U 188 ]
 "211
 [; ;main.c: 211:                 {
 {
@@ -1630,17 +1619,17 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 215:                 }
 }
 [e ++ _i -> 1 `i ]
-[e $ < _i -> 4 `i 192  ]
-[e :U 193 ]
+[e $ < _i -> 4 `i 188  ]
+[e :U 189 ]
 }
 "217
 [; ;main.c: 217:                 for (unsigned char i = 0; i < 5; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 195  ]
-[e $U 196  ]
-[e :U 195 ]
+[e $ < -> _i `i -> 5 `i 191  ]
+[e $U 192  ]
+[e :U 191 ]
 "218
 [; ;main.c: 218:                 {
 {
@@ -1651,15 +1640,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 220:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 195  ]
-[e :U 196 ]
+[e $ < -> _i `i -> 5 `i 191  ]
+[e :U 192 ]
 }
 "221
 [; ;main.c: 221:                 break;
-[e $U 180  ]
+[e $U 176  ]
 "222
 [; ;main.c: 222:             case 0x0A:
-[e :U 198 ]
+[e :U 194 ]
 "223
 [; ;main.c: 223:                 readGatewayDone.Bit = 1;
 [e = . _readGatewayDone 0 -> -> 1 `i `uc ]
@@ -1689,9 +1678,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 199  ]
-[e $U 200  ]
-[e :U 199 ]
+[e $ < -> _i `i -> 5 `i 195  ]
+[e $U 196  ]
+[e :U 195 ]
 "234
 [; ;main.c: 234:                 {
 {
@@ -1702,18 +1691,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 236:                 }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 199  ]
-[e :U 200 ]
+[e $ < -> _i `i -> 5 `i 195  ]
+[e :U 196 ]
 }
 "237
 [; ;main.c: 237:                 break;
-[e $U 180  ]
+[e $U 176  ]
 "239
 [; ;main.c: 239:             default:
-[e :U 202 ]
+[e :U 198 ]
 "240
 [; ;main.c: 240:                 if (timerReadFromGateway >= 4)
-[e $ ! >= -> _timerReadFromGateway `i -> 4 `i 203  ]
+[e $ ! >= -> _timerReadFromGateway `i -> 4 `i 199  ]
 "241
 [; ;main.c: 241:                 {
 {
@@ -1729,10 +1718,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "245
 [; ;main.c: 245:                 }
 }
-[e :U 203 ]
+[e :U 199 ]
 "247
 [; ;main.c: 247:                 if (dataFromGatewayIndex >= 15)
-[e $ ! >= -> _dataFromGatewayIndex `i -> 15 `i 204  ]
+[e $ ! >= -> _dataFromGatewayIndex `i -> 15 `i 200  ]
 "248
 [; ;main.c: 248:                 {
 {
@@ -1748,26 +1737,26 @@ Version 4.0 HI-TECH Software Intermediate Code
 "252
 [; ;main.c: 252:                 }
 }
-[e :U 204 ]
+[e :U 200 ]
 "253
 [; ;main.c: 253:                 break;
-[e $U 180  ]
+[e $U 176  ]
 "254
 [; ;main.c: 254:             }
 }
-[e $U 180  ]
-[e :U 181 ]
-[e [\ & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i , $ -> 8 `i 182
- , $ -> 10 `i 198
- 202 ]
-[e :U 180 ]
+[e $U 176  ]
+[e :U 177 ]
+[e [\ & -> *U + &U _dataFromGateway * -> -> -> 0 `i `ui `ux -> -> # *U &U _dataFromGateway `ui `ux `i -> 127 `i , $ -> 8 `i 178
+ , $ -> 10 `i 194
+ 198 ]
+[e :U 176 ]
 "255
 [; ;main.c: 255:         }
 }
-[e :U 179 ]
+[e :U 175 ]
 "258
 [; ;main.c: 258:         if (readGatewayDone.Bit)
-[e $ ! != -> . _readGatewayDone 0 `i -> 0 `i 205  ]
+[e $ ! != -> . _readGatewayDone 0 `i -> 0 `i 201  ]
 "259
 [; ;main.c: 259:         {
 {
@@ -1785,7 +1774,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _timerReadFromGateway -> -> 0 `i `uc ]
 "267
 [; ;main.c: 267:             if (readGatewayDone.Timeout)
-[e $ ! != -> . _readGatewayDone 1 `i -> 0 `i 206  ]
+[e $ ! != -> . _readGatewayDone 1 `i -> 0 `i 202  ]
 "268
 [; ;main.c: 268:             {
 {
@@ -1795,10 +1784,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "270
 [; ;main.c: 270:             }
 }
-[e $U 207  ]
+[e $U 203  ]
 "272
 [; ;main.c: 272:             else
-[e :U 206 ]
+[e :U 202 ]
 "273
 [; ;main.c: 273:             {
 {
@@ -1808,14 +1797,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "276
 [; ;main.c: 276:             }
 }
-[e :U 207 ]
+[e :U 203 ]
 "277
 [; ;main.c: 277:         }
 }
-[e :U 205 ]
+[e :U 201 ]
 "281
 [; ;main.c: 281:         if (secondPassed.Bit && cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 208  ]
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 204  ]
 "282
 [; ;main.c: 282:         {
 {
@@ -1824,15 +1813,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> _n_semafori `i 209  ]
-[e $U 210  ]
-[e :U 209 ]
+[e $ < -> _i `i -> _n_semafori `i 205  ]
+[e $U 206  ]
+[e :U 205 ]
 "284
 [; ;main.c: 284:             {
 {
 "285
 [; ;main.c: 285:                 if ((*Semafori[i]).times[0] != 0)
-[e $ ! != *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux -> 0 `i 212  ]
+[e $ ! != *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux -> 0 `i 208  ]
 "286
 [; ;main.c: 286:                 {
 {
@@ -1845,7 +1834,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _lux_select . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 2 ]
 "290
 [; ;main.c: 290:                     if ((*Semafori[i]).times[lux_select] - time[i] < 0)
-[e $ ! < - *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux *U + &U _time * -> _i `ux -> -> # *U &U _time `ui `ux -> 0 `i 213  ]
+[e $ ! < - *U + &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 * -> _lux_select `ux -> -> # *U &U . *U *U + &U _Semafori * -> _i `ux -> -> # *U &U _Semafori `ui `ux 0 `ui `ux *U + &U _time * -> _i `ux -> -> # *U &U _time `ui `ux -> 0 `i 209  ]
 "291
 [; ;main.c: 291:                     {
 {
@@ -1857,7 +1846,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = *U + &U _time * -> _i `ux -> -> # *U &U _time `ui `ux -> 1 `i ]
 "295
 [; ;main.c: 295:                         if (lux_select >= 3)
-[e $ ! >= -> _lux_select `i -> 3 `i 214  ]
+[e $ ! >= -> _lux_select `i -> 3 `i 210  ]
 "296
 [; ;main.c: 296:                         {
 {
@@ -1866,7 +1855,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _lux_select -> -> 0 `i `uc ]
 "299
 [; ;main.c: 299:                             if (i == 0)
-[e $ ! == -> _i `i -> 0 `i 215  ]
+[e $ ! == -> _i `i -> 0 `i 211  ]
 "300
 [; ;main.c: 300:                             {
 {
@@ -1888,15 +1877,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "308
 [; ;main.c: 308:                             }
 }
-[e :U 215 ]
+[e :U 211 ]
 "309
 [; ;main.c: 309:                         }
 }
-[e :U 214 ]
+[e :U 210 ]
 "310
 [; ;main.c: 310:                     }
 }
-[e :U 213 ]
+[e :U 209 ]
 "312
 [; ;main.c: 312:                     luciSemaforo(i, lux_select);
 [e ( _luciSemaforo (2 , _i _lux_select ]
@@ -1909,24 +1898,24 @@ Version 4.0 HI-TECH Software Intermediate Code
 "315
 [; ;main.c: 315:                 }
 }
-[e :U 212 ]
+[e :U 208 ]
 "316
 [; ;main.c: 316:             }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> _n_semafori `i 209  ]
-[e :U 210 ]
+[e $ < -> _i `i -> _n_semafori `i 205  ]
+[e :U 206 ]
 }
 "317
 [; ;main.c: 317:         }
 }
-[e :U 208 ]
+[e :U 204 ]
 "319
 [; ;main.c: 319:         ShowDigitsOnDisplay();
 [e ( _ShowDigitsOnDisplay ..  ]
 "325
 [; ;main.c: 325:         if (secondPassed.Bit && cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 216  ]
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i != -> . _cycled 0 `i -> 0 `i 212  ]
 "326
 [; ;main.c: 326:         {
 {
@@ -1939,10 +1928,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "329
 [; ;main.c: 329:         }
 }
-[e :U 216 ]
+[e :U 212 ]
 "330
 [; ;main.c: 330:         if (secondPassed.Bit && !cycled.Bit)
-[e $ ! && != -> . _secondPassed 0 `i -> 0 `i ! != -> . _cycled 0 `i -> 0 `i 217  ]
+[e $ ! && != -> . _secondPassed 0 `i -> 0 `i ! != -> . _cycled 0 `i -> 0 `i 213  ]
 "331
 [; ;main.c: 331:         {
 {
@@ -1952,19 +1941,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 "333
 [; ;main.c: 333:         }
 }
-[e :U 217 ]
+[e :U 213 ]
 "334
 [; ;main.c: 334:     }
 }
-[e :U 176 ]
-[e $U 177  ]
-[e :U 178 ]
+[e :U 172 ]
+[e $U 173  ]
+[e :U 174 ]
 "335
 [; ;main.c: 335:     return;
-[e $UE 175  ]
+[e $UE 171  ]
 "336
 [; ;main.c: 336: }
-[e :UE 175 ]
+[e :UE 171 ]
 }
 "338
 [; ;main.c: 338: void init_ADC()
@@ -1988,7 +1977,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000000.0 `ul ]
 "344
 [; ;main.c: 344: }
-[e :UE 218 ]
+[e :UE 214 ]
 }
 "347
 [; ;main.c: 347: int ADC_Read(char canale)
@@ -2014,22 +2003,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _GO_nDONE -> -> 1 `i `b ]
 "352
 [; ;main.c: 352:     while (GO_nDONE)
-[e $U 220  ]
-[e :U 221 ]
+[e $U 216  ]
+[e :U 217 ]
 "353
 [; ;main.c: 353:         ;
-[e :U 220 ]
+[e :U 216 ]
 "352
 [; ;main.c: 352:     while (GO_nDONE)
-[e $ _GO_nDONE 221  ]
-[e :U 222 ]
+[e $ _GO_nDONE 217  ]
+[e :U 218 ]
 "354
 [; ;main.c: 354:     return ADRESL + (ADRESH << 8);
 [e ) + -> _ADRESL `i << -> _ADRESH `i -> 8 `i ]
-[e $UE 219  ]
+[e $UE 215  ]
 "355
 [; ;main.c: 355: }
-[e :UE 219 ]
+[e :UE 215 ]
 }
 "357
 [; ;main.c: 357: void UART_Init(int baudrate)
@@ -2070,7 +2059,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
 "367
 [; ;main.c: 367: }
-[e :UE 223 ]
+[e :UE 219 ]
 }
 "369
 [; ;main.c: 369: void UART_TxChar(char ch)
@@ -2087,15 +2076,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "371
 [; ;main.c: 371:     while (!TXIF)
-[e $U 225  ]
-[e :U 226 ]
+[e $U 221  ]
+[e :U 222 ]
 "372
 [; ;main.c: 372:         ;
-[e :U 225 ]
+[e :U 221 ]
 "371
 [; ;main.c: 371:     while (!TXIF)
-[e $ ! _TXIF 226  ]
-[e :U 227 ]
+[e $ ! _TXIF 222  ]
+[e :U 223 ]
 "373
 [; ;main.c: 373:     TXIF = 0;
 [e = _TXIF -> -> 0 `i `b ]
@@ -2104,7 +2093,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _TXREG -> _ch `uc ]
 "375
 [; ;main.c: 375: }
-[e :UE 224 ]
+[e :UE 220 ]
 }
 "377
 [; ;main.c: 377: void UART_Write_Text(char *text)
@@ -2126,8 +2115,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 380:     for (i = 0; text[i] != '\0'; i++)
 {
 [e = _i -> -> 0 `i `uc ]
-[e $U 232  ]
-[e :U 229 ]
+[e $U 228  ]
+[e :U 225 ]
 "381
 [; ;main.c: 381:     {
 {
@@ -2138,13 +2127,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 383:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e :U 232 ]
-[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 229  ]
-[e :U 230 ]
+[e :U 228 ]
+[e $ != -> *U + _text * -> _i `ux -> -> # *U _text `ui `ux `ui -> 0 `ui 225  ]
+[e :U 226 ]
 }
 "384
 [; ;main.c: 384: }
-[e :UE 228 ]
+[e :UE 224 ]
 }
 "386
 [; ;main.c: 386: char UART_Read()
@@ -2156,25 +2145,25 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "388
 [; ;main.c: 388:     while (!RCIF)
-[e $U 234  ]
-[e :U 235 ]
+[e $U 230  ]
+[e :U 231 ]
 "389
 [; ;main.c: 389:         ;
-[e :U 234 ]
+[e :U 230 ]
 "388
 [; ;main.c: 388:     while (!RCIF)
-[e $ ! _RCIF 235  ]
-[e :U 236 ]
+[e $ ! _RCIF 231  ]
+[e :U 232 ]
 "390
 [; ;main.c: 390:     RCIF = 0;
 [e = _RCIF -> -> 0 `i `b ]
 "391
 [; ;main.c: 391:     return RCREG;
 [e ) -> _RCREG `uc ]
-[e $UE 233  ]
+[e $UE 229  ]
 "392
 [; ;main.c: 392: }
-[e :UE 233 ]
+[e :UE 229 ]
 }
 "394
 [; ;main.c: 394: void sendByte(char byte0, char byte1, char valore)
@@ -2202,9 +2191,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 5 `i 238  ]
-[e $U 239  ]
-[e :U 238 ]
+[e $ < -> _i `i -> 5 `i 234  ]
+[e $U 235  ]
+[e :U 234 ]
 "400
 [; ;main.c: 400:     {
 {
@@ -2215,12 +2204,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 402:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 5 `i 238  ]
-[e :U 239 ]
+[e $ < -> _i `i -> 5 `i 234  ]
+[e :U 235 ]
 }
 "403
 [; ;main.c: 403: }
-[e :UE 237 ]
+[e :UE 233 ]
 }
 "405
 [; ;main.c: 405: void conteggioVeicoli()
@@ -2247,15 +2236,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `i -> 4 `i 242  ]
-[e $U 243  ]
-[e :U 242 ]
+[e $ < -> _i `i -> 4 `i 238  ]
+[e $U 239  ]
+[e :U 238 ]
 "413
 [; ;main.c: 413:     {
 {
 "414
 [; ;main.c: 414:         if (!RoadsSensors[i])
-[e $ ! ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 245  ]
+[e $ ! ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 241  ]
 "415
 [; ;main.c: 415:         {
 {
@@ -2265,11 +2254,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 "417
 [; ;main.c: 417:         }
 }
-[e $U 246  ]
+[e $U 242  ]
 "418
 [; ;main.c: 418:         else if (RoadsSensors[i])
-[e :U 245 ]
-[e $ ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 247  ]
+[e :U 241 ]
+[e $ ! != -> *U + &U _RoadsSensors * -> _i `ux -> -> # *U &U _RoadsSensors `ui `ux `i -> 0 `i 243  ]
 "419
 [; ;main.c: 419:         {
 {
@@ -2282,18 +2271,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "422
 [; ;main.c: 422:         }
 }
-[e :U 247 ]
-[e :U 246 ]
+[e :U 243 ]
+[e :U 242 ]
 "423
 [; ;main.c: 423:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `i -> 4 `i 242  ]
-[e :U 243 ]
+[e $ < -> _i `i -> 4 `i 238  ]
+[e :U 239 ]
 }
 "424
 [; ;main.c: 424: }
-[e :UE 241 ]
+[e :UE 237 ]
 }
 "426
 [; ;main.c: 426: void luciSemaforo(unsigned char index, unsigned char lux)
@@ -2311,22 +2300,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "428
 [; ;main.c: 428:     switch (index)
-[e $U 250  ]
+[e $U 246  ]
 "429
 [; ;main.c: 429:     {
 {
 "430
 [; ;main.c: 430:     case 0:
-[e :U 251 ]
+[e :U 247 ]
 "431
 [; ;main.c: 431:         switch (lux)
-[e $U 253  ]
+[e $U 249  ]
 "432
 [; ;main.c: 432:         {
 {
 "433
 [; ;main.c: 433:         case 0:
-[e :U 254 ]
+[e :U 250 ]
 "434
 [; ;main.c: 434:             PORTCbits.RC1 = 0;
 [e = . . _PORTCbits 0 1 -> -> 0 `i `uc ]
@@ -2338,10 +2327,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTCbits 0 0 -> -> 1 `i `uc ]
 "437
 [; ;main.c: 437:             break;
-[e $U 252  ]
+[e $U 248  ]
 "438
 [; ;main.c: 438:         case 1:
-[e :U 255 ]
+[e :U 251 ]
 "439
 [; ;main.c: 439:             PORTCbits.RC0 = 0;
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
@@ -2353,10 +2342,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTCbits 0 1 -> -> 1 `i `uc ]
 "442
 [; ;main.c: 442:             break;
-[e $U 252  ]
+[e $U 248  ]
 "443
 [; ;main.c: 443:         case 2:
-[e :U 256 ]
+[e :U 252 ]
 "444
 [; ;main.c: 444:             PORTCbits.RC0 = 0;
 [e = . . _PORTCbits 0 0 -> -> 0 `i `uc ]
@@ -2368,32 +2357,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTCbits 0 2 -> -> 1 `i `uc ]
 "447
 [; ;main.c: 447:             break;
-[e $U 252  ]
+[e $U 248  ]
 "448
 [; ;main.c: 448:         }
 }
-[e $U 252  ]
-[e :U 253 ]
-[e [\ -> _lux `i , $ -> 0 `i 254
- , $ -> 1 `i 255
- , $ -> 2 `i 256
- 252 ]
-[e :U 252 ]
+[e $U 248  ]
+[e :U 249 ]
+[e [\ -> _lux `i , $ -> 0 `i 250
+ , $ -> 1 `i 251
+ , $ -> 2 `i 252
+ 248 ]
+[e :U 248 ]
 "449
 [; ;main.c: 449:         break;
-[e $U 249  ]
+[e $U 245  ]
 "451
 [; ;main.c: 451:     case 1:
-[e :U 257 ]
+[e :U 253 ]
 "452
 [; ;main.c: 452:         switch (lux)
-[e $U 259  ]
+[e $U 255  ]
 "453
 [; ;main.c: 453:         {
 {
 "454
 [; ;main.c: 454:         case 0:
-[e :U 260 ]
+[e :U 256 ]
 "455
 [; ;main.c: 455:             PORTBbits.RB1 = 0;
 [e = . . _PORTBbits 0 1 -> -> 0 `i `uc ]
@@ -2405,10 +2394,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTBbits 0 7 -> -> 1 `i `uc ]
 "458
 [; ;main.c: 458:             break;
-[e $U 258  ]
+[e $U 254  ]
 "459
 [; ;main.c: 459:         case 1:
-[e :U 261 ]
+[e :U 257 ]
 "460
 [; ;main.c: 460:             PORTBbits.RB7 = 0;
 [e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
@@ -2420,10 +2409,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTBbits 0 1 -> -> 1 `i `uc ]
 "463
 [; ;main.c: 463:             break;
-[e $U 258  ]
+[e $U 254  ]
 "464
 [; ;main.c: 464:         case 2:
-[e :U 262 ]
+[e :U 258 ]
 "465
 [; ;main.c: 465:             PORTBbits.RB7 = 0;
 [e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
@@ -2435,32 +2424,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTBbits 0 6 -> -> 1 `i `uc ]
 "468
 [; ;main.c: 468:             break;
-[e $U 258  ]
+[e $U 254  ]
 "469
 [; ;main.c: 469:         }
 }
-[e $U 258  ]
-[e :U 259 ]
-[e [\ -> _lux `i , $ -> 0 `i 260
- , $ -> 1 `i 261
- , $ -> 2 `i 262
- 258 ]
-[e :U 258 ]
+[e $U 254  ]
+[e :U 255 ]
+[e [\ -> _lux `i , $ -> 0 `i 256
+ , $ -> 1 `i 257
+ , $ -> 2 `i 258
+ 254 ]
+[e :U 254 ]
 "470
 [; ;main.c: 470:         break;
-[e $U 249  ]
+[e $U 245  ]
 "471
 [; ;main.c: 471:     }
 }
-[e $U 249  ]
-[e :U 250 ]
-[e [\ -> _index `i , $ -> 0 `i 251
- , $ -> 1 `i 257
- 249 ]
-[e :U 249 ]
+[e $U 245  ]
+[e :U 246 ]
+[e [\ -> _index `i , $ -> 0 `i 247
+ , $ -> 1 `i 253
+ 245 ]
+[e :U 245 ]
 "472
 [; ;main.c: 472: }
-[e :UE 248 ]
+[e :UE 244 ]
 }
 "474
 [; ;main.c: 474: void SetDisplay(unsigned char display_index, char d1, char d2, char d3, char value)
@@ -2481,13 +2470,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "476
 [; ;main.c: 476:     switch (display_index)
-[e $U 265  ]
+[e $U 261  ]
 "477
 [; ;main.c: 477:     {
 {
 "478
 [; ;main.c: 478:     case 0:
-[e :U 266 ]
+[e :U 262 ]
 "479
 [; ;main.c: 479:         PORTAbits.RA2 = d1;
 [e = . . _PORTAbits 0 2 -> _d1 `uc ]
@@ -2511,10 +2500,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _PORTD -> _value `uc ]
 "486
 [; ;main.c: 486:         break;
-[e $U 264  ]
+[e $U 260  ]
 "487
 [; ;main.c: 487:     case 1:
-[e :U 267 ]
+[e :U 263 ]
 "488
 [; ;main.c: 488:         PORTAbits.RA5 = d1;
 [e = . . _PORTAbits 0 5 -> _d1 `uc ]
@@ -2535,19 +2524,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = . . _PORTBbits 0 0 -> _d3 `uc ]
 "495
 [; ;main.c: 495:         break;
-[e $U 264  ]
+[e $U 260  ]
 "496
 [; ;main.c: 496:     }
 }
-[e $U 264  ]
-[e :U 265 ]
-[e [\ -> _display_index `i , $ -> 0 `i 266
- , $ -> 1 `i 267
- 264 ]
-[e :U 264 ]
+[e $U 260  ]
+[e :U 261 ]
+[e [\ -> _display_index `i , $ -> 0 `i 262
+ , $ -> 1 `i 263
+ 260 ]
+[e :U 260 ]
 "497
 [; ;main.c: 497: }
-[e :UE 263 ]
+[e :UE 259 ]
 }
 "499
 [; ;main.c: 499: void ShowDigitsOnDisplay()
@@ -2562,24 +2551,24 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [v _display_index `uc ~T0 @X0 1 a ]
 [e = _display_index -> -> 0 `i `uc ]
-[e $ < -> _display_index `i -> _n_semafori `i 269  ]
-[e $U 270  ]
-[e :U 269 ]
+[e $ < -> _display_index `i -> _n_semafori `i 265  ]
+[e $U 266  ]
+[e :U 265 ]
 "502
 [; ;main.c: 502:     {
 {
 "503
 [; ;main.c: 503:         switch (disp)
-[e $U 273  ]
+[e $U 269  ]
 "504
 [; ;main.c: 504:         {
 {
 "505
 [; ;main.c: 505:         case 0:
-[e :U 274 ]
+[e :U 270 ]
 "506
 [; ;main.c: 506:             if ((*DigitsArr[display_index]).centinaia > 0)
-[e $ ! > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 0 `i -> 0 `i 275  ]
+[e $ ! > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 0 `i -> 0 `i 271  ]
 "507
 [; ;main.c: 507:             {
 {
@@ -2589,16 +2578,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 "509
 [; ;main.c: 509:             }
 }
-[e :U 275 ]
+[e :U 271 ]
 "510
 [; ;main.c: 510:             break;
-[e $U 272  ]
+[e $U 268  ]
 "511
 [; ;main.c: 511:         case 1:
-[e :U 276 ]
+[e :U 272 ]
 "512
 [; ;main.c: 512:             if ((*DigitsArr[display_index]).decine > 0 || (*DigitsArr[display_index]).centinaia > 0)
-[e $ ! || > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 1 `i -> 0 `i > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 0 `i -> 0 `i 277  ]
+[e $ ! || > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 1 `i -> 0 `i > -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 0 `i -> 0 `i 273  ]
 "513
 [; ;main.c: 513:             {
 {
@@ -2608,42 +2597,42 @@ Version 4.0 HI-TECH Software Intermediate Code
 "515
 [; ;main.c: 515:             }
 }
-[e :U 277 ]
+[e :U 273 ]
 "516
 [; ;main.c: 516:             break;
-[e $U 272  ]
+[e $U 268  ]
 "517
 [; ;main.c: 517:         case 2:
-[e :U 278 ]
+[e :U 274 ]
 "518
 [; ;main.c: 518:             SetDisplay(display_index, 0, 0, 1, display[(*DigitsArr[display_index]).unita]);
 [e ( _SetDisplay (4 , , , , _display_index -> -> 0 `i `uc -> -> 0 `i `uc -> -> 1 `i `uc *U + &U _display * -> . *U *U + &U _DigitsArr * -> _display_index `ux -> -> # *U &U _DigitsArr `ui `ux 2 `ux -> -> # *U &U _display `ui `ux ]
 "519
 [; ;main.c: 519:             break;
-[e $U 272  ]
+[e $U 268  ]
 "520
 [; ;main.c: 520:         }
 }
-[e $U 272  ]
-[e :U 273 ]
-[e [\ -> _disp `i , $ -> 0 `i 274
- , $ -> 1 `i 276
- , $ -> 2 `i 278
- 272 ]
-[e :U 272 ]
+[e $U 268  ]
+[e :U 269 ]
+[e [\ -> _disp `i , $ -> 0 `i 270
+ , $ -> 1 `i 272
+ , $ -> 2 `i 274
+ 268 ]
+[e :U 268 ]
 "521
 [; ;main.c: 521:     }
 }
 [e ++ _display_index -> -> 1 `i `uc ]
-[e $ < -> _display_index `i -> _n_semafori `i 269  ]
-[e :U 270 ]
+[e $ < -> _display_index `i -> _n_semafori `i 265  ]
+[e :U 266 ]
 }
 "522
 [; ;main.c: 522:     disp = (disp + 1) % 3;
 [e = _disp -> % + -> _disp `i -> 1 `i -> 3 `i `uc ]
 "523
 [; ;main.c: 523: }
-[e :UE 268 ]
+[e :UE 264 ]
 }
 [v $root$_ISR `(v ~T0 @X0 0 e ]
 "525
@@ -2656,7 +2645,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "528
 [; ;main.c: 528:     if (RCIF && readGateway.Bit == 0)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 280  ]
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 0 `i 276  ]
 "529
 [; ;main.c: 529:     {
 {
@@ -2678,10 +2667,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "535
 [; ;main.c: 535:     }
 }
-[e :U 280 ]
+[e :U 276 ]
 "536
 [; ;main.c: 536:     if (RCIF && readGateway.Bit == 1)
-[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 281  ]
+[e $ ! && _RCIF == -> . _readGateway 0 `i -> 1 `i 277  ]
 "537
 [; ;main.c: 537:     {
 {
@@ -2697,10 +2686,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "541
 [; ;main.c: 541:     }
 }
-[e :U 281 ]
+[e :U 277 ]
 "545
 [; ;main.c: 545:     if (TMR0IF)
-[e $ ! _TMR0IF 282  ]
+[e $ ! _TMR0IF 278  ]
 "546
 [; ;main.c: 546:     {
 {
@@ -2716,10 +2705,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "550
 [; ;main.c: 550:     }
 }
-[e :U 282 ]
+[e :U 278 ]
 "552
 [; ;main.c: 552:     if (TMR1IF)
-[e $ ! _TMR1IF 283  ]
+[e $ ! _TMR1IF 279  ]
 "553
 [; ;main.c: 553:     {
 {
@@ -2731,7 +2720,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ++ _count_lux -> -> 1 `i `uc ]
 "557
 [; ;main.c: 557:         if (count_lux >= 20)
-[e $ ! >= -> _count_lux `i -> 20 `i 284  ]
+[e $ ! >= -> _count_lux `i -> 20 `i 280  ]
 "558
 [; ;main.c: 558:         {
 {
@@ -2747,7 +2736,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "562
 [; ;main.c: 562:         }
 }
-[e :U 284 ]
+[e :U 280 ]
 "564
 [; ;main.c: 564:         TMR1H = 60;
 [e = _TMR1H -> -> 60 `i `uc ]
@@ -2757,8 +2746,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "566
 [; ;main.c: 566:     }
 }
-[e :U 283 ]
+[e :U 279 ]
 "567
 [; ;main.c: 567: }
-[e :UE 279 ]
+[e :UE 275 ]
 }

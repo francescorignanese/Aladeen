@@ -110,12 +110,12 @@ unsigned char motorcycle[4]; //variabile per contare i motocicli
 unsigned char car[4];        //variabile per contare le macchine
 unsigned char truck[4];      //variabile per contare i camion
 char RoadsSensors[4];
-unsigned char dataFromGatewayIndex = 0; //indice array dati da seriale
-ProtocolBytes dataFromGateway;          //array dati da seriale
-Semaforo s0, s1;                        //definisco i vari semafori
-Semaforo *Semafori[2] = {&s0, &s1};
-Digits digits0, digits1;
-Digits *DigitsArr[2] = {&digits0, &digits1};
+unsigned char dataFromGatewayIndex = 0;     //indice array dati da seriale
+ProtocolBytes dataFromGateway;              //array dati da seriale
+Semaforo s0, s1, s2, s3, s4, s5, s6, s7;   //definisco i vari semafori
+Semaforo *Semafori[8] = {&s0, &s1, &s2, &s3, &s4, &s5, &s6, &s7};
+Digits digits0, digits1, digits2, digits3, digits4, digits5, digits6, digits7;
+Digits *DigitsArr[8] = {&digits0, &digits1, &digits2, &digits3, &digits4, &digits5, &digits6, &digits7};
 unsigned char timerReadFromGateway; //timer per definire se la lettura dati eccede un tempo limite
 char temp = 0;                      //Variabile per salvare la temperatura sul pin RA0
 unsigned char umidita = 0;          //Variabile per salvare l'umidita sul pin RA1
