@@ -4,8 +4,8 @@ const fs = require("fs");
 const SerialPort = require('serialport');
 const ByteLength = require('@serialport/parser-byte-length');
 const redis = require('redis');
-const port = new SerialPort('/COM7');
-const client = redis.createClient(6379, '192.168.0.99');
+const port = new SerialPort('/');
+const client = redis.createClient(6379, '');
 const _ = require('lodash');
 
 let corrupted = false;
