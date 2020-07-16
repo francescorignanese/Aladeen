@@ -27,7 +27,8 @@ client.open(function(err) {
         console.error('error connecting to hub: ' + err);
         process.exit(1);
     }
-    console.log('client opened');   
+    console.log('client opened');
+    console.log('Waiting for timings...')   
 });
 
 let tookTime = false;
@@ -47,7 +48,7 @@ function getTimings() {
             //console.log('twin contents:');
             //console.log(twin.properties);
             twin.on('properties.desired', function(delta) {
-                console.log('new desired properties received:');
+                //console.log('new desired properties received:');
                 let json_timings = twin.properties.desired;
                 fs.writeFileSync("temps.json", JSON.stringify(twin.properties.desired));
                 resolve(json_timings);
@@ -91,7 +92,8 @@ function parseTimings() {
                 //let megaPack = [greenId, 0x00, greenValue, 0x00, bit_parità, yellowId, 0x00, yellowValue, 0x00, bit_parità, redId, 0x00, redValue, 0x00, bit_parità];
                 let firstCouplePack = [greenId,emptyValue,greenValue,emptyValue,bit_parità, yellowId,emptyValue,yellowValue,emptyValue,bit_parità, redId,emptyValue,redValue,emptyValue,bit_parità];
                 //primo rosso - 15 sec, verde - 10 sec, giallo -5 sec
-                console.log('first', firstCouplePack);
+                console.log(firstCouplePack);
+                console.log('verde', greenValue, 'giallo', yellowValue, 'rosso', redValue);
                 port.write(firstCouplePack);
                 
             } else if (couple.semafores_couples === 1) {
@@ -108,7 +110,8 @@ function parseTimings() {
                 redValue = parseInt(`0x${Number(redTemp).toString(16)}`);
 
                 let secondCouplePack = [greenId,emptyValue,greenValue,emptyValue,bit_parità, yellowId,emptyValue,yellowValue,emptyValue,bit_parità, redId,emptyValue,redValue,emptyValue,bit_parità];
-                console.log('second', secondCouplePack);
+                //console.log('second', secondCouplePack);
+                //console.log('verde', greenValue, 'giallo', yellowValue, 'rosso', redValue);
                 port.write(secondCouplePack);
             } else {
                 console.log("ERROR: Invalid data in JSON Received.")

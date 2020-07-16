@@ -57,7 +57,7 @@ const sendDataRequestTraffic = function() {
 	cmd_traffic = [0x00, 0x00, 0x00, 0x00, 0x00];
 }
 
-//Invia richiesta di Clima ogni ora
+//Invia richiesta di Clima ogni 55 secondi x simulazione
 setInterval(() => {
 	sendDataRequestClimate();
 	if (climateSent) {
@@ -66,7 +66,7 @@ setInterval(() => {
 
 }, 55000);
 
-//Invia richiesta ogni 10 minuti
+//Invia richiesta ogni 35 secondi x simulazione
 setInterval(() => {
 	sendDataRequestTraffic();
 	if (trafficSent) {
@@ -103,13 +103,13 @@ function parseBytes() {
 
 
 function climateManagement() {
-
+	let date = new Date();
 	//JSON sensori atmosferici
 	json_climate = {
 		"sensor": "climate",
 		"id_cross": 1,
-		"date": new Date().toISOString().slice(0, 10),
-		"time": new Date().toISOString().slice(11, 19),
+		"date": date.toISOString().slice(0, 10),
+		"time": date.toISOString().slice(11, 19),
 		"data_climate": []
 	};
 

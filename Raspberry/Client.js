@@ -15,7 +15,7 @@ redisClient.on("connect", (err) => {
 });
 redisClient.on("ready", (err) => {
     redisNotReady = false;
-    console.log("Redis ready to accept data!");
+    console.log("Redis ready to pop data!");
 });
 //console.log(clientConfig)
 
