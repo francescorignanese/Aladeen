@@ -1,0 +1,11 @@
+{
+  "bindings": [
+    {
+      "name": "obj",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "climatequeue",
+      "connection": "smartcrossqueuebus_SERVICEBUS"
+    }
+  ]
+}
