@@ -3,8 +3,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./CustomLib/TrafficDataTypes.h: 2: {
 [s S131 `i -> 3 `i `i -> 3 `i `uc 1 `uc 1 ]
 [n S131 . times new_times lux_select new_lux_select ]
-"30 ./CustomLib/TrafficLight.h
-[; ;./CustomLib/TrafficLight.h: 30:     {
+"29 ./CustomLib/TrafficLight.h
+[; ;./CustomLib/TrafficLight.h: 29:     {
 [s S144 :7 `uc 1 ]
 [n S144 . Val ]
 "15 ./CustomLib/TrafficDataTypes.h
@@ -914,131 +914,131 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./CustomLib/TrafficLight.h: 22: }
 [e :UE 134 ]
 }
-"26
-[; ;./CustomLib/TrafficLight.h: 26: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+"25
+[; ;./CustomLib/TrafficLight.h: 25: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 [v _GetTime `(i ~T0 @X0 1 ef2`uc`*uc ]
-"27
-[; ;./CustomLib/TrafficLight.h: 27: {
+"26
+[; ;./CustomLib/TrafficLight.h: 26: {
 {
 [e :U _GetTime ]
-"26
-[; ;./CustomLib/TrafficLight.h: 26: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
+"25
+[; ;./CustomLib/TrafficLight.h: 25: int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 [v _index `uc ~T0 @X0 1 r1 ]
 [v __dataFromGateway `*uc ~T0 @X0 1 r2 ]
-"27
-[; ;./CustomLib/TrafficLight.h: 27: {
+"26
+[; ;./CustomLib/TrafficLight.h: 26: {
 [f ]
-"28
-[; ;./CustomLib/TrafficLight.h: 28:     int tmp;
+"27
+[; ;./CustomLib/TrafficLight.h: 27:     int tmp;
 [v _tmp `i ~T0 @X0 1 a ]
-"32
-[; ;./CustomLib/TrafficLight.h: 32:     } shortInt;
+"31
+[; ;./CustomLib/TrafficLight.h: 31:     } shortInt;
 [v _shortInt `S144 ~T0 @X0 1 a ]
-"34
-[; ;./CustomLib/TrafficLight.h: 34:     shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
+"33
+[; ;./CustomLib/TrafficLight.h: 33:     shortInt.Val = _dataFromGateway[index + 3] & 0x7F;
 [e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 3 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
-"35
-[; ;./CustomLib/TrafficLight.h: 35:     tmp = shortInt.Val;
+"34
+[; ;./CustomLib/TrafficLight.h: 34:     tmp = shortInt.Val;
 [e = _tmp -> . _shortInt 0 `i ]
-"36
-[; ;./CustomLib/TrafficLight.h: 36:     tmp = (tmp << 7) & 0x80;
+"35
+[; ;./CustomLib/TrafficLight.h: 35:     tmp = (tmp << 7) & 0x80;
 [e = _tmp & << _tmp -> 7 `i -> 128 `i ]
-"38
-[; ;./CustomLib/TrafficLight.h: 38:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
+"37
+[; ;./CustomLib/TrafficLight.h: 37:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
 [e = . _shortInt 0 -> & -> *U + __dataFromGateway * -> + -> _index `i -> 2 `i `x -> -> # *U __dataFromGateway `i `x `i -> 127 `i `uc ]
-"39
-[; ;./CustomLib/TrafficLight.h: 39:     tmp = tmp | shortInt.Val;
+"38
+[; ;./CustomLib/TrafficLight.h: 38:     tmp = tmp | shortInt.Val;
 [e = _tmp | _tmp -> . _shortInt 0 `i ]
-"41
-[; ;./CustomLib/TrafficLight.h: 41:     return tmp;
+"40
+[; ;./CustomLib/TrafficLight.h: 40:     return tmp;
 [e ) _tmp ]
 [e $UE 143  ]
-"42
-[; ;./CustomLib/TrafficLight.h: 42: }
+"41
+[; ;./CustomLib/TrafficLight.h: 41: }
 [e :UE 143 ]
 }
-"45
-[; ;./CustomLib/TrafficLight.h: 45: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+"44
+[; ;./CustomLib/TrafficLight.h: 44: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 [v _SetDefaultTimers `(v ~T0 @X0 1 ef4`i`i`i`**S131 ]
-"46
-[; ;./CustomLib/TrafficLight.h: 46: {
+"45
+[; ;./CustomLib/TrafficLight.h: 45: {
 {
 [e :U _SetDefaultTimers ]
-"45
-[; ;./CustomLib/TrafficLight.h: 45: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
+"44
+[; ;./CustomLib/TrafficLight.h: 44: void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 [v _rosso `i ~T0 @X0 1 r1 ]
 [v _verde `i ~T0 @X0 1 r2 ]
 [v _giallo `i ~T0 @X0 1 r3 ]
 [v __semafori `**S131 ~T0 @X0 1 r4 ]
-"46
-[; ;./CustomLib/TrafficLight.h: 46: {
+"45
+[; ;./CustomLib/TrafficLight.h: 45: {
 [f ]
-"47
-[; ;./CustomLib/TrafficLight.h: 47:     for (unsigned char l = 0; l < n_semafori; l++)
+"46
+[; ;./CustomLib/TrafficLight.h: 46:     for (unsigned char l = 0; l < n_semafori; l++)
 {
 [v _l `uc ~T0 @X0 1 a ]
 [e = _l -> -> 0 `i `uc ]
 [e $ < -> _l `i -> _n_semafori `i 146  ]
 [e $U 147  ]
 [e :U 146 ]
-"48
-[; ;./CustomLib/TrafficLight.h: 48:     {
+"47
+[; ;./CustomLib/TrafficLight.h: 47:     {
 {
-"49
-[; ;./CustomLib/TrafficLight.h: 49:         for (unsigned char i = 0; i < 3; i++)
+"48
+[; ;./CustomLib/TrafficLight.h: 48:         for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 3 `i 149  ]
 [e $U 150  ]
 [e :U 149 ]
+"49
+[; ;./CustomLib/TrafficLight.h: 49:         {
+{
 "50
-[; ;./CustomLib/TrafficLight.h: 50:         {
-{
-"51
-[; ;./CustomLib/TrafficLight.h: 51:             switch (i)
+[; ;./CustomLib/TrafficLight.h: 50:             switch (i)
 [e $U 153  ]
-"52
-[; ;./CustomLib/TrafficLight.h: 52:             {
+"51
+[; ;./CustomLib/TrafficLight.h: 51:             {
 {
-"53
-[; ;./CustomLib/TrafficLight.h: 53:             case 0:
+"52
+[; ;./CustomLib/TrafficLight.h: 52:             case 0:
 [e :U 154 ]
-"54
-[; ;./CustomLib/TrafficLight.h: 54:                 (*(_semafori)[l]).times[i] = rosso;
+"53
+[; ;./CustomLib/TrafficLight.h: 53:                 (*(_semafori)[l]).times[i] = rosso;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _rosso ]
-"55
-[; ;./CustomLib/TrafficLight.h: 55:                 (*(_semafori)[l]).new_times[i] = rosso;
+"54
+[; ;./CustomLib/TrafficLight.h: 54:                 (*(_semafori)[l]).new_times[i] = rosso;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _rosso ]
+"55
+[; ;./CustomLib/TrafficLight.h: 55:                 break;
+[e $U 152  ]
 "56
-[; ;./CustomLib/TrafficLight.h: 56:                 break;
-[e $U 152  ]
-"57
-[; ;./CustomLib/TrafficLight.h: 57:             case 1:
+[; ;./CustomLib/TrafficLight.h: 56:             case 1:
 [e :U 155 ]
-"58
-[; ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).times[i] = verde;
+"57
+[; ;./CustomLib/TrafficLight.h: 57:                 (*(_semafori)[l]).times[i] = verde;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _verde ]
-"59
-[; ;./CustomLib/TrafficLight.h: 59:                 (*(_semafori)[l]).new_times[i] = verde;
+"58
+[; ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).new_times[i] = verde;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _verde ]
+"59
+[; ;./CustomLib/TrafficLight.h: 59:                 break;
+[e $U 152  ]
 "60
-[; ;./CustomLib/TrafficLight.h: 60:                 break;
-[e $U 152  ]
-"61
-[; ;./CustomLib/TrafficLight.h: 61:             case 2:
+[; ;./CustomLib/TrafficLight.h: 60:             case 2:
 [e :U 156 ]
-"62
-[; ;./CustomLib/TrafficLight.h: 62:                 (*(_semafori)[l]).times[i] = giallo;
+"61
+[; ;./CustomLib/TrafficLight.h: 61:                 (*(_semafori)[l]).times[i] = giallo;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 0 `ui `ux _giallo ]
-"63
-[; ;./CustomLib/TrafficLight.h: 63:                 (*(_semafori)[l]).new_times[i] = giallo;
+"62
+[; ;./CustomLib/TrafficLight.h: 62:                 (*(_semafori)[l]).new_times[i] = giallo;
 [e = *U + &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 * -> _i `ux -> -> # *U &U . *U *U + __semafori * -> _l `ux -> -> # *U __semafori `ui `ux 1 `ui `ux _giallo ]
-"64
-[; ;./CustomLib/TrafficLight.h: 64:                 break;
+"63
+[; ;./CustomLib/TrafficLight.h: 63:                 break;
 [e $U 152  ]
-"65
-[; ;./CustomLib/TrafficLight.h: 65:             }
+"64
+[; ;./CustomLib/TrafficLight.h: 64:             }
 }
 [e $U 152  ]
 [e :U 153 ]
@@ -1047,216 +1047,216 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 2 `i 156
  152 ]
 [e :U 152 ]
-"66
-[; ;./CustomLib/TrafficLight.h: 66:         }
+"65
+[; ;./CustomLib/TrafficLight.h: 65:         }
 }
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 3 `i 149  ]
 [e :U 150 ]
 }
-"67
-[; ;./CustomLib/TrafficLight.h: 67:     }
+"66
+[; ;./CustomLib/TrafficLight.h: 66:     }
 }
 [e ++ _l -> -> 1 `i `uc ]
 [e $ < -> _l `i -> _n_semafori `i 146  ]
 [e :U 147 ]
 }
-"69
-[; ;./CustomLib/TrafficLight.h: 69:     (*(_semafori)[0]).lux_select = 0;
+"68
+[; ;./CustomLib/TrafficLight.h: 68:     (*(_semafori)[0]).lux_select = 0;
 [e = . *U *U + __semafori * -> -> 0 `i `x -> -> # *U __semafori `i `x 2 -> -> 0 `i `uc ]
-"70
-[; ;./CustomLib/TrafficLight.h: 70:     (*(_semafori)[0]).new_lux_select = 0;
+"69
+[; ;./CustomLib/TrafficLight.h: 69:     (*(_semafori)[0]).new_lux_select = 0;
 [e = . *U *U + __semafori * -> -> 0 `i `x -> -> # *U __semafori `i `x 3 -> -> 0 `i `uc ]
-"71
-[; ;./CustomLib/TrafficLight.h: 71:     (*(_semafori)[1]).lux_select = 1;
+"70
+[; ;./CustomLib/TrafficLight.h: 70:     (*(_semafori)[1]).lux_select = 1;
 [e = . *U *U + __semafori * -> -> 1 `i `x -> -> # *U __semafori `i `x 2 -> -> 1 `i `uc ]
-"72
-[; ;./CustomLib/TrafficLight.h: 72:     (*(_semafori)[1]).new_lux_select = 1;
+"71
+[; ;./CustomLib/TrafficLight.h: 71:     (*(_semafori)[1]).new_lux_select = 1;
 [e = . *U *U + __semafori * -> -> 1 `i `x -> -> # *U __semafori `i `x 3 -> -> 1 `i `uc ]
-"73
-[; ;./CustomLib/TrafficLight.h: 73: }
+"72
+[; ;./CustomLib/TrafficLight.h: 72: }
 [e :UE 145 ]
 }
-"75
-[; ;./CustomLib/TrafficLight.h: 75: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+"74
+[; ;./CustomLib/TrafficLight.h: 74: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 [v _SetReceivedTimes `(v ~T0 @X0 1 ef2`*uc`**S131 ]
-"76
-[; ;./CustomLib/TrafficLight.h: 76: {
+"75
+[; ;./CustomLib/TrafficLight.h: 75: {
 {
 [e :U _SetReceivedTimes ]
-"75
-[; ;./CustomLib/TrafficLight.h: 75: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
+"74
+[; ;./CustomLib/TrafficLight.h: 74: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _Semafori _semafori)
 [v __dataFromGateway `*uc ~T0 @X0 1 r1 ]
 [v __semafori `**S131 ~T0 @X0 1 r2 ]
-"76
-[; ;./CustomLib/TrafficLight.h: 76: {
+"75
+[; ;./CustomLib/TrafficLight.h: 75: {
 [f ]
-"77
-[; ;./CustomLib/TrafficLight.h: 77:     for (unsigned char i = 0; i < 3; i++)
+"76
+[; ;./CustomLib/TrafficLight.h: 76:     for (unsigned char i = 0; i < 3; i++)
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 3 `i 158  ]
 [e $U 159  ]
 [e :U 158 ]
-"78
-[; ;./CustomLib/TrafficLight.h: 78:     {
+"77
+[; ;./CustomLib/TrafficLight.h: 77:     {
 {
-"79
-[; ;./CustomLib/TrafficLight.h: 79:         unsigned char index = i * 5;
+"78
+[; ;./CustomLib/TrafficLight.h: 78:         unsigned char index = i * 5;
 [v _index `uc ~T0 @X0 1 a ]
 [e = _index -> * -> _i `i -> 5 `i `uc ]
-"80
-[; ;./CustomLib/TrafficLight.h: 80:         unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
+"79
+[; ;./CustomLib/TrafficLight.h: 79:         unsigned char semaforoId = (_dataFromGateway[index] >> 1) & 0x0F;
 [v _semaforoId `uc ~T0 @X0 1 a ]
 [e = _semaforoId -> & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 1 `i -> 15 `i `uc ]
-"81
-[; ;./CustomLib/TrafficLight.h: 81:         unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
+"80
+[; ;./CustomLib/TrafficLight.h: 80:         unsigned char colorId = ((_dataFromGateway[index] >> 5) & 0x03) - 1;
 [v _colorId `uc ~T0 @X0 1 a ]
 [e = _colorId -> - & >> -> *U + __dataFromGateway * -> _index `ux -> -> # *U __dataFromGateway `ui `ux `i -> 5 `i -> 3 `i -> 1 `i `uc ]
-"83
-[; ;./CustomLib/TrafficLight.h: 83:         (*(_semafori)[semaforoId]).new_times[colorId] = GetTime(index, _dataFromGateway);
+"82
+[; ;./CustomLib/TrafficLight.h: 82:         (*(_semafori)[semaforoId]).new_times[colorId] = GetTime(index, _dataFromGateway);
 [e = *U + &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 * -> _colorId `ux -> -> # *U &U . *U *U + __semafori * -> _semaforoId `ux -> -> # *U __semafori `ui `ux 1 `ui `ux ( _GetTime (2 , _index __dataFromGateway ]
-"84
-[; ;./CustomLib/TrafficLight.h: 84:     }
+"83
+[; ;./CustomLib/TrafficLight.h: 83:     }
 }
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 3 `i 158  ]
 [e :U 159 ]
 }
-"85
-[; ;./CustomLib/TrafficLight.h: 85: }
+"84
+[; ;./CustomLib/TrafficLight.h: 84: }
 [e :UE 157 ]
 }
-"87
-[; ;./CustomLib/TrafficLight.h: 87: void GetDigits(_Digits _digits, unsigned char index, int Time)
+"86
+[; ;./CustomLib/TrafficLight.h: 86: void GetDigits(_Digits _digits, unsigned char index, int Time)
 [v _GetDigits `(v ~T0 @X0 1 ef3`**S133`uc`i ]
-"88
-[; ;./CustomLib/TrafficLight.h: 88: {
+"87
+[; ;./CustomLib/TrafficLight.h: 87: {
 {
 [e :U _GetDigits ]
-"87
-[; ;./CustomLib/TrafficLight.h: 87: void GetDigits(_Digits _digits, unsigned char index, int Time)
+"86
+[; ;./CustomLib/TrafficLight.h: 86: void GetDigits(_Digits _digits, unsigned char index, int Time)
 [v __digits `**S133 ~T0 @X0 1 r1 ]
 [v _index `uc ~T0 @X0 1 r2 ]
 [v _Time `i ~T0 @X0 1 r3 ]
-"88
-[; ;./CustomLib/TrafficLight.h: 88: {
+"87
+[; ;./CustomLib/TrafficLight.h: 87: {
 [f ]
-"89
-[; ;./CustomLib/TrafficLight.h: 89:     while (Time / 1000 > 0)
+"88
+[; ;./CustomLib/TrafficLight.h: 88:     while (Time / 1000 > 0)
 [e $U 162  ]
 [e :U 163 ]
-"90
-[; ;./CustomLib/TrafficLight.h: 90:     {
+"89
+[; ;./CustomLib/TrafficLight.h: 89:     {
 {
-"91
-[; ;./CustomLib/TrafficLight.h: 91:         Time = Time / 10;
+"90
+[; ;./CustomLib/TrafficLight.h: 90:         Time = Time / 10;
 [e = _Time / _Time -> 10 `i ]
-"92
-[; ;./CustomLib/TrafficLight.h: 92:     }
+"91
+[; ;./CustomLib/TrafficLight.h: 91:     }
 }
 [e :U 162 ]
-"89
-[; ;./CustomLib/TrafficLight.h: 89:     while (Time / 1000 > 0)
+"88
+[; ;./CustomLib/TrafficLight.h: 88:     while (Time / 1000 > 0)
 [e $ > / _Time -> 1000 `i -> 0 `i 163  ]
 [e :U 164 ]
-"94
-[; ;./CustomLib/TrafficLight.h: 94:     (*_digits)[index].centinaia = Time / 100;
+"93
+[; ;./CustomLib/TrafficLight.h: 93:     (*_digits)[index].centinaia = Time / 100;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 0 -> / _Time -> 100 `i `uc ]
-"95
-[; ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].decine = (Time % 100) / 10;
+"94
+[; ;./CustomLib/TrafficLight.h: 94:     (*_digits)[index].decine = (Time % 100) / 10;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 1 -> / % _Time -> 100 `i -> 10 `i `uc ]
-"96
-[; ;./CustomLib/TrafficLight.h: 96:     (*_digits)[index].unita = (Time % 100) % 10;
+"95
+[; ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].unita = (Time % 100) % 10;
 [e = . *U + *U __digits * -> _index `ux -> -> # *U *U __digits `ui `ux 2 -> % % _Time -> 100 `i -> 10 `i `uc ]
-"97
-[; ;./CustomLib/TrafficLight.h: 97: }
+"96
+[; ;./CustomLib/TrafficLight.h: 96: }
 [e :UE 161 ]
 }
-"100
-[; ;./CustomLib/TrafficLight.h: 100: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+"99
+[; ;./CustomLib/TrafficLight.h: 99: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 [v _Conteggio `(v ~T0 @X0 1 ef5`ui`*uc`*uc`*uc`uc ]
-"101
-[; ;./CustomLib/TrafficLight.h: 101: {
+"100
+[; ;./CustomLib/TrafficLight.h: 100: {
 {
 [e :U _Conteggio ]
-"100
-[; ;./CustomLib/TrafficLight.h: 100: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
+"99
+[; ;./CustomLib/TrafficLight.h: 99: void Conteggio(unsigned int _count, unsigned char _motorcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index)
 [v __count `ui ~T0 @X0 1 r1 ]
 [v __motorcycle `*uc ~T0 @X0 1 r2 ]
 [v __car `*uc ~T0 @X0 1 r3 ]
 [v __truck `*uc ~T0 @X0 1 r4 ]
 [v _index `uc ~T0 @X0 1 r5 ]
-"101
-[; ;./CustomLib/TrafficLight.h: 101: {
+"100
+[; ;./CustomLib/TrafficLight.h: 100: {
 [f ]
-"102
-[; ;./CustomLib/TrafficLight.h: 102:     if (_count >= 500)
+"101
+[; ;./CustomLib/TrafficLight.h: 101:     if (_count >= 500)
 [e $ ! >= __count -> -> 500 `i `ui 166  ]
-"103
-[; ;./CustomLib/TrafficLight.h: 103:     {
+"102
+[; ;./CustomLib/TrafficLight.h: 102:     {
 {
-"104
-[; ;./CustomLib/TrafficLight.h: 104:         _motorcycle[index] = _motorcycle[index] + 1;
+"103
+[; ;./CustomLib/TrafficLight.h: 103:         _motorcycle[index] = _motorcycle[index] + 1;
 [e = *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux -> + -> *U + __motorcycle * -> _index `ux -> -> # *U __motorcycle `ui `ux `i -> 1 `i `uc ]
-"105
-[; ;./CustomLib/TrafficLight.h: 105:     }
+"104
+[; ;./CustomLib/TrafficLight.h: 104:     }
 }
 [e :U 166 ]
-"106
-[; ;./CustomLib/TrafficLight.h: 106:     if (_count >= 1500)
+"105
+[; ;./CustomLib/TrafficLight.h: 105:     if (_count >= 1500)
 [e $ ! >= __count -> -> 1500 `i `ui 167  ]
-"107
-[; ;./CustomLib/TrafficLight.h: 107:     {
+"106
+[; ;./CustomLib/TrafficLight.h: 106:     {
 {
-"108
-[; ;./CustomLib/TrafficLight.h: 108:         _car[index] = _car[index] + 1;
+"107
+[; ;./CustomLib/TrafficLight.h: 107:         _car[index] = _car[index] + 1;
 [e = *U + __car * -> _index `ux -> -> # *U __car `ui `ux -> + -> *U + __car * -> _index `ux -> -> # *U __car `ui `ux `i -> 1 `i `uc ]
-"109
-[; ;./CustomLib/TrafficLight.h: 109:     }
+"108
+[; ;./CustomLib/TrafficLight.h: 108:     }
 }
 [e :U 167 ]
-"110
-[; ;./CustomLib/TrafficLight.h: 110:     if (_count >= 3000)
+"109
+[; ;./CustomLib/TrafficLight.h: 109:     if (_count >= 3000)
 [e $ ! >= __count -> -> 3000 `i `ui 168  ]
-"111
-[; ;./CustomLib/TrafficLight.h: 111:     {
+"110
+[; ;./CustomLib/TrafficLight.h: 110:     {
 {
-"112
-[; ;./CustomLib/TrafficLight.h: 112:         _truck[index] = _truck[index] + 1;
+"111
+[; ;./CustomLib/TrafficLight.h: 111:         _truck[index] = _truck[index] + 1;
 [e = *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux -> + -> *U + __truck * -> _index `ux -> -> # *U __truck `ui `ux `i -> 1 `i `uc ]
-"113
-[; ;./CustomLib/TrafficLight.h: 113:     }
+"112
+[; ;./CustomLib/TrafficLight.h: 112:     }
 }
 [e :U 168 ]
-"114
-[; ;./CustomLib/TrafficLight.h: 114: }
+"113
+[; ;./CustomLib/TrafficLight.h: 113: }
 [e :UE 165 ]
 }
-"116
-[; ;./CustomLib/TrafficLight.h: 116: int map(int x, int in_min, int in_max, int out_min, int out_max)
+"115
+[; ;./CustomLib/TrafficLight.h: 115: int map(int x, int in_min, int in_max, int out_min, int out_max)
 [v _map `(i ~T0 @X0 1 ef5`i`i`i`i`i ]
-"117
-[; ;./CustomLib/TrafficLight.h: 117: {
+"116
+[; ;./CustomLib/TrafficLight.h: 116: {
 {
 [e :U _map ]
-"116
-[; ;./CustomLib/TrafficLight.h: 116: int map(int x, int in_min, int in_max, int out_min, int out_max)
+"115
+[; ;./CustomLib/TrafficLight.h: 115: int map(int x, int in_min, int in_max, int out_min, int out_max)
 [v _x `i ~T0 @X0 1 r1 ]
 [v _in_min `i ~T0 @X0 1 r2 ]
 [v _in_max `i ~T0 @X0 1 r3 ]
 [v _out_min `i ~T0 @X0 1 r4 ]
 [v _out_max `i ~T0 @X0 1 r5 ]
-"117
-[; ;./CustomLib/TrafficLight.h: 117: {
+"116
+[; ;./CustomLib/TrafficLight.h: 116: {
 [f ]
-"118
-[; ;./CustomLib/TrafficLight.h: 118:     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+"117
+[; ;./CustomLib/TrafficLight.h: 117:     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 [e ) + / * - _x _in_min - _out_max _out_min - _in_max _in_min _out_min ]
 [e $UE 169  ]
-"119
-[; ;./CustomLib/TrafficLight.h: 119: }
+"118
+[; ;./CustomLib/TrafficLight.h: 118: }
 [e :UE 169 ]
 }
 "102 main.c

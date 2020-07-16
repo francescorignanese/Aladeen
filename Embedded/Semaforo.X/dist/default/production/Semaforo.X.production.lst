@@ -1,11 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.10 build 88905656 
-<<<<<<< HEAD
-                                                                                               Thu Jul 16 11:01:56 2020
-=======
-                                                                                               Thu Jul 16 15:42:45 2020
->>>>>>> 5d582397ca422898f0242690e73766646de03117
+                                                                                               Thu Jul 16 15:50:54 2020
 
 Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1 
      1                           	processor	16F877A
@@ -3320,7 +3316,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   3282  0AAD                     __ptext6:	
   3283 ;; *************** function _map *****************
   3284 ;; Defined at:
-  3285 ;;		line 116 in file "./CustomLib/TrafficLight.h"
+  3285 ;;		line 115 in file "./CustomLib/TrafficLight.h"
   3286 ;; Parameters:    Size  Location     Type
   3287 ;;  x               2   40[BANK0 ] int 
   3288 ;;  in_min          2   42[BANK0 ] int 
@@ -3361,8 +3357,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   3323                           ; Regs used in _map: [wreg+status,2+status,0+pclath+cstack]
   3324                           
   3325                           
-  3326                           ;./CustomLib/TrafficLight.h: 116: int map(int x, int in_min, int in_max, int out_min, in
-      +                          t out_max);./CustomLib/TrafficLight.h: 117: {;./CustomLib/TrafficLight.h: 118:     retur
+  3326                           ;./CustomLib/TrafficLight.h: 115: int map(int x, int in_min, int in_max, int out_min, in
+      +                          t out_max);./CustomLib/TrafficLight.h: 116: {;./CustomLib/TrafficLight.h: 117:     retur
       +                          n (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
   3327  0AAD  1283               	bcf	3,5	;RP0=0, select bank0
   3328  0AAE  1303               	bcf	3,6	;RP1=0, select bank0
@@ -4835,7 +4831,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4777  0D51                     __ptext15:	
   4778 ;; *************** function _SetReceivedTimes *****************
   4779 ;; Defined at:
-  4780 ;;		line 75 in file "./CustomLib/TrafficLight.h"
+  4780 ;;		line 74 in file "./CustomLib/TrafficLight.h"
   4781 ;; Parameters:    Size  Location     Type
   4782 ;;  _dataFromGat    1    wreg     PTR unsigned char 
   4783 ;;		 -> dataFromGateway(15), 
@@ -4884,8 +4880,8 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4826  0D53  00B3               	movwf	SetReceivedTimes@_dataFromGateway
   4827  0D54                     l3361:	
   4828                           
-  4829                           ;./CustomLib/TrafficLight.h: 75: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _
-      +                          Semafori _semafori);./CustomLib/TrafficLight.h: 76: {;./CustomLib/TrafficLight.h: 77:   
+  4829                           ;./CustomLib/TrafficLight.h: 74: void SetReceivedTimes(ProtocolBytes _dataFromGateway, _
+      +                          Semafori _semafori);./CustomLib/TrafficLight.h: 75: {;./CustomLib/TrafficLight.h: 76:   
       +                            for (unsigned char i = 0; i < 3; i++)
   4830  0D54  01B5               	clrf	SetReceivedTimes@i
   4831  0D55                     l3363:	
@@ -4900,7 +4896,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4840  0D5B  2DB1               	goto	l147
   4841  0D5C                     l3367:	
   4842                           
-  4843                           ;./CustomLib/TrafficLight.h: 78:     {;./CustomLib/TrafficLight.h: 79:         unsigned 
+  4843                           ;./CustomLib/TrafficLight.h: 77:     {;./CustomLib/TrafficLight.h: 78:         unsigned 
       +                          char index = i * 5;
   4844  0D5C  3005               	movlw	5
   4845  0D5D  00AD               	movwf	??_SetReceivedTimes
@@ -4915,7 +4911,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4854  0D6A  00B4               	movwf	SetReceivedTimes@index
   4855  0D6B                     l3369:	
   4856                           
-  4857                           ;./CustomLib/TrafficLight.h: 80:         unsigned char semaforoId = (_dataFromGateway[in
+  4857                           ;./CustomLib/TrafficLight.h: 79:         unsigned char semaforoId = (_dataFromGateway[in
       +                          dex] >> 1) & 0x0F;
   4858  0D6B  0834               	movf	SetReceivedTimes@index,w
   4859  0D6C  0733               	addwf	SetReceivedTimes@_dataFromGateway,w
@@ -4933,7 +4929,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4871  0D78  00B1               	movwf	SetReceivedTimes@semaforoId
   4872  0D79                     l3371:	
   4873                           
-  4874                           ;./CustomLib/TrafficLight.h: 81:         unsigned char colorId = ((_dataFromGateway[inde
+  4874                           ;./CustomLib/TrafficLight.h: 80:         unsigned char colorId = ((_dataFromGateway[inde
       +                          x] >> 5) & 0x03) - 1;
   4875  0D79  0834               	movf	SetReceivedTimes@index,w
   4876  0D7A  0733               	addwf	SetReceivedTimes@_dataFromGateway,w
@@ -4957,7 +4953,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4894  0D8B  00B2               	movwf	SetReceivedTimes@colorId
   4895  0D8C                     l3373:	
   4896                           
-  4897                           ;./CustomLib/TrafficLight.h: 83:         (*(_semafori)[semaforoId]).new_times[colorId] =
+  4897                           ;./CustomLib/TrafficLight.h: 82:         (*(_semafori)[semaforoId]).new_times[colorId] =
       +                           GetTime(index, _dataFromGateway);
   4898  0D8C  0833               	movf	SetReceivedTimes@_dataFromGateway,w
   4899  0D8D  00AD               	movwf	??_SetReceivedTimes
@@ -4989,7 +4985,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4925  0DAB  0080               	movwf	0
   4926  0DAC                     l3375:	
   4927                           
-  4928                           ;./CustomLib/TrafficLight.h: 84:     }
+  4928                           ;./CustomLib/TrafficLight.h: 83:     }
   4929  0DAC  3001               	movlw	1
   4930  0DAD  00AD               	movwf	??_SetReceivedTimes
   4931  0DAE  082D               	movf	??_SetReceivedTimes,w
@@ -5003,7 +4999,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4939  0B1C                     __ptext16:	
   4940 ;; *************** function _GetTime *****************
   4941 ;; Defined at:
-  4942 ;;		line 26 in file "./CustomLib/TrafficLight.h"
+  4942 ;;		line 25 in file "./CustomLib/TrafficLight.h"
   4943 ;; Parameters:    Size  Location     Type
   4944 ;;  index           1    wreg     unsigned char 
   4945 ;;  _dataFromGat    1    4[BANK0 ] PTR unsigned char 
@@ -5047,9 +5043,9 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   4983  0B1E  00A8               	movwf	GetTime@index
   4984  0B1F                     l3099:	
   4985                           
-  4986                           ;./CustomLib/TrafficLight.h: 26: int GetTime(unsigned char index, ProtocolBytes _dataFro
-      +                          mGateway);./CustomLib/TrafficLight.h: 27: {;./CustomLib/TrafficLight.h: 28:     int tmp;
-      +                          ;./CustomLib/TrafficLight.h: 32:     } shortInt;;./CustomLib/TrafficLight.h: 34:     sho
+  4986                           ;./CustomLib/TrafficLight.h: 25: int GetTime(unsigned char index, ProtocolBytes _dataFro
+      +                          mGateway);./CustomLib/TrafficLight.h: 26: {;./CustomLib/TrafficLight.h: 27:     int tmp;
+      +                          ;./CustomLib/TrafficLight.h: 31:     } shortInt;;./CustomLib/TrafficLight.h: 33:     sho
       +                          rtInt.Val = _dataFromGateway[index + 3] & 0x7F;
   4987  0B1F  0828               	movf	GetTime@index,w
   4988  0B20  0724               	addwf	GetTime@_dataFromGateway,w
@@ -5068,7 +5064,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5001  0B2D  00A9               	movwf	GetTime@shortInt
   5002  0B2E                     l3101:	
   5003                           
-  5004                           ;./CustomLib/TrafficLight.h: 35:     tmp = shortInt.Val;
+  5004                           ;./CustomLib/TrafficLight.h: 34:     tmp = shortInt.Val;
   5005  0B2E  0829               	movf	GetTime@shortInt,w
   5006  0B2F  397F               	andlw	127
   5007  0B30  00A6               	movwf	??_GetTime
@@ -5079,7 +5075,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5012  0B35  00AB               	movwf	GetTime@tmp+1
   5013  0B36                     l3103:	
   5014                           
-  5015                           ;./CustomLib/TrafficLight.h: 36:     tmp = (tmp << 7) & 0x80;
+  5015                           ;./CustomLib/TrafficLight.h: 35:     tmp = (tmp << 7) & 0x80;
   5016  0B36  082B               	movf	GetTime@tmp+1,w
   5017  0B37  00A7               	movwf	??_GetTime+1
   5018  0B38  082A               	movf	GetTime@tmp,w
@@ -5100,7 +5096,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5033  0B46  00AB               	movwf	GetTime@tmp+1
   5034  0B47                     l3105:	
   5035                           
-  5036                           ;./CustomLib/TrafficLight.h: 38:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
+  5036                           ;./CustomLib/TrafficLight.h: 37:     shortInt.Val = _dataFromGateway[index + 2] & 0x7F;
   5037  0B47  0828               	movf	GetTime@index,w
   5038  0B48  0724               	addwf	GetTime@_dataFromGateway,w
   5039  0B49  00A6               	movwf	??_GetTime
@@ -5117,7 +5113,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5050  0B54  00A9               	movwf	GetTime@shortInt
   5051  0B55                     l3107:	
   5052                           
-  5053                           ;./CustomLib/TrafficLight.h: 39:     tmp = tmp | shortInt.Val;
+  5053                           ;./CustomLib/TrafficLight.h: 38:     tmp = tmp | shortInt.Val;
   5054  0B55  0829               	movf	GetTime@shortInt,w
   5055  0B56  397F               	andlw	127
   5056  0B57  00A6               	movwf	??_GetTime
@@ -5128,7 +5124,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5061  0B5C  00AB               	movwf	GetTime@tmp+1
   5062  0B5D                     l3109:	
   5063                           
-  5064                           ;./CustomLib/TrafficLight.h: 41:     return tmp;
+  5064                           ;./CustomLib/TrafficLight.h: 40:     return tmp;
   5065  0B5D  082B               	movf	GetTime@tmp+1,w
   5066  0B5E  00A5               	movwf	?_GetTime+1
   5067  0B5F  082A               	movf	GetTime@tmp,w
@@ -5141,7 +5137,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5074  0675                     __ptext17:	
   5075 ;; *************** function _SetDefaultTimers *****************
   5076 ;; Defined at:
-  5077 ;;		line 45 in file "./CustomLib/TrafficLight.h"
+  5077 ;;		line 44 in file "./CustomLib/TrafficLight.h"
   5078 ;; Parameters:    Size  Location     Type
   5079 ;;  rosso           2    4[BANK0 ] int 
   5080 ;;  verde           2    6[BANK0 ] int 
@@ -5182,21 +5178,21 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5115                           ; Regs used in _SetDefaultTimers: [wreg-fsr0h+status,2+status,0]
   5116                           
   5117                           
-  5118                           ;./CustomLib/TrafficLight.h: 45: void SetDefaultTimers(int rosso, int verde, int giallo,
-      +                           _Semafori _semafori);./CustomLib/TrafficLight.h: 46: {;./CustomLib/TrafficLight.h: 47: 
+  5118                           ;./CustomLib/TrafficLight.h: 44: void SetDefaultTimers(int rosso, int verde, int giallo,
+      +                           _Semafori _semafori);./CustomLib/TrafficLight.h: 45: {;./CustomLib/TrafficLight.h: 46: 
       +                              for (unsigned char l = 0; l < n_semafori; l++)
   5119  0675  1283               	bcf	3,5	;RP0=0, select bank0
   5120  0676  1303               	bcf	3,6	;RP1=0, select bank0
   5121  0677  01AE               	clrf	SetDefaultTimers@l
   5122  0678                     l3331:	
   5123                           
-  5124                           ;./CustomLib/TrafficLight.h: 48:     {;./CustomLib/TrafficLight.h: 49:         for (unsi
+  5124                           ;./CustomLib/TrafficLight.h: 47:     {;./CustomLib/TrafficLight.h: 48:         for (unsi
       +                          gned char i = 0; i < 3; i++)
   5125  0678  01AF               	clrf	SetDefaultTimers@i
   5126  0679  2EF2               	goto	l3345
   5127  067A                     l3337:	
   5128                           
-  5129                           ;./CustomLib/TrafficLight.h: 54:                 (*(_semafori)[l]).times[i] = rosso;
+  5129                           ;./CustomLib/TrafficLight.h: 53:                 (*(_semafori)[l]).times[i] = rosso;
   5130  067A  082E               	movf	SetDefaultTimers@l,w
   5131  067B  072A               	addwf	SetDefaultTimers@_semafori,w
   5132  067C  00AB               	movwf	??_SetDefaultTimers
@@ -5217,7 +5213,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5147  068B  0825               	movf	SetDefaultTimers@rosso+1,w
   5148  068C  0080               	movwf	0
   5149                           
-  5150                           ;./CustomLib/TrafficLight.h: 55:                 (*(_semafori)[l]).new_times[i] = rosso;
+  5150                           ;./CustomLib/TrafficLight.h: 54:                 (*(_semafori)[l]).new_times[i] = rosso;
   5151  068D  082E               	movf	SetDefaultTimers@l,w
   5152  068E  072A               	addwf	SetDefaultTimers@_semafori,w
   5153  068F  00AB               	movwf	??_SetDefaultTimers
@@ -5239,11 +5235,11 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5169  069F  0825               	movf	SetDefaultTimers@rosso+1,w
   5170  06A0  0080               	movwf	0
   5171                           
-  5172                           ;./CustomLib/TrafficLight.h: 56:                 break;
+  5172                           ;./CustomLib/TrafficLight.h: 55:                 break;
   5173  06A1  2F05               	goto	l3347
   5174  06A2                     l3339:	
   5175                           
-  5176                           ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).times[i] = verde;
+  5176                           ;./CustomLib/TrafficLight.h: 57:                 (*(_semafori)[l]).times[i] = verde;
   5177  06A2  082E               	movf	SetDefaultTimers@l,w
   5178  06A3  072A               	addwf	SetDefaultTimers@_semafori,w
   5179  06A4  00AB               	movwf	??_SetDefaultTimers
@@ -5264,7 +5260,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5194  06B3  0827               	movf	SetDefaultTimers@verde+1,w
   5195  06B4  0080               	movwf	0
   5196                           
-  5197                           ;./CustomLib/TrafficLight.h: 59:                 (*(_semafori)[l]).new_times[i] = verde;
+  5197                           ;./CustomLib/TrafficLight.h: 58:                 (*(_semafori)[l]).new_times[i] = verde;
   5198  06B5  082E               	movf	SetDefaultTimers@l,w
   5199  06B6  072A               	addwf	SetDefaultTimers@_semafori,w
   5200  06B7  00AB               	movwf	??_SetDefaultTimers
@@ -5286,11 +5282,11 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5216  06C7  0827               	movf	SetDefaultTimers@verde+1,w
   5217  06C8  0080               	movwf	0
   5218                           
-  5219                           ;./CustomLib/TrafficLight.h: 60:                 break;
+  5219                           ;./CustomLib/TrafficLight.h: 59:                 break;
   5220  06C9  2F05               	goto	l3347
   5221  06CA                     l3341:	
   5222                           
-  5223                           ;./CustomLib/TrafficLight.h: 62:                 (*(_semafori)[l]).times[i] = giallo;
+  5223                           ;./CustomLib/TrafficLight.h: 61:                 (*(_semafori)[l]).times[i] = giallo;
   5224  06CA  082E               	movf	SetDefaultTimers@l,w
   5225  06CB  072A               	addwf	SetDefaultTimers@_semafori,w
   5226  06CC  00AB               	movwf	??_SetDefaultTimers
@@ -5311,7 +5307,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5241  06DB  0829               	movf	SetDefaultTimers@giallo+1,w
   5242  06DC  0080               	movwf	0
   5243                           
-  5244                           ;./CustomLib/TrafficLight.h: 63:                 (*(_semafori)[l]).new_times[i] = giallo
+  5244                           ;./CustomLib/TrafficLight.h: 62:                 (*(_semafori)[l]).new_times[i] = giallo
       +                          ;
   5245  06DD  082E               	movf	SetDefaultTimers@l,w
   5246  06DE  072A               	addwf	SetDefaultTimers@_semafori,w
@@ -5334,7 +5330,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5263  06EF  0829               	movf	SetDefaultTimers@giallo+1,w
   5264  06F0  0080               	movwf	0
   5265                           
-  5266                           ;./CustomLib/TrafficLight.h: 64:                 break;
+  5266                           ;./CustomLib/TrafficLight.h: 63:                 break;
   5267  06F1  2F05               	goto	l3347
   5268  06F2                     l3345:	
   5269  06F2  082F               	movf	SetDefaultTimers@i,w
@@ -5379,7 +5375,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5307  0704  2F05               	goto	l3347
   5308  0705                     l3347:	
   5309                           
-  5310                           ;./CustomLib/TrafficLight.h: 66:         }
+  5310                           ;./CustomLib/TrafficLight.h: 65:         }
   5311  0705  3001               	movlw	1
   5312  0706  00AB               	movwf	??_SetDefaultTimers
   5313  0707  082B               	movf	??_SetDefaultTimers,w
@@ -5395,7 +5391,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5323  070F                     u2770:	
   5324  070F                     l3351:	
   5325                           
-  5326                           ;./CustomLib/TrafficLight.h: 67:     }
+  5326                           ;./CustomLib/TrafficLight.h: 66:     }
   5327  070F  3001               	movlw	1
   5328  0710  00AB               	movwf	??_SetDefaultTimers
   5329  0711  082B               	movf	??_SetDefaultTimers,w
@@ -5411,7 +5407,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5339  0719                     u2780:	
   5340  0719                     l3355:	
   5341                           
-  5342                           ;./CustomLib/TrafficLight.h: 69:     (*(_semafori)[0]).lux_select = 0;
+  5342                           ;./CustomLib/TrafficLight.h: 68:     (*(_semafori)[0]).lux_select = 0;
   5343  0719  082A               	movf	SetDefaultTimers@_semafori,w
   5344  071A  0084               	movwf	4
   5345  071B  1383               	bcf	3,7	;select IRP bank0
@@ -5421,7 +5417,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5349  071F  1783               	bsf	3,7	;select IRP bank2
   5350  0720  0180               	clrf	0
   5351                           
-  5352                           ;./CustomLib/TrafficLight.h: 70:     (*(_semafori)[0]).new_lux_select = 0;
+  5352                           ;./CustomLib/TrafficLight.h: 69:     (*(_semafori)[0]).new_lux_select = 0;
   5353  0721  082A               	movf	SetDefaultTimers@_semafori,w
   5354  0722  0084               	movwf	4
   5355  0723  1383               	bcf	3,7	;select IRP bank0
@@ -5431,7 +5427,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5359  0727  1783               	bsf	3,7	;select IRP bank2
   5360  0728  0180               	clrf	0
   5361                           
-  5362                           ;./CustomLib/TrafficLight.h: 71:     (*(_semafori)[1]).lux_select = 1;
+  5362                           ;./CustomLib/TrafficLight.h: 70:     (*(_semafori)[1]).lux_select = 1;
   5363  0729  0A2A               	incf	SetDefaultTimers@_semafori,w
   5364  072A  0084               	movwf	4
   5365  072B  1383               	bcf	3,7	;select IRP bank0
@@ -5442,7 +5438,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5370  0730  0180               	clrf	0
   5371  0731  0A80               	incf	0,f
   5372                           
-  5373                           ;./CustomLib/TrafficLight.h: 72:     (*(_semafori)[1]).new_lux_select = 1;
+  5373                           ;./CustomLib/TrafficLight.h: 71:     (*(_semafori)[1]).new_lux_select = 1;
   5374  0732  0A2A               	incf	SetDefaultTimers@_semafori,w
   5375  0733  0084               	movwf	4
   5376  0734  1383               	bcf	3,7	;select IRP bank0
@@ -5460,7 +5456,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5388  04E0                     __ptext18:	
   5389 ;; *************** function _GetDigits *****************
   5390 ;; Defined at:
-  5391 ;;		line 87 in file "./CustomLib/TrafficLight.h"
+  5391 ;;		line 86 in file "./CustomLib/TrafficLight.h"
   5392 ;; Parameters:    Size  Location     Type
   5393 ;;  _digits         1    wreg     PTR PTR struct .
   5394 ;;		 -> DigitsArr(8), 
@@ -5506,13 +5502,13 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5434  04E2  00D0               	movwf	GetDigits@_digits
   5435  04E3                     l3379:	
   5436                           
-  5437                           ;./CustomLib/TrafficLight.h: 87: void GetDigits(_Digits _digits, unsigned char index, in
-      +                          t Time);./CustomLib/TrafficLight.h: 88: {;./CustomLib/TrafficLight.h: 89:     while (Tim
+  5437                           ;./CustomLib/TrafficLight.h: 86: void GetDigits(_Digits _digits, unsigned char index, in
+      +                          t Time);./CustomLib/TrafficLight.h: 87: {;./CustomLib/TrafficLight.h: 88:     while (Tim
       +                          e / 1000 > 0)
   5438  04E3  2CF9               	goto	l3383
   5439  04E4                     l3381:	
   5440                           
-  5441                           ;./CustomLib/TrafficLight.h: 90:     {;./CustomLib/TrafficLight.h: 91:         Time = Ti
+  5441                           ;./CustomLib/TrafficLight.h: 89:     {;./CustomLib/TrafficLight.h: 90:         Time = Ti
       +                          me / 10;
   5442  04E4  300A               	movlw	10
   5443  04E5  1283               	bcf	3,5	;RP0=0, select bank0
@@ -5533,7 +5529,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5458  04F8  00C9               	movwf	GetDigits@Time
   5459  04F9                     l3383:	
   5460                           
-  5461                           ;./CustomLib/TrafficLight.h: 89:     while (Time / 1000 > 0)
+  5461                           ;./CustomLib/TrafficLight.h: 88:     while (Time / 1000 > 0)
   5462  04F9  30E8               	movlw	232
   5463  04FA  00BF               	movwf	___awdiv@divisor
   5464  04FB  3003               	movlw	3
@@ -5563,7 +5559,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5488  0515                     u2810:	
   5489  0515                     l3385:	
   5490                           
-  5491                           ;./CustomLib/TrafficLight.h: 94:     (*_digits)[index].centinaia = Time / 100;
+  5491                           ;./CustomLib/TrafficLight.h: 93:     (*_digits)[index].centinaia = Time / 100;
   5492  0515  3064               	movlw	100
   5493  0516  1283               	bcf	3,5	;RP0=0, select bank0
   5494  0517  1303               	bcf	3,6	;RP1=0, select bank0
@@ -5597,7 +5593,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5522  053B  084B               	movf	??_GetDigits,w
   5523  053C  0080               	movwf	0
   5524                           
-  5525                           ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].decine = (Time % 100) / 10;
+  5525                           ;./CustomLib/TrafficLight.h: 94:     (*_digits)[index].decine = (Time % 100) / 10;
   5526  053D  300A               	movlw	10
   5527  053E  00BF               	movwf	___awdiv@divisor
   5528  053F  3000               	movlw	0
@@ -5641,7 +5637,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5566  0571  0080               	movwf	0
   5567  0572                     l3387:	
   5568                           
-  5569                           ;./CustomLib/TrafficLight.h: 96:     (*_digits)[index].unita = (Time % 100) % 10;
+  5569                           ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].unita = (Time % 100) % 10;
   5570  0572  084A               	movf	GetDigits@Time+1,w
   5571  0573  00BB               	movwf	___awmod@dividend+1
   5572  0574  0849               	movf	GetDigits@Time,w
@@ -5659,7 +5655,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   5584  0584  00CE               	movwf	_GetDigits$1247
   5585  0585                     l3389:	
   5586                           
-  5587                           ;./CustomLib/TrafficLight.h: 96:     (*_digits)[index].unita = (Time % 100) % 10;
+  5587                           ;./CustomLib/TrafficLight.h: 95:     (*_digits)[index].unita = (Time % 100) % 10;
   5588  0585  300A               	movlw	10
   5589  0586  00B8               	movwf	___awmod@divisor
   5590  0587  3000               	movlw	0
@@ -6635,7 +6631,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6557  0BAA                     __ptext25:	
   6558 ;; *************** function _Conteggio *****************
   6559 ;; Defined at:
-  6560 ;;		line 100 in file "./CustomLib/TrafficLight.h"
+  6560 ;;		line 99 in file "./CustomLib/TrafficLight.h"
   6561 ;; Parameters:    Size  Location     Type
   6562 ;;  _count          2    0[COMMON] unsigned int 
   6563 ;;  _motorcycle     1    2[COMMON] PTR unsigned char 
@@ -6677,9 +6673,9 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6599                           ; Regs used in _Conteggio: [wreg-fsr0h+status,2+status,0]
   6600                           
   6601                           
-  6602                           ;./CustomLib/TrafficLight.h: 100: void Conteggio(unsigned int _count, unsigned char _mot
-      +                          orcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index);./Custo
-      +                          mLib/TrafficLight.h: 101: {;./CustomLib/TrafficLight.h: 102:     if (_count >= 500)
+  6602                           ;./CustomLib/TrafficLight.h: 99: void Conteggio(unsigned int _count, unsigned char _moto
+      +                          rcycle[4], unsigned char _car[4], unsigned char _truck[4], unsigned char index);./Custom
+      +                          Lib/TrafficLight.h: 100: {;./CustomLib/TrafficLight.h: 101:     if (_count >= 500)
   6603  0BAA  3001               	movlw	1
   6604  0BAB  0271               	subwf	Conteggio@_count+1,w
   6605  0BAC  30F4               	movlw	244
@@ -6693,7 +6689,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6613  0BB3                     u129_20:	
   6614  0BB3                     i1l2121:	
   6615                           
-  6616                           ;./CustomLib/TrafficLight.h: 103:     {;./CustomLib/TrafficLight.h: 104:         _motorc
+  6616                           ;./CustomLib/TrafficLight.h: 102:     {;./CustomLib/TrafficLight.h: 103:         _motorc
       +                          ycle[index] = _motorcycle[index] + 1;
   6617  0BB3  0875               	movf	Conteggio@index,w
   6618  0BB4  0772               	addwf	Conteggio@_motorcycle,w
@@ -6713,7 +6709,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6632  0BC2  0080               	movwf	0
   6633  0BC3                     i1l2123:	
   6634                           
-  6635                           ;./CustomLib/TrafficLight.h: 106:     if (_count >= 1500)
+  6635                           ;./CustomLib/TrafficLight.h: 105:     if (_count >= 1500)
   6636  0BC3  3005               	movlw	5
   6637  0BC4  0271               	subwf	Conteggio@_count+1,w
   6638  0BC5  30DC               	movlw	220
@@ -6727,7 +6723,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6646  0BCC                     u130_20:	
   6647  0BCC                     i1l2125:	
   6648                           
-  6649                           ;./CustomLib/TrafficLight.h: 107:     {;./CustomLib/TrafficLight.h: 108:         _car[in
+  6649                           ;./CustomLib/TrafficLight.h: 106:     {;./CustomLib/TrafficLight.h: 107:         _car[in
       +                          dex] = _car[index] + 1;
   6650  0BCC  0875               	movf	Conteggio@index,w
   6651  0BCD  0773               	addwf	Conteggio@_car,w
@@ -6747,7 +6743,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6665  0BDB  0080               	movwf	0
   6666  0BDC                     i1l2127:	
   6667                           
-  6668                           ;./CustomLib/TrafficLight.h: 110:     if (_count >= 3000)
+  6668                           ;./CustomLib/TrafficLight.h: 109:     if (_count >= 3000)
   6669  0BDC  300B               	movlw	11
   6670  0BDD  0271               	subwf	Conteggio@_count+1,w
   6671  0BDE  30B8               	movlw	184
@@ -6761,7 +6757,7 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
   6679  0BE5                     u131_20:	
   6680  0BE5                     i1l2129:	
   6681                           
-  6682                           ;./CustomLib/TrafficLight.h: 111:     {;./CustomLib/TrafficLight.h: 112:         _truck[
+  6682                           ;./CustomLib/TrafficLight.h: 110:     {;./CustomLib/TrafficLight.h: 111:         _truck[
       +                          index] = _truck[index] + 1;
   6683  0BE5  0875               	movf	Conteggio@index,w
   6684  0BE6  0774               	addwf	Conteggio@_truck,w
@@ -7164,11 +7160,7 @@ EEDATA             100      0       0       0        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.10 build 88905656 
-<<<<<<< HEAD
-Symbol Table                                                                                   Thu Jul 16 11:01:56 2020
-=======
-Symbol Table                                                                                   Thu Jul 16 15:42:45 2020
->>>>>>> 5d582397ca422898f0242690e73766646de03117
+Symbol Table                                                                                   Thu Jul 16 15:50:54 2020
 
                  luciSemaforo@lux 0024                                 pc 0002                    ___bmul@product 0026  
                      __CFG_CP$OFF 0000                      ___awdiv@sign 0045                                _s0 01D7  

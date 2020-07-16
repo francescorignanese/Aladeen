@@ -1898,7 +1898,6 @@ void UpdateTimes(_Semafori _semafori)
 }
 
 
-
 int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 {
     int tmp;

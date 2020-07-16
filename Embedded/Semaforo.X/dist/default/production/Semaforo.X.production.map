@@ -5,11 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v2.10\pic\dat\en_msgs.txt \
   -cs -h+dist/default/production\Semaforo.X.production.sym \
   --cmf=dist/default/production\Semaforo.X.production.cmf -z -Q16F877A \
-<<<<<<< HEAD
-  -oC:\Users\Rigna\AppData\Local\Temp\s6hc.2 --defsym=__MPLAB_BUILD=1 \
-=======
-  -oC:\Users\PC\AppData\Local\Temp\s320.2 --defsym=__MPLAB_BUILD=1 \
->>>>>>> 5d582397ca422898f0242690e73766646de03117
+  -oC:\Users\Rigna\AppData\Local\Temp\s4kc.2 --defsym=__MPLAB_BUILD=1 \
   -Mdist/default/production/Semaforo.X.production.map -E1 -ver=XC8 \
   --acfsm=1493 -ASTACK=013Ah-016Fh -pstack=STACK -ACODE=00h-07FFhx4 \
   -ASTRCODE=00h-01FFFh -ASTRING=00h-0FFhx32 -ACONST=00h-0FFhx32 \
@@ -22,11 +18,7 @@ Linker command line:
   -pfunctab=ENTRY -ACONFIG=02007h-02007h -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
-<<<<<<< HEAD
-  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\s6hc.o \
-=======
-  -DENTRY=2 -k C:\Users\PC\AppData\Local\Temp\s320.o \
->>>>>>> 5d582397ca422898f0242690e73766646de03117
+  -DENTRY=2 -k C:\Users\Rigna\AppData\Local\Temp\s4kc.o \
   dist/default/production\Semaforo.X.production.o 
 
 Object code version is 3.11
@@ -36,11 +28,7 @@ Machine type is 16F877A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-<<<<<<< HEAD
-C:\Users\Rigna\AppData\Local\Temp\s6hc.o
-=======
-C:\Users\PC\AppData\Local\Temp\s320.o
->>>>>>> 5d582397ca422898f0242690e73766646de03117
+C:\Users\Rigna\AppData\Local\Temp\s4kc.o
                 end_init                             10       10        3        8       0
                 reset_vec                             0        0        3        0       0
                 config                             2007     2007        1     400E       0
@@ -883,7 +871,7 @@ Total ram usage:       13 bytes
 
  *************** function _map *****************
  Defined at:
-		line 116 in file "./CustomLib/TrafficLight.h"
+		line 115 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   x               2   40[BANK0 ] int 
   in_min          2   42[BANK0 ] int 
@@ -1172,7 +1160,7 @@ Total ram usage:        7 bytes
 
  *************** function _SetReceivedTimes *****************
  Defined at:
-		line 75 in file "./CustomLib/TrafficLight.h"
+		line 74 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   _dataFromGat    1    wreg     PTR unsigned char 
 		 -> dataFromGateway(15), 
@@ -1211,7 +1199,7 @@ Total ram usage:       10 bytes
 
  *************** function _GetTime *****************
  Defined at:
-		line 26 in file "./CustomLib/TrafficLight.h"
+		line 25 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   index           1    wreg     unsigned char 
   _dataFromGat    1    4[BANK0 ] PTR unsigned char 
@@ -1245,7 +1233,7 @@ Total ram usage:        8 bytes
 
  *************** function _SetDefaultTimers *****************
  Defined at:
-		line 45 in file "./CustomLib/TrafficLight.h"
+		line 44 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   rosso           2    4[BANK0 ] int 
   verde           2    6[BANK0 ] int 
@@ -1280,7 +1268,7 @@ Total ram usage:       12 bytes
 
  *************** function _GetDigits *****************
  Defined at:
-		line 87 in file "./CustomLib/TrafficLight.h"
+		line 86 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   _digits         1    wreg     PTR PTR struct .
 		 -> DigitsArr(8), 
@@ -1508,7 +1496,7 @@ Total ram usage:        5 bytes
 
  *************** function _Conteggio *****************
  Defined at:
-		line 100 in file "./CustomLib/TrafficLight.h"
+		line 99 in file "./CustomLib/TrafficLight.h"
  Parameters:    Size  Location     Type
   _count          2    0[COMMON] unsigned int 
   _motorcycle     1    2[COMMON] PTR unsigned char 

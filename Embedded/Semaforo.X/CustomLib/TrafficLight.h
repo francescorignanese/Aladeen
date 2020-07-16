@@ -21,7 +21,6 @@ void UpdateTimes(_Semafori _semafori)
     }
 }
 
-
 //Compone in un int un numero scomposto in due byte
 int GetTime(unsigned char index, ProtocolBytes _dataFromGateway)
 {
