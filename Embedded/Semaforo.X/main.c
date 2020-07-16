@@ -102,13 +102,13 @@ struct
 } readGatewayDone;
 
 Bit readGateway, secondPassed, cycled;
-unsigned char disp = 0;      //varibile per fare lo switch in loop tra i dislpay
-unsigned int count = 0;      //variabile per il conteggio del tempo di pressione del tasto
-unsigned char count_lux = 0; //conteggio per il tempo delle luci
-int time[2] = {0, 0};        //variabile per contare i secondi
-unsigned char motorcycle[4]; //variabile per contare i motocicli
-unsigned char car[4];        //variabile per contare le macchine
-unsigned char truck[4];      //variabile per contare i camion
+unsigned char disp = 0;                 //varibile per fare lo switch in loop tra i dislpay
+unsigned int count = 0;                 //variabile per il conteggio del tempo di pressione del tasto
+unsigned char count_lux = 0;            //conteggio per il tempo delle luci
+int time[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //variabile per contare i secondi
+unsigned char motorcycle[4];            //variabile per contare i motocicli
+unsigned char car[4];                   //variabile per contare le macchine
+unsigned char truck[4];                 //variabile per contare i camion
 char RoadsSensors[4];
 unsigned char dataFromGatewayIndex = 0;  //indice array dati da seriale
 ProtocolBytes dataFromGateway;           //array dati da seriale
@@ -280,7 +280,7 @@ void main(void)
         //Cambiamento del timer ed eventuale cambio luci ogni secondo
         if (secondPassed.Bit && cycled.Bit)
         {
-            for (unsigned char i = 0; i < n_semafori; i++) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
+            for (unsigned char i = 0; i < 2; i++) //Per ogni semaforo calcoler� il countdown per le luci in base alla luce
             {
                 if ((*Semafori[i]).times[0] != 0) //se per l'i-esimo semaforo � stato impostato un tempo diverso da 0 allora non � utilizzato e viene saltato
                 {
@@ -300,10 +300,12 @@ void main(void)
                             {
                                 UpdateTimes(Semafori); //...e aggiorna i tempi delle luci...
 
-                                time[0] = 1;
-                                time[1] = 1;
-
-                                (*Semafori[0]).lux_select = 0;
+                                for(unsigned char l=0; l<n_semafori; l++)
+                                {
+                                    time[l] = 1;
+                                    (*Semafori[l]).lux_select = 0;
+                                }
+                                
                                 (*Semafori[1]).lux_select = 1;
                             }
                         }
@@ -315,7 +317,6 @@ void main(void)
                 }
             }
         }
-
         ShowDigitsOnDisplay();
 
         //reset variabili

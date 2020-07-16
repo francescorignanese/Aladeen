@@ -1921,6 +1921,8 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
     for (unsigned char l = 0; l < n_semafori; l++)
     {
+        (*(_semafori)[l]).lux_select = 0;
+        (*(_semafori)[l]).new_lux_select = 0;
         for (unsigned char i = 0; i < 3; i++)
         {
             switch (i)
@@ -1941,8 +1943,6 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
         }
     }
 
-    (*(_semafori)[0]).lux_select = 0;
-    (*(_semafori)[0]).new_lux_select = 0;
     (*(_semafori)[1]).lux_select = 1;
     (*(_semafori)[1]).new_lux_select = 1;
 }
@@ -2004,7 +2004,7 @@ Bit readGateway, secondPassed, cycled;
 unsigned char disp = 0;
 unsigned int count = 0;
 unsigned char count_lux = 0;
-int time[2] = {0, 0};
+int time[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 unsigned char motorcycle[4];
 unsigned char car[4];
 unsigned char truck[4];
@@ -2179,7 +2179,7 @@ void main(void)
 
         if (secondPassed.Bit && cycled.Bit)
         {
-            for (unsigned char i = 0; i < n_semafori; i++)
+            for (unsigned char i = 0; i < 2; i++)
             {
                 if ((*Semafori[i]).times[0] != 0)
                 {
@@ -2199,10 +2199,12 @@ void main(void)
                             {
                                 UpdateTimes(Semafori);
 
-                                time[0] = 1;
-                                time[1] = 1;
+                                for(unsigned char l=0; l<n_semafori; l++)
+                                {
+                                    time[l] = 1;
+                                    (*Semafori[l]).lux_select = 0;
+                                }
 
-                                (*Semafori[0]).lux_select = 0;
                                 (*Semafori[1]).lux_select = 1;
                             }
                         }
@@ -2214,7 +2216,6 @@ void main(void)
                 }
             }
         }
-
         ShowDigitsOnDisplay();
 
 

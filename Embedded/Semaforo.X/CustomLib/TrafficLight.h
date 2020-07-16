@@ -45,6 +45,8 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
 {
     for (unsigned char l = 0; l < n_semafori; l++)
     {
+        (*(_semafori)[l]).lux_select = 0;
+        (*(_semafori)[l]).new_lux_select = 0;
         for (unsigned char i = 0; i < 3; i++)
         {
             switch (i)
@@ -65,8 +67,6 @@ void SetDefaultTimers(int rosso, int verde, int giallo, _Semafori _semafori)
         }
     }
 
-    (*(_semafori)[0]).lux_select = 0;
-    (*(_semafori)[0]).new_lux_select = 0;
     (*(_semafori)[1]).lux_select = 1;
     (*(_semafori)[1]).new_lux_select = 1;
 }
