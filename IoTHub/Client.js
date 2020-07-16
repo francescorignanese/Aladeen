@@ -39,15 +39,15 @@ client.open(function (err) {
           "data_vehicles": [
             {
               "type": "Automobile",  //car, heavy, moto
-		          "value": 12
+		          "value": 20
             },
             {
               "type": "Motociclo",  //car, heavy, moto
-		          "value": 13
+		          "value": 20
             },
             {
               "type": "Mezzo Pesante",  //car, heavy, moto
-		          "value": 15
+		          "value": 13
             }
           ]
         },
@@ -57,15 +57,15 @@ client.open(function (err) {
           "data_vehicles": [
             {
               "type": "Automobile",  //car, heavy, moto
-		          "value": 16
+		          "value": 50
             },
             {
               "type": "Motociclo",  //car, heavy, moto
-		          "value": 17
+		          "value": 30
             },
             {
               "type": "Mezzo Pesante",  //car, heavy, moto
-		          "value": 18
+		          "value": 11
             }
           ]
         }
@@ -120,7 +120,7 @@ client.open(function (err) {
 
     //console.log('Sending message: ' + message.getData());
     
-    client.sendEvent(message1, function (err) {
+    client.sendEvent(message, function (err) {
       if (err) {
         console.error('Could not send: ' + err.toString());
         process.exit(-1);

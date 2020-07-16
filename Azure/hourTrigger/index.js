@@ -43,7 +43,7 @@ module.exports = async function (context, myTimer) {
         context.log(result.recordset);
         var array= result.recordset;
 
-        /*
+        
         let insertQuery = "INSERT INTO [dbo].[Traffico] ([Id_incrocio],[Id_semaforo],[Id_strada],[Fascia_oraria],[Data],[Tipologia_veicolo],[Conteggio]) VALUES";
         let ora;
         for (let i = 0; i < array.length; i++) {
@@ -66,7 +66,7 @@ module.exports = async function (context, myTimer) {
             sql.close();
             //context.log("Error: ", errore);
         }
-        */
+        
         
     }
 
