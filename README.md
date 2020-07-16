@@ -11,7 +11,7 @@
 Realizzazione di un prototipo di Smart City con la progettazione di un sistema di incrocio di tipo semaforico con tecnologie IOT che permetta di rilevare diverse tipologie di dato a fine statistico e valutativo grazie alla presenza di un database per la raccolta dei dati.
 
 # Come iniziare
-Scaricare da GitHub tutto il la crtella di progetto Aladeen-master.<br/>
+Scaricare da GitHub tutto il la cartella di progetto Aladeen-master.<br/>
 Installare i seguenti trumenti:
 - MPLAB X
 - PicsimLab
