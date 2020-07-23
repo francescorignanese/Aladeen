@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{31EC2802-B70A-4728-9042-AA5C28F662BD}|Default">
+  <MonoDevelop.Ide.ItemProperties.Smartcross.WebApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Smartcross.WebApp/wwwroot/js/MyChart.js">
+    <Files>
+      <File FileName="Smartcross.WebApp/Pages/Index.cshtml" Line="50" Column="65" />
+      <File FileName="Smartcross.WebApp/wwwroot/js/MyChart.js" Line="49" Column="36" />
+      <File FileName="Smartcross.WebApp/wwwroot/js/site.js" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Smartcross" expanded="True">
+            <Node name="Smartcross.WebApp" expanded="True">
+              <Node name="Hubs" expanded="True" />
+              <Node name="Pages" expanded="True">
+                <Node name="Shared" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="js" expanded="True">
+                  <Node name="MyChart.js" selected="True" />
+                </Node>
+                <Node name="lib" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
